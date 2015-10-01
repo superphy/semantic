@@ -1,0 +1,872 @@
+@prefix : <https://github.com/superphy/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://github.com/superphy/> .
+
+<https://github.com/superphy/> rdf:type owl:Ontology ;
+                               
+                               <http://www.geneontology.org/formats/oboInOwl#created_by> "Stephen Kan" ;
+                               
+                               rdfs:comment """Additions to the GFVO ontology intended for the use of the SuperPhy program
+
+- characterizes microbial samples via biological and informational attributes
+- greater detail with regards to host and microbial metadata""" ;
+                               
+                               owl:imports <https://raw.githubusercontent.com/Helisquinde/Ontologies/master/gfvo.xml> .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  https://github.com/superphy/has_Htype
+
+:has_Htype rdf:type owl:FunctionalProperty ,
+                    owl:ObjectProperty ;
+           
+           rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+           
+           rdfs:range :H-type ;
+           
+           rdfs:subPropertyOf :has_serotype .
+
+
+
+###  https://github.com/superphy/has_Metadata
+
+:has_Metadata rdf:type owl:ObjectProperty ;
+              
+              rdfs:range :Metadata ;
+              
+              rdfs:subPropertyOf :has_attribute .
+
+
+
+###  https://github.com/superphy/has_Otype
+
+:has_Otype rdf:type owl:FunctionalProperty ,
+                    owl:ObjectProperty ;
+           
+           rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+           
+           rdfs:range :O-type ;
+           
+           rdfs:subPropertyOf :has_serotype .
+
+
+
+###  https://github.com/superphy/has_attribute
+
+:has_attribute rdf:type owl:ObjectProperty .
+
+
+
+###  https://github.com/superphy/has_genome
+
+:has_genome rdf:type owl:ObjectProperty ;
+            
+            rdfs:range <http://www.biointerchange.org/gfvo#Genome> ;
+            
+            rdfs:domain :Organism ;
+            
+            rdfs:subPropertyOf :has_attribute .
+
+
+
+###  https://github.com/superphy/has_host_category
+
+:has_host_category rdf:type owl:ObjectProperty ;
+                   
+                   rdfs:subPropertyOf :has_attribute .
+
+
+
+###  https://github.com/superphy/has_isolation_attribute
+
+:has_isolation_attribute rdf:type owl:ObjectProperty ;
+                         
+                         rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+                         
+                         rdfs:subPropertyOf :has_attribute ;
+                         
+                         owl:inverseOf :is_isolation_attribute_of ;
+                         
+                         rdfs:range :isolation_attribute .
+
+
+
+###  https://github.com/superphy/has_object
+
+:has_object rdf:type owl:ObjectProperty ;
+            
+            rdfs:subPropertyOf :has_attribute .
+
+
+
+###  https://github.com/superphy/has_serotype
+
+:has_serotype rdf:type owl:ObjectProperty ;
+              
+              rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+              
+              rdfs:subPropertyOf :has_strain_attribute ;
+              
+              owl:inverseOf :is_serotype_of ;
+              
+              rdfs:range :serotype .
+
+
+
+###  https://github.com/superphy/has_status
+
+:has_status rdf:type owl:FunctionalProperty ,
+                     owl:ObjectProperty ;
+            
+            rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+            
+            rdfs:subPropertyOf :has_attribute ;
+            
+            owl:inverseOf :is_status_of .
+
+
+
+###  https://github.com/superphy/has_strain_attribute
+
+:has_strain_attribute rdf:type owl:ObjectProperty ;
+                      
+                      rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+                      
+                      rdfs:subPropertyOf :has_attribute ;
+                      
+                      owl:inverseOf :is_strain_attribute_of ;
+                      
+                      rdfs:range :strain .
+
+
+
+###  https://github.com/superphy/is_Htype_of
+
+:is_Htype_of rdf:type owl:InverseFunctionalProperty ,
+                      owl:ObjectProperty ;
+             
+             rdfs:range <http://www.biointerchange.org/gfvo#Genome> ;
+             
+             rdfs:domain :H-type ;
+             
+             owl:inverseOf :has_Htype ;
+             
+             rdfs:subPropertyOf :is_serotype_of .
+
+
+
+###  https://github.com/superphy/is_Metadata_of
+
+:is_Metadata_of rdf:type owl:ObjectProperty ;
+                
+                rdfs:domain :Metadata ;
+                
+                owl:inverseOf :has_Metadata ;
+                
+                rdfs:subPropertyOf :is_attribute_of .
+
+
+
+###  https://github.com/superphy/is_Otype_of
+
+:is_Otype_of rdf:type owl:InverseFunctionalProperty ,
+                      owl:ObjectProperty ;
+             
+             rdfs:range <http://www.biointerchange.org/gfvo#Genome> ;
+             
+             rdfs:domain :O-type ;
+             
+             owl:inverseOf :has_Otype ;
+             
+             rdfs:subPropertyOf :is_serotype_of .
+
+
+
+###  https://github.com/superphy/is_attribute_of
+
+:is_attribute_of rdf:type owl:ObjectProperty .
+
+
+
+###  https://github.com/superphy/is_genome_of
+
+:is_genome_of rdf:type owl:ObjectProperty ;
+              
+              owl:inverseOf :has_genome ;
+              
+              rdfs:subPropertyOf :is_attribute_of .
+
+
+
+###  https://github.com/superphy/is_host_category_of
+
+:is_host_category_of rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:subPropertyOf :is_attribute_of .
+
+
+
+###  https://github.com/superphy/is_isolation_attribute_of
+
+:is_isolation_attribute_of rdf:type owl:ObjectProperty ;
+                           
+                           rdfs:subPropertyOf :is_attribute_of .
+
+
+
+###  https://github.com/superphy/is_object_of
+
+:is_object_of rdf:type owl:ObjectProperty ;
+              
+              rdfs:subPropertyOf :is_attribute_of .
+
+
+
+###  https://github.com/superphy/is_serotype_of
+
+:is_serotype_of rdf:type owl:ObjectProperty ;
+                
+                rdfs:range <http://www.biointerchange.org/gfvo#Genome> ;
+                
+                rdfs:subPropertyOf :is_strain_attribute_of ;
+                
+                rdfs:domain :serotype .
+
+
+
+###  https://github.com/superphy/is_status_of
+
+:is_status_of rdf:type owl:ObjectProperty ;
+              
+              rdfs:subPropertyOf :is_attribute_of .
+
+
+
+###  https://github.com/superphy/is_strain_attribute_of
+
+:is_strain_attribute_of rdf:type owl:ObjectProperty ;
+                        
+                        rdfs:range <http://www.biointerchange.org/gfvo#Genome> ;
+                        
+                        rdfs:subPropertyOf :is_attribute_of ;
+                        
+                        rdfs:domain :strain .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  https://github.com/superphy/has_taxonomy_id
+
+:has_taxonomy_id rdf:type owl:DatatypeProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.biointerchange.org/gfvo#Attribute
+
+<http://www.biointerchange.org/gfvo#Attribute> owl:equivalentClass :Attribute .
+
+
+
+###  http://www.biointerchange.org/gfvo#Genome
+
+<http://www.biointerchange.org/gfvo#Genome> owl:equivalentClass [ rdf:type owl:Class ;
+                                                                  owl:intersectionOf ( <http://purl.obolibrary.org/obo/SO_0001026>
+                                                                                       <http://semanticscience.org/resource/SIO_000984>
+                                                                                       <http://www.biointerchange.org/gfvo#BiologicalEntity>
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :has_Metadata ;
+                                                                                         owl:someValuesFrom :Metadata
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :has_isolation_attribute ;
+                                                                                         owl:someValuesFrom :isolation_attribute
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :has_strain_attribute ;
+                                                                                         owl:someValuesFrom :strain
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :is_genome_of ;
+                                                                                         owl:someValuesFrom :Organism
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :has_Htype ;
+                                                                                         owl:onClass :H-type ;
+                                                                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :has_Otype ;
+                                                                                         owl:onClass :O-type ;
+                                                                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                                                                       ]
+                                                                                     )
+                                                                ] .
+
+
+
+###  https://github.com/superphy/Accession
+
+:Accession rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Metadata .
+
+
+
+###  https://github.com/superphy/Attribute
+
+:Attribute rdf:type owl:Class .
+
+
+
+###  https://github.com/superphy/BioProject
+
+:BioProject rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Metadata .
+
+
+
+###  https://github.com/superphy/BioSample
+
+:BioSample rdf:type owl:Class ;
+           
+           rdfs:subClassOf :Metadata .
+
+
+
+###  https://github.com/superphy/H-type
+
+:H-type rdf:type owl:Class ;
+        
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:intersectionOf ( :serotype
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :is_Htype_of ;
+                                                     owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                   ]
+                                                 )
+                            ] ;
+        
+        owl:disjointWith :O-type .
+
+
+
+###  https://github.com/superphy/Host
+
+:Host rdf:type owl:Class ;
+      
+      owl:equivalentClass [ rdf:type owl:Class ;
+                            owl:intersectionOf ( :Organism
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :has_host_category ;
+                                                   owl:someValuesFrom :host_category
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :is_object_of ;
+                                                   owl:someValuesFrom :isolation_from_host
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :is_object_of ;
+                                                   owl:someValuesFrom :isolation_syndrome
+                                                 ]
+                                               )
+                          ] .
+
+
+
+###  https://github.com/superphy/Metadata
+
+:Metadata rdf:type owl:Class ;
+          
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:intersectionOf ( :Attribute
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :is_Metadata_of ;
+                                                       owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                     ]
+                                                   )
+                              ] .
+
+
+
+###  https://github.com/superphy/Microbe
+
+:Microbe rdf:type owl:Class ;
+         
+         owl:equivalentClass [ rdf:type owl:Class ;
+                               owl:intersectionOf ( :Organism
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :has_genome ;
+                                                      owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                    ]
+                                                  )
+                             ] .
+
+
+
+###  https://github.com/superphy/O-type
+
+:O-type rdf:type owl:Class ;
+        
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:intersectionOf ( :serotype
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :is_Otype_of ;
+                                                     owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                   ]
+                                                 )
+                            ] .
+
+
+
+###  https://github.com/superphy/Organism
+
+:Organism rdf:type owl:Class ;
+          
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:intersectionOf ( <http://www.biointerchange.org/gfvo#SequencedIndividual>
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :has_genome ;
+                                                       owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :has_taxonomy_id ;
+                                                       owl:someValuesFrom xsd:string
+                                                     ]
+                                                   )
+                              ] .
+
+
+
+###  https://github.com/superphy/completed_genome
+
+:completed_genome rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf <http://www.biointerchange.org/gfvo#Genome> .
+
+
+
+###  https://github.com/superphy/geographic_location
+
+:geographic_location rdf:type owl:Class ;
+                     
+                     rdfs:subClassOf :isolation_attribute .
+
+
+
+###  https://github.com/superphy/host_category
+
+:host_category rdf:type owl:Class ;
+               
+               owl:equivalentClass [ rdf:type owl:Class ;
+                                     owl:intersectionOf ( :Attribute
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :is_host_category_of ;
+                                                            owl:someValuesFrom :Host
+                                                          ]
+                                                        )
+                                   ] .
+
+
+
+###  https://github.com/superphy/isolation_attribute
+
+:isolation_attribute rdf:type owl:Class ;
+                     
+                     owl:equivalentClass [ rdf:type owl:Class ;
+                                           owl:intersectionOf ( :Attribute
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :is_isolation_attribute_of ;
+                                                                  owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                                ]
+                                                              )
+                                         ] .
+
+
+
+###  https://github.com/superphy/isolation_date
+
+:isolation_date rdf:type owl:Class ;
+                
+                rdfs:subClassOf :isolation_attribute .
+
+
+
+###  https://github.com/superphy/isolation_from_host
+
+:isolation_from_host rdf:type owl:Class ;
+                     
+                     owl:equivalentClass [ rdf:type owl:Class ;
+                                           owl:intersectionOf ( :isolation_attribute
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :has_object ;
+                                                                  owl:someValuesFrom :Host
+                                                                ]
+                                                              )
+                                         ] .
+
+
+
+###  https://github.com/superphy/isolation_from_source
+
+:isolation_from_source rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf :isolation_attribute .
+
+
+
+###  https://github.com/superphy/isolation_syndrome
+
+:isolation_syndrome rdf:type owl:Class ;
+                    
+                    owl:equivalentClass [ rdf:type owl:Class ;
+                                          owl:intersectionOf ( :isolation_attribute
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :has_object ;
+                                                                 owl:someValuesFrom :Host
+                                                               ]
+                                                             )
+                                        ] .
+
+
+
+###  https://github.com/superphy/pending_genome
+
+:pending_genome rdf:type owl:Class ;
+                
+                rdfs:subClassOf <http://www.biointerchange.org/gfvo#Genome> .
+
+
+
+###  https://github.com/superphy/serotype
+
+:serotype rdf:type owl:Class ;
+          
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:intersectionOf ( :strain
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :is_serotype_of ;
+                                                       owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                     ]
+                                                   )
+                              ] .
+
+
+
+###  https://github.com/superphy/strain
+
+:strain rdf:type owl:Class ;
+        
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:intersectionOf ( :Attribute
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :is_strain_attribute_of ;
+                                                     owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
+                                                   ]
+                                                 )
+                            ] .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  https://github.com/superphy/CFSAN026820
+
+:CFSAN026820 rdf:type owl:NamedIndividual ,
+                      :strain ;
+             
+             :is_strain_attribute_of :SAMN03455835 .
+
+
+
+###  https://github.com/superphy/CFSAN026848
+
+:CFSAN026848 rdf:type owl:NamedIndividual ,
+                      :strain ;
+             
+             :is_strain_attribute_of :SAMN03455863 .
+
+
+
+###  https://github.com/superphy/Cattle
+
+:Cattle rdf:type owl:NamedIndividual ,
+                 :Host ;
+        
+        :has_host_category :Mammal ;
+        
+        :is_object_of :from_Cattle .
+
+
+
+###  https://github.com/superphy/Ecoli
+
+:Ecoli rdf:type owl:NamedIndividual ,
+                :Microbe ;
+       
+       :has_genome :SAMN03265483 ,
+                   :SAMN03455835 ,
+                   :SAMN03455863 .
+
+
+
+###  https://github.com/superphy/Finland
+
+:Finland rdf:type owl:NamedIndividual ,
+                  :geographic_location ;
+         
+         :is_isolation_attribute_of :SAMN03265483 .
+
+
+
+###  https://github.com/superphy/H-
+
+:H- rdf:type owl:NamedIndividual ,
+             :H-type ;
+    
+    :is_Htype_of :SAMN03265483 ,
+                 :SAMN03455863 .
+
+
+
+###  https://github.com/superphy/H11
+
+:H11 rdf:type owl:NamedIndividual ,
+              :H-type ;
+     
+     :is_Htype_of :SAMN03455835 .
+
+
+
+###  https://github.com/superphy/Human
+
+:Human rdf:type owl:NamedIndividual ,
+                :Host ;
+       
+       :has_host_category :Mammal ;
+       
+       :is_object_of :from_Human .
+
+
+
+###  https://github.com/superphy/IH53473
+
+:IH53473 rdf:type owl:NamedIndividual ,
+                  :strain ;
+         
+         :is_strain_attribute_of :SAMN03265483 .
+
+
+
+###  https://github.com/superphy/Mammal
+
+:Mammal rdf:type owl:NamedIndividual ,
+                 :host_category ;
+        
+        :is_host_category_of :Cattle ,
+                             :Human .
+
+
+
+###  https://github.com/superphy/O101
+
+:O101 rdf:type owl:NamedIndividual ,
+               :O-type ;
+      
+      :is_Otype_of :SAMN03265483 .
+
+
+
+###  https://github.com/superphy/O103
+
+:O103 rdf:type owl:NamedIndividual ,
+               :O-type ;
+      
+      :is_Otype_of :SAMN03455835 .
+
+
+
+###  https://github.com/superphy/O145
+
+:O145 rdf:type owl:NamedIndividual ,
+               :O-type ;
+      
+      :is_Otype_of :SAMN03455863 .
+
+
+
+###  https://github.com/superphy/SAMN03265483
+
+:SAMN03265483 rdf:type owl:NamedIndividual ,
+                       :completed_genome ;
+              
+              :is_genome_of :Ecoli ;
+              
+              :has_isolation_attribute :Finland ;
+              
+              :has_Htype :H- ;
+              
+              :has_strain_attribute :IH53473 ;
+              
+              :has_Otype :O101 ;
+              
+              :has_isolation_attribute :feces ,
+                                       :from_Human ,
+                                       :hemolytic_uremic_syndrome ,
+                                       <https://github.com/superphy/1997> .
+
+
+
+###  https://github.com/superphy/SAMN03455835
+
+:SAMN03455835 rdf:type owl:NamedIndividual ,
+                       :pending_genome ;
+              
+              :has_strain_attribute :CFSAN026820 ;
+              
+              :is_genome_of :Ecoli ;
+              
+              :has_Htype :H11 ;
+              
+              :has_Otype :O103 ;
+              
+              :has_isolation_attribute :USA ,
+                                       :from_Human ,
+                                       <https://github.com/superphy/2010> .
+
+
+
+###  https://github.com/superphy/SAMN03455863
+
+:SAMN03455863 rdf:type owl:NamedIndividual ,
+                       :pending_genome ;
+              
+              :has_strain_attribute :CFSAN026848 ;
+              
+              :is_genome_of :Ecoli ;
+              
+              :has_Htype :H- ;
+              
+              :has_Otype :O145 ;
+              
+              :has_isolation_attribute :USA ,
+                                       :from_Cattle ,
+                                       <https://github.com/superphy/2013> .
+
+
+
+###  https://github.com/superphy/USA
+
+:USA rdf:type owl:NamedIndividual ,
+              :geographic_location ;
+     
+     :is_isolation_attribute_of :SAMN03455835 ,
+                                :SAMN03455863 .
+
+
+
+###  https://github.com/superphy/feces
+
+:feces rdf:type owl:NamedIndividual ,
+                :isolation_from_source ;
+       
+       :is_isolation_attribute_of :SAMN03265483 .
+
+
+
+###  https://github.com/superphy/from_Cattle
+
+:from_Cattle rdf:type owl:NamedIndividual ,
+                      :isolation_from_host ;
+             
+             :has_object :Cattle ;
+             
+             :is_isolation_attribute_of :SAMN03455863 .
+
+
+
+###  https://github.com/superphy/from_Human
+
+:from_Human rdf:type owl:NamedIndividual ,
+                     :isolation_from_host ;
+            
+            :has_object :Human ;
+            
+            :is_isolation_attribute_of :SAMN03265483 ,
+                                       :SAMN03455835 .
+
+
+
+###  https://github.com/superphy/hemolytic_uremic_syndrome
+
+:hemolytic_uremic_syndrome rdf:type owl:NamedIndividual ,
+                                    :isolation_syndrome ;
+                           
+                           :is_isolation_attribute_of :SAMN03265483 .
+
+
+
+###  https://github.com/superphy/1997
+
+<https://github.com/superphy/1997> rdf:type owl:NamedIndividual ,
+                                            :isolation_date ;
+                                   
+                                   :is_isolation_attribute_of :SAMN03265483 .
+
+
+
+###  https://github.com/superphy/2010
+
+<https://github.com/superphy/2010> rdf:type owl:NamedIndividual ,
+                                            :isolation_date ;
+                                   
+                                   :is_isolation_attribute_of :SAMN03455835 .
+
+
+
+###  https://github.com/superphy/2013
+
+<https://github.com/superphy/2013> rdf:type owl:NamedIndividual ,
+                                            :isolation_date ;
+                                   
+                                   :is_isolation_attribute_of :SAMN03455863 .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
