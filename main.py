@@ -72,6 +72,3 @@ def example_modify_completed():
     results = sparql.query().convert()
 
     print results
-
-example_modify_pending()
-example_query()
