@@ -1,0 +1,1 @@
+Contains functions that are getters for sparql queries. Should all return strings.
