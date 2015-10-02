@@ -157,6 +157,10 @@ def create_Htype(id):
     g.add( (n["H" + str(id)], rdf.type, n["Htype"]) )
 
 
+def generate_output():
+    g.serialize(destination="results.txt",format="turtle")
+
+
 """ ======== TESTING ======== """
 
 '''
@@ -170,5 +174,5 @@ create_microbe("Ecoli", 562)
 
 create_host("Hsapiens", "Mammal")
 
-g.serialize(destination="results.txt",format="turtle")
+
 
