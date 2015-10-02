@@ -14,6 +14,3 @@ if find db -maxdepth 0 -empty | read v; then
 	wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar"; 
 	cd ..; 
 fi
-cd db
-java -jar bigdata-bundled.jar &> /dev/null
-cd ..
