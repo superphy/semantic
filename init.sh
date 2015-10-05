@@ -2,10 +2,10 @@
 #Run chmod a+x init.sh to make this exucutable
 #Need to have virtualenv installed
 #Sets up a virtual environment, this allow you to install dependancies without breaking your build.
-mkdir venv &> /dev/null
-if find venv -maxdepth 0 -empty | read v; then 
-	virtualenv venv;
-	venv/bin/pip install flask
+mkdir superphy &> /dev/null
+if find superphy -maxdepth 0 -empty | read v; then 
+	virtualenv superphy;
+	superphy/bin/pip install flask
 fi
 #Downloads the blazegraph client from sourceforge. This will have to be updated when we migrate to a new version of BG.
 mkdir db &> /dev/null
