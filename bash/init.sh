@@ -6,11 +6,13 @@ mkdir superphy &> /dev/null
 if find superphy -maxdepth 0 -empty | read v; then 
 	virtualenv superphy;
 	superphy/bin/pip install flask
+	superphy/bin/pip install flask-wtf
 fi
 #Downloads the blazegraph client from sourceforge. This will have to be updated when we migrate to a new version of BG.
-mkdir db &> /dev/null
-if find db -maxdepth 0 -empty | read v; then
-	cd db;
+mkdir app/db &> /dev/null
+if find app/db -maxdepth 0 -empty | read v; then
+	cd app/db;
 	wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar"; 
+	cd ..;
 	cd ..; 
 fi

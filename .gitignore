@@ -1,7 +1,8 @@
 #New Superphy
 
-db/*
+app/db/*
 superphy/*
+
 
 #Old SuperPhy
 

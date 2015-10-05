@@ -1,6 +1,6 @@
 #!superphy/bin/python
 import subprocess
 from app import app
-subprocess.call(['./init.sh'])
-subprocess.call(['./startdb.sh'])
+subprocess.call(['./bash/init.sh'])
+subprocess.call(['./bash/startdb.sh'])
 app.run(debug=True)
