@@ -15,3 +15,5 @@ class SignUpForm(Form):
     last_name = StringField('Last_name')
     org = StringField('Organization')
     remember_me = BooleanField('remember_me', default=False)
+
+#Include Genome submission and querying forms here

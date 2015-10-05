@@ -1,0 +1,7 @@
+# Ignore everything in this directory
+bigdata.jnl
+bigdata-bundled.jar
+rules.log
+
+# Except this file
+!.gitignore
