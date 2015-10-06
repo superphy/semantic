@@ -1,0 +1,139 @@
+{
+  "ANVW00000000": {
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": [],
+    "strain": [
+      {
+        "meta_term": "strain",
+        "displayname": "KTE59",
+        "value": "KTE59",
+        "priority": 1
+      }
+    ],
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2010-01-01",
+        "value": "2010-01-01"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Denmark",
+        "meta_term": "isolation_location",
+        "displayname": "Denmark"
+      }
+    ]
+  },
+  "CP001855": {
+        "serotype": [
+            {
+                "meta_term": "serotype",
+                "displayname": "O83:H1",
+                "value": "O83:H1"
+            }
+        ],
+        "HASH(0x5873f70)": [
+            null
+        ],
+        "strain": [
+            {
+                "value": "NRG 857C",
+                "meta_term": "strain",
+                "displayname": "NRG 857C",
+                "priority": 1
+            }
+        ]
+   },
+  "ADTX00000000": {
+    "isolation_source": [
+      {
+        "1": {
+          "id": 6,
+          "meta_term": "isolation_source",
+          "displayname": "Intestine"
+        },
+        "2": {
+          "displayname": "Intestine",
+          "meta_term": "isolation_source",
+          "id": 16
+        }
+      }
+    ],
+    "serotype": [],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "displayname": "MS 153-1",
+        "meta_term": "strain",
+        "value": "MS 153-1"
+      },
+      {
+        "value": "BEI RESOURES STRAIN HM-351",
+        "displayname": "BEI RESOURES STRAIN HM-351",
+        "meta_term": "strain",
+        "priority": 3
+      }
+    ]
+  },
+  "JHNV00000000": {
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O119:H4",
+        "value": "O119:H4"
+      }
+    ],
+    "strain": [
+      {
+        "value": "03-3458",
+        "displayname": "03-3458",
+        "meta_term": "strain",
+        "priority": 1
+      }
+    ]
+  },
+  "JHFM00000000": {
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O121:H19",
+        "value": "O121:H19"
+      }
+    ],
+    "strain": [
+      {
+        "value": "2010C-3609",
+        "displayname": "2010C-3609",
+        "meta_term": "strain",
+        "priority": 1
+      }
+    ]
+  },
+  "AMVC00000000": {
+    "serotype": [],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "EC1865",
+        "displayname": "EC1865",
+        "meta_term": "strain"
+      }
+    ]
+  }
+}

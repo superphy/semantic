@@ -1,0 +1,40 @@
+accession number: CP001855
+BioProject Id: 41221
+BioSample Id: 2603727
+strain: NRG 857C
+serotype: O83:H1
+=======================
+accession number: ANVW00000000
+BioProject Id: 164875
+BioSample Id: 854618
+isolation_location: Denmark
+strain: KTE59
+isolation_host: Homo sapiens (human)
+isolation_date: 2010-01-01
+=======================
+accession number: JHFM00000000
+BioProject Id: 218110
+BioSample Id: 2352975
+strain: 2010C-3609
+serotype: O121:H19
+=======================
+accession number: ADTX00000000
+BioProject Id: 47257
+BioSample Id: 189171
+isolation_source: Intestine
+isolation_source: Intestine
+strain: MS 153-1
+strain: BEI RESOURES STRAIN HM-351
+isolation_host: Homo sapiens (human)
+=======================
+accession number: AMVC00000000
+BioProject Id: 65969
+BioSample Id: 808713
+strain: EC1865
+=======================
+accession number: JHNV00000000
+BioProject Id: 218110
+BioSample Id: 2352897
+strain: 03-3458
+serotype: O119:H4
+=======================
