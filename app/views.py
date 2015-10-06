@@ -1,4 +1,4 @@
-from flask import render_template, redirect
+from flask import render_template, flash, redirect
 from app import app
 from .forms import LoginForm
 from .forms import SignUpForm
@@ -28,6 +28,9 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+        flash( "email: %s" % (form.email.data))
+        flash( "password: %s" % (form.password.data))
+        flash( "remember_me: %s" % (form.remember_me.data))
         return redirect('/index')
     return render_template('login.html',title='Log In',form=form,)
 
@@ -35,5 +38,12 @@ def login():
 def signup():
     form = SignUpForm()
     if form.validate_on_submit():
+        flash( "email: %s" % (form.email.data))
+        flash( "password: %s" % (form.password.data))
+        flash( "first_name: %s" % (form.first_name.data))
+        flash( "last_name: %s" % (form.last_name.data))
+        flash( "org: %s" % (form.org.data))
+        flash( "remember_me: %s" % (form.remember_me.data))
+        flash( "You have successfully signed up! An email has been sent to %s." % (form.email.data))
         return redirect('/index')
     return render_template('signup.html',title='Sign Up',form=form,)
