@@ -1,0 +1,342 @@
+accession number: AIGE00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+50977
+strain: DEC7E
+accession number: AVWQ00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186151
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: HVH 130 4-7036876
+isolation_host: Homo sapiens (human)
+isolation_date: 2004-01-01
+isolation_location: Denmark
+accession number: CP000819
+Number of Biosample Files: 1
+2603421
+Number of Bioproject Files: 1
+18281
+strain: REL606
+accession number: AQEY00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+77515
+strain: MP020980.2
+accession number: JFFK00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+239028
+224116
+strain: UCD_JA17
+isolation_host: Homo sapiens (human)
+isolation_date: 2013-01-01
+accession number: JHNG00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+218110
+strain: 06-4039
+serotype: O157:H7
+accession number: ANUN00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+164901
+isolation_location: Denmark
+strain: KTE72
+isolation_host: Homo sapiens (human)
+isolation_date: 2010-01-01
+accession number: AVUG00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186075
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: HVH 43 4-2173468
+isolation_host: Homo sapiens (human)
+isolation_date: 2003-01-01
+isolation_location: Denmark
+accession number: JHLQ00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+218110
+strain: 2011C-3573
+serotype: O111:NM
+accession number: JHJJ00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+218110
+strain: F9792
+serotype: O169:H41
+accession number: JNRL00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+233842
+224116
+isolation_location: Tanzania
+strain: 2-474-04_S3_C3
+isolation_host: Homo sapiens (human)
+isolation_date: 2009-04-24
+accession number: JHKP00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+218110
+strain: 2011EL-2105
+serotype: O157:H7
+accession number: AMXQ00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+175275
+strain: CVM 9619
+strain: CFSAN001632
+isolation_host: Homo sapiens (human)
+serotype: O111:H8
+isolation_date: 1997-01-01
+accession number: ANUW00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+164935
+isolation_location: Denmark
+strain: KTE93
+isolation_host: Homo sapiens (human)
+isolation_date: 2009-01-01
+accession number: JORA00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+233854
+224116
+isolation_location: Tanzania
+strain: 6-175-07_S3_C3
+isolation_host: Homo sapiens (human)
+isolation_date: 2009-04-15
+accession number: ANYF00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+157703
+strain: KTE150
+accession number: AQBA00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+77595
+strain: P0304816.3
+accession number: JDVF00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+236731
+224116
+isolation_source: Water
+strain: LR09
+isolation_host: Environmental source
+accession number: AQFX00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+176006
+isolation_location: United States, Iowa
+strain: SWW33
+isolation_host: Mus musculus (mouse)
+accession number: AKMG00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+65925
+strain: EC4422
+isolation_host: Allium cepa (onion)
+isolation_date: 2006-01-01
+serotype: O157:H7
+accession number: AWQG00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+215830
+strain: M21
+accession number: APXC00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+77443
+strain: 180200
+accession number: JOSA00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+233846
+224116
+isolation_location: Tanzania
+strain: 8-415-05_S3_C3
+isolation_host: Homo sapiens (human)
+isolation_date: 2009-04-30
+accession number: AVXV00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186194
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: HVH 162 4-5627982
+isolation_host: Homo sapiens (human)
+isolation_date: 2004-01-01
+isolation_location: Denmark
+accession number: CCPW00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+260147
+224116
+strain: PUERTO RICAN
+accession number: AXOD00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+221787
+isolation_location: Spain
+strain: GSK2023
+strain: 202
+isolation_host: Homo sapiens (human)
+isolation_date: 2011-01-01
+accession number: AWBV00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186303
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: UMEA 3163-1
+isolation_host: Homo sapiens (human)
+isolation_date: 1997-01-01
+isolation_location: Sweden
+accession number: AWAY00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186280
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: UMEA 3053-1
+isolation_host: Homo sapiens (human)
+isolation_date: 1995-01-01
+isolation_location: Sweden
+accession number: AWEM00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186381
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: UMEA 4076-1
+isolation_host: Homo sapiens (human)
+isolation_date: 1997-01-01
+isolation_location: Sweden
+accession number: ANWO00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+164999
+isolation_location: Denmark
+strain: KTE154
+isolation_host: Homo sapiens (human)
+isolation_date: 2010-01-01
+accession number: AKLH00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+65857
+strain: PA15
+isolation_host: Homo sapiens (human)
+isolation_date: 2007-01-01
+serotype: O157:H7
+accession number: JHKN00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+218110
+strain: 2011EL-2107
+serotype: O157:H7
+accession number: ASVD00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+164937
+isolation_location: Denmark
+strain: KTE96
+isolation_host: Homo sapiens (human)
+isolation_date: 2009-01-01
+accession number: AQEN00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+77563
+strain: P0304777.1
+accession number: JHFB00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 2
+224116
+218110
+strain: 2010C-4347
+serotype: O26:NM
+accession number: ANST00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+157587
+strain: KTE15
+accession number: ANYG00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+157705
+strain: KTE153
+accession number: AQBF00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+77605
+strain: P0304816.8
+accession number: JNOG00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+251898
+isolation_source: Stool
+isolation_source: Feces
+isolation_source: Feces
+strain: CS03
+isolation_host: Homo sapiens (human)
+isolation_date: 2013-06-24
+isolation_location: United States, California, Santa Clara
+accession number: AIEY00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+50909
+strain: DEC1D
+accession number: AVRQ00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+170190
+strain: 14A
+accession number: AQFB00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+77233
+strain: JURUA 18/11
+accession number: AFJB00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+50915
+strain: DEC2B
+accession number: AKNH00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+40273
+strain: EPECA12
+accession number: ASUI00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+163385
+strain: KTE186
+isolation_host: Homo sapiens (human)
+isolation_date: 2009-01-01
+accession number: AXUK00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+183830
+strain: 909945-2
+isolation_host: Homo sapiens (human)
+accession number: AVVE00000000
+Number of Biosample Files: 0
+Number of Bioproject Files: 1
+186104
+syndrome: Urinary tract infection (cystitis)
+syndrome: Bacteremia
+strain: HVH 82 4-2209276
+isolation_host: Homo sapiens (human)
+isolation_date: 2003-01-01
+isolation_location: Denmark
+ac

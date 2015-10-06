@@ -8,7 +8,7 @@ downloading to get the actual sequence for SeqRecord in Biopython
 """
 
 
-record_iterator = SeqIO.parse("Sakai.gb", "genbank")
+record_iterator = SeqIO.parse("samples/Sakai.gb", "genbank")
 first_record = next(record_iterator)
 #print(first_record)
 print(first_record.annotations)

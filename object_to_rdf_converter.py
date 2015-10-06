@@ -1,5 +1,12 @@
 __author__ = 'ubiquitin'
 
+"""
+NOTE: when creating objects that require the creation of reciprocal objects, always pair the g.add functions together
+to maintain consistency. Even if there is a create_anotherfn, add both relationship triples at the same level of object creation
+
+TODO: strip spaces and replace with underscores for URLnames (possibly via URLencode)
+"""
+
 from rdflib import Graph, Namespace, Literal, XSD
 
 # initialize a RDF Graph
@@ -16,6 +23,7 @@ gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
 g.bind("","https://github.com/superphy/")
 g.bind("owl", "http://www.w3.org/2002/07/owl#")
+
 
 def create_class(name):
     g.add( (n[name], rdf.type, owl.NamedIndividual) )
@@ -55,7 +63,7 @@ def create_microbe(name, taxonomy_id=None):
 # TODO: refactor code to be less clunky (so much duplication!) and have more checks for created items
 # TODO: include environment as a genome source (under organism or under source???)
 def create_genome(name, date = None, location = None, accession = None, bioproject = None, biosample = None, strain = None,
-                  organism = None, from_host = None, from_source = None, syndrome = None, Htype = None, Otype =None ):
+                  organism = None, from_host = None, from_source = None, syndrome = None, Htype = None, Otype = None, User = None):
     create_class(name)
     g.add( (n[name], rdf.type, gfvo.Genome) )
 
@@ -113,17 +121,21 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
         g.add( (n[name], n.has_Otype, n["O" + str(Otype)]) )
         g.add( (n["O" + str(Otype)], n.is_Otype_of, n[name]) )
 
+    if User is not None:
+        g.add( (n[name], n.is_owned_by, n[User]) )
+        g.add( (n[User], n.owns, n[name]) )
+
 
 # TODO: definitely need to simplify and refactor genome uploader!!!
 def create_pending_genome(name, date = None, location = None, accession = None, bioproject = None, biosample = None, strain = None,
-                  organism = None, from_host = None, from_source = None, syndrome = None, Htype = None, Otype =None ):
-    create_genome(name, date, location, accession, bioproject, biosample, strain, organism, from_host, from_source, syndrome, Htype, Otype)
+                          organism = None, from_host = None, from_source = None, syndrome = None, Htype = None, Otype = None, User = None ):
+    create_genome(name, date, location, accession, bioproject, biosample, strain, organism, from_host, from_source, syndrome, Htype, Otype, User)
     g.add( (n[name], rdf.type, n.pending_genome) )
 
 
 def create_completed_genome(name, date = None, location = None, accession = None, bioproject = None, biosample = None, strain = None,
-                  organism = None, from_host = None, from_source = None, syndrome = None, Htype = None, Otype =None ):
-    create_genome(name, date, location, accession, bioproject, biosample, strain, organism, from_host, from_source, syndrome, Htype, Otype)
+                            organism = None, from_host = None, from_source = None, syndrome = None, Htype = None, Otype = None, User = None):
+    create_genome(name, date, location, accession, bioproject, biosample, strain, organism, from_host, from_source, syndrome, Htype, Otype, User)
     g.add( (n[name], rdf.type, n.completed_genome) )
 
 
@@ -163,16 +175,19 @@ def generate_output():
 
 """ ======== TESTING ======== """
 
-'''
-create_Htype(7)
-create_Otype(157)
-create_Htype("-")
+
 create_Htype("Unknown")
 create_Otype("Unknown")
 create_microbe("Ecoli", 562)
-'''
-
+create_from_isolation_source("blood")
+create_host_category("Mammal")
 create_host("Hsapiens", "Mammal")
+create_from_host("Hsapiens")
 
 
+create_pending_genome("Escherichia_coli_Str._IMT33204", organism="Ecoli", biosample="SAMN04026682",
+                      date="2010-03-01",location="Germany:Berlin",from_source="blood",from_host="from_Hsapiens",
+                      bioproject="PRJNA294505")
+
+generate_output()
 

@@ -6,9 +6,10 @@ import os
 
 
 def upload_all_ontologies():
-    faldo = "file:" + os.path.join(os.path.dirname(__file__), 'faldo.ttl')
-    gfvo = "file:" + os.path.join(os.path.dirname(__file__), 'gfvo.xml')
-    Superphy = "file:" + os.path.join(os.path.dirname(__file__), 'Superphy.ttl')
+    faldo = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/faldo.ttl')
+    gfvo = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/gfvo.xml')
+    Superphy = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/Superphy.ttl')
+
 
     ontologies = {faldo, gfvo, Superphy}
 
@@ -17,3 +18,5 @@ def upload_all_ontologies():
         data = {'uri': ontology}
         r = requests.post(url=bg_url, data=data)
         print r.content
+
+upload_all_ontologies()
