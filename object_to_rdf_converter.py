@@ -13,7 +13,7 @@ from rdflib import Graph, Namespace, Literal, XSD
 g = Graph()
 
 # setting up namespaces for use
-n = Namespace("https://github.com/superphy/")
+n = Namespace("https://github.com/superphy#")
 owl = Namespace("http://www.w3.org/2002/07/owl#")
 rdf = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 xml = Namespace("http://www.w3.org/XML/1998/namespace")
@@ -29,32 +29,36 @@ def create_class(name):
     g.add( (n[name], rdf.type, owl.NamedIndividual) )
 
 
-def create_organism(name, taxonomy_id=None):
+def create_organism(name, label, sci_name, com_name, taxonomy_id=None):
     create_class(name)
+    g.add( (n[name], rdfs.label, Literal(str(label), datatype = XSD.string)) )
+    g.add( (n[name], n.scientific_name, Literal(str(sci_name), datatype = XSD.string)) )
+    g.add( (n[name], n.common_name, Literal(str(com_name), datatype = XSD.string)) )
     g.add( (n[name], n.has_taxonomy_id, Literal(str(taxonomy_id), datatype = XSD.string)) )
 
 
 # assume: host_category is created
 # TODO: add in a check for that
-def create_host(name, host_category, taxonomy_id=None):
-    create_organism(name, taxonomy_id)
+def create_host(name, host_category, label, sci_name, com_name, taxonomy_id=None):
+    create_organism(name, label, sci_name, com_name, taxonomy_id)
     g.add( (n[name], rdf.type, n.Host) )
     g.add( (n[name], n.has_host_category, n[host_category]) )
     g.add( (n[host_category], n.is_host_category_of, n[name]) )
-    from_host = create_from_host(name)
-    g.add( (n[name], n.is_object_of, n[from_host]) )
-    g.add( (n[from_host], n.has_object, n[name]) )
+    create_from_host(name, host_category)
 
-
-def create_from_host(host):
+def create_from_host(host, host_category):
     name = "from_" + host
     create_class(name)
     g.add( (n[name], rdf.type, n.isolation_from_host) )
+    g.add( (n[name], n.has_object, n[host]) )
+    g.add( (n[host], n.is_object_of, n[name]))
+    g.add( (n[name], n.has_host_category, n[host_category]) )
+    g.add( (n[host_category], n.is_host_category_of, n[name]) )
     return name
 
 
-def create_microbe(name, taxonomy_id=None):
-    create_organism(name, taxonomy_id)
+def create_microbe(name, label, sci_name, com_name, taxonomy_id=None):
+    create_organism(name, label, sci_name, com_name, taxonomy_id)
     g.add( (n[name], rdf.type, n.Microbe) )
 
 
@@ -106,7 +110,7 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
 
     # remember, there can be unknown serovars.
     # Htype is just ID for now
-    # TODO: standardize H/O types? Make sure they ALL have H/O prefixes or keep using id #'s only
+    # TODO: standardize H/O types? Make sure they ALL keep using id #'s only
     if Htype is None:
         g.add( (n[name], n.has_Htype, n.HUnknown) )
         g.add( (n.HUnknown, n.is_Htype_of, n[name]) )
@@ -139,23 +143,27 @@ def create_completed_genome(name, date = None, location = None, accession = None
     g.add( (n[name], rdf.type, n.completed_genome) )
 
 
-def create_isolation_syndrome(name, host = None):
+def create_isolation_syndrome(name, label, host_category):
     create_class(name)
     g.add( (n[name], rdf.type, n.isolation_syndrome) )
+    g.add( (n[name], rdfs.label, Literal(str(label), datatype = XSD.string)) )
+    g.add( (n[name], n.has_host_category, n[host_category]) )
+    g.add( (n[host_category], n.is_host_category_of, n[name]) )
 
-    if host is not None:
-        g.add( (n[name], n.has_object, n[host]) )
-        g.add( (n[host], n.is_object_of, n[name]) )
 
 
-def create_from_isolation_source(name):
+def create_from_isolation_source(name, label, host_category):
     create_class(name)
     g.add( (n[name], rdf.type, n.isolation_from_source))
+    g.add( (n[name], rdfs.label, Literal(str(label), datatype = XSD.string)) )
+    g.add( (n[name], n.has_host_category, n[host_category]) )
+    g.add( (n[host_category], n.is_host_category_of, n[name]) )
 
 
-def create_host_category(name):
+def create_host_category(name, label):
     create_class(name)
     g.add( (n[name], rdf.type, n.host_category) )
+    g.add( (n[name], rdfs.label, Literal(str(label), datatype = XSD.string)) )
 
 
 # can create any number of Otypes as required (1-187 and unknown)
@@ -170,24 +178,4 @@ def create_Htype(id):
 
 
 def generate_output():
-    g.serialize(destination="results.txt",format="turtle")
-
-
-""" ======== TESTING ======== """
-
-
-create_Htype("Unknown")
-create_Otype("Unknown")
-create_microbe("Ecoli", 562)
-create_from_isolation_source("blood")
-create_host_category("Mammal")
-create_host("Hsapiens", "Mammal")
-create_from_host("Hsapiens")
-
-
-create_pending_genome("Escherichia_coli_Str._IMT33204", organism="Ecoli", biosample="SAMN04026682",
-                      date="2010-03-01",location="Germany:Berlin",from_source="blood",from_host="from_Hsapiens",
-                      bioproject="PRJNA294505")
-
-generate_output()
-
+    g.serialize(destination="results.ttl",format="turtle")

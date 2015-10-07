@@ -9,6 +9,17 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 f = open("parseResult.txt", "w")
 
+"""
+syndrome
+strain
+serotype
+isolation_location
+isolation_host
+isolation_date
+isolation_source
+"""
+
+
 def main():
     with open("samples/meta_pipe_result.json") as json_file:
         json_data = json.load(json_file)

@@ -1,0 +1,487 @@
+@prefix : <https://github.com/superphy/> .
+@prefix ns1: <https://github.com/superphy#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:bacteremia a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Bacteremia"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:bacteriuria a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Bacteriuria"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:bloody_diarrhea a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Bloody diarrhea"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:cerebrospinal_fluid a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "cerebrospinal fluid"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:crohns a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Crohn's Disease"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:gastroenteritis a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Gastroenteritis"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:hc a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Hemorrhagic colitis"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:hus a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Hemolytic uremic syndrome"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:ileum a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Ileum"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:marine_sediment a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Marine sediment"^^xsd:string ;
+    ns1:has_host_category ns1:env .
+
+ns1:mastitis a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Mastitis"^^xsd:string ;
+    ns1:has_host_category ns1:mammal .
+
+ns1:meatfood a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Meat-based food"^^xsd:string ;
+    ns1:has_host_category ns1:env .
+
+ns1:meningitis a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Meningitis"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:milk a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Milk"^^xsd:string ;
+    ns1:has_host_category ns1:mammal .
+
+ns1:pyelonephritis a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Pyelonephritis"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:soil a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Soil"^^xsd:string ;
+    ns1:has_host_category ns1:env .
+
+ns1:stool a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Stool"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:uc a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Ulcerateive colitis"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:urogenital a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Urogenital system"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:uti a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Urinary tract infection (cystitis)"^^xsd:string ;
+    ns1:has_host_category ns1:human .
+
+ns1:veggiefood a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Vegetable-based food"^^xsd:string ;
+    ns1:has_host_category ns1:env .
+
+ns1:water a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Water"^^xsd:string ;
+    ns1:has_host_category ns1:env .
+
+ns1:yolk a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Yolk"^^xsd:string ;
+    ns1:has_host_category ns1:bird .
+
+ns1:acepa a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Allium cepa (onion)"^^xsd:string ;
+    ns1:common_name "onion"^^xsd:string ;
+    ns1:has_host_category ns1:env ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_acepa ;
+    ns1:scientific_name "Allium cepa"^^xsd:string .
+
+ns1:btaurus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Bos taurus (cow)"^^xsd:string ;
+    ns1:common_name "cow"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_btaurus ;
+    ns1:scientific_name "Bos taurus"^^xsd:string .
+
+ns1:caegagrus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Capra aegagrus hircus (goat)"^^xsd:string ;
+    ns1:common_name "goat"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_caegagrus ;
+    ns1:scientific_name "Capra aegagrus hircus"^^xsd:string .
+
+ns1:cecum a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Cecum"^^xsd:string ;
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
+
+ns1:clupus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Canis lupus familiaris (dog)"^^xsd:string ;
+    ns1:common_name "dog"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_clupus ;
+    ns1:scientific_name "Canis lupus familiaris"^^xsd:string .
+
+ns1:colon a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Colon"^^xsd:string ;
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
+
+ns1:eferus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Equus ferus caballus (horse)"^^xsd:string ;
+    ns1:common_name "horse"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_eferus ;
+    ns1:scientific_name "Equus ferus caballus"^^xsd:string .
+
+ns1:environment a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Environmental source"^^xsd:string ;
+    ns1:common_name "environment"^^xsd:string ;
+    ns1:has_host_category ns1:env ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_environment ;
+    ns1:scientific_name "Environmental source"^^xsd:string .
+
+ns1:fcatus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Felis catus (cat)"^^xsd:string ;
+    ns1:common_name "cat"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_fcatus ;
+    ns1:scientific_name "Felis catus"^^xsd:string .
+
+ns1:feces a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Feces"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:mammal .
+
+ns1:from_acepa a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:env ;
+    ns1:has_object ns1:acepa .
+
+ns1:from_btaurus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:btaurus .
+
+ns1:from_caegagrus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:caegagrus .
+
+ns1:from_clupus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:clupus .
+
+ns1:from_eferus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:eferus .
+
+ns1:from_environment a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:env ;
+    ns1:has_object ns1:environment .
+
+ns1:from_fcatus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:fcatus .
+
+ns1:from_ggallus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:bird ;
+    ns1:has_object ns1:ggallus .
+
+ns1:from_hsapiens a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:human ;
+    ns1:has_object ns1:hsapiens .
+
+ns1:from_mmusculus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:mmusculus .
+
+ns1:from_oaries a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:oaries .
+
+ns1:from_ocuniculus a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:ocuniculus .
+
+ns1:from_sscrofa a owl:NamedIndividual,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_object ns1:sscrofa .
+
+ns1:ggallus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Gallus gallus (chicken)"^^xsd:string ;
+    ns1:common_name "chicken"^^xsd:string ;
+    ns1:has_host_category ns1:bird ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_ggallus ;
+    ns1:scientific_name "Gallus gallus"^^xsd:string .
+
+ns1:hsapiens a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Homo sapiens (human)"^^xsd:string ;
+    ns1:common_name "human"^^xsd:string ;
+    ns1:has_host_category ns1:human ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_hsapiens ;
+    ns1:scientific_name "Homo sapiens"^^xsd:string .
+
+ns1:intestine a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Intestine"^^xsd:string ;
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
+
+ns1:meat a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Meat"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:mammal .
+
+ns1:mmusculus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Mus musculus (mouse)"^^xsd:string ;
+    ns1:common_name "mouse"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_mmusculus ;
+    ns1:scientific_name "Mus musculus"^^xsd:string .
+
+ns1:oaries a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Ovis aries (sheep)"^^xsd:string ;
+    ns1:common_name "sheep"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_oaries ;
+    ns1:scientific_name "Ovis aries"^^xsd:string .
+
+ns1:ocuniculus a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Oryctolagus cuniculus (rabbit)"^^xsd:string ;
+    ns1:common_name "rabbit"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_ocuniculus ;
+    ns1:scientific_name "Oryctolagus cuniculus"^^xsd:string .
+
+ns1:peritonitis a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Peritonitis"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:mammal .
+
+ns1:sscrofa a owl:NamedIndividual,
+        ns1:Host ;
+    rdfs:label "Sus scrofa (pig)"^^xsd:string ;
+    ns1:common_name "pig"^^xsd:string ;
+    ns1:has_host_category ns1:mammal ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_sscrofa ;
+    ns1:scientific_name "Sus scrofa"^^xsd:string .
+
+ns1:urine a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Urine"^^xsd:string ;
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
+
+ns1:asymptomatic a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Asymptomatic"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
+
+ns1:blood a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Blood"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
+
+ns1:diarrhea a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Diarrhea"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
+
+ns1:liver a owl:NamedIndividual,
+        ns1:isolation_from_source ;
+    rdfs:label "Liver"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
+
+ns1:pneumonia a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Pneumonia"^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
+
+ns1:septicaemia a owl:NamedIndividual,
+        ns1:isolation_syndrome ;
+    rdfs:label "Septicaemia"^^xsd:string,
+        "Septicaemia "^^xsd:string ;
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
+
+ns1:env a owl:NamedIndividual,
+        ns1:host_category ;
+    rdfs:label "Environmental Sources"^^xsd:string ;
+    ns1:is_host_category_of ns1:acepa,
+        ns1:environment,
+        ns1:from_acepa,
+        ns1:from_environment,
+        ns1:marine_sediment,
+        ns1:meatfood,
+        ns1:soil,
+        ns1:veggiefood,
+        ns1:water .
+
+ns1:bird a owl:NamedIndividual,
+        ns1:host_category ;
+    rdfs:label "Aves"^^xsd:string ;
+    ns1:is_host_category_of ns1:asymptomatic,
+        ns1:blood,
+        ns1:diarrhea,
+        ns1:feces,
+        ns1:from_ggallus,
+        ns1:ggallus,
+        ns1:liver,
+        ns1:meat,
+        ns1:peritonitis,
+        ns1:pneumonia,
+        ns1:septicaemia,
+        ns1:yolk .
+
+ns1:human a owl:NamedIndividual,
+        ns1:host_category ;
+    rdfs:label "Human"^^xsd:string ;
+    ns1:is_host_category_of ns1:asymptomatic,
+        ns1:bacteremia,
+        ns1:bacteriuria,
+        ns1:blood,
+        ns1:bloody_diarrhea,
+        ns1:cecum,
+        ns1:cerebrospinal_fluid,
+        ns1:colon,
+        ns1:crohns,
+        ns1:diarrhea,
+        ns1:from_hsapiens,
+        ns1:gastroenteritis,
+        ns1:hc,
+        ns1:hsapiens,
+        ns1:hus,
+        ns1:ileum,
+        ns1:intestine,
+        ns1:liver,
+        ns1:meningitis,
+        ns1:pneumonia,
+        ns1:pyelonephritis,
+        ns1:septicaemia,
+        ns1:stool,
+        ns1:uc,
+        ns1:urine,
+        ns1:urogenital,
+        ns1:uti .
+
+ns1:mammal a owl:NamedIndividual,
+        ns1:host_category ;
+    rdfs:label "Non-human Mammalia"^^xsd:string ;
+    ns1:is_host_category_of ns1:asymptomatic,
+        ns1:blood,
+        ns1:btaurus,
+        ns1:caegagrus,
+        ns1:cecum,
+        ns1:clupus,
+        ns1:colon,
+        ns1:diarrhea,
+        ns1:eferus,
+        ns1:fcatus,
+        ns1:feces,
+        ns1:from_btaurus,
+        ns1:from_caegagrus,
+        ns1:from_clupus,
+        ns1:from_eferus,
+        ns1:from_fcatus,
+        ns1:from_mmusculus,
+        ns1:from_oaries,
+        ns1:from_ocuniculus,
+        ns1:from_sscrofa,
+        ns1:intestine,
+        ns1:liver,
+        ns1:mastitis,
+        ns1:meat,
+        ns1:milk,
+        ns1:mmusculus,
+        ns1:oaries,
+        ns1:ocuniculus,
+        ns1:peritonitis,
+        ns1:pneumonia,
+        ns1:septicaemia,
+        ns1:sscrofa,
+        ns1:urine .
+
