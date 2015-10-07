@@ -1,6 +1,7 @@
 __author__ = 'ubiquitin'
 
 import json
+import string
 from Bio import Entrez
 import sys
 
@@ -11,10 +12,13 @@ f = open("parseResult.txt", "w")
 def main():
     with open("samples/meta_pipe_result.json") as json_file:
         json_data = json.load(json_file)
+        i = 0
 
         for accession in json_data:
             f.write("accession number: " + accession + "\n")
-            print "hello world"
+
+            i+=1
+            print str(i) + ": hello world"
 
             get_DBlink(get_nuccore_id(accession))
 
@@ -44,17 +48,41 @@ def get_nuccore_id(accession):
         return id
 
 def get_DBlink(nuccore_id):
-    Entrez.email = "stebokan@gmail.com"
-    handle = Entrez.elink(dbfrom="nuccore", db="bioproject", id=nuccore_id)
-    records = Entrez.parse(handle)
+    BPid = None
+    BSid = None
+    try:
+        Entrez.email = "stebokan@gmail.com"
+        handle = Entrez.elink(dbfrom="nuccore", db="bioproject", id=nuccore_id)
+        records = Entrez.parse(handle)
 
-    for record in records:
-        f.write("BioProject Id: " + record["LinkSetDb"][0]["Link"][0]["Id"] + "\n")
+        for record in records:
+            f.write("BioProject Id: " + record["LinkSetDb"][0]["Link"][0]["Id"] + "\n")
 
-    handle = Entrez.elink(dbfrom="nuccore", db="biosample", id=nuccore_id)
-    records = Entrez.parse(handle)
+        try:
+            handle = Entrez.elink(dbfrom="nuccore", db="biosample", id=nuccore_id)
+            records = Entrez.parse(handle)
 
-    for record in records:
-        f.write("BioSample Id: " + record["LinkSetDb"][0]["Link"][0]["Id"] + "\n")
+            for record in records:
+                f.write("BioSample Id: " + record["LinkSetDb"][0]["Link"][0]["Id"] + "\n")
+        except IndexError:
+            handle = Entrez.elink(dbfrom="bioproject", db="biosample", id=BPid)
+            records = Entrez.parse(handle)
+
+            for record in records:
+                f.write( "BioSample Id: " + record["LinkSetDb"][0]["Link"][0]["Id"] + "\n")
+    except IndexError:
+        Entrez.email = "stebokan@gmail.com"
+        handle = Entrez.efetch(db="nuccore", id=nuccore_id, rettype="gb", retmode="xml")
+        records = Entrez.parse(handle)
+
+        for record in records:
+            f.write("BioProject Id: " + only_digits(record["GBSeq_xrefs"][0]["GBXref_id"]) + "\n")
+            f.write("BioSample Id: " + only_digits(record["GBSeq_xrefs"][1]["GBXref_id"]) + "\n")
+
+
+def only_digits(str):
+    all = string.maketrans('','')
+    nodigs = all.translate(all, string.digits)
+    return str.translate(all, nodigs)
 
 main()
