@@ -20,4 +20,12 @@ def upload_all_ontologies():
         r = requests.post(url=bg_url, data=data)
         print r.content
 
-upload_all_ontologies()
+def upload_ontology(filepath):
+    ontology = "file:" + os.path.join(os.path.dirname(__file__), filepath)
+    bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
+    data = {'uri': ontology}
+    r = requests.post(url=bg_url, data=data)
+    print r.content
+
+#upload_all_ontologies()
+upload_ontology("results.ttl")

@@ -456,7 +456,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                    owl:someValuesFrom :isolation_from_host
                                                  ]
                                                )
-                          ] .
+                          ] ;
+      
+      rdfs:subClassOf :Organism .
 
 
 
@@ -472,6 +474,8 @@ xsd:date rdf:type rdfs:Datatype .
                                                   ]
                                                 )
                            ] ;
+       
+       rdfs:subClassOf :serotype ;
        
        owl:disjointWith :Otype .
 
@@ -515,7 +519,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                     owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
                                                   ]
                                                 )
-                           ] .
+                           ] ;
+       
+       rdfs:subClassOf :serotype .
 
 
 
@@ -561,7 +567,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                             owl:someValuesFrom :isolation_syndrome
                                                           ]
                                                         )
-                                   ] .
+                                   ] ;
+               
+               rdfs:subClassOf :Attribute .
 
 
 
@@ -576,7 +584,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                                   owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
                                                                 ]
                                                               )
-                                         ] .
+                                         ] ;
+                     
+                     rdfs:subClassOf :Attribute .
 
 
 
@@ -595,7 +605,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                                   owl:someValuesFrom :Host
                                                                 ]
                                                               )
-                                         ] .
+                                         ] ;
+                     
+                     rdfs:subClassOf :isolation_attribute .
 
 
 
@@ -610,7 +622,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                                     owl:someValuesFrom :host_category
                                                                   ]
                                                                 )
-                                           ] .
+                                           ] ;
+                       
+                       rdfs:subClassOf :isolation_attribute .
 
 
 
@@ -625,7 +639,9 @@ xsd:date rdf:type rdfs:Datatype .
                                                                  owl:someValuesFrom :host_category
                                                                ]
                                                              )
-                                        ] .
+                                        ] ;
+                    
+                    rdfs:subClassOf :isolation_attribute .
 
 
 

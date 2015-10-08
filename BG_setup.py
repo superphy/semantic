@@ -76,9 +76,9 @@ syndromes = [("gastroenteritis", "Gastroenteritis", "human"),
             ("asymptomatic", "Asymptomatic", "bird"),
             ("bacteremia", "Bacteremia", "human"),
             ("diarrhea", "Diarrhea", "human"),
-            ("septicaemia", "Septicaemia ", "human")]
+            ("septicemia", "Septicemia ", "human")]
 
-microbe = [("ecoli", "Escherichia coli", "Escherichia coli", "Escherichia coli")]
+microbes = [("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")]
 
 for host_category in host_categories:
     name, label = host_category
@@ -95,5 +95,18 @@ for source in sources:
 for syndrome in syndromes:
     name, label, host_category = syndrome
     object_to_rdf_converter.create_isolation_syndrome(name, label, host_category)
+
+for microbe in microbes:
+    name, label, sci_name, com_name = microbe
+    object_to_rdf_converter.create_microbe(name, label, sci_name, com_name)
+
+for n in range(187):
+    object_to_rdf_converter.create_Otype(n)
+for n in range(56):
+    object_to_rdf_converter.create_Htype(n)
+
+object_to_rdf_converter.create_Otype("Unknown")
+object_to_rdf_converter.create_Htype("Unknown")
+object_to_rdf_converter.create_Htype("-")
 
 object_to_rdf_converter.generate_output()

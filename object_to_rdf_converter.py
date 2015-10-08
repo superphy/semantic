@@ -21,7 +21,7 @@ xsd = Namespace("http://www.w3.org/2001/XMLSchema#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
-g.bind("","https://github.com/superphy/")
+g.bind("","https://github.com/superphy#")
 g.bind("owl", "http://www.w3.org/2002/07/owl#")
 
 
@@ -72,22 +72,28 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
     g.add( (n[name], rdf.type, gfvo.Genome) )
 
     if date is not None:
-        g.add( (n[name], n.has_isolation_date, Literal(date, datatype = XSD.dateTime)) )
+        for d in date:
+            g.add( (n[name], n.has_isolation_date, Literal(d, datatype = XSD.dateTime)) )
 
     if location is not None:
-        g.add ( (n[name], n.has_geographic_location, Literal(location, datatype = XSD.string)) )
+        for l in location:
+            g.add ( (n[name], n.has_geographic_location, Literal(l, datatype = XSD.string)) )
 
     if accession is not None:
-        g.add( (n[name], n.has_accession, Literal(accession, datatype = XSD.string)) )
+        for a in accession:
+            g.add( (n[name], n.has_accession, Literal(a, datatype = XSD.string)) )
 
     if bioproject is not None:
-        g.add( (n[name], n.has_bioproject, Literal(bioproject, datatype = XSD.string)) )
+        for b in bioproject:
+            g.add( (n[name], n.has_bioproject, Literal(b, datatype = XSD.string)) )
 
     if biosample is not None:
-        g.add( (n[name], n.has_biosample, Literal(biosample, datatype = XSD.string)) )
+        for b in biosample:
+            g.add( (n[name], n.has_biosample, Literal(b, datatype = XSD.string)) )
 
     if strain is not None:
-        g.add( (n[name], n.has_strain, Literal(strain, datatype = XSD.string)) )
+        for s in strain:
+            g.add( (n[name], n.has_strain, Literal(s, datatype = XSD.string)) )
 
     # TODO: need to implement a way to check if organism is created, else return a failure
     if organism is not None:
@@ -179,3 +185,4 @@ def create_Htype(id):
 
 def generate_output():
     g.serialize(destination="results.ttl",format="turtle")
+
