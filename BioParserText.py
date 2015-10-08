@@ -24,6 +24,7 @@ def main():
     with open("samples/meta_pipe_result.json") as json_file:
         json_data = json.load(json_file)
         i = 0
+        duplication = 0
 
         for accession in json_data:
             f.write("accession number: " + accession + "\n")
@@ -43,12 +44,13 @@ def main():
                         try:
                             f.write(item + ": " + value["displayname"] + "\n")
                         except KeyError:
+                            duplication+=1
                             for some in value:
                                 f.write(item + ": " + value[some]["displayname"] + "\n")
 
 
             f.write("=======================" + "\n")
-
+    print duplication
 
 def get_nuccore_id(accession):
     Entrez.email = "stebokan@gmail.com"

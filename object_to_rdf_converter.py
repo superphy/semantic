@@ -73,7 +73,7 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
 
     if date is not None:
         for d in date:
-            g.add( (n[name], n.has_isolation_date, Literal(d, datatype = XSD.dateTime)) )
+            g.add( (n[name], n.has_isolation_date, Literal(d, datatype = XSD.date)) )
 
     if location is not None:
         for l in location:
@@ -95,13 +95,10 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
         for s in strain:
             g.add( (n[name], n.has_strain, Literal(s, datatype = XSD.string)) )
 
-    # TODO: need to implement a way to check if organism is created, else return a failure
     if organism is not None:
         g.add( (n[name], n.is_genome_of, n[organism]) )
         g.add( (n[organism], n.has_genome, n[name]))
 
-    # TODO: need to implement a way to check if the host and from_host entity is created, else return a failure
-    # TODO: decide if this takes in from_host or host (current assumption: from_host)
     if from_host is not None:
         g.add( (n[name], n.has_isolation_attribute, n[from_host]) )
         g.add( (n[from_host], n.is_isolation_attribute_of, n[name]) )
@@ -117,23 +114,31 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
     # remember, there can be unknown serovars.
     # Htype is just ID for now
     # TODO: standardize H/O types? Make sure they ALL keep using id #'s only
-    if Htype is None:
-        g.add( (n[name], n.has_Htype, n.HUnknown) )
-        g.add( (n.HUnknown, n.is_Htype_of, n[name]) )
-    else:
-        g.add( (n[name], n.has_Htype, n["H" + str(Htype)]) )
-        g.add( (n["H" + str(Htype)], n.is_Htype_of, n[name]) )
+    add_Htype(Htype, name)
 
-    if Otype is None:
-        g.add( (n[name], n.has_Otype, n.OUnknown) )
-        g.add( (n.OUnknown, n.is_Otype_of, n[name]) )
-    else:
-        g.add( (n[name], n.has_Otype, n["O" + str(Otype)]) )
-        g.add( (n["O" + str(Otype)], n.is_Otype_of, n[name]) )
+    add_Otype(Otype, name)
 
     if User is not None:
         g.add( (n[name], n.is_owned_by, n[User]) )
         g.add( (n[User], n.owns, n[name]) )
+
+
+def add_Htype(name, Htype=None):
+    if Htype is None:
+        g.add((n[name], n.has_Htype, n.HUnknown))
+        g.add((n.HUnknown, n.is_Htype_of, n[name]))
+    else:
+        g.add((n[name], n.has_Htype, n["H" + str(Htype)]))
+        g.add((n["H" + str(Htype)], n.is_Htype_of, n[name]))
+
+
+def add_Otype(name, Otype=None):
+    if Otype is None:
+        g.add((n[name], n.has_Otype, n.OUnknown))
+        g.add((n.OUnknown, n.is_Otype_of, n[name]))
+    else:
+        g.add((n[name], n.has_Otype, n["O" + str(Otype)]))
+        g.add((n["O" + str(Otype)], n.is_Otype_of, n[name]))
 
 
 # TODO: definitely need to simplify and refactor genome uploader!!!
