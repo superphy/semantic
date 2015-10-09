@@ -22,3 +22,17 @@ Proposed workflow:
     if it failed, and the cause
 
 - ideally, this will be somehow integrated with a web framework
+
+
+To use:
+
+Download and run the NanoSPARQLServer from https://wiki.blazegraph.com/wiki/index.php/NanoSparqlServer
+Go to Blazegraph (http://localhost:9999/bigdata/) and go to Namespaces.
+Make a namespace called superphy with Modes for inference and full text index checked off.
+
+In command line, run `pip install -r /path/to/requirements.txt` (the requirements.txt file is part of the github files
+
+Now, go to main.py and hit run.
+
+If you want to play with the parser and uploader, the relevant files are BioParser, object_to_rdf_converter, and
+ontology_uploader

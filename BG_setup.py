@@ -53,6 +53,7 @@ sources = [("stool", "Stool", "human"),
            ("bronchoalveolar_lavage", "Bronchoalveolar lavage", "human"),
            ("gelatinous_edema", "gelatinous edema", "bird"),
            ("perianal", "Perianal", "human")
+           ()
            ]
 
 syndromes = [("gastroenteritis", "Gastroenteritis", "human"),
@@ -81,6 +82,7 @@ syndromes = [("gastroenteritis", "Gastroenteritis", "human"),
              ("bacteremia", "Bacteremia", "human"),
              ("diarrhea", "Diarrhea", "human"),
              ("septicaemia", "Septicaemia ", "human"),
+             ("swollen_head_syndrome", "swollen head syndrome", "bird")
              ]
 
 microbes = [("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")]
