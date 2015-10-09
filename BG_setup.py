@@ -49,34 +49,39 @@ sources = [("stool", "Stool", "human"),
            ("urogenital", "Urogenital system", "human"),
            ("milk", "Milk", "mammal"),
            ("soil", "Soil", "env"),
-           ("marine_sediment", "Marine sediment", "env")]
+           ("marine_sediment", "Marine sediment", "env"),
+           ("bronchoalveolar_lavage", "Bronchoalveolar lavage", "human"),
+           ("gelatinous_edema", "gelatinous edema", "bird"),
+           ("perianal", "Perianal", "human")
+           ]
 
 syndromes = [("gastroenteritis", "Gastroenteritis", "human"),
-            ("bloody_diarrhea", "Bloody diarrhea", "human"),
-            ("hus", "Hemolytic uremic syndrome", "human"),
-            ("hc", "Hemorrhagic colitis", "human"),
-            ("uti", "Urinary tract infection (cystitis)", "human"),
-            ("crohns", "Crohn's Disease", "human"),
-            ("uc", "Ulcerateive colitis", "human"),
-            ("meningitis", "Meningitis", "human"),
-            ("pneumonia", "Pneumonia", "human"),
-            ("pyelonephritis", "Pyelonephritis", "human"),
-            ("bacteriuria", "Bacteriuria", "human"),
-            ("pneumonia", "Pneumonia", "mammal"),
-            ("diarrhea", "Diarrhea", "mammal"),
-            ("septicaemia", "Septicaemia", "mammal"),
-            ("mastitis", "Mastitis", "mammal"),
-            ("peritonitis", "Peritonitis", "mammal"),
-            ("pneumonia", "Pneumonia", "bird"),
-            ("diarrhea", "Diarrhea", "bird"),
-            ("septicaemia", "Septicaemia", "bird"),
-            ("peritonitis", "Peritonitis", "bird"),
-            ("asymptomatic", "Asymptomatic", "human"),
-            ("asymptomatic", "Asymptomatic", "mammal"),
-            ("asymptomatic", "Asymptomatic", "bird"),
-            ("bacteremia", "Bacteremia", "human"),
-            ("diarrhea", "Diarrhea", "human"),
-            ("septicemia", "Septicemia ", "human")]
+             ("bloody_diarrhea", "Bloody diarrhea", "human"),
+             ("hus", "Hemolytic-uremic syndrome", "human"),
+             ("hc", "Hemorrhagic colitis", "human"),
+             ("uti", "Urinary tract infection (cystitis)", "human"),
+             ("crohns", "Crohn's Disease", "human"),
+             ("uc", "Ulcerateive colitis", "human"),
+             ("meningitis", "Meningitis", "human"),
+             ("pneumonia", "Pneumonia", "human"),
+             ("pyelonephritis", "Pyelonephritis", "human"),
+             ("bacteriuria", "Bacteriuria", "human"),
+             ("pneumonia", "Pneumonia", "mammal"),
+             ("diarrhea", "Diarrhea", "mammal"),
+             ("septicaemia", "Septicaemia", "mammal"),
+             ("mastitis", "Mastitis", "mammal"),
+             ("peritonitis", "Peritonitis", "mammal"),
+             ("pneumonia", "Pneumonia", "bird"),
+             ("diarrhea", "Diarrhea", "bird"),
+             ("septicaemia", "Septicaemia", "bird"),
+             ("peritonitis", "Peritonitis", "bird"),
+             ("asymptomatic", "Asymptomatic", "human"),
+             ("asymptomatic", "Asymptomatic", "mammal"),
+             ("asymptomatic", "Asymptomatic", "bird"),
+             ("bacteremia", "Bacteremia", "human"),
+             ("diarrhea", "Diarrhea", "human"),
+             ("septicaemia", "Septicaemia ", "human"),
+             ]
 
 microbes = [("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")]
 
@@ -100,13 +105,13 @@ for microbe in microbes:
     name, label, sci_name, com_name = microbe
     object_to_rdf_converter.create_microbe(name, label, sci_name, com_name)
 
-for n in range(187):
+for n in range(1, 187):
     object_to_rdf_converter.create_Otype(n)
-for n in range(56):
+for n in range(1, 56):
     object_to_rdf_converter.create_Htype(n)
 
 object_to_rdf_converter.create_Otype("Unknown")
 object_to_rdf_converter.create_Htype("Unknown")
 object_to_rdf_converter.create_Htype("-")
 
-object_to_rdf_converter.generate_output()
+object_to_rdf_converter.generate_output("setup.ttl")

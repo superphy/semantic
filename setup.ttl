@@ -1,0 +1,1243 @@
+@prefix : <https://github.com/superphy#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:H- a owl:NamedIndividual,
+        :Htype .
+
+:H1 a owl:NamedIndividual,
+        :Htype .
+
+:H10 a owl:NamedIndividual,
+        :Htype .
+
+:H11 a owl:NamedIndividual,
+        :Htype .
+
+:H12 a owl:NamedIndividual,
+        :Htype .
+
+:H13 a owl:NamedIndividual,
+        :Htype .
+
+:H14 a owl:NamedIndividual,
+        :Htype .
+
+:H15 a owl:NamedIndividual,
+        :Htype .
+
+:H16 a owl:NamedIndividual,
+        :Htype .
+
+:H17 a owl:NamedIndividual,
+        :Htype .
+
+:H18 a owl:NamedIndividual,
+        :Htype .
+
+:H19 a owl:NamedIndividual,
+        :Htype .
+
+:H2 a owl:NamedIndividual,
+        :Htype .
+
+:H20 a owl:NamedIndividual,
+        :Htype .
+
+:H21 a owl:NamedIndividual,
+        :Htype .
+
+:H22 a owl:NamedIndividual,
+        :Htype .
+
+:H23 a owl:NamedIndividual,
+        :Htype .
+
+:H24 a owl:NamedIndividual,
+        :Htype .
+
+:H25 a owl:NamedIndividual,
+        :Htype .
+
+:H26 a owl:NamedIndividual,
+        :Htype .
+
+:H27 a owl:NamedIndividual,
+        :Htype .
+
+:H28 a owl:NamedIndividual,
+        :Htype .
+
+:H29 a owl:NamedIndividual,
+        :Htype .
+
+:H3 a owl:NamedIndividual,
+        :Htype .
+
+:H30 a owl:NamedIndividual,
+        :Htype .
+
+:H31 a owl:NamedIndividual,
+        :Htype .
+
+:H32 a owl:NamedIndividual,
+        :Htype .
+
+:H33 a owl:NamedIndividual,
+        :Htype .
+
+:H34 a owl:NamedIndividual,
+        :Htype .
+
+:H35 a owl:NamedIndividual,
+        :Htype .
+
+:H36 a owl:NamedIndividual,
+        :Htype .
+
+:H37 a owl:NamedIndividual,
+        :Htype .
+
+:H38 a owl:NamedIndividual,
+        :Htype .
+
+:H39 a owl:NamedIndividual,
+        :Htype .
+
+:H4 a owl:NamedIndividual,
+        :Htype .
+
+:H40 a owl:NamedIndividual,
+        :Htype .
+
+:H41 a owl:NamedIndividual,
+        :Htype .
+
+:H42 a owl:NamedIndividual,
+        :Htype .
+
+:H43 a owl:NamedIndividual,
+        :Htype .
+
+:H44 a owl:NamedIndividual,
+        :Htype .
+
+:H45 a owl:NamedIndividual,
+        :Htype .
+
+:H46 a owl:NamedIndividual,
+        :Htype .
+
+:H47 a owl:NamedIndividual,
+        :Htype .
+
+:H48 a owl:NamedIndividual,
+        :Htype .
+
+:H49 a owl:NamedIndividual,
+        :Htype .
+
+:H5 a owl:NamedIndividual,
+        :Htype .
+
+:H50 a owl:NamedIndividual,
+        :Htype .
+
+:H51 a owl:NamedIndividual,
+        :Htype .
+
+:H52 a owl:NamedIndividual,
+        :Htype .
+
+:H53 a owl:NamedIndividual,
+        :Htype .
+
+:H54 a owl:NamedIndividual,
+        :Htype .
+
+:H55 a owl:NamedIndividual,
+        :Htype .
+
+:H6 a owl:NamedIndividual,
+        :Htype .
+
+:H7 a owl:NamedIndividual,
+        :Htype .
+
+:H8 a owl:NamedIndividual,
+        :Htype .
+
+:H9 a owl:NamedIndividual,
+        :Htype .
+
+:HUnknown a owl:NamedIndividual,
+        :Htype .
+
+:O1 a owl:NamedIndividual,
+        :Otype .
+
+:O10 a owl:NamedIndividual,
+        :Otype .
+
+:O100 a owl:NamedIndividual,
+        :Otype .
+
+:O101 a owl:NamedIndividual,
+        :Otype .
+
+:O102 a owl:NamedIndividual,
+        :Otype .
+
+:O103 a owl:NamedIndividual,
+        :Otype .
+
+:O104 a owl:NamedIndividual,
+        :Otype .
+
+:O105 a owl:NamedIndividual,
+        :Otype .
+
+:O106 a owl:NamedIndividual,
+        :Otype .
+
+:O107 a owl:NamedIndividual,
+        :Otype .
+
+:O108 a owl:NamedIndividual,
+        :Otype .
+
+:O109 a owl:NamedIndividual,
+        :Otype .
+
+:O11 a owl:NamedIndividual,
+        :Otype .
+
+:O110 a owl:NamedIndividual,
+        :Otype .
+
+:O111 a owl:NamedIndividual,
+        :Otype .
+
+:O112 a owl:NamedIndividual,
+        :Otype .
+
+:O113 a owl:NamedIndividual,
+        :Otype .
+
+:O114 a owl:NamedIndividual,
+        :Otype .
+
+:O115 a owl:NamedIndividual,
+        :Otype .
+
+:O116 a owl:NamedIndividual,
+        :Otype .
+
+:O117 a owl:NamedIndividual,
+        :Otype .
+
+:O118 a owl:NamedIndividual,
+        :Otype .
+
+:O119 a owl:NamedIndividual,
+        :Otype .
+
+:O12 a owl:NamedIndividual,
+        :Otype .
+
+:O120 a owl:NamedIndividual,
+        :Otype .
+
+:O121 a owl:NamedIndividual,
+        :Otype .
+
+:O122 a owl:NamedIndividual,
+        :Otype .
+
+:O123 a owl:NamedIndividual,
+        :Otype .
+
+:O124 a owl:NamedIndividual,
+        :Otype .
+
+:O125 a owl:NamedIndividual,
+        :Otype .
+
+:O126 a owl:NamedIndividual,
+        :Otype .
+
+:O127 a owl:NamedIndividual,
+        :Otype .
+
+:O128 a owl:NamedIndividual,
+        :Otype .
+
+:O129 a owl:NamedIndividual,
+        :Otype .
+
+:O13 a owl:NamedIndividual,
+        :Otype .
+
+:O130 a owl:NamedIndividual,
+        :Otype .
+
+:O131 a owl:NamedIndividual,
+        :Otype .
+
+:O132 a owl:NamedIndividual,
+        :Otype .
+
+:O133 a owl:NamedIndividual,
+        :Otype .
+
+:O134 a owl:NamedIndividual,
+        :Otype .
+
+:O135 a owl:NamedIndividual,
+        :Otype .
+
+:O136 a owl:NamedIndividual,
+        :Otype .
+
+:O137 a owl:NamedIndividual,
+        :Otype .
+
+:O138 a owl:NamedIndividual,
+        :Otype .
+
+:O139 a owl:NamedIndividual,
+        :Otype .
+
+:O14 a owl:NamedIndividual,
+        :Otype .
+
+:O140 a owl:NamedIndividual,
+        :Otype .
+
+:O141 a owl:NamedIndividual,
+        :Otype .
+
+:O142 a owl:NamedIndividual,
+        :Otype .
+
+:O143 a owl:NamedIndividual,
+        :Otype .
+
+:O144 a owl:NamedIndividual,
+        :Otype .
+
+:O145 a owl:NamedIndividual,
+        :Otype .
+
+:O146 a owl:NamedIndividual,
+        :Otype .
+
+:O147 a owl:NamedIndividual,
+        :Otype .
+
+:O148 a owl:NamedIndividual,
+        :Otype .
+
+:O149 a owl:NamedIndividual,
+        :Otype .
+
+:O15 a owl:NamedIndividual,
+        :Otype .
+
+:O150 a owl:NamedIndividual,
+        :Otype .
+
+:O151 a owl:NamedIndividual,
+        :Otype .
+
+:O152 a owl:NamedIndividual,
+        :Otype .
+
+:O153 a owl:NamedIndividual,
+        :Otype .
+
+:O154 a owl:NamedIndividual,
+        :Otype .
+
+:O155 a owl:NamedIndividual,
+        :Otype .
+
+:O156 a owl:NamedIndividual,
+        :Otype .
+
+:O157 a owl:NamedIndividual,
+        :Otype .
+
+:O158 a owl:NamedIndividual,
+        :Otype .
+
+:O159 a owl:NamedIndividual,
+        :Otype .
+
+:O16 a owl:NamedIndividual,
+        :Otype .
+
+:O160 a owl:NamedIndividual,
+        :Otype .
+
+:O161 a owl:NamedIndividual,
+        :Otype .
+
+:O162 a owl:NamedIndividual,
+        :Otype .
+
+:O163 a owl:NamedIndividual,
+        :Otype .
+
+:O164 a owl:NamedIndividual,
+        :Otype .
+
+:O165 a owl:NamedIndividual,
+        :Otype .
+
+:O166 a owl:NamedIndividual,
+        :Otype .
+
+:O167 a owl:NamedIndividual,
+        :Otype .
+
+:O168 a owl:NamedIndividual,
+        :Otype .
+
+:O169 a owl:NamedIndividual,
+        :Otype .
+
+:O17 a owl:NamedIndividual,
+        :Otype .
+
+:O170 a owl:NamedIndividual,
+        :Otype .
+
+:O171 a owl:NamedIndividual,
+        :Otype .
+
+:O172 a owl:NamedIndividual,
+        :Otype .
+
+:O173 a owl:NamedIndividual,
+        :Otype .
+
+:O174 a owl:NamedIndividual,
+        :Otype .
+
+:O175 a owl:NamedIndividual,
+        :Otype .
+
+:O176 a owl:NamedIndividual,
+        :Otype .
+
+:O177 a owl:NamedIndividual,
+        :Otype .
+
+:O178 a owl:NamedIndividual,
+        :Otype .
+
+:O179 a owl:NamedIndividual,
+        :Otype .
+
+:O18 a owl:NamedIndividual,
+        :Otype .
+
+:O180 a owl:NamedIndividual,
+        :Otype .
+
+:O181 a owl:NamedIndividual,
+        :Otype .
+
+:O182 a owl:NamedIndividual,
+        :Otype .
+
+:O183 a owl:NamedIndividual,
+        :Otype .
+
+:O184 a owl:NamedIndividual,
+        :Otype .
+
+:O185 a owl:NamedIndividual,
+        :Otype .
+
+:O186 a owl:NamedIndividual,
+        :Otype .
+
+:O19 a owl:NamedIndividual,
+        :Otype .
+
+:O2 a owl:NamedIndividual,
+        :Otype .
+
+:O20 a owl:NamedIndividual,
+        :Otype .
+
+:O21 a owl:NamedIndividual,
+        :Otype .
+
+:O22 a owl:NamedIndividual,
+        :Otype .
+
+:O23 a owl:NamedIndividual,
+        :Otype .
+
+:O24 a owl:NamedIndividual,
+        :Otype .
+
+:O25 a owl:NamedIndividual,
+        :Otype .
+
+:O26 a owl:NamedIndividual,
+        :Otype .
+
+:O27 a owl:NamedIndividual,
+        :Otype .
+
+:O28 a owl:NamedIndividual,
+        :Otype .
+
+:O29 a owl:NamedIndividual,
+        :Otype .
+
+:O3 a owl:NamedIndividual,
+        :Otype .
+
+:O30 a owl:NamedIndividual,
+        :Otype .
+
+:O31 a owl:NamedIndividual,
+        :Otype .
+
+:O32 a owl:NamedIndividual,
+        :Otype .
+
+:O33 a owl:NamedIndividual,
+        :Otype .
+
+:O34 a owl:NamedIndividual,
+        :Otype .
+
+:O35 a owl:NamedIndividual,
+        :Otype .
+
+:O36 a owl:NamedIndividual,
+        :Otype .
+
+:O37 a owl:NamedIndividual,
+        :Otype .
+
+:O38 a owl:NamedIndividual,
+        :Otype .
+
+:O39 a owl:NamedIndividual,
+        :Otype .
+
+:O4 a owl:NamedIndividual,
+        :Otype .
+
+:O40 a owl:NamedIndividual,
+        :Otype .
+
+:O41 a owl:NamedIndividual,
+        :Otype .
+
+:O42 a owl:NamedIndividual,
+        :Otype .
+
+:O43 a owl:NamedIndividual,
+        :Otype .
+
+:O44 a owl:NamedIndividual,
+        :Otype .
+
+:O45 a owl:NamedIndividual,
+        :Otype .
+
+:O46 a owl:NamedIndividual,
+        :Otype .
+
+:O47 a owl:NamedIndividual,
+        :Otype .
+
+:O48 a owl:NamedIndividual,
+        :Otype .
+
+:O49 a owl:NamedIndividual,
+        :Otype .
+
+:O5 a owl:NamedIndividual,
+        :Otype .
+
+:O50 a owl:NamedIndividual,
+        :Otype .
+
+:O51 a owl:NamedIndividual,
+        :Otype .
+
+:O52 a owl:NamedIndividual,
+        :Otype .
+
+:O53 a owl:NamedIndividual,
+        :Otype .
+
+:O54 a owl:NamedIndividual,
+        :Otype .
+
+:O55 a owl:NamedIndividual,
+        :Otype .
+
+:O56 a owl:NamedIndividual,
+        :Otype .
+
+:O57 a owl:NamedIndividual,
+        :Otype .
+
+:O58 a owl:NamedIndividual,
+        :Otype .
+
+:O59 a owl:NamedIndividual,
+        :Otype .
+
+:O6 a owl:NamedIndividual,
+        :Otype .
+
+:O60 a owl:NamedIndividual,
+        :Otype .
+
+:O61 a owl:NamedIndividual,
+        :Otype .
+
+:O62 a owl:NamedIndividual,
+        :Otype .
+
+:O63 a owl:NamedIndividual,
+        :Otype .
+
+:O64 a owl:NamedIndividual,
+        :Otype .
+
+:O65 a owl:NamedIndividual,
+        :Otype .
+
+:O66 a owl:NamedIndividual,
+        :Otype .
+
+:O67 a owl:NamedIndividual,
+        :Otype .
+
+:O68 a owl:NamedIndividual,
+        :Otype .
+
+:O69 a owl:NamedIndividual,
+        :Otype .
+
+:O7 a owl:NamedIndividual,
+        :Otype .
+
+:O70 a owl:NamedIndividual,
+        :Otype .
+
+:O71 a owl:NamedIndividual,
+        :Otype .
+
+:O72 a owl:NamedIndividual,
+        :Otype .
+
+:O73 a owl:NamedIndividual,
+        :Otype .
+
+:O74 a owl:NamedIndividual,
+        :Otype .
+
+:O75 a owl:NamedIndividual,
+        :Otype .
+
+:O76 a owl:NamedIndividual,
+        :Otype .
+
+:O77 a owl:NamedIndividual,
+        :Otype .
+
+:O78 a owl:NamedIndividual,
+        :Otype .
+
+:O79 a owl:NamedIndividual,
+        :Otype .
+
+:O8 a owl:NamedIndividual,
+        :Otype .
+
+:O80 a owl:NamedIndividual,
+        :Otype .
+
+:O81 a owl:NamedIndividual,
+        :Otype .
+
+:O82 a owl:NamedIndividual,
+        :Otype .
+
+:O83 a owl:NamedIndividual,
+        :Otype .
+
+:O84 a owl:NamedIndividual,
+        :Otype .
+
+:O85 a owl:NamedIndividual,
+        :Otype .
+
+:O86 a owl:NamedIndividual,
+        :Otype .
+
+:O87 a owl:NamedIndividual,
+        :Otype .
+
+:O88 a owl:NamedIndividual,
+        :Otype .
+
+:O89 a owl:NamedIndividual,
+        :Otype .
+
+:O9 a owl:NamedIndividual,
+        :Otype .
+
+:O90 a owl:NamedIndividual,
+        :Otype .
+
+:O91 a owl:NamedIndividual,
+        :Otype .
+
+:O92 a owl:NamedIndividual,
+        :Otype .
+
+:O93 a owl:NamedIndividual,
+        :Otype .
+
+:O94 a owl:NamedIndividual,
+        :Otype .
+
+:O95 a owl:NamedIndividual,
+        :Otype .
+
+:O96 a owl:NamedIndividual,
+        :Otype .
+
+:O97 a owl:NamedIndividual,
+        :Otype .
+
+:O98 a owl:NamedIndividual,
+        :Otype .
+
+:O99 a owl:NamedIndividual,
+        :Otype .
+
+:OUnknown a owl:NamedIndividual,
+        :Otype .
+
+:ecoli a owl:NamedIndividual,
+        :Microbe ;
+    rdfs:label "Escherichia coli (E. coli)"^^xsd:string ;
+    :common_name "E. coli"^^xsd:string ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :scientific_name "Escherichia coli"^^xsd:string .
+
+:bacteremia a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Bacteremia"^^xsd:string ;
+    :has_host_category :human .
+
+:bacteriuria a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Bacteriuria"^^xsd:string ;
+    :has_host_category :human .
+
+:bloody_diarrhea a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Bloody diarrhea"^^xsd:string ;
+    :has_host_category :human .
+
+:bronchoalveolar_lavage a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Bronchoalveolar lavage"^^xsd:string ;
+    :has_host_category :human .
+
+:cerebrospinal_fluid a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "cerebrospinal fluid"^^xsd:string ;
+    :has_host_category :human .
+
+:crohns a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Crohn's Disease"^^xsd:string ;
+    :has_host_category :human .
+
+:gastroenteritis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Gastroenteritis"^^xsd:string ;
+    :has_host_category :human .
+
+:gelatinous_edema a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "gelatinous edema"^^xsd:string ;
+    :has_host_category :bird .
+
+:hc a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Hemorrhagic colitis"^^xsd:string ;
+    :has_host_category :human .
+
+:hus a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Hemolytic-uremic syndrome"^^xsd:string ;
+    :has_host_category :human .
+
+:ileum a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Ileum"^^xsd:string ;
+    :has_host_category :human .
+
+:marine_sediment a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Marine sediment"^^xsd:string ;
+    :has_host_category :env .
+
+:mastitis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Mastitis"^^xsd:string ;
+    :has_host_category :mammal .
+
+:meatfood a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Meat-based food"^^xsd:string ;
+    :has_host_category :env .
+
+:meningitis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Meningitis"^^xsd:string ;
+    :has_host_category :human .
+
+:milk a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Milk"^^xsd:string ;
+    :has_host_category :mammal .
+
+:perianal a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Perianal"^^xsd:string ;
+    :has_host_category :human .
+
+:pyelonephritis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Pyelonephritis"^^xsd:string ;
+    :has_host_category :human .
+
+:soil a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Soil"^^xsd:string ;
+    :has_host_category :env .
+
+:stool a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Stool"^^xsd:string ;
+    :has_host_category :human .
+
+:uc a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Ulcerateive colitis"^^xsd:string ;
+    :has_host_category :human .
+
+:urogenital a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Urogenital system"^^xsd:string ;
+    :has_host_category :human .
+
+:uti a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Urinary tract infection (cystitis)"^^xsd:string ;
+    :has_host_category :human .
+
+:veggiefood a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Vegetable-based food"^^xsd:string ;
+    :has_host_category :env .
+
+:water a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Water"^^xsd:string ;
+    :has_host_category :env .
+
+:yolk a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Yolk"^^xsd:string ;
+    :has_host_category :bird .
+
+:acepa a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Allium cepa (onion)"^^xsd:string ;
+    :common_name "onion"^^xsd:string ;
+    :has_host_category :env ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_acepa ;
+    :scientific_name "Allium cepa"^^xsd:string .
+
+:btaurus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Bos taurus (cow)"^^xsd:string ;
+    :common_name "cow"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_btaurus ;
+    :scientific_name "Bos taurus"^^xsd:string .
+
+:caegagrus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Capra aegagrus hircus (goat)"^^xsd:string ;
+    :common_name "goat"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_caegagrus ;
+    :scientific_name "Capra aegagrus hircus"^^xsd:string .
+
+:cecum a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Cecum"^^xsd:string ;
+    :has_host_category :human,
+        :mammal .
+
+:clupus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Canis lupus familiaris (dog)"^^xsd:string ;
+    :common_name "dog"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_clupus ;
+    :scientific_name "Canis lupus familiaris"^^xsd:string .
+
+:colon a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Colon"^^xsd:string ;
+    :has_host_category :human,
+        :mammal .
+
+:eferus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Equus ferus caballus (horse)"^^xsd:string ;
+    :common_name "horse"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_eferus ;
+    :scientific_name "Equus ferus caballus"^^xsd:string .
+
+:environment a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Environmental source"^^xsd:string ;
+    :common_name "environment"^^xsd:string ;
+    :has_host_category :env ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_environment ;
+    :scientific_name "Environmental source"^^xsd:string .
+
+:fcatus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Felis catus (cat)"^^xsd:string ;
+    :common_name "cat"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_fcatus ;
+    :scientific_name "Felis catus"^^xsd:string .
+
+:feces a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Feces"^^xsd:string ;
+    :has_host_category :bird,
+        :mammal .
+
+:from_acepa a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :env ;
+    :has_object :acepa .
+
+:from_btaurus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :btaurus .
+
+:from_caegagrus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :caegagrus .
+
+:from_clupus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :clupus .
+
+:from_eferus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :eferus .
+
+:from_environment a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :env ;
+    :has_object :environment .
+
+:from_fcatus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :fcatus .
+
+:from_ggallus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :bird ;
+    :has_object :ggallus .
+
+:from_hsapiens a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :human ;
+    :has_object :hsapiens .
+
+:from_mmusculus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :mmusculus .
+
+:from_oaries a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :oaries .
+
+:from_ocuniculus a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :ocuniculus .
+
+:from_sscrofa a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :mammal ;
+    :has_object :sscrofa .
+
+:ggallus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Gallus gallus (chicken)"^^xsd:string ;
+    :common_name "chicken"^^xsd:string ;
+    :has_host_category :bird ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_ggallus ;
+    :scientific_name "Gallus gallus"^^xsd:string .
+
+:hsapiens a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Homo sapiens (human)"^^xsd:string ;
+    :common_name "human"^^xsd:string ;
+    :has_host_category :human ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_hsapiens ;
+    :scientific_name "Homo sapiens"^^xsd:string .
+
+:intestine a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Intestine"^^xsd:string ;
+    :has_host_category :human,
+        :mammal .
+
+:meat a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Meat"^^xsd:string ;
+    :has_host_category :bird,
+        :mammal .
+
+:mmusculus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Mus musculus (mouse)"^^xsd:string ;
+    :common_name "mouse"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_mmusculus ;
+    :scientific_name "Mus musculus"^^xsd:string .
+
+:oaries a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Ovis aries (sheep)"^^xsd:string ;
+    :common_name "sheep"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_oaries ;
+    :scientific_name "Ovis aries"^^xsd:string .
+
+:ocuniculus a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Oryctolagus cuniculus (rabbit)"^^xsd:string ;
+    :common_name "rabbit"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_ocuniculus ;
+    :scientific_name "Oryctolagus cuniculus"^^xsd:string .
+
+:peritonitis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Peritonitis"^^xsd:string ;
+    :has_host_category :bird,
+        :mammal .
+
+:sscrofa a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Sus scrofa (pig)"^^xsd:string ;
+    :common_name "pig"^^xsd:string ;
+    :has_host_category :mammal ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_sscrofa ;
+    :scientific_name "Sus scrofa"^^xsd:string .
+
+:urine a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Urine"^^xsd:string ;
+    :has_host_category :human,
+        :mammal .
+
+:asymptomatic a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Asymptomatic"^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
+:blood a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Blood"^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
+:diarrhea a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Diarrhea"^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
+:liver a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Liver"^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
+:pneumonia a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Pneumonia"^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
+:septicaemia a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Septicaemia"^^xsd:string,
+        "Septicaemia "^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
+:env a owl:NamedIndividual,
+        :host_category ;
+    rdfs:label "Environmental Sources"^^xsd:string ;
+    :is_host_category_of :acepa,
+        :environment,
+        :from_acepa,
+        :from_environment,
+        :marine_sediment,
+        :meatfood,
+        :soil,
+        :veggiefood,
+        :water .
+
+:bird a owl:NamedIndividual,
+        :host_category ;
+    rdfs:label "Aves"^^xsd:string ;
+    :is_host_category_of :asymptomatic,
+        :blood,
+        :diarrhea,
+        :feces,
+        :from_ggallus,
+        :gelatinous_edema,
+        :ggallus,
+        :liver,
+        :meat,
+        :peritonitis,
+        :pneumonia,
+        :septicaemia,
+        :yolk .
+
+:human a owl:NamedIndividual,
+        :host_category ;
+    rdfs:label "Human"^^xsd:string ;
+    :is_host_category_of :asymptomatic,
+        :bacteremia,
+        :bacteriuria,
+        :blood,
+        :bloody_diarrhea,
+        :bronchoalveolar_lavage,
+        :cecum,
+        :cerebrospinal_fluid,
+        :colon,
+        :crohns,
+        :diarrhea,
+        :from_hsapiens,
+        :gastroenteritis,
+        :hc,
+        :hsapiens,
+        :hus,
+        :ileum,
+        :intestine,
+        :liver,
+        :meningitis,
+        :perianal,
+        :pneumonia,
+        :pyelonephritis,
+        :septicaemia,
+        :stool,
+        :uc,
+        :urine,
+        :urogenital,
+        :uti .
+
+:mammal a owl:NamedIndividual,
+        :host_category ;
+    rdfs:label "Non-human Mammalia"^^xsd:string ;
+    :is_host_category_of :asymptomatic,
+        :blood,
+        :btaurus,
+        :caegagrus,
+        :cecum,
+        :clupus,
+        :colon,
+        :diarrhea,
+        :eferus,
+        :fcatus,
+        :feces,
+        :from_btaurus,
+        :from_caegagrus,
+        :from_clupus,
+        :from_eferus,
+        :from_fcatus,
+        :from_mmusculus,
+        :from_oaries,
+        :from_ocuniculus,
+        :from_sscrofa,
+        :intestine,
+        :liver,
+        :mastitis,
+        :meat,
+        :milk,
+        :mmusculus,
+        :oaries,
+        :ocuniculus,
+        :peritonitis,
+        :pneumonia,
+        :septicaemia,
+        :sscrofa,
+        :urine .
+

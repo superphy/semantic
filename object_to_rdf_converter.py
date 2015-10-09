@@ -8,6 +8,7 @@ TODO: strip spaces and replace with underscores for URLnames (possibly via URLen
 """
 
 from rdflib import Graph, Namespace, Literal, XSD
+import SPARQLwrapper
 
 # initialize a RDF Graph
 g = Graph()
@@ -100,23 +101,29 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
         g.add( (n[organism], n.has_genome, n[name]))
 
     if from_host is not None:
-        g.add( (n[name], n.has_isolation_attribute, n[from_host]) )
-        g.add( (n[from_host], n.is_isolation_attribute_of, n[name]) )
+        for h in from_host:
+            node = SPARQLwrapper.find_from_host(h).split("#", 1)[1]
+            g.add( (n[name], n.has_isolation_attribute, n[node]) )
+            g.add( (n[node], n.is_isolation_attribute_of, n[name]) )
 
     if from_source is not None:
-        g.add( (n[name], n.has_isolation_attribute, n[from_source]) )
-        g.add( (n[from_source], n.is_isolation_attribute_of, n[name]) )
+        for source in from_source:
+            node = SPARQLwrapper.find_source(source).split("#", 1)[1]
+            g.add( (n[name], n.has_isolation_attribute, n[node]) )
+            g.add( (n[from_source], n.is_isolation_attribute_of, n[node]) )
 
     if syndrome is not None:
-        g.add( (n[name], n.has_isolation_attribute, n[syndrome]) )
-        g.add( (n[syndrome], n.is_isolation_attribute_of, n[name]) )
+        for synd in syndrome:
+            node = SPARQLwrapper.find_syndrome(synd).split("#", 1)[1]
+            g.add( (n[name], n.has_isolation_attribute, n[node]) )
+            g.add( (n[syndrome], n.is_isolation_attribute_of, n[node]))
 
     # remember, there can be unknown serovars.
     # Htype is just ID for now
     # TODO: standardize H/O types? Make sure they ALL keep using id #'s only
-    add_Htype(Htype, name)
+    add_Htype(name, Htype)
 
-    add_Otype(Otype, name)
+    add_Otype(name, Otype)
 
     if User is not None:
         g.add( (n[name], n.is_owned_by, n[User]) )
@@ -188,6 +195,6 @@ def create_Htype(id):
     g.add( (n["H" + str(id)], rdf.type, n["Htype"]) )
 
 
-def generate_output():
-    g.serialize(destination="results.ttl",format="turtle")
+def generate_output(destination):
+    g.serialize(destination=destination,format="turtle")
 

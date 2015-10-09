@@ -3,8 +3,11 @@ __author__ = 'ubiquitin'
 import json
 import string
 import sys
-import object_to_rdf_converter
+import traceback
+
 from Bio import Entrez
+
+import object_to_rdf_converter
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -19,18 +22,23 @@ isolation_location = set()
 isolation_host = set()
 isolation_date = set()
 isolation_source = set()
+Otype = None
+Htype = None
 
 metadata = [nuccore, bioproject, biosample, syndrome, strain, serotype, isolation_location, isolation_date, isolation_host, isolation_source]
 
 
 def main():
-    with open("samples/small_pipe.json") as json_file:
+    with open("samples/meta_pipe_result.json") as json_file:
         json_data = json.load(json_file)
         i = 0
 
         for accession in json_data:
             for metadatum in metadata:
                 metadatum.clear()
+            global Otype, Htype
+            Otype = None
+            Htype = None
 
             i+=1
             print str(i) + ": downloading files"
@@ -51,10 +59,36 @@ def main():
                             for some in value:
                                 eval(item).add(value[some]["displayname"])
 
-            object_to_rdf_converter.create_pending_genome(name=name, date=isolation_date, location=isolation_location, accession=nuccore,
-                                                          bioproject=bioproject, biosample=biosample, strain=strain, organism="ecoli")
+            if serotype is not None:
+                for sero in serotype:
+                    if "ONT" in sero:
+                        global Otype
+                        Otype = None
+                    else:
+                        global Otype
+                        Otype = sero.split(":")[0][1:]
 
-    object_to_rdf_converter.generate_output()
+                    if "NM" in sero:
+                        global Htype
+                        Htype = "H-"
+                    elif "NA" in sero:
+                        global Htype
+                        Htype = "H-"
+                    else:
+                        global Htype
+                        Htype = sero.split(":")[1][1:]
+
+            try:
+                object_to_rdf_converter.create_pending_genome(name=name, date=isolation_date, location=isolation_location, accession=nuccore,
+                                                              bioproject=bioproject, biosample=biosample, strain=strain, organism="ecoli",
+                                                              from_host=isolation_host, from_source=isolation_source, syndrome=syndrome,
+                                                              Otype=Otype, Htype=Htype)
+            except Exception as e:
+                f = open("errors.txt", "a")
+                f.write(traceback.format_exc() + "\n")
+                f.write(accession + "\n" + "=======================" + "\n")
+
+    object_to_rdf_converter.generate_output("results.ttl")
 
 
 
