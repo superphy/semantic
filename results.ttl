@@ -5,60 +5,42 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-: :is_isolation_attribute_of :asymptomatic,
+: :is_isolation_attribute_of :abscess,
+        :asymptomatic,
         :bacteremia,
         :bacteriuria,
+        :bile,
         :blood,
         :bloody_diarrhea,
         :bronchoalveolar_lavage,
+        :cerebrospinal_fluid,
         :colon,
         :diarrhea,
+        :enteral_feeding_tube,
         :feces,
+        :gelatinous_edema,
         :hus,
         :intestine,
         :liver,
         :marine_sediment,
         :mastitis,
+        :meningitis,
         :milk,
+        :necrotizing_fasciitis,
+        :omphalitis,
         :perianal,
+        :peritoneal_fluid,
         :septicaemia,
         :soil,
         :stool,
+        :swollen_head_syndrome,
         :urine,
         :urogenital,
         :uti,
         :veggiefood,
         :water,
+        :wound,
         :yolk .
-
-:CP000468 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "CP000468"^^xsd:string ;
-    :has_bioproject "16718"^^xsd:string ;
-    :has_biosample "2603424"^^xsd:string ;
-    :has_strain "APEC O1"^^xsd:string,
-        "EXPEC"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:DQ381420 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "DQ381420"^^xsd:string ;
-    :has_bioproject "16718"^^xsd:string ;
-    :has_biosample "2603424"^^xsd:string ;
-    :has_strain "APEC O1"^^xsd:string,
-        "EXPEC"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:DQ517526 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "DQ517526"^^xsd:string ;
-    :has_bioproject "16718"^^xsd:string ;
-    :has_biosample "2603424"^^xsd:string ;
-    :has_strain "APEC O1"^^xsd:string,
-        "EXPEC"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:H10 :is_Htype_of :AOGL00000000 .
 
 :H12 :is_Htype_of :JFBE00000000 .
 
@@ -82,30 +64,6 @@
 
 :H9 :is_Htype_of :AAJW00000000 .
 
-:JAPK00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JAPK00000000"^^xsd:string ;
-    :has_bioproject "202022"^^xsd:string ;
-    :has_biosample "2138641"^^xsd:string ;
-    :has_strain "BIDMC 17B"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JAPS00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JAPS00000000"^^xsd:string ;
-    :has_bioproject "201973"^^xsd:string ;
-    :has_biosample "2138598"^^xsd:string ;
-    :has_strain "BWH 34"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JAPV00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JAPV00000000"^^xsd:string ;
-    :has_bioproject "202007"^^xsd:string ;
-    :has_biosample "2138626"^^xsd:string ;
-    :has_strain "BIDMC 6"^^xsd:string ;
-    :is_genome_of :ecoli .
-
 :JPQG00000000 a <http://www.biointerchange.org/gfvo#Genome>,
         owl:NamedIndividual ;
     :has_accession "JPQG00000000"^^xsd:string ;
@@ -114,86 +72,6 @@
     :has_geographic_location "Switzerland"^^xsd:string ;
     :has_isolation_date "2011-06-01"^^xsd:date ;
     :has_strain "48"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFB00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFB00000000"^^xsd:string ;
-    :has_bioproject "257951"^^xsd:string ;
-    :has_biosample "2980946"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-04-26"^^xsd:date ;
-    :has_strain "904"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFC00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFC00000000"^^xsd:string ;
-    :has_bioproject "257953"^^xsd:string ;
-    :has_biosample "2980947"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "910"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFD00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFD00000000"^^xsd:string ;
-    :has_bioproject "257954"^^xsd:string ;
-    :has_biosample "2980948"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "913"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFE00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFE00000000"^^xsd:string ;
-    :has_bioproject "257957"^^xsd:string ;
-    :has_biosample "2980963"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "929"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFF00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFF00000000"^^xsd:string ;
-    :has_bioproject "257958"^^xsd:string ;
-    :has_biosample "2980964"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "934"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFG00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFG00000000"^^xsd:string ;
-    :has_bioproject "257972"^^xsd:string ;
-    :has_biosample "2981006"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "939"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFH00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFH00000000"^^xsd:string ;
-    :has_bioproject "257973"^^xsd:string ;
-    :has_biosample "2981007"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "943"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JQFI00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JQFI00000000"^^xsd:string ;
-    :has_bioproject "257974"^^xsd:string ;
-    :has_biosample "2981032"^^xsd:string ;
-    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
-    :has_isolation_date "2007-01-01"^^xsd:date ;
-    :has_strain "947"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :O114 :is_Otype_of :ADUO00000000 .
@@ -234,6 +112,8 @@
 
 :O32 :is_Otype_of :AJQW00000000 .
 
+:O38 :is_Otype_of :AOGM00000000 .
+
 :O39 :is_Otype_of :JHHJ00000000 .
 
 :O78 :is_Otype_of :JFBE00000000 .
@@ -248,134 +128,11 @@
 
 :from_eferus :is_isolation_attribute_of :AEZS00000000 .
 
-:AJFG00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "AJFG00000000"^^xsd:string ;
-    :has_bioproject "82801"^^xsd:string ;
-    :has_biosample "2471695"^^xsd:string ;
-    :has_geographic_location "Brazil"^^xsd:string ;
-    :has_isolation_attribute :from_ggallus ;
-    :has_strain "SCI-07"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:AOGM00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "AOGM00000000"^^xsd:string ;
-    :has_bioproject "174049"^^xsd:string ;
-    :has_biosample "2471328"^^xsd:string ;
-    :has_geographic_location "Brazil"^^xsd:string ;
-    :has_isolation_attribute :from_ggallus,
-        :yolk ;
-    :has_isolation_date "1994-03-01"^^xsd:date ;
-    :has_strain "O08"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:CP003034 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "CP003034"^^xsd:string ;
-    :has_bioproject "63597"^^xsd:string ;
-    :has_biosample "2603406"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_strain "CE10"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:CP003035 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "CP003035"^^xsd:string ;
-    :has_bioproject "63597"^^xsd:string ;
-    :has_biosample "2603406"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_strain "CE10"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:CP003036 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "CP003036"^^xsd:string ;
-    :has_bioproject "63597"^^xsd:string ;
-    :has_biosample "2603406"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_strain "CE10"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:CP003037 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "CP003037"^^xsd:string ;
-    :has_bioproject "63597"^^xsd:string ;
-    :has_biosample "2603406"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_strain "CE10"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:CP003038 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "CP003038"^^xsd:string ;
-    :has_bioproject "63597"^^xsd:string ;
-    :has_biosample "2603406"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_strain "CE10"^^xsd:string ;
-    :is_genome_of :ecoli .
+:H10 :is_Htype_of :AOGL00000000,
+        :AOGM00000000 .
 
 :H14 :is_Htype_of :JHHF00000000,
         :JHNJ00000000 .
-
-:H31 :is_Htype_of :AAJU00000000,
-        :CP000247 .
-
-:JDWS00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JDWS00000000"^^xsd:string ;
-    :has_bioproject "236575"^^xsd:string ;
-    :has_biosample "2640646"^^xsd:string ;
-    :has_geographic_location "United States, Maryland"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_isolation_date "2004-01-01"^^xsd:date ;
-    :has_strain "7996-1"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JFJL00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JFJL00000000"^^xsd:string ;
-    :has_bioproject "238907"^^xsd:string ;
-    :has_biosample "2647029"^^xsd:string ;
-    :has_geographic_location "United States, Mississippi"^^xsd:string ;
-    :has_isolation_attribute :blood,
-        :from_hsapiens ;
-    :has_isolation_date "2012-08-03"^^xsd:date ;
-    :has_strain "EC2"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JFJM00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JFJM00000000"^^xsd:string ;
-    :has_bioproject "238907"^^xsd:string ;
-    :has_biosample "2647028"^^xsd:string ;
-    :has_geographic_location "United States, Mississippi"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_isolation_date "2012-08-03"^^xsd:date ;
-    :has_strain "EC1"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JMVB00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JMVB00000000"^^xsd:string ;
-    :has_bioproject "234153"^^xsd:string ;
-    :has_biosample "2581286"^^xsd:string ;
-    :has_geographic_location "United States, Massachusetts, Boston"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_isolation_date "2013-01-01"^^xsd:date ;
-    :has_strain "BIDMC 65"^^xsd:string ;
-    :is_genome_of :ecoli .
-
-:JMVP00000000 a <http://www.biointerchange.org/gfvo#Genome>,
-        owl:NamedIndividual ;
-    :has_accession "JMVP00000000"^^xsd:string ;
-    :has_bioproject "234256"^^xsd:string ;
-    :has_biosample "2581389"^^xsd:string ;
-    :has_geographic_location "United States, Massachusetts, Boston"^^xsd:string ;
-    :has_isolation_attribute :from_hsapiens ;
-    :has_isolation_date "2013-01-01"^^xsd:date ;
-    :has_strain "MGH 57"^^xsd:string ;
-    :is_genome_of :ecoli .
 
 :O127 :is_Otype_of :ASZR00000000,
         :ASZS00000000 .
@@ -10737,6 +10494,10 @@
         :CP001856,
         :JHGM00000000 .
 
+:H31 :is_Htype_of :AAJU00000000,
+        :AJFG00000000,
+        :CP000247 .
+
 :H6 :is_Htype_of :ADUL00000000,
         :ASZR00000000,
         :ASZS00000000 .
@@ -10784,6 +10545,18 @@
     :has_biosample "2138646"^^xsd:string ;
     :has_isolation_attribute :bronchoalveolar_lavage ;
     :has_strain "BIDMC 19A"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JAPK00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JAPK00000000"^^xsd:string ;
+    :has_bioproject "202022"^^xsd:string ;
+    :has_biosample "2138641"^^xsd:string ;
+    :has_isolation_attribute :peritoneal_fluid ;
+    :has_strain "BIDMC 17B"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :JAPL00000000 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -10852,6 +10625,30 @@
     :has_bioproject "201977"^^xsd:string ;
     :has_biosample "2138602"^^xsd:string ;
     :has_strain "BWH 40"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JAPS00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JAPS00000000"^^xsd:string ;
+    :has_bioproject "201973"^^xsd:string ;
+    :has_biosample "2138598"^^xsd:string ;
+    :has_isolation_attribute :wound ;
+    :has_strain "BWH 34"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JAPV00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JAPV00000000"^^xsd:string ;
+    :has_bioproject "202007"^^xsd:string ;
+    :has_biosample "2138626"^^xsd:string ;
+    :has_isolation_attribute :bile ;
+    :has_strain "BIDMC 6"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :JDRV00000000 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -13628,6 +13425,122 @@
     :has_strain "P.231"^^xsd:string ;
     :is_genome_of :ecoli .
 
+:JQFB00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFB00000000"^^xsd:string ;
+    :has_bioproject "257951"^^xsd:string ;
+    :has_biosample "2980946"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-04-26"^^xsd:date ;
+    :has_strain "904"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFC00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFC00000000"^^xsd:string ;
+    :has_bioproject "257953"^^xsd:string ;
+    :has_biosample "2980947"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "910"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFD00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFD00000000"^^xsd:string ;
+    :has_bioproject "257954"^^xsd:string ;
+    :has_biosample "2980948"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "913"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFE00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFE00000000"^^xsd:string ;
+    :has_bioproject "257957"^^xsd:string ;
+    :has_biosample "2980963"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "929"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFF00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFF00000000"^^xsd:string ;
+    :has_bioproject "257958"^^xsd:string ;
+    :has_biosample "2980964"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "934"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFG00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFG00000000"^^xsd:string ;
+    :has_bioproject "257972"^^xsd:string ;
+    :has_biosample "2981006"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "939"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFH00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFH00000000"^^xsd:string ;
+    :has_bioproject "257973"^^xsd:string ;
+    :has_biosample "2981007"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "943"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JQFI00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JQFI00000000"^^xsd:string ;
+    :has_bioproject "257974"^^xsd:string ;
+    :has_biosample "2981032"^^xsd:string ;
+    :has_geographic_location "United Kingdom, England, Nottingham"^^xsd:string ;
+    :has_isolation_attribute :enteral_feeding_tube ;
+    :has_isolation_date "2007-01-01"^^xsd:date ;
+    :has_strain "947"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:O1 :is_Otype_of :CP000468,
+        :DQ381420,
+        :DQ517526 .
+
 :O113 :is_Otype_of :AGTH00000000,
         :AOGN00000000,
         :JHOB00000000 .
@@ -13643,6 +13556,10 @@
     :has_strain "K-12"^^xsd:string,
         "MG1655"^^xsd:string ;
     :is_genome_of :ecoli .
+
+:from_mgallopavo :is_isolation_attribute_of :CP000468,
+        :DQ381420,
+        :DQ517526 .
 
 :from_mmusculus :is_isolation_attribute_of :AJWV00000000,
         :AQFX00000000,
@@ -15920,6 +15837,21 @@
     :has_isolation_attribute :from_hsapiens ;
     :has_isolation_date "2011-12-11"^^xsd:date ;
     :has_strain "EC12-0466"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:AJFG00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :H31 ;
+    :has_Otype :OUnknown ;
+    :has_accession "AJFG00000000"^^xsd:string ;
+    :has_bioproject "82801"^^xsd:string ;
+    :has_biosample "2471695"^^xsd:string ;
+    :has_geographic_location "Brazil"^^xsd:string ;
+    :has_isolation_attribute :from_ggallus,
+        :gelatinous_edema,
+        :swollen_head_syndrome ;
+    :has_strain "SCI-07"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :AJLU00000000 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -18331,6 +18263,22 @@
         :septicaemia ;
     :has_isolation_date "1994-03-01"^^xsd:date ;
     :has_strain "SEPT362"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:AOGM00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :H10 ;
+    :has_Otype :O38 ;
+    :has_accession "AOGM00000000"^^xsd:string ;
+    :has_bioproject "174049"^^xsd:string ;
+    :has_biosample "2471328"^^xsd:string ;
+    :has_geographic_location "Brazil"^^xsd:string ;
+    :has_isolation_attribute :from_ggallus,
+        :omphalitis,
+        :yolk ;
+    :has_isolation_date "1994-03-01"^^xsd:date ;
+    :has_strain "O08"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :AOGN00000000 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -25475,6 +25423,19 @@
     :has_isolation_date "2012-02-10"^^xsd:date ;
     :is_genome_of :ecoli .
 
+:CP000468 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O1 ;
+    :has_accession "CP000468"^^xsd:string ;
+    :has_bioproject "16718"^^xsd:string ;
+    :has_biosample "2603424"^^xsd:string ;
+    :has_isolation_attribute :from_mgallopavo ;
+    :has_strain "APEC O1"^^xsd:string,
+        "EXPEC"^^xsd:string ;
+    :is_genome_of :ecoli .
+
 :CP001637 a <http://www.biointerchange.org/gfvo#Genome>,
         owl:NamedIndividual,
         :pending_genome ;
@@ -25649,6 +25610,76 @@
     :has_strain "UMNK88"^^xsd:string ;
     :is_genome_of :ecoli .
 
+:CP003034 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O7 ;
+    :has_accession "CP003034"^^xsd:string ;
+    :has_bioproject "63597"^^xsd:string ;
+    :has_biosample "2603406"^^xsd:string ;
+    :has_isolation_attribute :cerebrospinal_fluid,
+        :from_hsapiens,
+        :meningitis ;
+    :has_strain "CE10"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:CP003035 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O7 ;
+    :has_accession "CP003035"^^xsd:string ;
+    :has_bioproject "63597"^^xsd:string ;
+    :has_biosample "2603406"^^xsd:string ;
+    :has_isolation_attribute :cerebrospinal_fluid,
+        :from_hsapiens,
+        :meningitis ;
+    :has_strain "CE10"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:CP003036 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O7 ;
+    :has_accession "CP003036"^^xsd:string ;
+    :has_bioproject "63597"^^xsd:string ;
+    :has_biosample "2603406"^^xsd:string ;
+    :has_isolation_attribute :cerebrospinal_fluid,
+        :from_hsapiens,
+        :meningitis ;
+    :has_strain "CE10"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:CP003037 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O7 ;
+    :has_accession "CP003037"^^xsd:string ;
+    :has_bioproject "63597"^^xsd:string ;
+    :has_biosample "2603406"^^xsd:string ;
+    :has_isolation_attribute :cerebrospinal_fluid,
+        :from_hsapiens,
+        :meningitis ;
+    :has_strain "CE10"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:CP003038 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O7 ;
+    :has_accession "CP003038"^^xsd:string ;
+    :has_bioproject "63597"^^xsd:string ;
+    :has_biosample "2603406"^^xsd:string ;
+    :has_isolation_attribute :cerebrospinal_fluid,
+        :from_hsapiens,
+        :meningitis ;
+    :has_strain "CE10"^^xsd:string ;
+    :is_genome_of :ecoli .
+
 :CP003109 a <http://www.biointerchange.org/gfvo#Genome>,
         owl:NamedIndividual,
         :pending_genome ;
@@ -25737,6 +25768,32 @@
         :urine ;
     :has_isolation_date "1974-12-01"^^xsd:date ;
     :has_strain "RM12579"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:DQ381420 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O1 ;
+    :has_accession "DQ381420"^^xsd:string ;
+    :has_bioproject "16718"^^xsd:string ;
+    :has_biosample "2603424"^^xsd:string ;
+    :has_isolation_attribute :from_mgallopavo ;
+    :has_strain "APEC O1"^^xsd:string,
+        "EXPEC"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:DQ517526 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HH- ;
+    :has_Otype :O1 ;
+    :has_accession "DQ517526"^^xsd:string ;
+    :has_bioproject "16718"^^xsd:string ;
+    :has_biosample "2603424"^^xsd:string ;
+    :has_isolation_attribute :from_mgallopavo ;
+    :has_strain "APEC O1"^^xsd:string,
+        "EXPEC"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :HQ023862 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -25985,6 +26042,21 @@
     :has_strain "11117"^^xsd:string ;
     :is_genome_of :ecoli .
 
+:JDWS00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JDWS00000000"^^xsd:string ;
+    :has_bioproject "236575"^^xsd:string ;
+    :has_biosample "2640646"^^xsd:string ;
+    :has_geographic_location "United States, Maryland"^^xsd:string ;
+    :has_isolation_attribute :from_hsapiens,
+        :perianal ;
+    :has_isolation_date "2004-01-01"^^xsd:date ;
+    :has_strain "7996-1"^^xsd:string ;
+    :is_genome_of :ecoli .
+
 :JDWT00000000 a <http://www.biointerchange.org/gfvo#Genome>,
         owl:NamedIndividual,
         :pending_genome ;
@@ -26106,6 +26178,37 @@
     :has_isolation_attribute :from_hsapiens ;
     :has_isolation_date "2013-01-01"^^xsd:date ;
     :has_strain "UCD_JA69"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JFJL00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JFJL00000000"^^xsd:string ;
+    :has_bioproject "238907"^^xsd:string ;
+    :has_biosample "2647029"^^xsd:string ;
+    :has_geographic_location "United States, Mississippi"^^xsd:string ;
+    :has_isolation_attribute :blood,
+        :from_hsapiens,
+        :necrotizing_fasciitis ;
+    :has_isolation_date "2012-08-03"^^xsd:date ;
+    :has_strain "EC2"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JFJM00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JFJM00000000"^^xsd:string ;
+    :has_bioproject "238907"^^xsd:string ;
+    :has_biosample "2647028"^^xsd:string ;
+    :has_geographic_location "United States, Mississippi"^^xsd:string ;
+    :has_isolation_attribute :from_hsapiens,
+        :necrotizing_fasciitis ;
+    :has_isolation_date "2012-08-03"^^xsd:date ;
+    :has_strain "EC1"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :JHDF00000000 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -27123,6 +27226,21 @@
     :has_strain "BIDMC 64"^^xsd:string ;
     :is_genome_of :ecoli .
 
+:JMVB00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JMVB00000000"^^xsd:string ;
+    :has_bioproject "234153"^^xsd:string ;
+    :has_biosample "2581286"^^xsd:string ;
+    :has_geographic_location "United States, Massachusetts, Boston"^^xsd:string ;
+    :has_isolation_attribute :abscess,
+        :from_hsapiens ;
+    :has_isolation_date "2013-01-01"^^xsd:date ;
+    :has_strain "BIDMC 65"^^xsd:string ;
+    :is_genome_of :ecoli .
+
 :JMVC00000000 a <http://www.biointerchange.org/gfvo#Genome>,
         owl:NamedIndividual,
         :pending_genome ;
@@ -27304,6 +27422,21 @@
     :has_isolation_attribute :from_hsapiens ;
     :has_isolation_date "2013-09-15"^^xsd:date ;
     :has_strain "CHS 77"^^xsd:string ;
+    :is_genome_of :ecoli .
+
+:JMVP00000000 a <http://www.biointerchange.org/gfvo#Genome>,
+        owl:NamedIndividual,
+        :pending_genome ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JMVP00000000"^^xsd:string ;
+    :has_bioproject "234256"^^xsd:string ;
+    :has_biosample "2581389"^^xsd:string ;
+    :has_geographic_location "United States, Massachusetts, Boston"^^xsd:string ;
+    :has_isolation_attribute :abscess,
+        :from_hsapiens ;
+    :has_isolation_date "2013-01-01"^^xsd:date ;
+    :has_strain "MGH 57"^^xsd:string ;
     :is_genome_of :ecoli .
 
 :JMVQ00000000 a <http://www.biointerchange.org/gfvo#Genome>,
@@ -30345,6 +30478,12 @@
         :JHLA00000000,
         :JHNP00000000 .
 
+:O7 :is_Otype_of :CP003034,
+        :CP003035,
+        :CP003036,
+        :CP003037,
+        :CP003038 .
+
 :from_environment :is_isolation_attribute_of :ADVA00000000,
         :JDFU00000000,
         :JDFV00000000,
@@ -30912,11 +31051,19 @@
         :AWFJ00000000,
         :AYGW00000000,
         :AZBZ00000000,
+        :CP000468,
         :CP002729,
         :CP002730,
         :CP002731,
         :CP002732,
         :CP002733,
+        :CP003034,
+        :CP003035,
+        :CP003036,
+        :CP003037,
+        :CP003038,
+        :DQ381420,
+        :DQ517526,
         :HQ023862,
         :JFGU00000000,
         :JHFB00000000,
@@ -33992,20 +34139,24 @@
         :JAPH00000000,
         :JAPI00000000,
         :JAPJ00000000,
+        :JAPK00000000,
         :JAPL00000000,
         :JAPM00000000,
         :JAPN00000000,
         :JAPP00000000,
         :JAPQ00000000,
         :JAPR00000000,
+        :JAPS00000000,
         :JAPT00000000,
         :JAPU00000000,
+        :JAPV00000000,
         :JDFU00000000,
         :JDFV00000000,
         :JDRV00000000,
         :JDVF00000000,
         :JDWQ00000000,
         :JDWR00000000,
+        :JDWS00000000,
         :JDWT00000000,
         :JDWU00000000,
         :JEMI00000000,
@@ -34017,6 +34168,8 @@
         :JFFM00000000,
         :JFFN00000000,
         :JFFO00000000,
+        :JFJL00000000,
+        :JFJM00000000,
         :JHDF00000000,
         :JHDG00000000,
         :JHDH00000000,
@@ -34089,6 +34242,7 @@
         :JMUY00000000,
         :JMUZ00000000,
         :JMVA00000000,
+        :JMVB00000000,
         :JMVC00000000,
         :JMVD00000000,
         :JMVE00000000,
@@ -34102,6 +34256,7 @@
         :JMVM00000000,
         :JMVN00000000,
         :JMVO00000000,
+        :JMVP00000000,
         :JMVQ00000000,
         :JMVR00000000,
         :JMVS00000000,
@@ -34311,6 +34466,14 @@
         :JOSS00000000,
         :JOST00000000,
         :JOSU00000000,
+        :JQFB00000000,
+        :JQFC00000000,
+        :JQFD00000000,
+        :JQFE00000000,
+        :JQFF00000000,
+        :JQFG00000000,
+        :JQFH00000000,
+        :JQFI00000000,
         :JRBB00000000,
         :JRGB00000000,
         :JRGC00000000,
@@ -34587,6 +34750,7 @@
         :AIHQ00000000,
         :AIHR00000000,
         :AIHS00000000,
+        :AJFG00000000,
         :AJGD00000000,
         :AJLU00000000,
         :AJMB00000000,
@@ -35858,20 +36022,24 @@
         :JAPH00000000,
         :JAPI00000000,
         :JAPJ00000000,
+        :JAPK00000000,
         :JAPL00000000,
         :JAPM00000000,
         :JAPN00000000,
         :JAPP00000000,
         :JAPQ00000000,
         :JAPR00000000,
+        :JAPS00000000,
         :JAPT00000000,
         :JAPU00000000,
+        :JAPV00000000,
         :JDFU00000000,
         :JDFV00000000,
         :JDRV00000000,
         :JDVF00000000,
         :JDWQ00000000,
         :JDWR00000000,
+        :JDWS00000000,
         :JDWT00000000,
         :JDWU00000000,
         :JEMI00000000,
@@ -35883,6 +36051,8 @@
         :JFFM00000000,
         :JFFN00000000,
         :JFFO00000000,
+        :JFJL00000000,
+        :JFJM00000000,
         :JHDF00000000,
         :JHDG00000000,
         :JHDH00000000,
@@ -35955,6 +36125,7 @@
         :JMUY00000000,
         :JMUZ00000000,
         :JMVA00000000,
+        :JMVB00000000,
         :JMVC00000000,
         :JMVD00000000,
         :JMVE00000000,
@@ -35968,6 +36139,7 @@
         :JMVM00000000,
         :JMVN00000000,
         :JMVO00000000,
+        :JMVP00000000,
         :JMVQ00000000,
         :JMVR00000000,
         :JMVS00000000,
@@ -36177,6 +36349,14 @@
         :JOSS00000000,
         :JOST00000000,
         :JOSU00000000,
+        :JQFB00000000,
+        :JQFC00000000,
+        :JQFD00000000,
+        :JQFE00000000,
+        :JQFF00000000,
+        :JQFG00000000,
+        :JQFH00000000,
+        :JQFI00000000,
         :JRBB00000000,
         :JRGB00000000,
         :JRGC00000000,

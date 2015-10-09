@@ -19,7 +19,9 @@ hosts = [("hsapiens", "Homo sapiens (human)", "Homo sapiens", "human", "human"),
          ("environment", "Environmental source", "Environmental source", "environment", "env"),
          ("eferus", "Equus ferus caballus (horse)", "Equus ferus caballus", "horse", "mammal"),
          ("caegagrus", "Capra aegagrus hircus (goat)", "Capra aegagrus hircus", "goat", "mammal"),
-         ("acepa", "Allium cepa (onion)", "Allium cepa", "onion", "env")]
+         ("acepa", "Allium cepa (onion)", "Allium cepa", "onion", "env"),
+         ("mgallopavo", "Meleagris gallopavo (turkey)", "Meleagris gallopavo", "turkey", "bird")
+         ]
 
 sources = [("stool", "Stool", "human"),
            ("urine", "Urine", "human"),
@@ -29,7 +31,7 @@ sources = [("stool", "Stool", "human"),
            ("intestine", "Intestine", "human"),
            ("blood", "Blood", "human"),
            ("liver", "Liver", "human"),
-           ("cerebrospinal_fluid", "cerebrospinal fluid", "human"),
+           ("cerebrospinal_fluid", "cerebrospinal_fluid", "human"),
            ("feces", "Feces", "mammal"),
            ("urine", "Urine", "mammal"),
            ("meat", "Meat", "mammal"),
@@ -52,8 +54,15 @@ sources = [("stool", "Stool", "human"),
            ("marine_sediment", "Marine sediment", "env"),
            ("bronchoalveolar_lavage", "Bronchoalveolar lavage", "human"),
            ("gelatinous_edema", "gelatinous edema", "bird"),
-           ("perianal", "Perianal", "human")
-           ()
+           ("perianal", "Perianal", "human"),
+           ("enteral_feeding_tube", "Enteral feeding tube", "human"),
+           ("wound", "wound", "human"),
+           ("wound", "wound", "mammal"),
+           ("wound", "wound", "bird"),
+           ("abscess", "abscess", "human"),
+           ("bile", "bile", "human"),
+           ("peritoneal_fluid", "Peritoneal fluid", "human"),
+           ("peritoneal_fluid", "Peritoneal fluid", "mammal"),
            ]
 
 syndromes = [("gastroenteritis", "Gastroenteritis", "human"),
@@ -82,7 +91,9 @@ syndromes = [("gastroenteritis", "Gastroenteritis", "human"),
              ("bacteremia", "Bacteremia", "human"),
              ("diarrhea", "Diarrhea", "human"),
              ("septicaemia", "Septicaemia ", "human"),
-             ("swollen_head_syndrome", "swollen head syndrome", "bird")
+             ("swollen_head_syndrome", "swollen head syndrome", "bird"),
+             ("necrotizing_fasciitis", "Necrotizing fasciitis", "human"),
+             ("omphalitis", "Omphalitis", "bird")
              ]
 
 microbes = [("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")]

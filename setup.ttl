@@ -744,6 +744,11 @@
     :has_taxonomy_id "None"^^xsd:string ;
     :scientific_name "Escherichia coli"^^xsd:string .
 
+:abscess a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "abscess"^^xsd:string ;
+    :has_host_category :human .
+
 :bacteremia a owl:NamedIndividual,
         :isolation_syndrome ;
     rdfs:label "Bacteremia"^^xsd:string ;
@@ -752,6 +757,11 @@
 :bacteriuria a owl:NamedIndividual,
         :isolation_syndrome ;
     rdfs:label "Bacteriuria"^^xsd:string ;
+    :has_host_category :human .
+
+:bile a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "bile"^^xsd:string ;
     :has_host_category :human .
 
 :bloody_diarrhea a owl:NamedIndividual,
@@ -766,12 +776,17 @@
 
 :cerebrospinal_fluid a owl:NamedIndividual,
         :isolation_from_source ;
-    rdfs:label "cerebrospinal fluid"^^xsd:string ;
+    rdfs:label "cerebrospinal_fluid"^^xsd:string ;
     :has_host_category :human .
 
 :crohns a owl:NamedIndividual,
         :isolation_syndrome ;
     rdfs:label "Crohn's Disease"^^xsd:string ;
+    :has_host_category :human .
+
+:enteral_feeding_tube a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Enteral feeding tube"^^xsd:string ;
     :has_host_category :human .
 
 :gastroenteritis a owl:NamedIndividual,
@@ -824,6 +839,16 @@
     rdfs:label "Milk"^^xsd:string ;
     :has_host_category :mammal .
 
+:necrotizing_fasciitis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Necrotizing fasciitis"^^xsd:string ;
+    :has_host_category :human .
+
+:omphalitis a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "Omphalitis"^^xsd:string ;
+    :has_host_category :bird .
+
 :perianal a owl:NamedIndividual,
         :isolation_from_source ;
     rdfs:label "Perianal"^^xsd:string ;
@@ -843,6 +868,11 @@
         :isolation_from_source ;
     rdfs:label "Stool"^^xsd:string ;
     :has_host_category :human .
+
+:swollen_head_syndrome a owl:NamedIndividual,
+        :isolation_syndrome ;
+    rdfs:label "swollen head syndrome"^^xsd:string ;
+    :has_host_category :bird .
 
 :uc a owl:NamedIndividual,
         :isolation_syndrome ;
@@ -1000,6 +1030,11 @@
     :has_host_category :human ;
     :has_object :hsapiens .
 
+:from_mgallopavo a owl:NamedIndividual,
+        :isolation_from_host ;
+    :has_host_category :bird ;
+    :has_object :mgallopavo .
+
 :from_mmusculus a owl:NamedIndividual,
         :isolation_from_host ;
     :has_host_category :mammal ;
@@ -1050,6 +1085,15 @@
     :has_host_category :bird,
         :mammal .
 
+:mgallopavo a owl:NamedIndividual,
+        :Host ;
+    rdfs:label "Meleagris gallopavo (turkey)"^^xsd:string ;
+    :common_name "turkey"^^xsd:string ;
+    :has_host_category :bird ;
+    :has_taxonomy_id "None"^^xsd:string ;
+    :is_object_of :from_mgallopavo ;
+    :scientific_name "Meleagris gallopavo"^^xsd:string .
+
 :mmusculus a owl:NamedIndividual,
         :Host ;
     rdfs:label "Mus musculus (mouse)"^^xsd:string ;
@@ -1076,6 +1120,12 @@
     :has_taxonomy_id "None"^^xsd:string ;
     :is_object_of :from_ocuniculus ;
     :scientific_name "Oryctolagus cuniculus"^^xsd:string .
+
+:peritoneal_fluid a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "Peritoneal fluid"^^xsd:string ;
+    :has_host_category :human,
+        :mammal .
 
 :peritonitis a owl:NamedIndividual,
         :isolation_syndrome ;
@@ -1141,6 +1191,13 @@
         :human,
         :mammal .
 
+:wound a owl:NamedIndividual,
+        :isolation_from_source ;
+    rdfs:label "wound"^^xsd:string ;
+    :has_host_category :bird,
+        :human,
+        :mammal .
+
 :env a owl:NamedIndividual,
         :host_category ;
     rdfs:label "Environmental Sources"^^xsd:string ;
@@ -1162,21 +1219,28 @@
         :diarrhea,
         :feces,
         :from_ggallus,
+        :from_mgallopavo,
         :gelatinous_edema,
         :ggallus,
         :liver,
         :meat,
+        :mgallopavo,
+        :omphalitis,
         :peritonitis,
         :pneumonia,
         :septicaemia,
+        :swollen_head_syndrome,
+        :wound,
         :yolk .
 
 :human a owl:NamedIndividual,
         :host_category ;
     rdfs:label "Human"^^xsd:string ;
-    :is_host_category_of :asymptomatic,
+    :is_host_category_of :abscess,
+        :asymptomatic,
         :bacteremia,
         :bacteriuria,
+        :bile,
         :blood,
         :bloody_diarrhea,
         :bronchoalveolar_lavage,
@@ -1185,6 +1249,7 @@
         :colon,
         :crohns,
         :diarrhea,
+        :enteral_feeding_tube,
         :from_hsapiens,
         :gastroenteritis,
         :hc,
@@ -1194,7 +1259,9 @@
         :intestine,
         :liver,
         :meningitis,
+        :necrotizing_fasciitis,
         :perianal,
+        :peritoneal_fluid,
         :pneumonia,
         :pyelonephritis,
         :septicaemia,
@@ -1202,7 +1269,8 @@
         :uc,
         :urine,
         :urogenital,
-        :uti .
+        :uti,
+        :wound .
 
 :mammal a owl:NamedIndividual,
         :host_category ;
@@ -1235,9 +1303,11 @@
         :mmusculus,
         :oaries,
         :ocuniculus,
+        :peritoneal_fluid,
         :peritonitis,
         :pneumonia,
         :septicaemia,
         :sscrofa,
-        :urine .
+        :urine,
+        :wound .
 

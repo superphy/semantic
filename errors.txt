@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/ubiquitin/PycharmProjects/SuperphyBlazegraphUploader/BioParserRDF.py", line 86, in main
+    Otype=Otype, Htype=Htype)
+  File "/home/ubiquitin/PycharmProjects/SuperphyBlazegraphUploader/object_to_rdf_converter.py", line 154, in create_pending_genome
+    create_genome(name, date, location, accession, bioproject, biosample, strain, organism, from_host, from_source, syndrome, Htype, Otype, User)
+  File "/home/ubiquitin/PycharmProjects/SuperphyBlazegraphUploader/object_to_rdf_converter.py", line 105, in create_genome
+    node = SPARQLwrapper.find_from_host(h).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================

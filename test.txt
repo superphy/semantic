@@ -1,0 +1,22 @@
+@prefix ns1: <https://github.com/superphy#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:ecoli a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Microbe,
+        ns1:Organism ;
+    rdfs:label "Escherichia coli (E. coli)"^^xsd:string ;
+    ns1:common_name "E. coli"^^xsd:string ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:scientific_name "Escherichia coli"^^xsd:string .
+
+ns1:hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
+    rdfs:label "Homo sapiens (human)"^^xsd:string ;
+    ns1:common_name "human"^^xsd:string ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:scientific_name "Homo sapiens"^^xsd:string .
+

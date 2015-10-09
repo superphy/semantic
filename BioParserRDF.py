@@ -32,6 +32,7 @@ def main():
     with open("samples/meta_pipe_result.json") as json_file:
         json_data = json.load(json_file)
         i = 0
+        j = 0
 
         for accession in json_data:
             for metadatum in metadata:
@@ -87,8 +88,11 @@ def main():
                 f = open("errors.txt", "a")
                 f.write(traceback.format_exc() + "\n")
                 f.write(accession + "\n" + "=======================" + "\n")
+                j+=1
+                print "Error %d occurred." %j
 
     object_to_rdf_converter.generate_output("results.ttl")
+    print "%d errors occurred" %j
 
 
 
