@@ -3,6 +3,10 @@ __author__ = 'ubiquitin'
 from rdflib import Graph, Namespace, Literal, XSD
 import superphySPARQL
 
+"""
+This module converts inputted data into RDF triples in accordance to the Superphy ontology
+"""
+
 # initialize a Graph
 g = Graph()
 
@@ -17,7 +21,13 @@ gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
 
 class NamedIndividual(object):
+    """
+    This class is an instance of an RDF object
+    """
     def __init__(self, name):
+        """
+        Create
+        """
         self.name = name
 
     def rdf(self):
@@ -31,7 +41,6 @@ class Organism(NamedIndividual):
         self.scientific_name = scientific_name
         self.common_name = common_name
         self.taxonomy_id = taxonomy_id
-
 
     def rdf(self):
         super(Organism, self).rdf()
@@ -108,7 +117,7 @@ class FromSource(IsolationAttribute):
 
 class IsolationSyndrome(IsolationAttribute):
     def __init__(self, name, label, host_category):
-        super(FromSource, self).__init__(name)
+        super(IsolationSyndrome, self).__init__(name)
         self.label = label
         self.host_category = host_category
 
@@ -236,17 +245,19 @@ def generate_output(destination):
 
 
 
-""" ================================================================================================================ """
+""" =================================================== TESTING =================================================== """
 
+
+"""
 item = Host("hsapiens", "Homo sapiens (human)", "Homo sapiens", "human", "human")
 item.rdf()
 item = Microbe("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")
 item.rdf()
 
-"""
+
 list(Htype(num).rdf()  for num in xrange(1,56))
 list(Otype(num).rdf() for num in xrange(1,187))
-"""
+
 
 genome = Genome("NC_455763", **{"date":{"2010-10-09"}, "location":{"Canada"}, "Htype":"7", "from_host":{"Homo sapiens (human)"}, "organism": "ecoli", "from_source":{"Blood"}})
 print genome.kwargs
@@ -256,3 +267,4 @@ genome.rdf()
 
 g.serialize(destination="test.txt", format="turtle")
 
+"""

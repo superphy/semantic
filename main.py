@@ -7,4 +7,3 @@ ontology_uploader.upload_all_ontologies()
 ontology_uploader.upload_ontology("results.ttl")
 
 
-

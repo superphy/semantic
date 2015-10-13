@@ -1,6 +1,6 @@
 __author__ = 'ubiquitin'
 
-import object_to_rdf_converter
+from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_output
 
 host_categories = [("human", "Human"),
                    ("mammal", "Non-human Mammalia"),
@@ -100,29 +100,30 @@ microbes = [("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli
 
 for host_category in host_categories:
     name, label = host_category
-    object_to_rdf_converter.create_host_category(name, label)
+    HostCategory(name, label).rdf()
 
 for host in hosts:
     name, label, sci_name, com_name, host_category = host
-    object_to_rdf_converter.create_host(name, host_category, label, sci_name, com_name)
+    Host(name, host_category, label, sci_name, com_name).rdf()
 
 for source in sources:
     name, label, host_category = source
-    object_to_rdf_converter.create_from_isolation_source(name, label, host_category)
+    FromSource(name, label, host_category).rdf()
 
 for syndrome in syndromes:
     name, label, host_category = syndrome
-    object_to_rdf_converter.create_isolation_syndrome(name, label, host_category)
+    IsolationSyndrome(name, label, host_category).rdf()
 
 for microbe in microbes:
     name, label, sci_name, com_name = microbe
-    object_to_rdf_converter.create_microbe(name, label, sci_name, com_name)
+    Microbe(name, label, sci_name, com_name).rdf()
 
-object_to_rdf_converter.create_Otype(n for n in xrange(1, 187))
-object_to_rdf_converter.create_Htype(n for n in xrange(1,56))
+list(Htype(num).rdf()  for num in xrange(1,56))
+Htype("Unknown").rdf()
+Htype("-").rdf()
 
-object_to_rdf_converter.create_Otype("Unknown")
-object_to_rdf_converter.create_Htype("Unknown")
-object_to_rdf_converter.create_Htype("-")
+list(Otype(num).rdf() for num in xrange(1,187))
+Otype("Unknown").rdf()
 
-object_to_rdf_converter.generate_output("setup.ttl")
+
+generate_output("setup.ttl")

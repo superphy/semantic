@@ -6,8 +6,7 @@ import sys
 import traceback
 
 from Bio import Entrez
-
-import object_to_rdf_converter
+from superphy_classes import PendingGenome, generate_output
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -80,10 +79,10 @@ def main():
                         Htype = sero.split(":")[1][1:]
 
             try:
-                object_to_rdf_converter.create_pending_genome(name=name, date=isolation_date, location=isolation_location, accession=nuccore,
-                                                              bioproject=bioproject, biosample=biosample, strain=strain, organism="ecoli",
-                                                              from_host=isolation_host, from_source=isolation_source, syndrome=syndrome,
-                                                              Otype=Otype, Htype=Htype)
+                PendingGenome(name, **{ "date": isolation_date, "location": isolation_location, "accession": nuccore,
+                                      "bioproject": bioproject, "biosample": biosample, "strain": strain,
+                                      "organism": "ecoli","from_host": isolation_host, "from_source": isolation_source,
+                                      "syndrome": syndrome,"Otype": Otype, "Htype": Htype})
             except Exception as e:
                 f = open("errors.txt", "a")
                 f.write(traceback.format_exc() + "\n")
@@ -91,7 +90,7 @@ def main():
                 j+=1
                 print "Error %d occurred." %j
 
-    object_to_rdf_converter.generate_output("results.ttl")
+    generate_output("results.ttl")
     print "%d errors occurred" %j
 
 
