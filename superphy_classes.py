@@ -1,7 +1,7 @@
 __author__ = 'ubiquitin'
 
 from rdflib import Graph, Namespace, Literal, XSD
-import superphySPARQL
+import superphy_SPARQL
 
 """
 This module converts inputted data into RDF triples in accordance to the Superphy ontology
@@ -18,6 +18,9 @@ xml = Namespace("http://www.w3.org/XML/1998/namespace")
 xsd = Namespace("http://www.w3.org/2001/XMLSchema#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
+
+g.bind("","https://github.com/superphy#")
+
 
 
 class NamedIndividual(object):
@@ -171,22 +174,34 @@ class Genome(NamedIndividual):
             getattr(self, key)(value)
 
     def date(self, date):
-        [g.add( (n[self.name], n.has_isolation_date, Literal(item, datatype = XSD.date)) ) for item in date]
+        for item in date:
+            literal = Literal(item, datatype = XSD.date)
+            g.add( (n[self.name], n.has_isolation_date, literal) )
 
     def location(self, location):
-        [g.add( (n[self.name], n.has_geographic_location, Literal(item, datatype = XSD.string)) ) for item in location]
+        for item in location:
+            literal = Literal(item, datatype = XSD.string)
+            g.add( (n[self.name], n.has_geographic_location, literal) )
 
     def accession(self, accession):
-        [g.add( (n[self.name], n.has_accession, Literal(item, datatype = XSD.string)) ) for item in accession]
+        for item in accession:
+            literal = Literal(item, datatype = XSD.string)
+            g.add( (n[self.name], n.has_accession, literal) )
 
     def bioproject(self, bioproject):
-        [g.add( (n[self.name], n.has_bioproject, Literal(item, datatype = XSD.string)) ) for item in bioproject]
+        for item in bioproject:
+            literal = Literal(item, datatype = XSD.string)
+            g.add( (n[self.name], n.has_bioproject, literal) )
 
     def biosample(self, biosample):
-        [g.add( (n[self.name], n.has_biosample, Literal(item, datatype = XSD.string)) ) for item in biosample]
+        for item in biosample:
+            literal = Literal(item, datatype = XSD.string)
+            g.add( (n[self.name], n.has_biosample, literal) )
 
     def strain(self, strain):
-        [g.add( (n[self.name], n.has_strain, Literal(item, datatype = XSD.string)) ) for item in strain]
+        for item in strain:
+            literal = Literal(item, datatype = XSD.string)
+            g.add( (n[self.name], n.has_strain, literal) )
 
     def organism(self, organism):
         g.add( (n[self.name], n.is_genome_of, n[organism]))
@@ -194,19 +209,19 @@ class Genome(NamedIndividual):
 
     def from_host(self, from_host):
         for item in from_host:
-            node = superphySPARQL.find_from_host(item).split("#", 1)[1]
+            node = superphy_SPARQL.find_from_host(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
     def from_source(self, from_source):
         for item in from_source:
-            node = superphySPARQL.find_source(item).split("#", 1)[1]
+            node = superphy_SPARQL.find_source(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
     def syndrome(self, syndrome):
         for item in syndrome:
-            node = superphySPARQL.find_syndrome(item).split("#", 1)[1]
+            node = superphy_SPARQL.find_syndrome(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -247,7 +262,6 @@ def generate_output(destination):
 
 """ =================================================== TESTING =================================================== """
 
-
 """
 item = Host("hsapiens", "Homo sapiens (human)", "Homo sapiens", "human", "human")
 item.rdf()
@@ -266,5 +280,4 @@ genome.rdf()
 
 
 g.serialize(destination="test.txt", format="turtle")
-
 """

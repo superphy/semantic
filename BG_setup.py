@@ -118,11 +118,13 @@ for microbe in microbes:
     name, label, sci_name, com_name = microbe
     Microbe(name, label, sci_name, com_name).rdf()
 
-list(Htype(num).rdf()  for num in xrange(1,56))
+for num in range(1,56):
+    Htype(num).rdf()
 Htype("Unknown").rdf()
 Htype("-").rdf()
 
-list(Otype(num).rdf() for num in xrange(1,187))
+for num in range(1,187):
+    Otype(num).rdf()
 Otype("Unknown").rdf()
 
 
