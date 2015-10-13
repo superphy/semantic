@@ -4,11 +4,18 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+ns1:H7 ns1:is_Htype_of ns1:NC_455763 .
+
+ns1:OUnknown ns1:is_Otype_of ns1:NC_455763 .
+
+ns1:blood ns1:is_isolation_attribute_of ns1:NC_455763 .
+
 ns1:ecoli a <http://www.w3.org/2002/07/owl#NamedIndividual>,
         ns1:Microbe,
         ns1:Organism ;
     rdfs:label "Escherichia coli (E. coli)"^^xsd:string ;
     ns1:common_name "E. coli"^^xsd:string ;
+    ns1:has_genome ns1:NC_455763 ;
     ns1:has_taxonomy_id "None"^^xsd:string ;
     ns1:scientific_name "Escherichia coli"^^xsd:string .
 
@@ -17,6 +24,28 @@ ns1:hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
         ns1:Organism ;
     rdfs:label "Homo sapiens (human)"^^xsd:string ;
     ns1:common_name "human"^^xsd:string ;
+    ns1:has_host_category ns1:human ;
     ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_hsapiens ;
     ns1:scientific_name "Homo sapiens"^^xsd:string .
+
+ns1:human ns1:is_host_category_of ns1:from_hsapiens,
+        ns1:hsapiens .
+
+ns1:from_hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:human ;
+    ns1:has_object ns1:hsapiens ;
+    ns1:is_isolation_attribute_of ns1:NC_455763 .
+
+ns1:NC_455763 a <http://www.w3.org/2002/07/owl#NamedIndividual> ;
+    ns1:has_Htype ns1:H7 ;
+    ns1:has_Otype ns1:OUnknown ;
+    ns1:has_geographic_location "Canada"^^xsd:string ;
+    ns1:has_isolation_attribute ns1:blood,
+        ns1:from_hsapiens ;
+    ns1:has_isolation_date "2010-10-09"^^xsd:date ;
+    ns1:is_genome_of ns1:ecoli .
 

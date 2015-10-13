@@ -118,10 +118,8 @@ for microbe in microbes:
     name, label, sci_name, com_name = microbe
     object_to_rdf_converter.create_microbe(name, label, sci_name, com_name)
 
-for n in range(1, 187):
-    object_to_rdf_converter.create_Otype(n)
-for n in range(1, 56):
-    object_to_rdf_converter.create_Htype(n)
+object_to_rdf_converter.create_Otype(n for n in xrange(1, 187))
+object_to_rdf_converter.create_Htype(n for n in xrange(1,56))
 
 object_to_rdf_converter.create_Otype("Unknown")
 object_to_rdf_converter.create_Htype("Unknown")

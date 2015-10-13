@@ -8,7 +8,7 @@ TODO: strip spaces and replace with underscores for URLnames (possibly via URLen
 """
 
 from rdflib import Graph, Namespace, Literal, XSD
-import SPARQLwrapper
+import superphySPARQL
 
 # initialize a RDF Graph
 g = Graph()
@@ -102,19 +102,19 @@ def create_genome(name, date = None, location = None, accession = None, bioproje
 
     if from_host is not None:
         for h in from_host:
-            node = SPARQLwrapper.find_from_host(h).split("#", 1)[1]
+            node = superphySPARQL.find_from_host(h).split("#", 1)[1]
             g.add( (n[name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[name]) )
 
     if from_source is not None:
         for source in from_source:
-            node = SPARQLwrapper.find_source(source).split("#", 1)[1]
+            node = superphySPARQL.find_source(source).split("#", 1)[1]
             g.add( (n[name], n.has_isolation_attribute, n[node]) )
             g.add( (n[from_source], n.is_isolation_attribute_of, n[node]) )
 
     if syndrome is not None:
         for synd in syndrome:
-            node = SPARQLwrapper.find_syndrome(synd).split("#", 1)[1]
+            node = superphySPARQL.find_syndrome(synd).split("#", 1)[1]
             g.add( (n[name], n.has_isolation_attribute, n[node]) )
             g.add( (n[syndrome], n.is_isolation_attribute_of, n[node]))
 
