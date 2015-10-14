@@ -28,7 +28,7 @@ metadata = [nuccore, bioproject, biosample, syndrome, strain, serotype, isolatio
 
 
 def main():
-    with open("samples/meta_pipe_result.json") as json_file:
+    with open("samples/small_pipe.json") as json_file:
         json_data = json.load(json_file)
         i = 0
         j = 0

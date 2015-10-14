@@ -16,14 +16,16 @@
 
 :O83 :is_Otype_of :CP001855 .
 
-:feces :is_isolation_attribute_of :BA000007 .
-
 :intestine :is_isolation_attribute_of :ADTX00000000 .
-
-:stool :is_isolation_attribute_of :BA000007 .
 
 :H4 :is_Htype_of :AMVV00000000,
         :JHNV00000000 .
+
+:feces :is_isolation_attribute_of :BA000007,
+        :JPQG00000000 .
+
+:stool :is_isolation_attribute_of :BA000007,
+        :JPQG00000000 .
 
 :AMVC00000000 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
         :pending_genome ;
@@ -95,15 +97,13 @@
     :has_strain "KTE59"^^xsd:string ;
     :is_genome_of :ecoli .
 
-:HUnknown :is_Htype_of :ADTX00000000,
-        :AMVC00000000,
-        :ANVW00000000,
-        :BA000007 .
-
-:OUnknown :is_Otype_of :ADTX00000000,
-        :AMVC00000000,
-        :ANVW00000000,
-        :BA000007 .
+:JPQG00000000 a <http://www.w3.org/2002/07/owl#NamedIndividual> ;
+    :has_Htype :HUnknown ;
+    :has_Otype :OUnknown ;
+    :has_accession "JPQG00000000"^^xsd:string ;
+    :has_isolation_attribute :feces,
+        :stool ;
+    :has_strain "48"^^xsd:string .
 
 :ADTX00000000 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
         :pending_genome ;
@@ -128,6 +128,18 @@
     :has_isolation_attribute :feces,
         :stool ;
     :is_genome_of :ecoli .
+
+:HUnknown :is_Htype_of :ADTX00000000,
+        :AMVC00000000,
+        :ANVW00000000,
+        :BA000007,
+        :JPQG00000000 .
+
+:OUnknown :is_Otype_of :ADTX00000000,
+        :AMVC00000000,
+        :ANVW00000000,
+        :BA000007,
+        :JPQG00000000 .
 
 :ecoli :has_genome :ADTX00000000,
         :AMVC00000000,

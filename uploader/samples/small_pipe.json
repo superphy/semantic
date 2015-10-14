@@ -195,5 +195,58 @@
                 "meta_term": "isolation_host"
             }
         ]
+    },
+      "JPQG00000000": {
+        "isolation_location": [
+            {
+                "value": "Switzerland",
+                "displayname": "Switzerland",
+                "meta_term": "isolation_location"
+            }
+        ],
+        "isolation_date": [
+            {
+                "value": "2011-06-01",
+                "meta_term": "isolation_date",
+                "displayname": "2011-06-01"
+            }
+        ],
+        "strain": [
+            {
+                "priority": 1,
+                "displayname": "48",
+                "meta_term": "strain",
+                "value": "48"
+            }
+        ],
+        "isolation_source": [
+            {
+                "1": {
+                    "id": 1,
+                    "meta_term": "isolation_source",
+                    "displayname": "Stool"
+                },
+                "2": {
+                    "displayname": "Feces",
+                    "meta_term": "isolation_source",
+                    "id": 11
+                },
+                "3": {
+                    "displayname": "Feces",
+                    "meta_term": "isolation_source",
+                    "id": 18
+                }
+            }
+        ],
+        "isolation_host": [
+            {
+                "meta_term": "isolation_host",
+                "name": "Odocoileus sp. (deer)",
+                "displayname": "Odocoileus sp. (deer)",
+                "category": 2,
+                "id": null
+            }
+        ],
+        "serotype": []
     }
 }

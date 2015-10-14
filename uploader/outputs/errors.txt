@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/miner_JSON.py", line 86, in main
+    PendingGenome(name, **kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 255, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 179, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 217, in from_host
+    node = superphy_SPARQL.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
