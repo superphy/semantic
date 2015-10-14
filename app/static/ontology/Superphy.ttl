@@ -20,6 +20,52 @@
 
 #################################################################
 #
+#    Annotation properties
+#
+#################################################################
+
+
+###  https://github.com/superphy#commonname
+
+:commonname rdf:type owl:AnnotationProperty ;
+            
+            rdfs:subPropertyOf :name .
+
+
+
+###  https://github.com/superphy#name
+
+:name rdf:type owl:AnnotationProperty .
+
+
+
+###  https://github.com/superphy#scientificname
+
+:scientificname rdf:type owl:AnnotationProperty ;
+                
+                rdfs:subPropertyOf :name .
+
+
+
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+
+xsd:date rdf:type rdfs:Datatype .
+
+
+
+
+
+#################################################################
+#
 #    Object Properties
 #
 #################################################################
@@ -378,7 +424,7 @@
                                                                                        ]
                                                                                        [ rdf:type owl:Restriction ;
                                                                                          owl:onProperty :has_isolation_date ;
-                                                                                         owl:someValuesFrom xsd:dateTime
+                                                                                         owl:someValuesFrom xsd:date
                                                                                        ]
                                                                                        [ rdf:type owl:Restriction ;
                                                                                          owl:onProperty :has_strain ;
@@ -409,12 +455,10 @@
                                                    owl:onProperty :is_object_of ;
                                                    owl:someValuesFrom :isolation_from_host
                                                  ]
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty :is_object_of ;
-                                                   owl:someValuesFrom :isolation_syndrome
-                                                 ]
                                                )
-                          ] .
+                          ] ;
+      
+      rdfs:subClassOf :Organism .
 
 
 
@@ -430,6 +474,8 @@
                                                   ]
                                                 )
                            ] ;
+       
+       rdfs:subClassOf :serotype ;
        
        owl:disjointWith :Otype .
 
@@ -473,7 +519,9 @@
                                                     owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
                                                   ]
                                                 )
-                           ] .
+                           ] ;
+       
+       rdfs:subClassOf :serotype .
 
 
 
@@ -506,8 +554,22 @@
                                                             owl:onProperty :is_host_category_of ;
                                                             owl:someValuesFrom :Host
                                                           ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :is_host_category_of ;
+                                                            owl:someValuesFrom :isolation_from_host
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :is_host_category_of ;
+                                                            owl:someValuesFrom :isolation_from_source
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :is_host_category_of ;
+                                                            owl:someValuesFrom :isolation_syndrome
+                                                          ]
                                                         )
-                                   ] .
+                                   ] ;
+               
+               rdfs:subClassOf :Attribute .
 
 
 
@@ -522,7 +584,9 @@
                                                                   owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
                                                                 ]
                                                               )
-                                         ] .
+                                         ] ;
+                     
+                     rdfs:subClassOf :Attribute .
 
 
 
@@ -533,17 +597,32 @@
                      owl:equivalentClass [ rdf:type owl:Class ;
                                            owl:intersectionOf ( :isolation_attribute
                                                                 [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :has_host_category ;
+                                                                  owl:someValuesFrom :host_category
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
                                                                   owl:onProperty :has_object ;
                                                                   owl:someValuesFrom :Host
                                                                 ]
                                                               )
-                                         ] .
+                                         ] ;
+                     
+                     rdfs:subClassOf :isolation_attribute .
 
 
 
 ###  https://github.com/superphy#isolation_from_source
 
 :isolation_from_source rdf:type owl:Class ;
+                       
+                       owl:equivalentClass [ rdf:type owl:Class ;
+                                             owl:intersectionOf ( :isolation_attribute
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty :has_host_category ;
+                                                                    owl:someValuesFrom :host_category
+                                                                  ]
+                                                                )
+                                           ] ;
                        
                        rdfs:subClassOf :isolation_attribute .
 
@@ -556,11 +635,13 @@
                     owl:equivalentClass [ rdf:type owl:Class ;
                                           owl:intersectionOf ( :isolation_attribute
                                                                [ rdf:type owl:Restriction ;
-                                                                 owl:onProperty :has_object ;
-                                                                 owl:someValuesFrom :Host
+                                                                 owl:onProperty :has_host_category ;
+                                                                 owl:someValuesFrom :host_category
                                                                ]
                                                              )
-                                        ] .
+                                        ] ;
+                    
+                    rdfs:subClassOf :isolation_attribute .
 
 
 
@@ -577,6 +658,7 @@
 :serotype rdf:type owl:Class ;
           
           rdfs:subClassOf :Attribute .
+
 
 
 
