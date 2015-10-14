@@ -26,7 +26,6 @@ Htype = None
 
 metadata = [nuccore, bioproject, biosample, syndrome, strain, serotype, isolation_location, isolation_date, isolation_host, isolation_source]
 
-
 def main():
     with open("samples/small_pipe.json") as json_file:
         json_data = json.load(json_file)

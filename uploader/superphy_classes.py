@@ -86,6 +86,32 @@ class NamedIndividual(object):
         g.add( (n[self.name], rdf.type, owl.NamedIndividual) )
 
 
+class User(NamedIndividual):
+    """
+    This class is created when a new user is registered.
+    """
+
+    def __init__(self, email):
+        """
+        Create a new User with associated metadata
+
+        Args:
+            email (str): is both the individual name, and the only field literal
+        """
+
+        super(User,self).__init__(email)
+        self.email = email
+
+    def rdf(self):
+        """
+        Convert User metadata into RDF
+        """
+
+        super(User, self).rdf()
+        g.add( (n[self.name], rdf.type, n.User) )
+        g.add( (n[self.name], n.email, Literal(str(self.email), datatype = XSD.string)))
+
+
 class Organism(NamedIndividual):
     """
     A organism
