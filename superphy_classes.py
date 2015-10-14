@@ -2,6 +2,9 @@ __author__ = 'ubiquitin'
 
 from rdflib import Graph, Namespace, Literal, XSD
 import superphy_SPARQL
+import sys
+
+
 
 """
 This module converts inputted data into RDF triples in accordance to the Superphy ontology
@@ -21,7 +24,9 @@ gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
 g.bind("","https://github.com/superphy#")
 
-
+# allowing for unicode
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 class NamedIndividual(object):
     """
@@ -268,16 +273,16 @@ item.rdf()
 item = Microbe("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")
 item.rdf()
 
-
 list(Htype(num).rdf()  for num in xrange(1,56))
 list(Otype(num).rdf() for num in xrange(1,187))
 
-
-genome = Genome("NC_455763", **{"date":{"2010-10-09"}, "location":{"Canada"}, "Htype":"7", "from_host":{"Homo sapiens (human)"}, "organism": "ecoli", "from_source":{"Blood"}})
+genome = PendingGenome("NC_455763", **{"date":{"2010-10-09"}, "location":{"Canada"}, "Htype":"7", "from_host":{"Homo sapiens (human)"}, "organism": "ecoli", "from_source":{"Blood"}})
 print genome.kwargs
 genome.rdf()
 
+kwargs = {'from_source': set([]), 'accession': set(['CP001855']), 'strain': set([u'NRG 857C']), 'Otype': u'83', 'bioproject': set(['41221']), 'date': set([]), 'syndrome': set([]), 'from_host': set([]), 'location': set([]), 'Htype': u'1', 'organism': 'ecoli', 'biosample': set(['2603727'])}
+PendingGenome("CP001855", **kwargs).rdf()
 
+g.serialize(destination="outputs/test.txt", format="turtle")
 
-g.serialize(destination="test.txt", format="turtle")
 """

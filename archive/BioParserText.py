@@ -7,7 +7,7 @@ import sys
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
-f = open("parseResult.txt", "w")
+f = open("outputs/parseResult.txt", "w")
 
 """
 syndrome

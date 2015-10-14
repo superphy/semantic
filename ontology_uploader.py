@@ -9,7 +9,7 @@ def upload_all_ontologies():
     faldo = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/faldo.ttl')
     gfvo = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/gfvo.xml')
     Superphy = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/Superphy.ttl')
-    setup = "file:" + os.path.join(os.path.dirname(__file__), 'setup.ttl')
+    setup = "file:" + os.path.join(os.path.dirname(__file__), 'outputs/setup.ttl')
 
 
     ontologies = {faldo, gfvo, Superphy, setup}

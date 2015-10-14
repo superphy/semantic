@@ -79,18 +79,19 @@ def main():
                         Htype = sero.split(":")[1][1:]
 
             try:
-                PendingGenome(name, **{ "date": isolation_date, "location": isolation_location, "accession": nuccore,
-                                      "bioproject": bioproject, "biosample": biosample, "strain": strain,
-                                      "organism": "ecoli","from_host": isolation_host, "from_source": isolation_source,
-                                      "syndrome": syndrome,"Otype": Otype, "Htype": Htype})
+                kwargs = {"date": isolation_date, "location": isolation_location, "accession": nuccore,
+                          "bioproject": bioproject, "biosample": biosample, "strain": strain, "organism": "ecoli",
+                          "from_host": isolation_host, "from_source": isolation_source, "syndrome": syndrome,
+                          "Otype": Otype, "Htype": Htype}
+                PendingGenome(name, **kwargs).rdf()
             except Exception as e:
-                f = open("errors.txt", "a")
+                f = open("outputs/errors.txt", "a")
                 f.write(traceback.format_exc() + "\n")
                 f.write(accession + "\n" + "=======================" + "\n")
                 j+=1
                 print "Error %d occurred." %j
 
-    generate_output("results.ttl")
+    generate_output("outputs/results.ttl")
     print "%d errors occurred" %j
 
 
