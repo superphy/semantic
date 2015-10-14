@@ -1,0 +1,22 @@
+@prefix : <https://github.com/superphy#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:H1 :is_Htype_of :CP001855 .
+
+:O83 :is_Otype_of :CP001855 .
+
+:ecoli :has_genome :CP001855 .
+
+:CP001855 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :pending_genome ;
+    :has_Htype :H1 ;
+    :has_Otype :O83 ;
+    :has_accession "CP001855"^^xsd:string ;
+    :has_bioproject "41221"^^xsd:string ;
+    :has_biosample "2603727"^^xsd:string ;
+    :has_strain "NRG 857C"^^xsd:string ;
+    :is_genome_of :ecoli .
+
