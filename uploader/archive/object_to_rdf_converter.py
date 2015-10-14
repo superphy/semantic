@@ -1,4 +1,4 @@
-__author__ = 'ubiquitin'
+__author__ = 'Stephen Kan'
 
 """
 NOTE: when creating objects that require the creation of reciprocal objects, always pair the g.add functions together

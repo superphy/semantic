@@ -1,4 +1,4 @@
-__author__ = 'ubiquitin'
+__author__ = 'Stephen Kan'
 
 
 from SPARQLWrapper import SPARQLWrapper, JSON

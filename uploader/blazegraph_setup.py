@@ -1,4 +1,4 @@
-__author__ = 'ubiquitin'
+__author__ = 'Stephen Kan'
 
 from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_output
 import json
