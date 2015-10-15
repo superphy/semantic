@@ -1,0 +1,55 @@
+#!/bin/bash
+
+chmod a+x *.py
+
+if ! find venv/bin/pip | read v; then
+	echo Setting up Virtual Environment
+	virtualenv venv &> /dev/null
+	venv/bin/pip install requirements/* &> /dev/null
+	venv/bin/pip install ForgeryPy &> /dev/null
+	venv/bin/pip install Pygments &> /dev/null
+	venv/bin/pip install colorama &> /dev/null
+	venv/bin/pip install coverage &> /dev/null
+	venv/bin/pip install httpie &> /dev/null
+	venv/bin/pip install requests &> /dev/null
+	venv/bin/pip install requests[security] &> /dev/null
+	venv/bin/pip install flask &> /dev/null
+	venv/bin/pip install Flask-Bootstrap &> /dev/null
+	venv/bin/pip install Flask-HTTPAuth &> /dev/null
+	venv/bin/pip install Flask-Login &> /dev/null
+	venv/bin/pip install Flask-Mail &> /dev/null
+	venv/bin/pip install Flask-Migrate &> /dev/null
+	venv/bin/pip install Flask-Moment &> /dev/null
+	venv/bin/pip install Flask-PageDown &> /dev/null
+	venv/bin/pip install Flask-SQLAlchemy &> /dev/null
+	venv/bin/pip install Flask-Script &> /dev/null
+	venv/bin/pip install Flask-WTF &> /dev/null
+	venv/bin/pip install Jinja2 &> /dev/null
+	venv/bin/pip install Mako &> /dev/null
+	venv/bin/pip install Markdown &> /dev/null
+	venv/bin/pip install MarkupSafe &> /dev/null
+	venv/bin/pip install SQLAlchemy &> /dev/null
+	venv/bin/pip install WTForms &> /dev/null
+	venv/bin/pip install Werkzeug &> /dev/null
+	venv/bin/pip install alembic &> /dev/null
+	venv/bin/pip install bleach &> /dev/null
+	venv/bin/pip install blinker &> /dev/null
+	venv/bin/pip install html5lib &> /dev/null
+	venv/bin/pip install itsdangerous &> /dev/null
+	venv/bin/pip install six &> /dev/null
+fi
+
+mkdir db &> /dev/null
+if ! find db/bigdata-bundled.jar | read v; then
+	echo Downloading Blazegraph jar file...
+	cd db;
+	wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
+	cd ..;
+fi
+
+if ! find data-dev.sqlite | read v; then
+	echo Setting up SQL server
+	./manage.py db upgrade &> /dev/null
+fi
+
+echo finished! """} './manage.py' runserver """ to run the server

@@ -1,0 +1,15 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Log In</h1>
+    <form action="" method="post" name="login">
+        {{ form.hidden_tag() }}
+            Please fill the form below to log in:<br>
+            Email:      {{ form.email }} <br>
+            Password:   {{ form.password }} <br>
+        {{ form.remember_me }} Remember Me</p>
+        <input type="submit" value="Sign In">
+    </form>
+
+{% endblock %}

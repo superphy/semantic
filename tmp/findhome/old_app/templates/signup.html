@@ -1,0 +1,18 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sign Up</h1>
+    <form action="" method="post" name="signup">
+        {{ form.hidden_tag() }}
+            Please fill the form below to sign up:<br>
+            Email:      {{ form.email }} <br>
+            Password:   {{ form.password }} <br>
+            First Name {{ form.first_name }} (optional) <br>
+            Last Name {{ form.last_name }} (optional) <br>
+            Organization: {{ form.org }} (optional) <br> 
+        {{ form.remember_me }} Remember Me</p>
+        <input type="submit" value="Sign In">
+    </form>
+
+{% endblock %}
