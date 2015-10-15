@@ -3,6 +3,8 @@
 #Graph Database
 db
 
+
+
 #Debugging email log
 email.log
 
@@ -48,4 +50,9 @@ nosetests.xml
 *.sqlite
 
 # Virtual environment
-venv
+venv/*
+!venv/lib
+venv/lib/*
+!venv/lib/python2.7
+venv/lib/python2.7/*
+!venv/lib/python2.7/superphy
