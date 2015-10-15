@@ -3,6 +3,7 @@ from flask import current_app, render_template
 from flask.ext.mail import Message
 from . import mail
 
+import re #Temp For debugging, not for production
 
 def send_async_email(app, msg):
     with app.app_context():
@@ -15,6 +16,19 @@ def send_email(to, subject, template, **kwargs):
                   sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
     msg.body = render_template(template + '.txt', **kwargs)
     msg.html = render_template(template + '.html', **kwargs)
+
+    #Temp For debugging, not for production
+    searchObj = re.search( r'(?<=href=")[^"]*(?=")', str(msg), re.M|re.I)
+    f=open('email.log', 'a')
+    f.write(to)
+    f.write("\n")
+    f.write(searchObj.group())
+    f.write("\n")
+    f.write("*******")
+    f.write("\n")
+    f.close()
+    #/Temp
+
     thr = Thread(target=send_async_email, args=[app, msg])
     thr.start()
     return thr

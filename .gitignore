@@ -3,6 +3,9 @@
 #Graph Database
 db
 
+#Debugging email log
+email.log
+
 #######################
 *.py[cod]
 
