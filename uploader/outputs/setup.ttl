@@ -1232,131 +1232,227 @@
     :has_taxonomy_id "None"^^xsd:string ;
     :scientific_name "Escherichia coli"^^xsd:string .
 
-:abscess a :isolation_from_source ;
+:abscess a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "abscess"^^xsd:string ;
     :has_host_category :human .
 
-:bacteremia a :isolation_syndrome ;
+:bacteremia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Bacteremia"^^xsd:string ;
     :has_host_category :human .
 
-:bacteriuria a :isolation_syndrome ;
+:bacteriuria a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Bacteriuria"^^xsd:string ;
     :has_host_category :human .
 
-:bile a :isolation_from_source ;
+:bile a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "bile"^^xsd:string ;
     :has_host_category :human .
 
-:bloody_diarrhea a :isolation_syndrome ;
+:bloody_diarrhea a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Bloody diarrhea"^^xsd:string ;
     :has_host_category :human .
 
-:bronchoalveolar_lavage a :isolation_from_source ;
+:bronchoalveolar_lavage a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Bronchoalveolar lavage"^^xsd:string ;
     :has_host_category :human .
 
-:cerebrospinal_fluid a :isolation_from_source ;
+:cerebrospinal_fluid a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "cerebrospinal_fluid"^^xsd:string ;
     :has_host_category :human .
 
-:crohns a :isolation_syndrome ;
+:crohns a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Crohn's Disease"^^xsd:string ;
     :has_host_category :human .
 
-:enteral_feeding_tube a :isolation_from_source ;
+:enteral_feeding_tube a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Enteral feeding tube"^^xsd:string ;
     :has_host_category :human .
 
-:gastroenteritis a :isolation_syndrome ;
+:gastroenteritis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Gastroenteritis"^^xsd:string ;
     :has_host_category :human .
 
-:gelatinous_edema a :isolation_from_source ;
+:gelatinous_edema a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "gelatinous edema"^^xsd:string ;
     :has_host_category :bird .
 
-:hc a :isolation_syndrome ;
+:hc a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Hemorrhagic colitis"^^xsd:string ;
     :has_host_category :human .
 
-:hus a :isolation_syndrome ;
+:hus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Hemolytic-uremic syndrome"^^xsd:string ;
     :has_host_category :human .
 
-:ileum a :isolation_from_source ;
+:ileum a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Ileum"^^xsd:string ;
     :has_host_category :human .
 
-:marine_sediment a :isolation_from_source ;
+:marine_sediment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Marine sediment"^^xsd:string ;
     :has_host_category :env .
 
-:mastitis a :isolation_syndrome ;
+:mastitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Mastitis"^^xsd:string ;
     :has_host_category :mammal .
 
-:meatfood a :isolation_from_source ;
+:meatfood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Meat-based food"^^xsd:string ;
     :has_host_category :env .
 
-:meningitis a :isolation_syndrome ;
+:meningitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Meningitis"^^xsd:string ;
     :has_host_category :human .
 
-:milk a :isolation_from_source ;
+:milk a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Milk"^^xsd:string ;
     :has_host_category :mammal .
 
-:necrotizing_fasciitis a :isolation_syndrome ;
+:necrotizing_fasciitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Necrotizing fasciitis"^^xsd:string ;
     :has_host_category :human .
 
-:omphalitis a :isolation_syndrome ;
+:omphalitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Omphalitis"^^xsd:string ;
     :has_host_category :bird .
 
-:perianal a :isolation_from_source ;
+:perianal a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Perianal"^^xsd:string ;
     :has_host_category :human .
 
-:pyelonephritis a :isolation_syndrome ;
+:pyelonephritis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Pyelonephritis"^^xsd:string ;
     :has_host_category :human .
 
-:soil a :isolation_from_source ;
+:soil a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Soil"^^xsd:string ;
     :has_host_category :env .
 
-:stool a :isolation_from_source ;
+:stool a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Stool"^^xsd:string ;
     :has_host_category :human .
 
-:swollen_head_syndrome a :isolation_syndrome ;
+:swollen_head_syndrome a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "swollen head syndrome"^^xsd:string ;
     :has_host_category :bird .
 
-:uc a :isolation_syndrome ;
+:uc a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Ulcerateive colitis"^^xsd:string ;
     :has_host_category :human .
 
-:urogenital a :isolation_from_source ;
+:urogenital a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Urogenital system"^^xsd:string ;
     :has_host_category :human .
 
-:uti a :isolation_syndrome ;
+:uti a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Urinary tract infection (cystitis)"^^xsd:string ;
     :has_host_category :human .
 
-:veggiefood a :isolation_from_source ;
+:veggiefood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Vegetable-based food"^^xsd:string ;
     :has_host_category :env .
 
-:water a :isolation_from_source ;
+:water a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Water"^^xsd:string ;
     :has_host_category :env .
 
-:yolk a :isolation_from_source ;
+:yolk a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Yolk"^^xsd:string ;
     :has_host_category :bird .
 
@@ -1393,7 +1489,10 @@
 :cat :is_host_category_of :fcatus,
         :from_fcatus .
 
-:cecum a :isolation_from_source ;
+:cecum a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Cecum"^^xsd:string ;
     :has_host_category :human,
         :mammal .
@@ -1411,7 +1510,10 @@
     :is_object_of :from_clupus ;
     :scientific_name "Canis lupus familiaris (dog)"^^xsd:string .
 
-:colon a :isolation_from_source ;
+:colon a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Colon"^^xsd:string ;
     :has_host_category :human,
         :mammal .
@@ -1442,7 +1544,10 @@
     :is_object_of :from_fcatus ;
     :scientific_name "Felis catus (cat)"^^xsd:string .
 
-:feces a :isolation_from_source ;
+:feces a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Feces"^^xsd:string ;
     :has_host_category :bird,
         :mammal .
@@ -1571,12 +1676,18 @@
     :is_object_of :from_hsapiens ;
     :scientific_name "Homo sapiens (human)"^^xsd:string .
 
-:intestine a :isolation_from_source ;
+:intestine a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Intestine"^^xsd:string ;
     :has_host_category :human,
         :mammal .
 
-:meat a :isolation_from_source ;
+:meat a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Meat"^^xsd:string ;
     :has_host_category :bird,
         :mammal .
@@ -1627,12 +1738,18 @@
 :onion :is_host_category_of :acepa,
         :from_acepa .
 
-:peritoneal_fluid a :isolation_from_source ;
+:peritoneal_fluid a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Peritoneal fluid"^^xsd:string ;
     :has_host_category :human,
         :mammal .
 
-:peritonitis a :isolation_syndrome ;
+:peritonitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Peritonitis"^^xsd:string ;
     :has_host_category :bird,
         :mammal .
@@ -1659,49 +1776,73 @@
 :turkey :is_host_category_of :from_mgallopavo,
         :mgallopavo .
 
-:urine a :isolation_from_source ;
+:urine a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Urine"^^xsd:string ;
     :has_host_category :human,
         :mammal .
 
-:asymptomatic a :isolation_syndrome ;
+:asymptomatic a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Asymptomatic"^^xsd:string ;
     :has_host_category :bird,
         :human,
         :mammal .
 
-:blood a :isolation_from_source ;
+:blood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Blood"^^xsd:string ;
     :has_host_category :bird,
         :human,
         :mammal .
 
-:diarrhea a :isolation_syndrome ;
+:diarrhea a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Diarrhea"^^xsd:string ;
     :has_host_category :bird,
         :human,
         :mammal .
 
-:liver a :isolation_from_source ;
+:liver a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "Liver"^^xsd:string ;
     :has_host_category :bird,
         :human,
         :mammal .
 
-:pneumonia a :isolation_syndrome ;
+:pneumonia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Pneumonia"^^xsd:string ;
     :has_host_category :bird,
         :human,
         :mammal .
 
-:septicaemia a :isolation_syndrome ;
+:septicaemia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_syndrome ;
     rdfs:label "Septicaemia"^^xsd:string,
         "Septicaemia "^^xsd:string ;
     :has_host_category :bird,
         :human,
         :mammal .
 
-:wound a :isolation_from_source ;
+:wound a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        :Attribute,
+        :isolation_attribute,
+        :isolation_from_source ;
     rdfs:label "wound"^^xsd:string ;
     :has_host_category :bird,
         :human,

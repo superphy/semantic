@@ -28,7 +28,8 @@ for result in results["results"]["bindings"]:
 
 
 def find_from_host(host):
-    queryString = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX : <https://github.com/superphy#> SELECT ?p WHERE {?s ?o " + '"' + host + '"' + "^^xsd:string . ?s :is_object_of ?p}"
+    queryString = "PREFIX : <https://github.com/superphy#>" \
+                  "SELECT ?p WHERE {?s ?o " + '"' + host + '"' + "^^xsd:string . ?s :is_object_of ?p}"
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
@@ -38,7 +39,8 @@ def find_from_host(host):
         return result["p"]["value"]
 
 def find_syndrome(syndrome):
-    queryString = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX : <https://github.com/superphy#> SELECT ?s WHERE {?s ?o " + '"' + syndrome + '"' + "^^xsd:string .}"
+    queryString = "PREFIX : <https://github.com/superphy#>" \
+                  "SELECT ?s WHERE {?s ?o " + '"' + syndrome + '"' + "^^xsd:string .}"
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
@@ -48,7 +50,8 @@ def find_syndrome(syndrome):
         return result["s"]["value"]
 
 def find_source(source):
-    queryString = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX : <https://github.com/superphy#> SELECT ?s WHERE {?s ?o " + '"' + source + '"' + "^^xsd:string .}"
+    queryString = "PREFIX : <https://github.com/superphy#>" \
+                  "SELECT ?s WHERE {?s ?o " + '"' + source + '"' + "^^xsd:string .}"
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
@@ -57,15 +60,24 @@ def find_source(source):
     for result in results["results"]["bindings"]:
         return result["s"]["value"]
 
-""""
+def check_genome(name):
+    queryString = "PREFIX : <https://github.com/superphy#>" \
+                  "ASK { :"+name+" rdf:type owl:NamedIndividual .}"
+    sparql.setQuery(queryString)
+
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    return results["boolean"]
+
+"""
 print find_from_host("cat")
 print find_syndrome("Meningitis")
 print find_source("Blood")
+
+
+if check_genome("JFJL00000000"):
+    print "hello"
+if check_genome("asdfasdfasdf"):
+    print "world"
 """
-
-
-
-
-
-
-

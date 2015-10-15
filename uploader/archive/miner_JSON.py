@@ -80,7 +80,7 @@ def main():
             try:
                 kwargs = {"date": isolation_date, "location": isolation_location, "accession": nuccore,
                           "bioproject": bioproject, "biosample": biosample, "strain": strain, "organism": "ecoli",
-                          "from_host": isolation_host, "from_source": isolation_source, "syndrome": syndrome,
+                          "host": isolation_host, "source": isolation_source, "syndrome": syndrome,
                           "Otype": Otype, "Htype": Htype}
                 PendingGenome(name, **kwargs).rdf()
             except Exception as e:
@@ -90,7 +90,7 @@ def main():
                 j+=1
                 print "Error %d occurred." %j
 
-    generate_output("outputs/results.ttl")
+    generate_output("outputs/test.txt")
     print "%d errors occurred" %j
 
 
@@ -101,8 +101,7 @@ def get_nuccore_id(accession):
     handle = Entrez.esearch(db="nuccore", retmax=5, term=accession)
     record = Entrez.read(handle)
 
-    for id in record["IdList"]:
-        return id
+    return record["IdList"][0]
 
 def get_DBlink(nuccore_id):
     BPid = None

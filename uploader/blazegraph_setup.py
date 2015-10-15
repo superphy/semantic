@@ -76,6 +76,3 @@ def generate_all():
     convert_syndromes()
     generate_serotypes()
     generate_output("outputs/setup.ttl")
-
-generate_all()
-

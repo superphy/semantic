@@ -1,7 +1,7 @@
 __author__ = 'Stephen Kan'
 
 from rdflib import Graph, Namespace, Literal, XSD
-import superphy_SPARQL
+import superphy_sparql
 
 """
 This module converts inputted data into RDF triples in accordance to the Superphy ontology
@@ -31,6 +31,7 @@ If you want to have an RDF object with many optional arguments, Genome is a good
 
 Classes:
     NamedIndividual: superclass of all RDF Objects
+    User: a Superphy user
     Organism: an organism
     Host: a host for another organism
     Microbe: a microbe
@@ -430,8 +431,8 @@ class Genome(NamedIndividual):
 
         """
 
-        searchparam = ["date", "location", "accession", "bioproject", "biosample", "strain", "organism", "from_host",
-                       "from_source", "syndrome", "Htype", "Otype", "User"]
+        searchparam = ["date", "location", "accession", "bioproject", "biosample", "strain", "organism", "host",
+                       "source", "syndrome", "Htype", "Otype", "User"]
 
         super(Genome, self).__init__(name)
         self.kwargs = {key:value for key, value in kwargs.items() if key in searchparam}
@@ -540,7 +541,7 @@ class Genome(NamedIndividual):
         g.add( (n[self.name], n.is_genome_of, n[organism]))
         g.add( (n[organism], n.has_genome, n[self.name]))
 
-    def from_host(self, from_host):
+    def host(self, from_host):
         """
         Convert all host data into RDF
 
@@ -549,11 +550,11 @@ class Genome(NamedIndividual):
         """
 
         for item in from_host:
-            node = superphy_SPARQL.find_from_host(item).split("#", 1)[1]
+            node = superphy_sparql.find_from_host(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
-    def from_source(self, from_source):
+    def source(self, from_source):
         """
         Convert all source data into RDF
 
@@ -562,7 +563,7 @@ class Genome(NamedIndividual):
         """
 
         for item in from_source:
-            node = superphy_SPARQL.find_source(item).split("#", 1)[1]
+            node = superphy_sparql.find_source(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -575,7 +576,7 @@ class Genome(NamedIndividual):
         """
 
         for item in syndrome:
-            node = superphy_SPARQL.find_syndrome(item).split("#", 1)[1]
+            node = superphy_sparql.find_syndrome(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -665,6 +666,7 @@ def generate_output(destination):
     """
 
     g.serialize(destination=destination, format="turtle")
+    g.remove( (None, None, None) )
 
 
 
