@@ -1,7 +1,9 @@
-Flasky
-======
+# semantic
+SuperPhy for the semantic web
 
-This repository contains the source code examples for my O'Reilly book [Flask Web Development](http://www.flaskbook.com).
+Installation instructions
 
-The commits and tags in this repository were carefully created to match the sequence in which concepts are presented in the book. Please read the section titled "How to Work with the Example Code" in the book's preface for instructions.
-
+git clone https://github.com/drew111b/Superphy_Flask_Basic.git
+cd Superphy_Flask_Basic
+bash bash/install
+./manage.py runserver
