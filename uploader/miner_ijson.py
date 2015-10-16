@@ -4,6 +4,7 @@ import ijson.backends.yajl2 as ijson
 import sys
 import traceback
 import ontology_uploader
+import os
 
 from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
 from superphy_classes import PendingGenome, generate_output
@@ -16,6 +17,7 @@ genome_params = {"isolation_date":"date", "isolation_location":"location", "isol
                  "isolation_source":"source"}
 
 def load_minerJSON(filename):
+    print "file:" + os.path.join(os.getcwd(), "outputs/result.ttl")
     progress = 0
     error = 0
     dict = {}
@@ -88,8 +90,8 @@ def create_pending_genome(dict):
                 kwargs.update({key:value})
 
         PendingGenome(**kwargs).rdf()
-        generate_output("outputs/result.ttl")
-        ontology_uploader.upload_ontology("outputs/result.ttl")
+        generate_output(os.path.join(os.getcwd(), "outputs/result.ttl"))
+        ontology_uploader.upload_ontology(os.path.join(os.getcwd(), "outputs/result.ttl"))
 
 def return_serotypes(serotypes):
     Otype = None

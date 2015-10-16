@@ -1532,7 +1532,7 @@
     :has_host_category :horse ;
     :has_taxonomy_id "None"^^xsd:string ;
     :is_object_of :from_eferus ;
-    :scientific_name "Equus ferus caballus (horse)"^^xsd:string .
+    :scientific_name "Equus ferus caballuscalc (horse)"^^xsd:string .
 
 :fcatus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
         :Host,

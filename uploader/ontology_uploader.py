@@ -15,6 +15,7 @@ def upload_all_ontologies():
     ontologies = {faldo, gfvo, Superphy, setup}
 
     for ontology in ontologies:
+        print ontology
         bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
         data = {'uri': ontology}
         r = requests.post(url=bg_url, data=data)

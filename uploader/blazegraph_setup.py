@@ -2,6 +2,7 @@ __author__ = 'Stephen Kan'
 
 from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_output
 import json
+import os
 
 """
 This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all
@@ -75,4 +76,4 @@ def generate_all():
     convert_sources()
     convert_syndromes()
     generate_serotypes()
-    generate_output("outputs/setup.ttl")
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), 'outputs/setup.ttl'))
