@@ -1,0 +1,4 @@
+#!/bin/bash
+#script to kill a python server on port 5000. Use with caution. This is because I keep hitting ctrl-z in terminal.
+var1=$(lsof -i TCP:5000 | grep "python" | cut -d ' ' -f 3);
+kill -9 $var1 &> /dev/null

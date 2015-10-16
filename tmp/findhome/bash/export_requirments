@@ -1,2 +1,0 @@
-#!/bin/bash
-superphy/bin/pip freeze > requirements.txt
