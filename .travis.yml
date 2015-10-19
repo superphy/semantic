@@ -6,4 +6,5 @@ install:
   - pip install --upgrade pip
   - pip install -r requirements/requirements.txt
 # command to run tests
+before_script: sh -e /etc/init.d/xvfb start
 script: nosetests
