@@ -56,3 +56,6 @@ venv/lib/*
 !venv/lib/python2.7
 venv/lib/python2.7/*
 !venv/lib/python2.7/superphy
+
+#Pycharm files
+/.idea
