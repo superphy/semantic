@@ -5,7 +5,5 @@ python:
 install:
   - pip install --upgrade pip
   - pip install -r requirements/requirements.txt
-  - export JASMINE_BROWSER=phantomjs
-  - jasmine-ci
 # command to run tests
 script: nosetests
