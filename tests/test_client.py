@@ -12,6 +12,8 @@ class FlaskClientTestCase(unittest.TestCase):
         db.create_all()
         Role.insert_roles()
         self.client = self.app.test_client(use_cookies=True)
+        self._ctx = self.app.test_request_context()
+        self._ctx.push()
 
     def tearDown(self):
         db.session.remove()

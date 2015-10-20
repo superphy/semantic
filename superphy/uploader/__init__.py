@@ -1,1 +1,1 @@
-#Placeholder
+__author__ = 'Stephen Kan'
