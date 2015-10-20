@@ -77,13 +77,13 @@ class SeleniumTestCase(unittest.TestCase):
         self.assertTrue(re.search('Hello,\s+Stranger!',
                                   self.client.page_source))
 
-        self.client.implicitly_wait(10)
+        self.client.implicitly_wait(500)
 
         # navigate to login page
         self.client.find_element_by_link_text('Log In').click()
         self.assertTrue('<h1>Login</h1>' in self.client.page_source)
 
-        self.client.implicitly_wait(10)
+        self.client.implicitly_wait(500)
 
         # login
         self.client.find_element_by_name('email').\
@@ -92,7 +92,7 @@ class SeleniumTestCase(unittest.TestCase):
         self.client.find_element_by_name('submit').click()
         self.assertTrue(re.search('Hello,\s+john!', self.client.page_source))
 
-        self.client.implicitly_wait(10)
+        self.client.implicitly_wait(500)
 
         # navigate to the user's profile page
         self.client.find_element_by_link_text('Profile').click()
