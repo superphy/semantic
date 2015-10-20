@@ -1,0 +1,666 @@
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+ANVW00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+CP001855
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+ADTX00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+JHNV00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+JHFM00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+AMVC00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+BA000007
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+AMVV00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 53, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 91, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+ANVW00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+CP001855
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+ADTX00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+JHNV00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+JHFM00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+AMVC00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+BA000007
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 34, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+AMVV00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 53, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 91, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+ANVW00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+CP001855
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+ADTX00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+JHNV00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+JHFM00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+AMVC00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+BA000007
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 35, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 94, in create_pending_genome
+    generate_output("file:" + os.path.join(os.path.dirname(__file__), "outputs/result.ttl"))
+  File "superphy_classes.py", line 668, in generate_output
+    g.serialize(destination=destination, format="turtle")
+  File "/usr/local/lib/python2.7/dist-packages/rdflib-4.2.2_dev-py2.7.egg/rdflib/graph.py", line 955, in serialize
+    shutil.move(name, path)
+  File "/usr/lib/python2.7/shutil.py", line 302, in move
+    copy2(src, real_dst)
+  File "/usr/lib/python2.7/shutil.py", line 130, in copy2
+    copyfile(src, dst)
+  File "/usr/lib/python2.7/shutil.py", line 83, in copyfile
+    with open(dst, 'wb') as fdst:
+IOError: [Errno 2] No such file or directory: '/usr/local/lib/python2.7/dist-packages/outputs/result.ttl'
+
+AMVV00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "miner_ijson.py", line 36, in load_minerJSON
+    create_pending_genome(dict)
+  File "miner_ijson.py", line 93, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================
+Traceback (most recent call last):
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/miner_ijson.py", line 54, in load_minerJSON
+    create_pending_genome(dict)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/miner_ijson.py", line 92, in create_pending_genome
+    PendingGenome(**kwargs).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 638, in rdf
+    super(PendingGenome, self).rdf()
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 459, in rdf
+    getattr(self, key)(value)
+  File "/home/ubiquitin/PycharmProjects/semantic/uploader/superphy_classes.py", line 553, in host
+    node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+AttributeError: 'NoneType' object has no attribute 'split'
+
+JPQG00000000
+=======================

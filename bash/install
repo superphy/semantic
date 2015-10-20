@@ -1,0 +1,36 @@
+#!/bin/bash
+
+chmod a+x *.py
+
+if ! find venv/bin/pip | read v; then
+	echo Setting up Virtual Environment
+	virtualenv venv &> /dev/null
+	venv/bin/pip install -r requirements/requirements.txt
+fi
+
+mkdir db &> /dev/null
+if ! find db/bigdata-bundled.jar | read v; then
+	
+	if find ../db/bigdata-bundled.jar | read v; 
+	then
+		echo Copying Blazegraph jar file...
+		cp ../db/bigdata-bundled.jar db/bigdata-bundled.jar
+	else
+		echo Downloading Blazegraph jar file...
+		cd db;
+		wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
+		cd ..;
+	fi
+fi
+
+if ! find data-dev.sqlite | read v; then
+	echo Setting up SQL server
+	./manage.py db upgrade &> /dev/null
+fi
+
+echo finished
+#echo """$ export MAIL_USERNAME='your-gmail-username'"""
+#echo """$ export MAIL_PASSWORD='your-gmail-password'"""
+echo """$ ./manage.py runserver"""
+echo to run the server
+#echo """you must not be behind a proxy"""
