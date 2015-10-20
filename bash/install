@@ -5,7 +5,7 @@ chmod a+x *.py
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
 	virtualenv venv &> /dev/null
-	venv/bin/pip install -r requirements/* &> /dev/null
+	venv/bin/pip install -r requirements/requirements.txt
 fi
 
 mkdir db &> /dev/null
