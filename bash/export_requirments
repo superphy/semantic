@@ -1,2 +1,2 @@
 #!/bin/bash
-venv/bin/pip freeze > requirments/requirements.txt
+venv/bin/pip freeze > requirements/requirements.txt

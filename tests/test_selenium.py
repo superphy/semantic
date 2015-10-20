@@ -3,6 +3,7 @@ import threading
 import time
 import unittest
 from selenium import webdriver
+from xvfbwrapper import Xvfb
 from app import create_app, db
 from app.models import Role, User, Post
 
@@ -14,7 +15,11 @@ class SeleniumTestCase(unittest.TestCase):
     def setUpClass(cls):
         # start Firefox
         try:
+            # opens Firefox in xvfb for GUI & Headless browser testing
+            cls.xvfb = Xvfb(width=1280, height=720)
+            cls.xvfb.start()
             cls.client = webdriver.Firefox()
+            cls.client.implicitly_wait(20)
         except:
             pass
 
@@ -56,6 +61,7 @@ class SeleniumTestCase(unittest.TestCase):
             # stop the flask server and the browser
             cls.client.get('http://localhost:5000/shutdown')
             cls.client.close()
+            cls.xvfb.stop()
 
             # destroy database
             db.drop_all()

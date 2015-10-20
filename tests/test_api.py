@@ -9,11 +9,15 @@ from app.models import User, Role, Post, Comment
 class APITestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
+        self._ctx = self.app.test_request_context()
+        self._ctx.push()
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
         Role.insert_roles()
         self.client = self.app.test_client()
+        self._ctx = self.app.test_request_context()
+        self._ctx.push()
 
     def tearDown(self):
         db.session.remove()
