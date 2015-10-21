@@ -8,8 +8,8 @@ import os
 import inspect
 
 from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
-from superphy_classes import PendingGenome, generate_output
-from superphy_sparql import check_genome
+from classes import PendingGenome, generate_output
+from sparql import check_genome
 
 reload(sys)
 sys.setdefaultencoding("utf-8")

@@ -1,13 +1,13 @@
 __author__ = 'Stephen Kan'
 
-from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_file_output
+from classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_file_output
 import json
 import os
 import inspect
 
 """
 This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all
-from superphy_classes.py) into RDF triples and exports it as a turtle file ready for converting into Blazegraph.
+from classes.py) into RDF triples and exports it as a turtle file ready for converting into Blazegraph.
 
 TODO: add a way to modify source files by reading the json, check for duplicates, and write a new JSON
       Would be nice to do this serially

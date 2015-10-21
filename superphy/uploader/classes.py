@@ -1,7 +1,7 @@
 __author__ = 'Stephen Kan'
 
 from rdflib import Graph, Namespace, Literal, XSD
-import superphy_sparql
+import sparql
 
 """
 This module converts inputted data into RDF triples in accordance to the Superphy ontology
@@ -551,7 +551,7 @@ class Genome(NamedIndividual):
         """
 
         for item in from_host:
-            node = superphy_sparql.find_from_host(item).split("#", 1)[1]
+            node = sparql.find_from_host(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -564,7 +564,7 @@ class Genome(NamedIndividual):
         """
 
         for item in from_source:
-            node = superphy_sparql.find_source(item).split("#", 1)[1]
+            node = sparql.find_source(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -577,7 +577,7 @@ class Genome(NamedIndividual):
         """
 
         for item in syndrome:
-            node = superphy_sparql.find_syndrome(item).split("#", 1)[1]
+            node = sparql.find_syndrome(item).split("#", 1)[1]
             g.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             g.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 

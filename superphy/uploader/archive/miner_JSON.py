@@ -6,7 +6,7 @@ import sys
 import traceback
 
 from Bio import Entrez
-from superphy_classes import PendingGenome, generate_output
+from classes import PendingGenome, generate_output
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
