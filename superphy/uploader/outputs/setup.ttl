@@ -1,1949 +1,1949 @@
-@prefix : <https://github.com/superphy#> .
+@prefix ns1: <https://github.com/superphy#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-:H- a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H1 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H10 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H11 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H12 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H13 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H14 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H15 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H16 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H17 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H18 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H19 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H2 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H20 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H21 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H22 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H23 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H24 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H25 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H26 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H27 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H28 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H29 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H3 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H30 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H31 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H32 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H33 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H34 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H35 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H36 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H37 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H38 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H39 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H4 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H40 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H41 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H42 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H43 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H44 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H45 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H46 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H47 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H48 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H49 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H5 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H50 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H51 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H52 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H53 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H54 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H55 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H6 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H7 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H8 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:H9 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:HUnknown a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Htype,
-        :serotype .
-
-:O1 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O10 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O100 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O101 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O102 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O103 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O104 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O105 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O106 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O107 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O108 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O109 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O11 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O110 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O111 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O112 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O113 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O114 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O115 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O116 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O117 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O118 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O119 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O12 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O120 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O121 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O122 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O123 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O124 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O125 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O126 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O127 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O128 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O129 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O13 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O130 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O131 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O132 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O133 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O134 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O135 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O136 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O137 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O138 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O139 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O14 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O140 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O141 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O142 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O143 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O144 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O145 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O146 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O147 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O148 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O149 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O15 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O150 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O151 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O152 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O153 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O154 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O155 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O156 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O157 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O158 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O159 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O16 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O160 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O161 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O162 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O163 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O164 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O165 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O166 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O167 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O168 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O169 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O17 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O170 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O171 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O172 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O173 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O174 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O175 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O176 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O177 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O178 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O179 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O18 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O180 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O181 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O182 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O183 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O184 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O185 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O186 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O19 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O2 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O20 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O21 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O22 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O23 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O24 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O25 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O26 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O27 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O28 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O29 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O3 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O30 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O31 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O32 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O33 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O34 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O35 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O36 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O37 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O38 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O39 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O4 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O40 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O41 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O42 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O43 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O44 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O45 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O46 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O47 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O48 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O49 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O5 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O50 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O51 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O52 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O53 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O54 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O55 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O56 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O57 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O58 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O59 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O6 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O60 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O61 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O62 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O63 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O64 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O65 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O66 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O67 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O68 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O69 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O7 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O70 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O71 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O72 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O73 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O74 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O75 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O76 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O77 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O78 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O79 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O8 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O80 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O81 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O82 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O83 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O84 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O85 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O86 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O87 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O88 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O89 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O9 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O90 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O91 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O92 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O93 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O94 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O95 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O96 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O97 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O98 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:O99 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:OUnknown a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :Otype,
-        :serotype .
-
-:ecoli a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Microbe,
-        :Organism ;
+ns1:H- a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H1 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H10 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H11 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H12 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H13 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H14 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H15 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H16 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H17 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H18 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H19 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H2 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H20 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H21 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H22 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H23 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H24 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H25 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H26 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H27 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H28 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H29 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H3 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H30 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H31 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H32 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H33 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H34 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H35 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H36 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H37 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H38 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H39 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H4 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H40 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H41 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H42 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H43 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H44 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H45 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H46 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H47 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H48 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H49 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H5 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H50 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H51 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H52 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H53 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H54 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H55 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H6 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H7 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H8 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:H9 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:HUnknown a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Htype,
+        ns1:serotype .
+
+ns1:O1 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O10 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O100 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O101 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O102 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O103 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O104 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O105 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O106 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O107 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O108 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O109 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O11 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O110 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O111 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O112 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O113 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O114 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O115 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O116 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O117 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O118 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O119 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O12 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O120 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O121 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O122 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O123 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O124 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O125 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O126 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O127 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O128 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O129 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O13 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O130 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O131 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O132 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O133 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O134 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O135 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O136 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O137 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O138 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O139 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O14 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O140 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O141 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O142 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O143 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O144 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O145 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O146 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O147 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O148 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O149 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O15 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O150 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O151 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O152 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O153 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O154 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O155 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O156 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O157 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O158 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O159 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O16 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O160 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O161 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O162 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O163 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O164 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O165 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O166 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O167 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O168 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O169 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O17 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O170 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O171 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O172 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O173 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O174 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O175 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O176 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O177 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O178 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O179 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O18 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O180 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O181 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O182 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O183 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O184 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O185 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O186 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O19 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O2 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O20 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O21 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O22 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O23 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O24 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O25 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O26 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O27 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O28 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O29 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O3 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O30 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O31 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O32 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O33 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O34 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O35 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O36 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O37 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O38 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O39 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O4 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O40 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O41 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O42 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O43 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O44 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O45 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O46 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O47 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O48 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O49 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O5 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O50 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O51 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O52 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O53 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O54 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O55 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O56 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O57 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O58 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O59 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O6 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O60 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O61 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O62 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O63 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O64 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O65 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O66 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O67 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O68 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O69 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O7 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O70 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O71 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O72 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O73 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O74 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O75 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O76 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O77 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O78 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O79 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O8 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O80 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O81 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O82 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O83 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O84 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O85 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O86 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O87 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O88 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O89 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O9 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O90 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O91 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O92 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O93 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O94 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O95 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O96 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O97 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O98 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:O99 a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:OUnknown a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:Otype,
+        ns1:serotype .
+
+ns1:ecoli a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Microbe,
+        ns1:Organism ;
     rdfs:label "Escherichia coli (E. coli)"^^xsd:string ;
-    :common_name "E. coli"^^xsd:string ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :scientific_name "Escherichia coli"^^xsd:string .
+    ns1:common_name "E. coli"^^xsd:string ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:scientific_name "Escherichia coli"^^xsd:string .
 
-:abscess a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:abscess a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "abscess"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:bacteremia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:bacteremia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Bacteremia"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:bacteriuria a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:bacteriuria a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Bacteriuria"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:bile a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:bile a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "bile"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:bloody_diarrhea a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:bloody_diarrhea a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Bloody diarrhea"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:bronchoalveolar_lavage a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:bronchoalveolar_lavage a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Bronchoalveolar lavage"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:cerebrospinal_fluid a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:cerebrospinal_fluid a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "cerebrospinal_fluid"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:crohns a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:crohns a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Crohn's Disease"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:enteral_feeding_tube a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:enteral_feeding_tube a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Enteral feeding tube"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:gastroenteritis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:gastroenteritis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Gastroenteritis"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:gelatinous_edema a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:gelatinous_edema a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "gelatinous edema"^^xsd:string ;
-    :has_host_category :bird .
+    ns1:has_host_category ns1:bird .
 
-:hc a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:hc a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Hemorrhagic colitis"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:hus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:hus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Hemolytic-uremic syndrome"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:ileum a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:ileum a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Ileum"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:marine_sediment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:marine_sediment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Marine sediment"^^xsd:string ;
-    :has_host_category :env .
+    ns1:has_host_category ns1:env .
 
-:mastitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:mastitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Mastitis"^^xsd:string ;
-    :has_host_category :mammal .
+    ns1:has_host_category ns1:mammal .
 
-:meatfood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:meatfood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Meat-based food"^^xsd:string ;
-    :has_host_category :env .
+    ns1:has_host_category ns1:env .
 
-:meningitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:meningitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Meningitis"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:milk a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:milk a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Milk"^^xsd:string ;
-    :has_host_category :mammal .
+    ns1:has_host_category ns1:mammal .
 
-:necrotizing_fasciitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:necrotizing_fasciitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Necrotizing fasciitis"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:omphalitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:omphalitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Omphalitis"^^xsd:string ;
-    :has_host_category :bird .
+    ns1:has_host_category ns1:bird .
 
-:perianal a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:perianal a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Perianal"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:pyelonephritis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:pyelonephritis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Pyelonephritis"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:soil a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:soil a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Soil"^^xsd:string ;
-    :has_host_category :env .
+    ns1:has_host_category ns1:env .
 
-:stool a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:stool a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Stool"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:swollen_head_syndrome a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:swollen_head_syndrome a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "swollen head syndrome"^^xsd:string ;
-    :has_host_category :bird .
+    ns1:has_host_category ns1:bird .
 
-:uc a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:uc a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Ulcerateive colitis"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:urogenital a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:urogenital a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Urogenital system"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:uti a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:uti a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Urinary tract infection (cystitis)"^^xsd:string ;
-    :has_host_category :human .
+    ns1:has_host_category ns1:human .
 
-:veggiefood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:veggiefood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Vegetable-based food"^^xsd:string ;
-    :has_host_category :env .
+    ns1:has_host_category ns1:env .
 
-:water a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:water a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Water"^^xsd:string ;
-    :has_host_category :env .
+    ns1:has_host_category ns1:env .
 
-:yolk a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:yolk a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Yolk"^^xsd:string ;
-    :has_host_category :bird .
+    ns1:has_host_category ns1:bird .
 
-:acepa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:acepa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "env"^^xsd:string ;
-    :common_name "Allium cepa"^^xsd:string ;
-    :has_host_category :onion ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_acepa ;
-    :scientific_name "Allium cepa (onion)"^^xsd:string .
+    ns1:common_name "Allium cepa"^^xsd:string ;
+    ns1:has_host_category ns1:onion ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_acepa ;
+    ns1:scientific_name "Allium cepa (onion)"^^xsd:string .
 
-:btaurus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:btaurus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Bos taurus"^^xsd:string ;
-    :has_host_category :cow ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_btaurus ;
-    :scientific_name "Bos taurus (cow)"^^xsd:string .
+    ns1:common_name "Bos taurus"^^xsd:string ;
+    ns1:has_host_category ns1:cow ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_btaurus ;
+    ns1:scientific_name "Bos taurus (cow)"^^xsd:string .
 
-:caegagrus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:caegagrus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Capra aegagrus hircus"^^xsd:string ;
-    :has_host_category :goat ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_caegagrus ;
-    :scientific_name "Capra aegagrus hircus (goat)"^^xsd:string .
+    ns1:common_name "Capra aegagrus hircus"^^xsd:string ;
+    ns1:has_host_category ns1:goat ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_caegagrus ;
+    ns1:scientific_name "Capra aegagrus hircus (goat)"^^xsd:string .
 
-:cat :is_host_category_of :fcatus,
-        :from_fcatus .
+ns1:cat ns1:is_host_category_of ns1:fcatus,
+        ns1:from_fcatus .
 
-:cecum a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:cecum a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Cecum"^^xsd:string ;
-    :has_host_category :human,
-        :mammal .
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
 
-:chicken :is_host_category_of :from_ggallus,
-        :ggallus .
+ns1:chicken ns1:is_host_category_of ns1:from_ggallus,
+        ns1:ggallus .
 
-:clupus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:clupus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Canis lupus familiaris"^^xsd:string ;
-    :has_host_category :dog ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_clupus ;
-    :scientific_name "Canis lupus familiaris (dog)"^^xsd:string .
+    ns1:common_name "Canis lupus familiaris"^^xsd:string ;
+    ns1:has_host_category ns1:dog ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_clupus ;
+    ns1:scientific_name "Canis lupus familiaris (dog)"^^xsd:string .
 
-:colon a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:colon a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Colon"^^xsd:string ;
-    :has_host_category :human,
-        :mammal .
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
 
-:cow :is_host_category_of :btaurus,
-        :from_btaurus .
+ns1:cow ns1:is_host_category_of ns1:btaurus,
+        ns1:from_btaurus .
 
-:dog :is_host_category_of :clupus,
-        :from_clupus .
+ns1:dog ns1:is_host_category_of ns1:clupus,
+        ns1:from_clupus .
 
-:eferus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:eferus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Equus ferus caballus"^^xsd:string ;
-    :has_host_category :horse ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_eferus ;
-    :scientific_name "Equus ferus caballuscalc (horse)"^^xsd:string .
+    ns1:common_name "Equus ferus caballus"^^xsd:string ;
+    ns1:has_host_category ns1:horse ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_eferus ;
+    ns1:scientific_name "Equus ferus caballuscalc (horse)"^^xsd:string .
 
-:fcatus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:fcatus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Felis catus"^^xsd:string ;
-    :has_host_category :cat ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_fcatus ;
-    :scientific_name "Felis catus (cat)"^^xsd:string .
+    ns1:common_name "Felis catus"^^xsd:string ;
+    ns1:has_host_category ns1:cat ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_fcatus ;
+    ns1:scientific_name "Felis catus (cat)"^^xsd:string .
 
-:feces a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:feces a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Feces"^^xsd:string ;
-    :has_host_category :bird,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:mammal .
 
-:from_acepa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :onion ;
-    :has_object :acepa .
+ns1:from_acepa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:onion ;
+    ns1:has_object ns1:acepa .
 
-:from_btaurus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :cow ;
-    :has_object :btaurus .
+ns1:from_btaurus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:cow ;
+    ns1:has_object ns1:btaurus .
 
-:from_caegagrus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :goat ;
-    :has_object :caegagrus .
+ns1:from_caegagrus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:goat ;
+    ns1:has_object ns1:caegagrus .
 
-:from_clupus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :dog ;
-    :has_object :clupus .
+ns1:from_clupus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:dog ;
+    ns1:has_object ns1:clupus .
 
-:from_eferus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :horse ;
-    :has_object :eferus .
+ns1:from_eferus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:horse ;
+    ns1:has_object ns1:eferus .
 
-:from_environment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :environment ;
-    :has_object :environment .
+ns1:from_environment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:environment ;
+    ns1:has_object ns1:environment .
 
-:from_fcatus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :cat ;
-    :has_object :fcatus .
+ns1:from_fcatus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:cat ;
+    ns1:has_object ns1:fcatus .
 
-:from_ggallus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :chicken ;
-    :has_object :ggallus .
+ns1:from_ggallus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:chicken ;
+    ns1:has_object ns1:ggallus .
 
-:from_hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :human ;
-    :has_object :hsapiens .
+ns1:from_hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:human ;
+    ns1:has_object ns1:hsapiens .
 
-:from_mgallopavo a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :turkey ;
-    :has_object :mgallopavo .
+ns1:from_mgallopavo a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:turkey ;
+    ns1:has_object ns1:mgallopavo .
 
-:from_mmusculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :mouse ;
-    :has_object :mmusculus .
+ns1:from_mmusculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:mouse ;
+    ns1:has_object ns1:mmusculus .
 
-:from_oaries a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :sheep ;
-    :has_object :oaries .
+ns1:from_oaries a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:sheep ;
+    ns1:has_object ns1:oaries .
 
-:from_ocuniculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :rabbit ;
-    :has_object :ocuniculus .
+ns1:from_ocuniculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:rabbit ;
+    ns1:has_object ns1:ocuniculus .
 
-:from_sscrofa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_host ;
-    :has_host_category :pig ;
-    :has_object :sscrofa .
+ns1:from_sscrofa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_host ;
+    ns1:has_host_category ns1:pig ;
+    ns1:has_object ns1:sscrofa .
 
-:ggallus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:ggallus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "bird"^^xsd:string ;
-    :common_name "Gallus gallus"^^xsd:string ;
-    :has_host_category :chicken ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_ggallus ;
-    :scientific_name "Gallus gallus (chicken)"^^xsd:string .
+    ns1:common_name "Gallus gallus"^^xsd:string ;
+    ns1:has_host_category ns1:chicken ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_ggallus ;
+    ns1:scientific_name "Gallus gallus (chicken)"^^xsd:string .
 
-:goat :is_host_category_of :caegagrus,
-        :from_caegagrus .
+ns1:goat ns1:is_host_category_of ns1:caegagrus,
+        ns1:from_caegagrus .
 
-:horse :is_host_category_of :eferus,
-        :from_eferus .
+ns1:horse ns1:is_host_category_of ns1:eferus,
+        ns1:from_eferus .
 
-:hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:hsapiens a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "human"^^xsd:string ;
-    :common_name "Homo sapiens"^^xsd:string ;
-    :has_host_category :human ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_hsapiens ;
-    :scientific_name "Homo sapiens (human)"^^xsd:string .
+    ns1:common_name "Homo sapiens"^^xsd:string ;
+    ns1:has_host_category ns1:human ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_hsapiens ;
+    ns1:scientific_name "Homo sapiens (human)"^^xsd:string .
 
-:intestine a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:intestine a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Intestine"^^xsd:string ;
-    :has_host_category :human,
-        :mammal .
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
 
-:meat a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:meat a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Meat"^^xsd:string ;
-    :has_host_category :bird,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:mammal .
 
-:mgallopavo a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:mgallopavo a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "bird"^^xsd:string ;
-    :common_name "Meleagris gallopavo"^^xsd:string ;
-    :has_host_category :turkey ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_mgallopavo ;
-    :scientific_name "Meleagris gallopavo (turkey)"^^xsd:string .
+    ns1:common_name "Meleagris gallopavo"^^xsd:string ;
+    ns1:has_host_category ns1:turkey ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_mgallopavo ;
+    ns1:scientific_name "Meleagris gallopavo (turkey)"^^xsd:string .
 
-:mmusculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:mmusculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Mus musculus"^^xsd:string ;
-    :has_host_category :mouse ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_mmusculus ;
-    :scientific_name "Mus musculus (mouse)"^^xsd:string .
+    ns1:common_name "Mus musculus"^^xsd:string ;
+    ns1:has_host_category ns1:mouse ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_mmusculus ;
+    ns1:scientific_name "Mus musculus (mouse)"^^xsd:string .
 
-:mouse :is_host_category_of :from_mmusculus,
-        :mmusculus .
+ns1:mouse ns1:is_host_category_of ns1:from_mmusculus,
+        ns1:mmusculus .
 
-:oaries a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:oaries a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Ovis aries"^^xsd:string ;
-    :has_host_category :sheep ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_oaries ;
-    :scientific_name "Ovis aries (sheep)"^^xsd:string .
+    ns1:common_name "Ovis aries"^^xsd:string ;
+    ns1:has_host_category ns1:sheep ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_oaries ;
+    ns1:scientific_name "Ovis aries (sheep)"^^xsd:string .
 
-:ocuniculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:ocuniculus a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Oryctolagus cuniculus"^^xsd:string ;
-    :has_host_category :rabbit ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_ocuniculus ;
-    :scientific_name "Oryctolagus cuniculus (rabbit)"^^xsd:string .
+    ns1:common_name "Oryctolagus cuniculus"^^xsd:string ;
+    ns1:has_host_category ns1:rabbit ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_ocuniculus ;
+    ns1:scientific_name "Oryctolagus cuniculus (rabbit)"^^xsd:string .
 
-:onion :is_host_category_of :acepa,
-        :from_acepa .
+ns1:onion ns1:is_host_category_of ns1:acepa,
+        ns1:from_acepa .
 
-:peritoneal_fluid a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:peritoneal_fluid a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Peritoneal fluid"^^xsd:string ;
-    :has_host_category :human,
-        :mammal .
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
 
-:peritonitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:peritonitis a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Peritonitis"^^xsd:string ;
-    :has_host_category :bird,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:mammal .
 
-:pig :is_host_category_of :from_sscrofa,
-        :sscrofa .
+ns1:pig ns1:is_host_category_of ns1:from_sscrofa,
+        ns1:sscrofa .
 
-:rabbit :is_host_category_of :from_ocuniculus,
-        :ocuniculus .
+ns1:rabbit ns1:is_host_category_of ns1:from_ocuniculus,
+        ns1:ocuniculus .
 
-:sheep :is_host_category_of :from_oaries,
-        :oaries .
+ns1:sheep ns1:is_host_category_of ns1:from_oaries,
+        ns1:oaries .
 
-:sscrofa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:sscrofa a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "mammal"^^xsd:string ;
-    :common_name "Sus scrofa"^^xsd:string ;
-    :has_host_category :pig ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_object_of :from_sscrofa ;
-    :scientific_name "Sus scrofa (pig)"^^xsd:string .
+    ns1:common_name "Sus scrofa"^^xsd:string ;
+    ns1:has_host_category ns1:pig ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_object_of ns1:from_sscrofa ;
+    ns1:scientific_name "Sus scrofa (pig)"^^xsd:string .
 
-:turkey :is_host_category_of :from_mgallopavo,
-        :mgallopavo .
+ns1:turkey ns1:is_host_category_of ns1:from_mgallopavo,
+        ns1:mgallopavo .
 
-:urine a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:urine a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Urine"^^xsd:string ;
-    :has_host_category :human,
-        :mammal .
+    ns1:has_host_category ns1:human,
+        ns1:mammal .
 
-:asymptomatic a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:asymptomatic a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Asymptomatic"^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:blood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:blood a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Blood"^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:diarrhea a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:diarrhea a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Diarrhea"^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:liver a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:liver a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "Liver"^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:pneumonia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:pneumonia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Pneumonia"^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:septicaemia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_syndrome ;
+ns1:septicaemia a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_syndrome ;
     rdfs:label "Septicaemia"^^xsd:string,
         "Septicaemia "^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:wound a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Attribute,
-        :isolation_attribute,
-        :isolation_from_source ;
+ns1:wound a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Attribute,
+        ns1:isolation_attribute,
+        ns1:isolation_from_source ;
     rdfs:label "wound"^^xsd:string ;
-    :has_host_category :bird,
-        :human,
-        :mammal .
+    ns1:has_host_category ns1:bird,
+        ns1:human,
+        ns1:mammal .
 
-:environment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :Host,
-        :Organism ;
+ns1:environment a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:Host,
+        ns1:Organism ;
     rdfs:label "env"^^xsd:string ;
-    :common_name "Environmental source"^^xsd:string ;
-    :has_host_category :environment ;
-    :has_taxonomy_id "None"^^xsd:string ;
-    :is_host_category_of :environment,
-        :from_environment ;
-    :is_object_of :from_environment ;
-    :scientific_name "Environmental source"^^xsd:string .
+    ns1:common_name "Environmental source"^^xsd:string ;
+    ns1:has_host_category ns1:environment ;
+    ns1:has_taxonomy_id "None"^^xsd:string ;
+    ns1:is_host_category_of ns1:environment,
+        ns1:from_environment ;
+    ns1:is_object_of ns1:from_environment ;
+    ns1:scientific_name "Environmental source"^^xsd:string .
 
-:env a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :host_category ;
+ns1:env a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:host_category ;
     rdfs:label "Environmental Sources"^^xsd:string ;
-    :is_host_category_of :marine_sediment,
-        :meatfood,
-        :soil,
-        :veggiefood,
-        :water .
+    ns1:is_host_category_of ns1:marine_sediment,
+        ns1:meatfood,
+        ns1:soil,
+        ns1:veggiefood,
+        ns1:water .
 
-:bird a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :host_category ;
+ns1:bird a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:host_category ;
     rdfs:label "Aves"^^xsd:string ;
-    :is_host_category_of :asymptomatic,
-        :blood,
-        :diarrhea,
-        :feces,
-        :gelatinous_edema,
-        :liver,
-        :meat,
-        :omphalitis,
-        :peritonitis,
-        :pneumonia,
-        :septicaemia,
-        :swollen_head_syndrome,
-        :wound,
-        :yolk .
+    ns1:is_host_category_of ns1:asymptomatic,
+        ns1:blood,
+        ns1:diarrhea,
+        ns1:feces,
+        ns1:gelatinous_edema,
+        ns1:liver,
+        ns1:meat,
+        ns1:omphalitis,
+        ns1:peritonitis,
+        ns1:pneumonia,
+        ns1:septicaemia,
+        ns1:swollen_head_syndrome,
+        ns1:wound,
+        ns1:yolk .
 
-:mammal a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :host_category ;
+ns1:mammal a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:host_category ;
     rdfs:label "Non-human Mammalia"^^xsd:string ;
-    :is_host_category_of :asymptomatic,
-        :blood,
-        :cecum,
-        :colon,
-        :diarrhea,
-        :feces,
-        :intestine,
-        :liver,
-        :mastitis,
-        :meat,
-        :milk,
-        :peritoneal_fluid,
-        :peritonitis,
-        :pneumonia,
-        :septicaemia,
-        :urine,
-        :wound .
+    ns1:is_host_category_of ns1:asymptomatic,
+        ns1:blood,
+        ns1:cecum,
+        ns1:colon,
+        ns1:diarrhea,
+        ns1:feces,
+        ns1:intestine,
+        ns1:liver,
+        ns1:mastitis,
+        ns1:meat,
+        ns1:milk,
+        ns1:peritoneal_fluid,
+        ns1:peritonitis,
+        ns1:pneumonia,
+        ns1:septicaemia,
+        ns1:urine,
+        ns1:wound .
 
-:human a <http://www.w3.org/2002/07/owl#NamedIndividual>,
-        :host_category ;
+ns1:human a <http://www.w3.org/2002/07/owl#NamedIndividual>,
+        ns1:host_category ;
     rdfs:label "Human"^^xsd:string ;
-    :is_host_category_of :abscess,
-        :asymptomatic,
-        :bacteremia,
-        :bacteriuria,
-        :bile,
-        :blood,
-        :bloody_diarrhea,
-        :bronchoalveolar_lavage,
-        :cecum,
-        :cerebrospinal_fluid,
-        :colon,
-        :crohns,
-        :diarrhea,
-        :enteral_feeding_tube,
-        :from_hsapiens,
-        :gastroenteritis,
-        :hc,
-        :hsapiens,
-        :hus,
-        :ileum,
-        :intestine,
-        :liver,
-        :meningitis,
-        :necrotizing_fasciitis,
-        :perianal,
-        :peritoneal_fluid,
-        :pneumonia,
-        :pyelonephritis,
-        :septicaemia,
-        :stool,
-        :uc,
-        :urine,
-        :urogenital,
-        :uti,
-        :wound .
+    ns1:is_host_category_of ns1:abscess,
+        ns1:asymptomatic,
+        ns1:bacteremia,
+        ns1:bacteriuria,
+        ns1:bile,
+        ns1:blood,
+        ns1:bloody_diarrhea,
+        ns1:bronchoalveolar_lavage,
+        ns1:cecum,
+        ns1:cerebrospinal_fluid,
+        ns1:colon,
+        ns1:crohns,
+        ns1:diarrhea,
+        ns1:enteral_feeding_tube,
+        ns1:from_hsapiens,
+        ns1:gastroenteritis,
+        ns1:hc,
+        ns1:hsapiens,
+        ns1:hus,
+        ns1:ileum,
+        ns1:intestine,
+        ns1:liver,
+        ns1:meningitis,
+        ns1:necrotizing_fasciitis,
+        ns1:perianal,
+        ns1:peritoneal_fluid,
+        ns1:pneumonia,
+        ns1:pyelonephritis,
+        ns1:septicaemia,
+        ns1:stool,
+        ns1:uc,
+        ns1:urine,
+        ns1:urogenital,
+        ns1:uti,
+        ns1:wound .
 

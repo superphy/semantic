@@ -7,6 +7,7 @@ import ontology_uploader
 import os
 import inspect
 
+from rdflib import Graph
 from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
 from classes import PendingGenome, generate_output
 from sparql import check_genome
@@ -16,6 +17,7 @@ sys.setdefaultencoding("utf-8")
 
 genome_params = {"isolation_date":"date", "isolation_location":"location", "isolation_host":"host",
                  "isolation_source":"source"}
+g = Graph()
 
 def load_minerJSON(filename):
     progress = 0
@@ -91,8 +93,8 @@ def create_pending_genome(dict):
                 pass
                 kwargs.update({key:value})
 
-        PendingGenome(**kwargs).rdf()
-        output = generate_output()
+        PendingGenome(g, **kwargs).rdf()
+        output = generate_output(g)
         ontology_uploader.upload_data(output)
 
 def return_serotypes(serotypes):
