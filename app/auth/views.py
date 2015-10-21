@@ -52,6 +52,9 @@ def register():
         user = User(email=form.email.data,
                     username=form.username.data,
                     password=form.password.data)
+        from superphy import user as sparqlstore
+        sparqlstore.create_user(user.email)
+
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
