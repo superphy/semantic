@@ -49,7 +49,7 @@ Classes:
     CompletedGenome: a genome that has finished processing
 
 Methods:
-    generate_output: exports uploaded RDFs to a turtle file
+    generate_output: returns RDF Graph data into a turtle string and clears the Graph
 """
 
 # initialize a Graph
@@ -657,17 +657,14 @@ class CompletedGenome(Genome):
         g.add( (n[self.name], rdf.type, n.completed_genome) )
 
 
-def generate_output(destination):
+def generate_output():
     """
-    Export RDF Graph data to a turtle file at the given destination
-
-    Args:
-        destination: an internal filepath relative to the  __init__.py file this module belongs to
+    Returns RDF Graph data in the turtle format and clears the Graph
     """
 
-    g.serialize(destination=destination, format="turtle")
+    output = g.serialize(format="turtle")
     g.remove( (None, None, None) )
-
+    return output
 
 
 """ =================================================== TESTING =================================================== """

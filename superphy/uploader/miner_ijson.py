@@ -17,7 +17,6 @@ genome_params = {"isolation_date":"date", "isolation_location":"location", "isol
                  "isolation_source":"source"}
 
 def load_minerJSON(filename):
-    print "file:" + os.path.join(os.getcwd(), "outputs/result.ttl")
     progress = 0
     error = 0
     dict = {}
@@ -90,8 +89,8 @@ def create_pending_genome(dict):
                 kwargs.update({key:value})
 
         PendingGenome(**kwargs).rdf()
-        generate_output(os.path.join(os.getcwd(), "outputs/result.ttl"))
-        ontology_uploader.upload_ontology(os.path.join(os.getcwd(), "outputs/result.ttl"))
+        output = generate_output()
+        ontology_uploader.upload_data(output)
 
 def return_serotypes(serotypes):
     Otype = None
