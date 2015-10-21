@@ -1,8 +1,9 @@
 __author__ = 'Stephen Kan'
 
-from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_output
+from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_file_output
 import json
 import os
+import inspect
 
 """
 This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all
@@ -14,8 +15,7 @@ TODO: add a way to modify source files by reading the json, check for duplicates
 
 
 def convert_host_categories():
-    file = open("data/host_categories.txt", "r+")
-    host_categories = json.load(file)
+    host_categories = generate_json("data/host_categories.txt")
 
     for host_category in host_categories:
         name, label = host_category
@@ -23,8 +23,7 @@ def convert_host_categories():
 
 
 def convert_hosts():
-    file = open("data/hosts.txt", "r+")
-    hosts = json.load(file)
+    hosts = generate_json("data/hosts.txt")
 
     for host in hosts:
         name, label, sci_name, com_name, host_category = host
@@ -32,8 +31,7 @@ def convert_hosts():
 
 
 def convert_sources():
-    file = open("data/sources.txt", "r+")
-    sources = json.load(file)
+    sources = generate_json("data/sources.txt")
 
     for source in sources:
         name, label, host_category = source
@@ -41,8 +39,7 @@ def convert_sources():
 
 
 def convert_syndromes():
-    file = open("data/syndromes.txt", "r+")
-    syndromes = json.load(file)
+    syndromes = generate_json("data/syndromes.txt")
 
     for syndrome in syndromes:
         name, label, host_category = syndrome
@@ -50,8 +47,7 @@ def convert_syndromes():
 
 
 def convert_microbes():
-    file = open("data/microbes.txt", "r+")
-    microbes = json.load(file)
+    microbes = generate_json("data/microbes.txt")
 
     for microbe in microbes:
         name, label, sci_name, com_name = microbe
@@ -69,6 +65,12 @@ def generate_serotypes():
     Otype("Unknown").rdf()
 
 
+def generate_json(filename):
+    path = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filename)
+    file = open(path, "r+")
+    return json.load(file)
+
+
 def generate_all():
     convert_host_categories()
     convert_hosts()
@@ -76,4 +78,4 @@ def generate_all():
     convert_sources()
     convert_syndromes()
     generate_serotypes()
-    generate_output("file:" + os.path.join(os.path.dirname(__file__), 'outputs/setup.ttl'))
+    generate_file_output(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), 'outputs/setup.ttl'))

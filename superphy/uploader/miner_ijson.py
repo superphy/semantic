@@ -5,6 +5,7 @@ import sys
 import traceback
 import ontology_uploader
 import os
+import inspect
 
 from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
 from superphy_classes import PendingGenome, generate_output
@@ -21,7 +22,9 @@ def load_minerJSON(filename):
     error = 0
     dict = {}
 
-    with open(filename, "r") as fd:
+    path = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filename)
+
+    with open(path, "r") as fd:
         parser = ijson.parse(fd)
 
         for prefix, event, value in parser:
@@ -56,7 +59,7 @@ def load_minerJSON(filename):
 
 
 def error_logging(dict, error):
-    f = open("outputs/errors.txt", "a")
+    f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/errors.txt"), "a")
     f.write(traceback.format_exc() + "\n")
     f.write(dict["name"] + "\n" + "=======================" + "\n")
     error += 1

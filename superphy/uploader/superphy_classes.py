@@ -50,6 +50,7 @@ Classes:
 
 Methods:
     generate_output: returns RDF Graph data into a turtle string and clears the Graph
+    generate_file_output: exports RDF Graph data in turtle format to a given destination and clears the Graph
 """
 
 # initialize a Graph
@@ -666,6 +667,16 @@ def generate_output():
     g.remove( (None, None, None) )
     return output
 
+def generate_file_output(destination):
+    """
+    Export RDF Graph data to a turtle file at the given destination
+
+    Args:
+        destination: an internal filepath relative to the  __init__.py file this module belongs to
+    """
+
+    g.serialize(destination=destination, format="turtle")
+    g.remove( (None, None, None) )
 
 """ =================================================== TESTING =================================================== """
 

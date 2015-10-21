@@ -2,7 +2,7 @@ __author__ = 'Stephen Kan'
 
 import requests
 import os
-
+import inspect
 
 
 bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
@@ -14,7 +14,7 @@ def upload_all_ontologies():
         upload_file(ontology)
 
 def upload_file(filepath):
-    file = "file:" + os.path.join(os.path.dirname(__file__), filepath)
+    file = "file:" + os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filepath)
     data = {'uri': file}
     r = requests.post(bg_url, data)
     print r.content
