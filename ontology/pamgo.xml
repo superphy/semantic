@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF[
+	<!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	<!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+	<!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+	<!ENTITY swivt 'http://semantic-mediawiki.org/swivt/1.0#'>
+	<!ENTITY wiki 'http://neurolex.org/wiki/'>
+	<!ENTITY property 'http://neurolex.org/wiki/Property-3A'>
+	<!ENTITY wikiurl 'http://neurolex.org/wiki/'>
+]>
+
+<rdf:RDF
+	xmlns:rdf="&rdf;"
+	xmlns:rdfs="&rdfs;"
+	xmlns:owl ="&owl;"
+	xmlns:swivt="&swivt;"
+	xmlns:wiki="&wiki;"
+	xmlns:property="&property;">
+	<!-- Ontology header -->
+	<owl:Ontology rdf:about="">
+		<swivt:creationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2015-01-13T10:10:07-08:00</swivt:creationDate>
+		<owl:imports rdf:resource="http://semantic-mediawiki.org/swivt/1.0" />
+	</owl:Ontology>
+	<!-- exported page data -->
+	<owl:Class rdf:about="&wiki;Category-3AResource-3APAMGO">
+		<rdfs:label>Resource:PAMGO</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Category:Resource:PAMGO"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Category:Resource:PAMGO"/>
+		<property:Abbrev rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PAMGO</property:Abbrev>
+		<property:CurationStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">curated</property:CurationStatus>
+		<property:DefiningCitation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://pamgo.vbi.vt.edu/</property:DefiningCitation>
+		<property:Definition rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The Gene Ontology (GO) consortium was formed in 1998 to create universal descriptors, which can be used to describe functionally similar gene products and their attributes across all organisms. In 2004, the PAMGO interest group joined the GO consortium to extend the GO to include terms describing various processes related to microbe-host interactions. 
+
+Plant-associated microbes have evolved similar mechanisms to evade, neutralize or suppress defense systems of their plant hosts and obtain nutrients. Such similarities can only be discovered if a controlled vocabulary is set in place to describe these processes amongst diverse microbe-host interactions. 
+
+The PAMGO initiative is a multi-institutional (Cornell University, North Carolina State University, The Institute of Genomic Research, University of Wisconsin at Madison, Virginia Bioinformatics Institute and Wells College) collaborative effort involving scientists working on plant pathogenic genomes: the bacteria Dickeya dadantii, Pseudomonas syringae pv tomato and Agrobacterium tumefaciens, the fungus Magnaporthe grisea, the oomycetes Phytophthora sojae and Phytophthora ramorum and the nematode Meloidogyne hapla.
+
+An initial term development effort produced a set of higher-level biological process terms that could be used to describe general processes often encountered by microbes interacting with their hosts. These higher order terms are appropriate for describing gene products of all types of symbionts (e.g. parasites, commensalists, and mutualists), including prokaryotes and eukaryotes that associate with plant or animal hosts. Currently, nearly 900 PAMGO terms are incorporated in the GO.</property:Definition>
+		<property:ExampleImage rdf:resource="&wiki;File-3APAMGO.PNG"/>
+		<property:Grant rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Category:2005-35600-16370 </property:Grant>
+		<property:Grant rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Category:EF-0523736 </property:Grant>
+		<property:Has_role rdf:resource="&wiki;Category-3AOntology"/>
+		<property:Id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nlx_92278</property:Id>
+		<property:Is_part_of rdf:resource="&wiki;Category-3AVirginia_Polytechnic_Institute_and_State_University;_Virginia;_USA"/>
+		<property:Label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Resource:PAMGO</property:Label>
+		<property:ModifiedDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-06-20T00:00:00</property:ModifiedDate>
+		<property:SuperCategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Resource</property:SuperCategory>
+		<property:Supporting_Agency rdf:resource="&wiki;Category-3ANRI-2DCSREES"/>
+		<property:Synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plant-Associated Microbe Gene Ontology</property:Synonym>
+		<property:Synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Plant Associated Microbe Gene Ontology</property:Synonym>
+		<property:Synonym rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PAMGO - Plant-Associated Microbe Gene Ontology</property:Synonym>
+		<rdfs:subClassOf rdf:resource="&wiki;Category-3AResource"/>
+	</owl:Class>
+	<!-- auxilliary definitions -->
+	<owl:Class rdf:about="&wiki;Category-3AResource">
+		<rdfs:label>Resource</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Category:Resource"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Category:Resource"/>
+	</owl:Class>
+	<owl:DatatypeProperty rdf:about="&property;Synonym">
+		<rdfs:label>Synonym</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Synonym"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Synonym"/>
+	</owl:DatatypeProperty>
+	<owl:Class rdf:about="&wiki;Category-3ANRI-2DCSREES">
+		<rdfs:label>NRI-CSREES</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Category:NRI-CSREES"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Category:NRI-CSREES"/>
+	</owl:Class>
+	<owl:ObjectProperty rdf:about="&property;Supporting_Agency">
+		<rdfs:label>Supporting Agency</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Supporting_Agency"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Supporting_Agency"/>
+	</owl:ObjectProperty>
+	<owl:DatatypeProperty rdf:about="&property;SuperCategory">
+		<rdfs:label>SuperCategory</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:SuperCategory"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:SuperCategory"/>
+	</owl:DatatypeProperty>
+	<owl:DatatypeProperty rdf:about="&property;ModifiedDate">
+		<rdfs:label>ModifiedDate</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:ModifiedDate"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:ModifiedDate"/>
+	</owl:DatatypeProperty>
+	<owl:DatatypeProperty rdf:about="&property;Label">
+		<rdfs:label>Label</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Label"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Label"/>
+	</owl:DatatypeProperty>
+	<owl:Class rdf:about="&wiki;Category-3AVirginia_Polytechnic_Institute_and_State_University;_Virginia;_USA">
+		<rdfs:label>Virginia Polytechnic Institute and State University; Virginia; USA</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Category:Virginia_Polytechnic_Institute_and_State_University;_Virginia;_USA"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Category:Virginia_Polytechnic_Institute_and_State_University;_Virginia;_USA"/>
+	</owl:Class>
+	<owl:ObjectProperty rdf:about="&property;Is_part_of">
+		<rdfs:label>Is part of</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Is_part_of"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Is_part_of"/>
+	</owl:ObjectProperty>
+	<owl:DatatypeProperty rdf:about="&property;Id">
+		<rdfs:label>Id</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Id"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Id"/>
+	</owl:DatatypeProperty>
+	<owl:Class rdf:about="&wiki;Category-3AOntology">
+		<rdfs:label>Ontology</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Category:Ontology"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Category:Ontology"/>
+	</owl:Class>
+	<owl:ObjectProperty rdf:about="&property;Has_role">
+		<rdfs:label>Has role</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Has_role"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Has_role"/>
+	</owl:ObjectProperty>
+	<owl:DatatypeProperty rdf:about="&property;Grant">
+		<rdfs:label>Grant</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Grant"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Grant"/>
+	</owl:DatatypeProperty>
+	<swivt:Subject rdf:about="&wiki;File-3APAMGO.PNG">
+		<rdfs:label>File:PAMGO.PNG</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;File:PAMGO.PNG"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/File:PAMGO.PNG"/>
+	</swivt:Subject>
+	<owl:ObjectProperty rdf:about="&property;ExampleImage">
+		<rdfs:label>ExampleImage</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:ExampleImage"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:ExampleImage"/>
+	</owl:ObjectProperty>
+	<owl:DatatypeProperty rdf:about="&property;Definition">
+		<rdfs:label>Definition</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Definition"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Definition"/>
+	</owl:DatatypeProperty>
+	<owl:DatatypeProperty rdf:about="&property;DefiningCitation">
+		<rdfs:label>DefiningCitation</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:DefiningCitation"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:DefiningCitation"/>
+	</owl:DatatypeProperty>
+	<owl:DatatypeProperty rdf:about="&property;CurationStatus">
+		<rdfs:label>CurationStatus</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:CurationStatus"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:CurationStatus"/>
+	</owl:DatatypeProperty>
+	<owl:DatatypeProperty rdf:about="&property;Abbrev">
+		<rdfs:label>Abbrev</rdfs:label>
+		<swivt:page rdf:resource="&wikiurl;Property:Abbrev"/>
+		<rdfs:isDefinedBy rdf:resource="&wikiurl;Special:ExportRDF/Property:Abbrev"/>
+	</owl:DatatypeProperty>
+	<!-- References to the SWiVT Ontology, see http://semantic-mediawiki.org/swivt/ -->
+	<owl:AnnotationProperty rdf:about="&swivt;page">
+		<rdfs:isDefinedBy rdf:resource="http://semantic-mediawiki.org/swivt/1.0"/>
+	</owl:AnnotationProperty>
+	<owl:AnnotationProperty rdf:about="&swivt;creationDate">
+		<rdfs:isDefinedBy rdf:resource="http://semantic-mediawiki.org/swivt/1.0"/>
+	</owl:AnnotationProperty>
+	<owl:Class rdf:about="&swivt;Subject">
+		<rdfs:isDefinedBy rdf:resource="http://semantic-mediawiki.org/swivt/1.0"/>
+	</owl:Class>
+	<!-- Created by Semantic MediaWiki, http://semantic-mediawiki.org -->
+</rdf:RDF>
