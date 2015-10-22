@@ -1,0 +1,38 @@
+@startuml
+title SuperPhy Overview
+interface "Web Front End" as UI
+:User: --> UI
+[Upload] .. (Metadata from user\naccording to ontology)
+
+[GenBank] --> [Miner]
+[Miner] .. (Ontology based metadata extraction\nfrom free-form text)
+database "SuperPhy\nBlazeGraph" as SPHY
+[Miner] --> SPHY
+note top of SPHY : initially only genome data \nand metadata stored
+[Upload] --> SPHY
+
+SPHY .. [User Information Ontology]
+SPHY .. [GFVO]
+SPHY .. [Superphy Metadata Ontology]
+SPHY ---> (Panseq Analyses)
+(Panseq Analyses) --> SPHY
+
+note bottom of (Panseq Analyses)
+presence / absence
+of the pan genome
+and SNPs among
+shared genome regions
+end note
+
+(R Shiny Server) as SHINY
+SPHY <----> UI
+SPHY <---> SHINY
+UI --> [Upload]
+UI .. [Map View]
+UI .. [Phylogenetic Tree View]
+UI .. [List View]
+UI ---> (Group Comparisons)
+(Group Comparisons) <-> SHINY
+
+
+@enduml
