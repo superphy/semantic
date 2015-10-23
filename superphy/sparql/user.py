@@ -7,6 +7,20 @@
 
 from superphy import endpoint
 
+def add_literal_by_email(email,predicate,literal): 
+	update = """
+	PREFIX email: <https://github.com/superphy#hasEmail>
+	PREFIX p: <%s>
+
+	INSERT{
+		?indv p: '%s'
+	}
+	WHERE {
+		?indv email: '%s' 
+	}""" % (predicate,literal,email)
+	endpoint.update(update)
+	return update
+
 def last_user():
 	return endpoint.query("""
 	PREFIX user: <https://github.com/superphy#User>
@@ -22,6 +36,8 @@ def last_user():
 def email_exists(email): 
 	return endpoint.ask("""ASK {?x <https://github.com/superphy#hasEmail> '%s'}""" % (email))
 
+
+
 def insert_user(sparql_id,email):
 	return endpoint.update("""
 	PREFIX user: <https://github.com/superphy#User>
@@ -34,12 +50,12 @@ def insert_user(sparql_id,email):
 		indv: RDF_type: owl_NamedIndividual:.
 		indv: RDF_type: user:.
 		indv: email: '%s'
-}""" % (sparql_id, email))
+}""" % (sparql_id, email.lower()))
 
 #Called by sign_up app view
 def insert_next_user(email="no"):
 	#See if email exists
-	if email_exists(email):
+	if email_exists(email.lower()):
 		#This doesn't acutally stop anything with the sql though, so don't think this is a good place to put a validator. -Bryce
 		print "Already Exists!"
 		return False
@@ -53,5 +69,5 @@ def insert_next_user(email="no"):
 		break
 	#Fill debug email for testing purposes.
 	if email == "no":
-		email = "Test.%s@test.com" % user_id #This is here to provide an easy sample email when debugging.
-	return insert_user(user_id,email)
+		email = "test.%s@test.com" % user_id #This is here to provide an easy sample email when debugging.
+	return insert_user(user_id,email.lower())

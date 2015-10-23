@@ -9,6 +9,16 @@ from superphy import endpoint
 
 def delete_all_triples(): endpoint.update("""DELETE {?s?p?o} WHERE {?s?p?o}""")
 
+def add_literal(indv): endpoint.update("""
+	PREFIX user: <https://github.com/superphy#User>
+	PREFIX owl_NamedIndividual: <http://www.w3.org/2002/07/owl#>
+	PREFIX RDF_type: <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+	PREFIX indv: <%s>
+	PREFIX email: <https://github.com/superphy#hasEmail>
+
+	INSERT DATA{
+		indv: email: '%s'
+}""" % (sparql_id, email.lower()))
 
 #The sparql statement will get all triples
 def get_all_triples(): #Verified
