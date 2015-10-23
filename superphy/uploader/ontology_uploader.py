@@ -1,29 +1,25 @@
 __author__ = 'Stephen Kan'
 
-
 import requests
 import os
+import inspect
+
+
+bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
+ontologies = {'ontologies/faldo.ttl','ontologies/gfvo.xml','ontologies/Superphy.ttl','outputs/setup.ttl'}
 
 
 def upload_all_ontologies():
-    faldo = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/faldo.ttl')
-    gfvo = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/gfvo.xml')
-    Superphy = "file:" + os.path.join(os.path.dirname(__file__), 'ontologies/Superphy.ttl')
-    setup = "file:" + os.path.join(os.path.dirname(__file__), 'outputs/setup.ttl')
-
-
-    ontologies = {faldo, gfvo, Superphy, setup}
-
     for ontology in ontologies:
-        print ontology
-        bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
-        data = {'uri': ontology}
-        r = requests.post(url=bg_url, data=data)
-        print r.content
+        upload_file(ontology)
 
-def upload_ontology(filepath):
-    ontology = "file:" + os.path.join(os.path.dirname(__file__), filepath)
-    bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
-    data = {'uri': ontology}
-    r = requests.post(url=bg_url, data=data)
+def upload_file(filepath):
+    file = "file:" + os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filepath)
+    data = {'uri': file}
+    r = requests.post(bg_url, data)
+    print r.content
+
+def upload_data(data):
+    headers = {'Content-Type':'application/x-turtle'}
+    r = requests.post(bg_url, data=data, headers=headers)
     print r.content

@@ -5,24 +5,28 @@ import sys
 import traceback
 import ontology_uploader
 import os
+import inspect
 
+from rdflib import Graph
 from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
-from superphy_classes import PendingGenome, generate_output
-from superphy_sparql import check_genome
+from classes import PendingGenome, generate_output
+from sparql import check_genome
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 genome_params = {"isolation_date":"date", "isolation_location":"location", "isolation_host":"host",
                  "isolation_source":"source"}
+g = Graph()
 
-def load_minerJSON(filename):
-    print "file:" + os.path.join(os.getcwd(), "outputs/result.ttl")
+def load_minerJSON(filename, organism):
     progress = 0
     error = 0
     dict = {}
 
-    with open(filename, "r") as fd:
+    path = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filename)
+
+    with open(path, "r") as fd:
         parser = ijson.parse(fd)
 
         for prefix, event, value in parser:
@@ -41,6 +45,7 @@ def load_minerJSON(filename):
                 dict.setdefault("accession", set())
                 dict["name"] = prefix
                 dict["accession"].add(prefix)
+                dict["organism"] = organism
 
             if prefix.endswith(".displayname"):
                 cat = prefix.split(".", 3)[1]
@@ -57,7 +62,7 @@ def load_minerJSON(filename):
 
 
 def error_logging(dict, error):
-    f = open("outputs/errors.txt", "a")
+    f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/errors.txt"), "a")
     f.write(traceback.format_exc() + "\n")
     f.write(dict["name"] + "\n" + "=======================" + "\n")
     error += 1
@@ -89,9 +94,9 @@ def create_pending_genome(dict):
                 pass
                 kwargs.update({key:value})
 
-        PendingGenome(**kwargs).rdf()
-        generate_output(os.path.join(os.getcwd(), "outputs/result.ttl"))
-        ontology_uploader.upload_ontology(os.path.join(os.getcwd(), "outputs/result.ttl"))
+        PendingGenome(g, **kwargs).rdf()
+        output = generate_output(g)
+        ontology_uploader.upload_data(output)
 
 def return_serotypes(serotypes):
     Otype = None
@@ -139,5 +144,5 @@ def return_bio_ids(nuccore_id):
 
 
 
-#load_minerJSON("samples/small_pipe.json")
-load_minerJSON("samples/meta_pipe_result.json")
+load_minerJSON("samples/small_pipe.json", "ecoli")
+#load_minerJSON("samples/meta_pipe_result.json", "ecoli")

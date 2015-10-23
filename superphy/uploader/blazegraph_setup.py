@@ -1,72 +1,75 @@
 __author__ = 'Stephen Kan'
 
-from superphy_classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_output
+from classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_file_output
+from rdflib import Graph
 import json
 import os
+import inspect
 
 """
 This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all
-from superphy_classes.py) into RDF triples and exports it as a turtle file ready for converting into Blazegraph.
+from classes.py) into RDF triples and exports it as a turtle file ready for converting into Blazegraph.
 
 TODO: add a way to modify source files by reading the json, check for duplicates, and write a new JSON
       Would be nice to do this serially
 """
-
+g = Graph()
 
 def convert_host_categories():
-    file = open("data/host_categories.txt", "r+")
-    host_categories = json.load(file)
+    host_categories = generate_json("data/host_categories.txt")
 
     for host_category in host_categories:
         name, label = host_category
-        HostCategory(name, label).rdf()
+        HostCategory(g, name, label).rdf()
 
 
 def convert_hosts():
-    file = open("data/hosts.txt", "r+")
-    hosts = json.load(file)
+    hosts = generate_json("data/hosts.txt")
 
     for host in hosts:
         name, label, sci_name, com_name, host_category = host
-        Host(name, host_category, label, sci_name, com_name).rdf()
+        Host(g, name, host_category, label, sci_name, com_name).rdf()
 
 
 def convert_sources():
-    file = open("data/sources.txt", "r+")
-    sources = json.load(file)
+    sources = generate_json("data/sources.txt")
 
     for source in sources:
         name, label, host_category = source
-        FromSource(name, label, host_category).rdf()
+        FromSource(g, name, label, host_category).rdf()
 
 
 def convert_syndromes():
-    file = open("data/syndromes.txt", "r+")
-    syndromes = json.load(file)
+    syndromes = generate_json("data/syndromes.txt")
 
     for syndrome in syndromes:
         name, label, host_category = syndrome
-        IsolationSyndrome(name, label, host_category).rdf()
+        IsolationSyndrome(g, name, label, host_category).rdf()
 
 
 def convert_microbes():
-    file = open("data/microbes.txt", "r+")
-    microbes = json.load(file)
+    microbes = generate_json("data/microbes.txt")
 
     for microbe in microbes:
         name, label, sci_name, com_name = microbe
-        Microbe(name, label, sci_name, com_name).rdf()
+        Microbe(g, name, label, sci_name, com_name).rdf()
 
 
 def generate_serotypes():
     for num in range(1,56):
-        Htype(num).rdf()
-    Htype("Unknown").rdf()
-    Htype("-").rdf()
+        Htype(g, num).rdf()
+    Htype(g, "Unknown").rdf()
+    Htype(g, "-").rdf()
 
     for num in range(1,187):
-        Otype(num).rdf()
-    Otype("Unknown").rdf()
+        Otype(g, num).rdf()
+    Otype(g, "Unknown").rdf()
+
+
+def generate_json(filename):
+    path = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filename)
+    file = open(path, "r+")
+    return json.load(file)
 
 
 def generate_all():
@@ -76,4 +79,4 @@ def generate_all():
     convert_sources()
     convert_syndromes()
     generate_serotypes()
-    generate_output("file:" + os.path.join(os.path.dirname(__file__), 'outputs/setup.ttl'))
+    generate_file_output(g, os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), 'outputs/setup.ttl'))
