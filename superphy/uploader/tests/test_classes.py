@@ -1,6 +1,7 @@
 __author__ = 'Stephen Kan'
 
 import unittest
+import mock
 from superphy.uploader import classes
 from rdflib import Graph, Namespace
 
@@ -27,6 +28,7 @@ class ClassesTestCase(unittest.TestCase):
 
     def temp_print(self, name):
         print list(self.graph.objects(n[name]))
+        print list(self.graph.subjects(object=n[name]))
         print self.graph.serialize(format="turtle")
 
     def test_NamedIndividual(self):
@@ -225,3 +227,162 @@ class ClassesTestCase(unittest.TestCase):
         objects = list(self.graph.objects(n["H7"]))
 
         self.check_triples(fields, objects)
+
+    @mock.patch('superphy.uploader.classes.sparql')
+    def test_Genome(self, mock_sparql):
+
+        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
+        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
+        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+
+        kwargs = {"date": {"2013-06-24"},
+                  "location": {"United States, California, Santa Clara"},
+                  "accession": {"JNOG00000000"},
+                  "bioproject": {"251898"},
+                  "biosample": {"2841129"},
+                  "strain": {"CS03"},
+                  "organism": "ecoli",
+                  "host": {"Homo sapiens (human)"},
+                  "source": {"Feces"},
+                  "syndrome": {"Urinary tract infection (cystitis)"},
+                  "Htype": "-",
+                  "Otype": None,
+                  }
+
+        genome = classes.Genome(self.graph, "JNOG00000000", **kwargs)
+        genome.rdf()
+
+        field = {"https://github.com/superphy#H-",
+                 "https://github.com/superphy#from_hsapiens",
+                 "United States, California, Santa Clara",
+                 "JNOG00000000",
+                 "https://github.com/superphy#ecoli",
+                 "https://github.com/superphy#OUnknown",
+                 "https://github.com/superphy#feces",
+                 "2841129",
+                 "https://github.com/superphy#uti",
+                 "251898",
+                 "http://www.w3.org/2002/07/owl#NamedIndividual",
+                 "CS03",
+                 "2013-06-24",
+                 "http://www.biointerchange.org/gfvo#Genome"}
+        objects = list(self.graph.objects(n["JNOG00000000"]))
+
+        self.check_triples(field, objects)
+
+        field = {"https://github.com/superphy#uti",
+                 "https://github.com/superphy#from_hsapiens",
+                 "https://github.com/superphy#H-",
+                 "https://github.com/superphy#feces",
+                 "https://github.com/superphy#OUnknown",
+                 "https://github.com/superphy#ecoli"}
+        subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
+
+        self.check_triples(field, subjects)
+
+    @mock.patch('superphy.uploader.classes.sparql')
+    def test_PendingGenome(self, mock_sparql):
+
+        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
+        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
+        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+
+        kwargs = {"date": {"2013-06-24"},
+                  "location": {"United States, California, Santa Clara"},
+                  "accession": {"JNOG00000000"},
+                  "bioproject": {"251898"},
+                  "biosample": {"2841129"},
+                  "strain": {"CS03"},
+                  "organism": "ecoli",
+                  "host": {"Homo sapiens (human)"},
+                  "source": {"Feces"},
+                  "syndrome": {"Urinary tract infection (cystitis)"},
+                  "Htype": "-",
+                  "Otype": None,
+                  }
+
+        pending_genome = classes.PendingGenome(self.graph, "JNOG00000000", **kwargs)
+        pending_genome.rdf()
+
+        field = {"https://github.com/superphy#H-",
+                 "https://github.com/superphy#from_hsapiens",
+                 "United States, California, Santa Clara",
+                 "JNOG00000000",
+                 "https://github.com/superphy#ecoli",
+                 "https://github.com/superphy#OUnknown",
+                 "https://github.com/superphy#feces",
+                 "2841129",
+                 "https://github.com/superphy#uti",
+                 "251898",
+                 "http://www.w3.org/2002/07/owl#NamedIndividual",
+                 "CS03",
+                 "2013-06-24",
+                 "http://www.biointerchange.org/gfvo#Genome",
+                 "https://github.com/superphy#pending_genome"}
+        objects = list(self.graph.objects(n["JNOG00000000"]))
+
+        self.check_triples(field, objects)
+
+        field = {"https://github.com/superphy#uti",
+                 "https://github.com/superphy#from_hsapiens",
+                 "https://github.com/superphy#H-",
+                 "https://github.com/superphy#feces",
+                 "https://github.com/superphy#OUnknown",
+                 "https://github.com/superphy#ecoli"}
+        subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
+
+        self.check_triples(field, subjects)
+
+    @mock.patch('superphy.uploader.classes.sparql')
+    def test_CompletedGenome(self, mock_sparql):
+
+        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
+        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
+        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+
+        kwargs = {"date": {"2013-06-24"},
+                  "location": {"United States, California, Santa Clara"},
+                  "accession": {"JNOG00000000"},
+                  "bioproject": {"251898"},
+                  "biosample": {"2841129"},
+                  "strain": {"CS03"},
+                  "organism": "ecoli",
+                  "host": {"Homo sapiens (human)"},
+                  "source": {"Feces"},
+                  "syndrome": {"Urinary tract infection (cystitis)"},
+                  "Htype": "-",
+                  "Otype": None,
+                  }
+
+        completed_genome = classes.CompletedGenome(self.graph, "JNOG00000000", **kwargs)
+        completed_genome.rdf()
+
+        field = {"https://github.com/superphy#H-",
+                 "https://github.com/superphy#from_hsapiens",
+                 "United States, California, Santa Clara",
+                 "JNOG00000000",
+                 "https://github.com/superphy#ecoli",
+                 "https://github.com/superphy#OUnknown",
+                 "https://github.com/superphy#feces",
+                 "2841129",
+                 "https://github.com/superphy#uti",
+                 "251898",
+                 "http://www.w3.org/2002/07/owl#NamedIndividual",
+                 "CS03",
+                 "2013-06-24",
+                 "http://www.biointerchange.org/gfvo#Genome",
+                 "https://github.com/superphy#completed_genome"}
+        objects = list(self.graph.objects(n["JNOG00000000"]))
+
+        self.check_triples(field, objects)
+
+        field = {"https://github.com/superphy#uti",
+                 "https://github.com/superphy#from_hsapiens",
+                 "https://github.com/superphy#H-",
+                 "https://github.com/superphy#feces",
+                 "https://github.com/superphy#OUnknown",
+                 "https://github.com/superphy#ecoli"}
+        subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
+
+        self.check_triples(field, subjects)
+

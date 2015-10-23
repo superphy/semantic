@@ -19,7 +19,7 @@ genome_params = {"isolation_date":"date", "isolation_location":"location", "isol
                  "isolation_source":"source"}
 g = Graph()
 
-def load_minerJSON(filename):
+def load_minerJSON(filename, organism):
     progress = 0
     error = 0
     dict = {}
@@ -45,6 +45,7 @@ def load_minerJSON(filename):
                 dict.setdefault("accession", set())
                 dict["name"] = prefix
                 dict["accession"].add(prefix)
+                dict["organism"] = organism
 
             if prefix.endswith(".displayname"):
                 cat = prefix.split(".", 3)[1]
@@ -143,5 +144,5 @@ def return_bio_ids(nuccore_id):
 
 
 
-#load_minerJSON("samples/small_pipe.json")
-load_minerJSON("samples/meta_pipe_result.json")
+load_minerJSON("samples/small_pipe.json", "ecoli")
+#load_minerJSON("samples/meta_pipe_result.json", "ecoli")

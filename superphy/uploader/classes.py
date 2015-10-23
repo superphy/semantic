@@ -455,6 +455,8 @@ class Genome(NamedIndividual):
         for key, value in self.kwargs.iteritems():
             getattr(self, key)(value)
 
+        self.graph.add( (n[self.name], rdf.type, gfvo.Genome) )
+
     def date(self, date):
         """
         Convert all date entries into RDF
@@ -673,25 +675,3 @@ def generate_file_output(graph, destination):
 
     graph.serialize(destination=destination, format="turtle")
     graph.remove( (None, None, None) )
-
-""" =================================================== TESTING =================================================== """
-
-"""
-item = Host("hsapiens", "Homo sapiens (human)", "Homo sapiens", "human", "human")
-item.rdf()
-item = Microbe("ecoli", "Escherichia coli (E. coli)", "Escherichia coli", "E. coli")
-item.rdf()
-
-list(Htype(num).rdf()  for num in xrange(1,56))
-list(Otype(num).rdf() for num in xrange(1,187))
-
-genome = PendingGenome("NC_455763", **{"date":{"2010-10-09"}, "location":{"Canada"}, "Htype":"7", "from_host":{"Homo sapiens (human)"}, "organism": "ecoli", "from_source":{"Blood"}})
-print genome.kwargs
-genome.rdf()
-
-kwargs = {'from_source': set([]), 'accession': set(['CP001855']), 'strain': set([u'NRG 857C']), 'Otype': u'83', 'bioproject': set(['41221']), 'date': set([]), 'syndrome': set([]), 'from_host': set([]), 'location': set([]), 'Htype': u'1', 'organism': 'ecoli', 'biosample': set(['2603727'])}
-PendingGenome("CP001855", **kwargs).rdf()
-
-g.serialize(destination="outputs/test.txt", format="turtle")
-
-"""
