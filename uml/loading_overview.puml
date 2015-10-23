@@ -1,0 +1,57 @@
+@startuml
+title Superphy Loading Pipeline Overview
+
+'Data input
+actor Curator
+interface "Web Front End" as UI
+database "Genbank" as GB
+database "Biosample" as BS
+component [Miner] as Miner
+component [Upload] as Upload
+
+GB --> Miner: "Generic meta-data JSON\ne.g. accession: { attribute: value, ... }" 
+BS --> Miner
+:User: --> UI
+UI --> Upload
+
+'Validation 
+component [Sequence validation, part 1] as SV1
+
+Miner .. (Ontology based metadata\nextraction from\nfree-form text)
+Upload .. (Metadata from user\naccording to ontology)
+Curator --> Miner : "JSON validation and\noverride rules for data source"
+Miner --> SV1
+Upload --> SV1
+SV1 .. (Initial checks based on attributes\ne.g. length, number and\nuniqueness e.g. MD5 Checksum)
+
+'Computation
+component [Superphy queue] as SQ
+component [Load metadata] as LM
+component [Panseq for AMR/VF genes] as PAMR
+component [Panseq for pangenome] as PPG
+component [AMR/VF MSAs and trees] as AMRTree
+component [Pangenome MSAs and trees] as PGTree
+component [Subtyping] as ST
+database "SuperphyDB" as DB
+component [SNP computation] as SNP
+component [R/Shiny input] as Shiny
+component [Sequence validation, part 2] as SV2
+component [Global genome tree] as Tree
+
+SV1 --> SQ
+SQ --> LM
+LM --> PAMR
+LM --> PPG
+PAMR --> AMRTree
+PPG --> PGTree
+AMRTree --> ST
+PGTree --> SV2
+PGTree --> SNP
+PGTree --> Shiny
+SNP --> Shiny
+SNP --> Tree
+LM --> Shiny
+
+SV2 .. (Secondary checks based on\ncomposition e.g. core and\naccessory fragments,\nspecies e.g. E.coli fragments)
+
+@enduml
