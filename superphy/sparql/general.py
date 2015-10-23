@@ -5,24 +5,23 @@
 #Functionality:
 	#These are sparql queries. They are designed to be general non-specific queries:
 
-def delete_all_triples(): return"""DELETE {?s?p?o} WHERE {?s?p?o}"""
+from superphy import endpoint
 
-#Tested
+def delete_all_triples(): endpoint.update("""DELETE {?s?p?o} WHERE {?s?p?o}""")
+
 #The sparql statement will get all triples
 def get_all_triples(): #Verified
-	return """SELECT * {?s ?p ?o}"""
+	return endpoint.query("""SELECT * {?s ?p ?o}""")
 
-#Tested
 #The sparql statement will get all triples with object literals
 def get_object_literals(): #Verified
-	return """SELECT ?s ?p ?o WHERE {?s ?p ?o FILTER  ISLITERAL(?o)}"""
+	return endpoint.query("""SELECT ?s ?p ?o WHERE {?s ?p ?o FILTER  ISLITERAL(?o)}""")
 
-#Tested
 #The sparql statement will get all tripples with at least 1 literal
 def get_all_literals():
-	return """
+	return endpoint.query("""
 	SELECT ?s ?p ?o
-	WHERE {
+	WHERE {d
 	  {?s ?p ?o
 	   FILTER  ISLITERAL(?o)
 	  }
@@ -34,12 +33,12 @@ def get_all_literals():
 	  {?s ?p ?o
 	   FILTER  ISLITERAL(?s)
 	  }
-	}"""
+	}""")
 
 #Tested
 #The sparql statement will get all triples with 3 URIs.
 def get_all_uri_triples():
-	return """
+	return endpoint.query("""
 	SELECT ?s ?p ?o
 	WHERE {
 	  {?s ?p ?o}
@@ -55,4 +54,4 @@ def get_all_uri_triples():
 	  {
 	    FILTER ISLITERAL(?s)
 	  }
-	}"""
+	}""")
