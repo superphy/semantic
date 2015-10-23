@@ -26,6 +26,7 @@ class ClassesTestCase(unittest.TestCase):
         for item in fields:
             self.assertTrue(item in str(outputs))
 
+    # used for generating results for test to compare against (please manually confirm validity before using)
     def temp_print(self, name):
         print list(self.graph.objects(n[name]))
         print list(self.graph.subjects(object=n[name]))
