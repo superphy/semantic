@@ -173,6 +173,20 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#has_sequence
+
+:has_sequence rdf:type owl:ObjectProperty ;
+              
+              rdfs:domain <http://www.biointerchange.org/gfvo#Genome> ;
+              
+              rdfs:range :Sequence ;
+              
+              rdfs:subPropertyOf :has_attribute ;
+              
+              owl:inverseOf :is_sequence_of .
+
+
+
 ###  https://github.com/superphy#has_serotype
 
 :has_serotype rdf:type owl:ObjectProperty ;
@@ -269,6 +283,18 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#is_sequence_of
+
+:is_sequence_of rdf:type owl:ObjectProperty ;
+                
+                rdfs:range <http://www.biointerchange.org/gfvo#Genome> ;
+                
+                rdfs:domain :Sequence ;
+                
+                rdfs:subPropertyOf :is_attribute_of .
+
+
+
 ###  https://github.com/superphy#is_serotype_of
 
 :is_serotype_of rdf:type owl:ObjectProperty ;
@@ -300,6 +326,12 @@ xsd:date rdf:type rdfs:Datatype .
 #    Data properties
 #
 #################################################################
+
+
+###  http://www.biointerchange.org/gfvo#hasValue
+
+<http://www.biointerchange.org/gfvo#hasValue> owl:equivalentProperty :has_value .
+
 
 
 ###  https://github.com/superphy#has_accession
@@ -362,6 +394,12 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#has_value
+
+:has_value rdf:type owl:DatatypeProperty .
+
+
+
 
 
 #################################################################
@@ -377,6 +415,12 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  http://www.biointerchange.org/gfvo#DNASequence
+
+<http://www.biointerchange.org/gfvo#DNASequence> owl:equivalentClass :Sequence .
+
+
+
 ###  http://www.biointerchange.org/gfvo#Genome
 
 <http://www.biointerchange.org/gfvo#Genome> owl:equivalentClass [ rdf:type owl:Class ;
@@ -386,6 +430,10 @@ xsd:date rdf:type rdfs:Datatype .
                                                                                        [ rdf:type owl:Restriction ;
                                                                                          owl:onProperty :has_isolation_attribute ;
                                                                                          owl:someValuesFrom :isolation_attribute
+                                                                                       ]
+                                                                                       [ rdf:type owl:Restriction ;
+                                                                                         owl:onProperty :has_sequence ;
+                                                                                         owl:someValuesFrom :Sequence
                                                                                        ]
                                                                                        [ rdf:type owl:Restriction ;
                                                                                          owl:onProperty :is_genome_of ;
@@ -525,6 +573,12 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#Sequence
+
+:Sequence rdf:type owl:Class .
+
+
+
 ###  https://github.com/superphy#User
 
 :User rdf:type owl:Class ;
@@ -658,7 +712,6 @@ xsd:date rdf:type rdfs:Datatype .
 :serotype rdf:type owl:Class ;
           
           rdfs:subClassOf :Attribute .
-
 
 
 
