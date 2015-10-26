@@ -1,7 +1,0 @@
-accession number: AIGE00000000
-BioProject Id: 50977
-BioSample Id: 190987
-strain: DEC7E
-=======================
-accession number: AVWQ00000000
-BioProject Id: 186151

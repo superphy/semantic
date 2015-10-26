@@ -69,15 +69,3 @@ def check_genome(name):
     results = sparql.query().convert()
 
     return results["boolean"]
-
-"""
-print find_from_host("cat")
-print find_syndrome("Meningitis")
-print find_source("Blood")
-
-
-if check_genome("JFJL00000000"):
-    print "hello"
-if check_genome("asdfasdfasdf"):
-    print "world"
-"""
