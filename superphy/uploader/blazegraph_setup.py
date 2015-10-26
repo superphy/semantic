@@ -79,4 +79,4 @@ def generate_all():
     convert_sources()
     convert_syndromes()
     generate_serotypes()
-    generate_file_output(g, os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), 'outputs/setup.ttl'))
+    generate_file_output(g, os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), 'ontologies/setup.ttl'))
