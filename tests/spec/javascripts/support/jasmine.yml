@@ -68,10 +68,10 @@ src_dir: 'app/static'
 # spec_dir
 #
 # Spec directory path. Your spec_files must be returned relative to this path.
-# Default: spec/javascripts
+# Default: tests/spec/javascripts
 #
 # EXAMPLE:
 #
-# spec_dir: spec/javascripts
+# spec_dir: tests/spec/javascripts
 #
-spec_dir: spec/javascripts
+spec_dir: tests/spec/javascripts
