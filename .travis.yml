@@ -9,7 +9,7 @@ addons:
 
 install:
   - pip install --upgrade pip
-  - pip install -r requirements/requirements.txt
+  - pip install -r venv/requirements.txt
   
 # command to run tests
 script: xvfb-run -a nosetests && xvfb-run -a jasmine-ci
