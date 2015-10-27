@@ -28,7 +28,7 @@ def convert_hosts():
 
     for host in hosts:
         name, label, sci_name, com_name, host_category = host
-        Host(g, name, host_category, label, sci_name, com_name).rdf()
+        Host(g, name, label, sci_name, com_name, host_category).rdf()
 
 
 def convert_sources():
