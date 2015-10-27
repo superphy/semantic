@@ -60,7 +60,7 @@ def find_source(source):
     for result in results["results"]["bindings"]:
         return result["s"]["value"]
 
-def check_genome(name):
+def check_NamedIndividual(name):
     queryString = "PREFIX : <https://github.com/superphy#>" \
                   "ASK { :"+name+" rdf:type owl:NamedIndividual .}"
     sparql.setQuery(queryString)
