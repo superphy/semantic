@@ -60,8 +60,8 @@ def from_ftp(accession):
         open(os.path.join(currdir,'temp/sample.fasta'), 'wb').write(fasta.read())
 
     handle = open(os.path.join(currdir,'temp/sample.fasta'), 'rU')
-    for record in SeqIO.parse(handle, 'fasta'):
-        return record.seq
+
+    return ''.join(str(record.seq) for record in SeqIO.parse(handle, 'fasta'))
 
 
 def get_filename(filetype, ftp, id):
