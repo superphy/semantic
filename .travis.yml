@@ -8,8 +8,8 @@ addons:
 # command to install dependencies
 
 install:
-  - pip install --upgrade pip
-  - pip install -r venv/requirements.txt
+  - venv/bin/pip install --upgrade pip
+  - venv/bin/pip install -r venv/requirements.txt
   
 # command to run tests
 script: xvfb-run -a nosetests && xvfb-run -a jasmine-ci

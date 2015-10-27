@@ -63,15 +63,15 @@ spec_files:
 #
 # src_dir: public
 #
-src_dir: 'app/static'
+src_dir: '../app/static'
 
 # spec_dir
 #
 # Spec directory path. Your spec_files must be returned relative to this path.
-# Default: tests/spec/javascripts
+# Default: spec/javascripts
 #
 # EXAMPLE:
 #
-# spec_dir: tests/spec/javascripts
+# spec_dir: spec/javascripts
 #
-spec_dir: tests/spec/javascripts
+spec_dir: spec/javascripts
