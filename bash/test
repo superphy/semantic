@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xvfb-run -a nosetests && cd tests; xvfb-run -a jasmine-ci; cd ..

@@ -63,7 +63,7 @@ spec_files:
 #
 # src_dir: public
 #
-src_dir: 'app/static'
+src_dir: '../app/static'
 
 # spec_dir
 #

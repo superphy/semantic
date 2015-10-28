@@ -53,10 +53,12 @@ nosetests.xml
 # Virtual environment
 venv/*
 !venv/lib
+!venv/requirements.txt
 venv/lib/*
 !venv/lib/python2.7
 venv/lib/python2.7/*
 !venv/lib/python2.7/superphy
+
 
 #Pycharm files
 .idea/*
