@@ -14,7 +14,6 @@ from sparql import check_NamedIndividual, find_missing_sequences
 currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
 def load_sequences(genome):
-    g = Graph()
     name = genome + '_seq'
     print name
 
@@ -27,6 +26,7 @@ def load_sequences(genome):
         except ValueError:
             (sequence, bp, contigs) = from_ftp(genome)
 
+        g = Graph()
         Sequence(g, name, genome, sequence, bp, contigs).rdf()
         upload_data(generate_output(g))
 
@@ -84,4 +84,5 @@ def only_abecedarian(str):
 
 
 def upload_missing_sequences():
-    load_sequences(str(genome for genome in find_missing_sequences()))
+    for genome in find_missing_sequences():
+        load_sequences(genome)
