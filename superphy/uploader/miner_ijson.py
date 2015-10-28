@@ -152,7 +152,7 @@ def try_elink_biosample(bioproject, biosample, nuccore_id):
     return item
 
 
-#load_minerJSON("samples/test_set.json", "ecoli")
-#print "If you ran test_set.json, the last sample is intended to fail (missing species from database)."
+load_minerJSON("samples/test_set.json", "ecoli")
+print "If you ran test_set.json, the last sample is intended to fail (missing species from database)."
 #load_minerJSON("samples/meta_pipe_result.json", "ecoli")
 #load_minerJSON("25_genome.json", "ecoli")
