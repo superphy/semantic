@@ -6,12 +6,12 @@ import gzip
 import string
 from ftplib import FTP
 import os
+import gc
 import inspect
 from classes import Sequence, generate_output
 from ontology_uploader import upload_data
 from sparql import check_NamedIndividual, find_missing_sequences
 
-currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
 def load_sequences(genome):
     name = genome + '_seq'
@@ -46,11 +46,12 @@ def from_nuccore(accession):
 
 
 def from_ftp(accession):
+    currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
+
     ftp = FTP('bio-mirror.jp.apan.net')
     ftp.login('anonymous','stebokan@gmail.com')
     ftp.cwd('pub/biomirror/genbank/wgs')
     filename = get_filename('fsa_nt.gz', ftp, only_abecedarian(accession))
-
     ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'tmp/sample.gz'), 'wb').write)
 
     with gzip.open(os.path.join(currdir,'tmp/sample.gz')) as fasta:
@@ -85,4 +86,5 @@ def only_abecedarian(str):
 
 def upload_missing_sequences():
     for genome in find_missing_sequences():
-        load_sequences(genome)
+        load_sequences(str(genome))
+        gc.collect()
