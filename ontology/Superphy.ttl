@@ -342,6 +342,14 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#has_base_pair
+
+:has_base_pair rdf:type owl:DatatypeProperty ;
+               
+               rdfs:subPropertyOf :has_metadata .
+
+
+
 ###  https://github.com/superphy#has_bioproject
 
 :has_bioproject rdf:type owl:DatatypeProperty ;
@@ -355,6 +363,14 @@ xsd:date rdf:type rdfs:Datatype .
 :has_biosample rdf:type owl:DatatypeProperty ;
                
                rdfs:subPropertyOf :has_metadata .
+
+
+
+###  https://github.com/superphy#has_contigs
+
+:has_contigs rdf:type owl:DatatypeProperty ;
+             
+             rdfs:subPropertyOf :has_metadata .
 
 
 
@@ -575,7 +591,18 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://github.com/superphy#Sequence
 
-:Sequence rdf:type owl:Class .
+:Sequence rdf:type owl:Class ;
+          
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty :has_base_pair ;
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:int
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :has_contigs ;
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:int
+                          ] .
 
 
 

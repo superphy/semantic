@@ -54,18 +54,11 @@ def add_to_graph(dict, error, progress):
         print str(progress) + ": downloading files"
         try:
             create_pending_genome(dict)
-            add_sequence_to_queue(dict)
         except Exception as e:
             error = error_logging(dict, error)
 
         dict.clear()
     return error, progress
-
-
-def add_sequence_to_queue(dict):
-    accession = dict["name"]
-    f = open(os.path.join(currdir, "outputs/sequences.txt"), 'a')
-    f.write(accession + '\n')
 
 
 def error_logging(dict, error):
@@ -159,7 +152,7 @@ def try_elink_biosample(bioproject, biosample, nuccore_id):
     return item
 
 
-
-
-#load_minerJSON("samples/small_pipe.json", "ecoli")
-load_minerJSON("samples/meta_pipe_result.json", "ecoli")
+#load_minerJSON("samples/test_set.json", "ecoli")
+#print "If you ran test_set.json, the last sample is intended to fail (missing species from database)."
+#load_minerJSON("samples/meta_pipe_result.json", "ecoli")
+#load_minerJSON("25_genome.json", "ecoli")

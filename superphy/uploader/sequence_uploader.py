@@ -9,30 +9,26 @@ import os
 import inspect
 from classes import Sequence, generate_output
 from ontology_uploader import upload_data
-from sparql import check_NamedIndividual
+from sparql import check_NamedIndividual, find_missing_sequences
 
 g = Graph()
 currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
-def load_sequences(filename):
-    f = open(os.path.join(currdir,filename), "r+")
+def load_sequences(genome):
+    name = genome + '_seq'
+    print name
 
-    for line in f:
-        genome = line.rstrip('\n')
-        name = genome + '_seq'
-        print name
+    if check_NamedIndividual(name):
+        print name + " already in Blazegraph."
 
-        if check_NamedIndividual(name):
-            print name + " already in Blazegraph."
+    else:
+        try:
+            (sequence, bp, contigs) = from_nuccore(genome)
+        except ValueError:
+            (sequence, bp, contigs) = from_ftp(genome)
 
-        else:
-            try:
-                sequence = from_nuccore(genome)
-            except ValueError:
-                sequence = from_ftp(genome)
-
-            Sequence(g, name, genome, sequence).rdf()
-            upload_data(generate_output(g))
+        Sequence(g, name, genome, sequence, bp, contigs).rdf()
+        upload_data(generate_output(g))
 
 
 def from_nuccore(accession):
@@ -43,7 +39,11 @@ def from_nuccore(accession):
         if str(record.seq) is "":
             raise ValueError("The Genbank file is a master record with no sequence data.")
         else:
-            return record.seq
+            sequence = record.seq
+            contigs = 1
+            bp = len(sequence)
+            return (sequence, bp, contigs)
+
 
 def from_ftp(accession):
     id = only_abecedarian(accession)
@@ -54,14 +54,22 @@ def from_ftp(accession):
     ftp.cwd('pub/biomirror/genbank/wgs')
     filename = get_filename(filetype, ftp, id)
 
-    ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'temp/sample.gz'), 'wb').write)
+    ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'tmp/sample.gz'), 'wb').write)
 
-    with gzip.open(os.path.join(currdir,'temp/sample.gz')) as fasta:
-        open(os.path.join(currdir,'temp/sample.fasta'), 'wb').write(fasta.read())
+    with gzip.open(os.path.join(currdir,'tmp/sample.gz')) as fasta:
+        open(os.path.join(currdir,'tmp/sample.fasta'), 'wb').write(fasta.read())
 
-    handle = open(os.path.join(currdir,'temp/sample.fasta'), 'rU')
+    handle = open(os.path.join(currdir,'tmp/sample.fasta'), 'rU')
+    sequence = ""
+    contigs = 0
 
-    return ''.join(str(record.seq) for record in SeqIO.parse(handle, 'fasta'))
+    for record in SeqIO.parse(handle, 'fasta'):
+        sequence += str(record.seq)
+        contigs += 1
+
+    bp = len(sequence)
+
+    return (sequence, bp, contigs)
 
 
 def get_filename(filetype, ftp, id):
@@ -76,6 +84,8 @@ def only_abecedarian(str):
     nodigs = all.translate(all, string.ascii_letters)
     return str.translate(all, nodigs)
 
+def upload_missing_sequences():
+    for genome in find_missing_sequences():
+        load_sequences(str(genome))
 
-
-load_sequences(os.path.join(currdir, 'outputs/testingsequences.txt'))
+upload_missing_sequences()

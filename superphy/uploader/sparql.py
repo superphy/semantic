@@ -69,3 +69,16 @@ def check_NamedIndividual(name):
     results = sparql.query().convert()
 
     return results["boolean"]
+
+def find_missing_sequences():
+    queryString = "PREFIX : <https://github.com/superphy#>" \
+                  "PREFIX gfvo: <http://www.biointerchange.org/gfvo#>" \
+                  "PREFIX owl: <http://www.w3.org/2002/07/owl#>" \
+                  "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" \
+                  "SELECT ?s ?p WHERE { ?s rdf:type gfvo:Genome . MINUS { ?s :has_sequence ?o }}"
+    sparql.setQuery(queryString)
+
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    return (result["s"]["value"].rsplit("#", 1)[1] for result  in results["results"]["bindings"])
