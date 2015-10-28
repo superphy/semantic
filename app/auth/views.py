@@ -7,6 +7,7 @@ from ..models import User
 from ..email import send_email
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm,\
     PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
+from superphy.sparql.user import insert_next_user 
 
 @auth.before_app_request
 def before_request():
@@ -52,6 +53,10 @@ def register():
         user = User(email=form.email.data,
                     username=form.username.data,
                     password=form.password.data)
+
+        #Sparql Endpoint Insert
+        insert_next_user(user.email)
+
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
