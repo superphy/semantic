@@ -11,10 +11,10 @@ from classes import Sequence, generate_output
 from ontology_uploader import upload_data
 from sparql import check_NamedIndividual, find_missing_sequences
 
-g = Graph()
 currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
 def load_sequences(genome):
+    g = Graph()
     name = genome + '_seq'
     print name
 
@@ -46,20 +46,18 @@ def from_nuccore(accession):
 
 
 def from_ftp(accession):
-    id = only_abecedarian(accession)
-    filetype = 'fsa_nt.gz'
-
     ftp = FTP('bio-mirror.jp.apan.net')
     ftp.login('anonymous','stebokan@gmail.com')
     ftp.cwd('pub/biomirror/genbank/wgs')
-    filename = get_filename(filetype, ftp, id)
+    filename = get_filename('fsa_nt.gz', ftp, only_abecedarian(accession))
 
     ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'tmp/sample.gz'), 'wb').write)
 
     with gzip.open(os.path.join(currdir,'tmp/sample.gz')) as fasta:
         open(os.path.join(currdir,'tmp/sample.fasta'), 'wb').write(fasta.read())
 
-    handle = open(os.path.join(currdir,'tmp/sample.fasta'), 'rU')
+    handle = open(os.path.join(currdir,'tmp/sample.fasta'), 'rb')
+
     sequence = ""
     contigs = 0
 
@@ -84,8 +82,6 @@ def only_abecedarian(str):
     nodigs = all.translate(all, string.ascii_letters)
     return str.translate(all, nodigs)
 
-def upload_missing_sequences():
-    for genome in find_missing_sequences():
-        load_sequences(str(genome))
 
-upload_missing_sequences()
+def upload_missing_sequences():
+    load_sequences(str(genome for genome in find_missing_sequences()))

@@ -17,7 +17,6 @@ sys.setdefaultencoding("utf-8")
 
 genome_params = {"isolation_date":"date", "isolation_location":"location", "isolation_host":"host",
                  "isolation_source":"source"}
-g = Graph()
 currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
 def load_minerJSON(filename, organism):
@@ -71,6 +70,7 @@ def error_logging(dict, error):
 
 
 def create_pending_genome(dict):
+    g = Graph()
     n = dict["name"]
     kwargs = {}
 
@@ -95,8 +95,7 @@ def create_pending_genome(dict):
                 kwargs.update({key:value})
 
         PendingGenome(g, **kwargs).rdf()
-        output = generate_output(g)
-        ontology_uploader.upload_data(output)
+        ontology_uploader.upload_data(generate_output(g))
 
 def return_serotypes(serotypes):
     Otype = None
