@@ -17,7 +17,7 @@ esac
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
 	virtualenv --no-site-packages venv &> /dev/null
-	pip install --upgrade pip
+	venv/bin/pip install --upgrade pip
 	venv/bin/pip install -r venv/requirements.txt
 	cd venv
 	source bin/activate
