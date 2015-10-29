@@ -22,13 +22,18 @@ def load_sequences(genome):
 
     else:
         try:
-            (sequence, bp, contigs) = from_nuccore(genome)
-        except ValueError:
-            (sequence, bp, contigs) = from_ftp(genome)
+            try:
+                (sequence, bp, contigs) = from_nuccore(genome)
+            except ValueError:
+                (sequence, bp, contigs) = from_ftp(genome)
 
-        g = Graph()
-        Sequence(g, name, genome, sequence, bp, contigs).rdf()
-        upload_data(generate_output(g))
+            g = Graph()
+            Sequence(g, name, genome, sequence, bp, contigs).rdf()
+            upload_data(generate_output(g))
+        except TypeError:
+            f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/seq_errors.txt"), "a")
+            f.write(genome + ': The records for this sequence are not retrievable.\n')
+            print "%s: The records for this sequence are not retrievable." %genome
 
 
 def from_nuccore(accession):
@@ -88,3 +93,5 @@ def upload_missing_sequences():
     for genome in find_missing_sequences():
         load_sequences(str(genome))
         gc.collect()
+
+upload_missing_sequences()

@@ -55611,50 +55611,6 @@
             }
         ]
     },
-    "AZMA00000000": {
-        "isolation_host": [
-            {
-                "category": 1,
-                "id": 1,
-                "displayname": "Homo sapiens (human)",
-                "meta_term": "isolation_host"
-            }
-        ],
-        "serotype": [],
-        "isolation_source": [
-            {
-                "1": {
-                    "id": 1,
-                    "meta_term": "isolation_source",
-                    "displayname": "Stool"
-                },
-                "2": {
-                    "displayname": "Feces",
-                    "meta_term": "isolation_source",
-                    "id": 11
-                },
-                "3": {
-                    "displayname": "Feces",
-                    "meta_term": "isolation_source",
-                    "id": 18
-                }
-            }
-        ],
-        "isolation_date": [
-            {
-                "meta_term": "isolation_date",
-                "displayname": "2012-02-10",
-                "value": "2012-02-10"
-            }
-        ],
-        "isolation_location": [
-            {
-                "value": "United States, Illinois, Chicago",
-                "meta_term": "isolation_location",
-                "displayname": "United States, Illinois, Chicago"
-            }
-        ]
-    },
     "JMVO00000000": {
         "serotype": [],
         "isolation_host": [
