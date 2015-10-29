@@ -47,6 +47,7 @@ Classes:
     Genome: a genome sequenced from a sample
     PendingGenome: a genome that has not finished processing
     CompletedGenome: a genome that has finished processing
+    Sequence: a DNA sequence belonging to a genome
 
 Methods:
     generate_output: returns RDF Graph data into a turtle string and clears the Graph
@@ -654,6 +655,24 @@ class CompletedGenome(Genome):
 
         super(CompletedGenome, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.completed_genome) )
+
+
+class Sequence(NamedIndividual):
+    def __init__(self, graph, name, genome, sequence, bp, contigs):
+        super(Sequence, self).__init__(graph, name)
+        self.genome = genome
+        self.sequence = sequence
+        self.bp = bp
+        self.contigs = contigs
+
+    def rdf(self):
+        super(Sequence, self).rdf()
+        self.graph.add( (n[self.name], rdf.type, n.Sequence) )
+        self.graph.add( (n[self.name], n.has_value, Literal(str(self.sequence), datatype=XSD.string)) )
+        self.graph.add( (n[self.name], n.has_base_pair, Literal(str(self.bp), datatype=XSD.int)))
+        self.graph.add( (n[self.name], n.has_contigs, Literal(str(self.contigs), datatype=XSD.int)))
+        self.graph.add( (n[self.genome], n.has_sequence, n[self.name]) )
+        self.graph.add( (n[self.name], n.is_sequence_of, n[self.genome]) )
 
 
 def generate_output(graph):

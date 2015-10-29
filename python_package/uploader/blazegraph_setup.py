@@ -28,7 +28,7 @@ def convert_hosts():
 
     for host in hosts:
         name, label, sci_name, com_name, host_category = host
-        Host(g, name, host_category, label, sci_name, com_name).rdf()
+        Host(g, name, label, sci_name, com_name, host_category).rdf()
 
 
 def convert_sources():
@@ -79,4 +79,4 @@ def generate_all():
     convert_sources()
     convert_syndromes()
     generate_serotypes()
-    generate_file_output(g, os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), 'outputs/setup.ttl'))
+    generate_file_output(g, os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), 'ontologies/setup.ttl'))

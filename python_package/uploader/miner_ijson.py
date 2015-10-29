@@ -10,21 +10,21 @@ import inspect
 from rdflib import Graph
 from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
 from classes import PendingGenome, generate_output
-from sparql import check_genome
+from sparql import check_NamedIndividual
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 genome_params = {"isolation_date":"date", "isolation_location":"location", "isolation_host":"host",
                  "isolation_source":"source"}
-g = Graph()
+currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
 def load_minerJSON(filename, organism):
     progress = 0
     error = 0
     dict = {}
 
-    path = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), filename)
+    path = os.path.join(currdir, filename)
 
     with open(path, "r") as fd:
         parser = ijson.parse(fd)
@@ -32,15 +32,7 @@ def load_minerJSON(filename, organism):
         for prefix, event, value in parser:
 
             if ("." not in prefix) and (prefix is not "") and (event == "start_map"):
-                if dict:
-                    progress += 1
-                    print str(progress) + ": downloading files"
-                    try:
-                        create_pending_genome(dict)
-                    except Exception as e:
-                        error = error_logging(dict, error)
-
-                    dict.clear()
+                error, progress = add_to_graph(dict, error, progress)
 
                 dict.setdefault("accession", set())
                 dict["name"] = prefix
@@ -52,17 +44,24 @@ def load_minerJSON(filename, organism):
                 dict.setdefault(cat, set())
                 dict[cat].add(value)
 
-        if dict:
-            progress += 1
-            print str(progress) + ": downloading files"
+        error, progress = add_to_graph(dict, error, progress)
+        print "%d genomes parsed, %d errors occurred." %(progress, error)
+
+def add_to_graph(dict, error, progress):
+    if dict:
+        progress += 1
+        print str(progress) + ": downloading files"
         try:
             create_pending_genome(dict)
         except Exception as e:
-            error_logging(dict, error)
+            error = error_logging(dict, error)
+
+        dict.clear()
+    return error, progress
 
 
 def error_logging(dict, error):
-    f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/errors.txt"), "a")
+    f = open(os.path.join(currdir, "outputs/errors.txt"), "a")
     f.write(traceback.format_exc() + "\n")
     f.write(dict["name"] + "\n" + "=======================" + "\n")
     error += 1
@@ -71,10 +70,11 @@ def error_logging(dict, error):
 
 
 def create_pending_genome(dict):
+    g = Graph()
     n = dict["name"]
     kwargs = {}
 
-    if check_genome(n):
+    if check_NamedIndividual(n):
         print n + " already in Blazegraph."
     else:
         nuccore_id = return_esearch_uid("nuccore", n)
@@ -95,8 +95,7 @@ def create_pending_genome(dict):
                 kwargs.update({key:value})
 
         PendingGenome(g, **kwargs).rdf()
-        output = generate_output(g)
-        ontology_uploader.upload_data(output)
+        ontology_uploader.upload_data(generate_output(g))
 
 def return_serotypes(serotypes):
     Otype = None
@@ -123,26 +122,36 @@ def return_bio_ids(nuccore_id):
     biosample = set()
 
     try:
-        bioproject = bioproject  | return_elink_uid("nuccore","bioproject",nuccore_id)
-        try:
-            biosample = biosample | return_elink_uid("nuccore","biosample",nuccore_id)
-
-        except IndexError:
-            for id in bioproject:
-                biosample = biosample | return_elink_uid("bioproject","biosample",id)
+        bioproject = bioproject | return_elink_uid("nuccore","bioproject",nuccore_id)
+        biosample = biosample | try_elink_biosample(bioproject, biosample, nuccore_id)
 
     except IndexError:
-        for record in return_nuccore_efetch(nuccore_id):
-            for xref in record["GBSeq_xrefs"]:
-                if xref["GBXref_dbname"] == "BioProject":
-                    bioproject.add(only_digits(xref["GBXref_id"]).lstrip("0"))
-                elif xref["GBXref_dbname"] == "BioSample":
-                    biosample.add(only_digits(xref["GBXref_id"]).lstrip("0"))
+        try_efetch(bioproject, biosample, nuccore_id)
 
     return (bioproject, biosample)
 
 
+def try_efetch(bioproject, biosample, nuccore_id):
+    for record in return_nuccore_efetch(nuccore_id):
+        for xref in record["GBSeq_xrefs"]:
+            if xref["GBXref_dbname"] == "BioProject":
+                bioproject.add(only_digits(xref["GBXref_id"]).lstrip("0"))
+            elif xref["GBXref_dbname"] == "BioSample":
+                biosample.add(only_digits(xref["GBXref_id"]).lstrip("0"))
 
 
-load_minerJSON("samples/small_pipe.json", "ecoli")
+def try_elink_biosample(bioproject, biosample, nuccore_id):
+    item = set()
+    try:
+        item = biosample | return_elink_uid("nuccore", "biosample", nuccore_id)
+
+    except IndexError:
+        for id in bioproject:
+            item = biosample | return_elink_uid("bioproject", "biosample", id)
+    return item
+
+
+load_minerJSON("samples/test_set.json", "ecoli")
+print "If you ran test_set.json, the last sample is intended to fail (missing species from database)."
 #load_minerJSON("samples/meta_pipe_result.json", "ecoli")
+#load_minerJSON("25_genome.json", "ecoli")

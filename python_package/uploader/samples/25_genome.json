@@ -1,0 +1,622 @@
+{
+  "ANVW00000000": {
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": [],
+    "strain": [
+      {
+        "meta_term": "strain",
+        "displayname": "KTE59",
+        "value": "KTE59",
+        "priority": 1
+      }
+    ],
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2010-01-01",
+        "value": "2010-01-01"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Denmark",
+        "meta_term": "isolation_location",
+        "displayname": "Denmark"
+      }
+    ]
+  },
+  "ADTX00000000": {
+    "isolation_source": [
+      {
+        "1": {
+          "id": 6,
+          "meta_term": "isolation_source",
+          "displayname": "Intestine"
+        },
+        "2": {
+          "displayname": "Intestine",
+          "meta_term": "isolation_source",
+          "id": 16
+        }
+      }
+    ],
+    "serotype": [],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "displayname": "MS 153-1",
+        "meta_term": "strain",
+        "value": "MS 153-1"
+      },
+      {
+        "value": "BEI RESOURES STRAIN HM-351",
+        "displayname": "BEI RESOURES STRAIN HM-351",
+        "meta_term": "strain",
+        "priority": 3
+      }
+    ]
+  },
+  "JHNV00000000": {
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O119:H4",
+        "value": "O119:H4"
+      }
+    ],
+    "strain": [
+      {
+        "value": "03-3458",
+        "displayname": "03-3458",
+        "meta_term": "strain",
+        "priority": 1
+      }
+    ]
+  },
+  "JHFM00000000": {
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O121:H19",
+        "value": "O121:H19"
+      }
+    ],
+    "strain": [
+      {
+        "value": "2010C-3609",
+        "displayname": "2010C-3609",
+        "meta_term": "strain",
+        "priority": 1
+      }
+    ]
+  },
+  "AMVC00000000": {
+    "serotype": [],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "EC1865",
+        "displayname": "EC1865",
+        "meta_term": "strain"
+      }
+    ]
+  },
+  "JMIZ00000000": {
+    "serotype": [],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "isolation_location": [
+      {
+        "displayname": "United States, California, Davis",
+        "meta_term": "isolation_location",
+        "value": "United States, California, Davis"
+      }
+    ],
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2013-01-01",
+        "value": "2013-01-01"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "UCD_JA03_PB",
+        "meta_term": "strain",
+        "displayname": "UCD_JA03_PB"
+      }
+    ]
+  },
+  "AJVR00000000": {
+    "serotype": [
+      {
+        "value": "O103:H2",
+        "displayname": "O103:H2",
+        "meta_term": "serotype"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "meta_term": "strain",
+        "displayname": "CVM9450",
+        "value": "CVM9450"
+      }
+    ]
+  },
+  "CCQB00000000": {
+    "strain": [
+      {
+        "priority": 1,
+        "meta_term": "strain",
+        "displayname": "PUERTO RICAN",
+        "value": "PUERTO RICAN"
+      }
+    ],
+    "serotype": []
+  },
+  "AIHM00000000": {
+    "strain": [
+      {
+        "priority": 1,
+        "value": "DEC14C",
+        "meta_term": "strain",
+        "displayname": "DEC14C"
+      }
+    ],
+    "serotype": []
+  },
+  "APWX00000000": {
+    "isolation_location": [
+      {
+        "meta_term": "isolation_location",
+        "displayname": "Germany",
+        "value": "Germany"
+      }
+    ],
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2000-01-01",
+        "value": "2000-01-01"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "meta_term": "strain",
+        "displayname": "220/00",
+        "value": "220/00"
+      }
+    ],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": [
+      {
+        "value": "O174:H21",
+        "meta_term": "serotype",
+        "displayname": "O174:H21"
+      }
+    ]
+  },
+  "AVRM00000000": {
+    "serotype": [],
+    "strain": [
+      {
+        "meta_term": "strain",
+        "displayname": "T1282_01",
+        "value": "T1282_01",
+        "priority": 1
+      }
+    ]
+  },
+  "JNPI00000000": {
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2009-04-24",
+        "value": "2009-04-24"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Tanzania",
+        "meta_term": "isolation_location",
+        "displayname": "Tanzania"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "2-177-06_S3_C1",
+        "displayname": "2-177-06_S3_C1",
+        "meta_term": "strain"
+      }
+    ],
+    "serotype": [],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ]
+  },
+  "AIGR00000000": {
+    "serotype": [],
+    "strain": [
+      {
+        "meta_term": "strain",
+        "displayname": "DEC10C",
+        "value": "DEC10C",
+        "priority": 1
+      }
+    ]
+  },
+  "AYHV00000000": {
+    "strain": [
+      {
+        "displayname": "BIDMC 37",
+        "meta_term": "strain",
+        "value": "BIDMC 37",
+        "priority": 1
+      }
+    ],
+    "serotype": []
+  },
+  "ANWG00000000": {
+    "strain": [
+      {
+        "value": "KTE123",
+        "displayname": "KTE123",
+        "meta_term": "strain",
+        "priority": 1
+      }
+    ],
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2010-01-01",
+        "value": "2010-01-01"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Denmark",
+        "meta_term": "isolation_location",
+        "displayname": "Denmark"
+      }
+    ],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": []
+  },
+  "AIBQ00000000": {
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": [],
+    "strain": [
+      {
+        "priority": 1,
+        "displayname": "C79_08",
+        "meta_term": "strain",
+        "value": "C79_08"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Slovenia",
+        "meta_term": "isolation_location",
+        "displayname": "Slovenia"
+      }
+    ]
+  },
+  "AWAB00000000": {
+    "isolation_date": [
+      {
+        "meta_term": "isolation_date",
+        "displayname": "2005-01-01",
+        "value": "2005-01-01"
+      }
+    ],
+    "isolation_location": [
+      {
+        "displayname": "Denmark",
+        "meta_term": "isolation_location",
+        "value": "Denmark"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "KOEGE 10 25A",
+        "meta_term": "strain",
+        "displayname": "KOEGE 10 25A"
+      }
+    ],
+    "syndrome": [
+      {
+        "1": {
+          "displayname": "Urinary tract infection (cystitis)",
+          "meta_term": "syndrome",
+          "id": 5
+        }
+      },
+      {
+        "1": {
+          "displayname": "Bacteremia",
+          "meta_term": "syndrome",
+          "id": 25
+        }
+      }
+    ],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": []
+  },
+  "AKMJ00000000": {
+    "isolation_date": [
+      {
+        "value": "2006-01-01",
+        "meta_term": "isolation_date",
+        "displayname": "2006-01-01"
+      }
+    ],
+    "strain": [
+      {
+        "meta_term": "strain",
+        "displayname": "EC4439",
+        "value": "EC4439",
+        "priority": 1
+      }
+    ],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": [
+      {
+        "value": "O157:H7",
+        "displayname": "O157:H7",
+        "meta_term": "serotype"
+      }
+    ]
+  },
+  "JNMX00000000": {
+    "serotype": [],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Tanzania",
+        "meta_term": "isolation_location",
+        "displayname": "Tanzania"
+      }
+    ],
+    "isolation_date": [
+      {
+        "displayname": "2009-07-08",
+        "meta_term": "isolation_date",
+        "value": "2009-07-08"
+      }
+    ],
+    "strain": [
+      {
+        "meta_term": "strain",
+        "displayname": "3-475-03_S4_C2",
+        "value": "3-475-03_S4_C2",
+        "priority": 1
+      }
+    ]
+  },
+  "JOSM00000000": {
+    "serotype": [],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "2-222-05_S3_C1",
+        "meta_term": "strain",
+        "displayname": "2-222-05_S3_C1"
+      }
+    ],
+    "isolation_date": [
+      {
+        "value": "2009-04-23",
+        "meta_term": "isolation_date",
+        "displayname": "2009-04-23"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Tanzania",
+        "displayname": "Tanzania",
+        "meta_term": "isolation_location"
+      }
+    ]
+  },
+  "JHNI00000000": {
+    "strain": [
+      {
+        "priority": 1,
+        "value": "06-3745",
+        "meta_term": "strain",
+        "displayname": "06-3745"
+      }
+    ],
+    "serotype": [
+      {
+        "value": "O157:H7",
+        "displayname": "O157:H7",
+        "meta_term": "serotype"
+      }
+    ]
+  },
+  "JHJJ00000000": {
+    "serotype": [
+      {
+        "value": "O169:H41",
+        "displayname": "O169:H41",
+        "meta_term": "serotype"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "value": "F9792",
+        "meta_term": "strain",
+        "displayname": "F9792"
+      }
+    ]
+  },
+  "CP002729": {
+    "strain": [
+      {
+        "priority": 1,
+        "value": "UMNK88",
+        "displayname": "UMNK88",
+        "meta_term": "strain"
+      }
+    ],
+    "isolation_host": [
+      {
+        "id": 3,
+        "category": 2,
+        "displayname": "Sus scrofa (pig)",
+        "meta_term": "isolation_host"
+      }
+    ],
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O149:NA",
+        "value": "O149:NA"
+      }
+    ],
+    "syndrome": [
+      {
+        "1": {
+          "meta_term": "syndrome",
+          "displayname": "Diarrhea",
+          "id": 26
+        },
+        "2": {
+          "displayname": "Diarrhea",
+          "meta_term": "syndrome",
+          "id": 13
+        },
+        "3": {
+          "id": 18,
+          "displayname": "Diarrhea",
+          "meta_term": "syndrome"
+        }
+      }
+    ]
+  },
+  "AOEM00000000": {
+    "strain": [
+      {
+        "priority": 1,
+        "value": "PA47",
+        "displayname": "PA47",
+        "meta_term": "strain"
+      }
+    ],
+    "serotype": []
+  },
+  "JNNK00000000": {
+    "serotype": [
+      {
+        "value": "O181:H49",
+        "displayname": "O181:H49",
+        "meta_term": "serotype"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "displayname": "S.93",
+        "meta_term": "strain",
+        "value": "S.93"
+      }
+    ],
+    "isolation_date": [
+      {
+        "value": "1992-01-01",
+        "meta_term": "isolation_date",
+        "displayname": "1992-01-01"
+      }
+    ],
+    "isolation_location": [
+      {
+        "value": "Germany",
+        "meta_term": "isolation_location",
+        "displayname": "Germany"
+      }
+    ]
+  }
+}
