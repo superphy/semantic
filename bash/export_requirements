@@ -1,5 +1,8 @@
 #!/bin/bash
-#Use this when you have both imported requirments 
-#AND added another requirment to the environment.
+#Use this when you have both imported requirements
+#AND added another requiremeent to the environment.
 
-venv/bin/pip freeze > venv/requirements.txt
+source venv/bin/activate
+pip freeze > venv/requirements.txt
+freeze > npm-requirements.txt
+deactivate

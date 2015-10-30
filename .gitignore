@@ -54,6 +54,7 @@ nosetests.xml
 venv/*
 !venv/lib
 !venv/requirements.txt
+!venv/npm-requirements.txt
 venv/lib/*
 !venv/lib/python2.7
 venv/lib/python2.7/*

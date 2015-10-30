@@ -12,4 +12,4 @@ install:
   - pip install -r venv/requirements.txt
   
 # command to run tests
-script: xvfb-run -a nosetests && cd tests; xvfb-run -a jasmine-ci; cd ..
+script: xvfb-run -a nosetests && cd tests && xvfb-run -a jasmine-ci && cd ../

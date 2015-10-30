@@ -8,33 +8,24 @@ case $response in
 		#Put sudo packages that install to the development machine here. There should be no npm or pip here, because that is installed to the virtual environment below.
 		sudo apt-get install python-virtualenv
 		sudo apt-get install xvfb
+		sudo apt-get install nose
+		sudo apt-get install jasmine
         ;;
     *)
         echo "Not installing sudo packages."
         ;;
 esac
 
+#Virtualenvironment install
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
 	virtualenv --no-site-packages venv &> /dev/null
-	venv/bin/pip install --upgrade pip
-	venv/bin/pip install -r venv/requirements.txt
-	cd venv
-	source bin/activate
-
-	npm install gulp
-    npm install gulp-coffee
-    npm install gutil
-    npm install gulp-uglify
-    npm install gulp-rename
-    npm install gulp-less
-    npm install gulp-minify-css
-    npm install gulp-concat
-    #install nodejs
-	easy_install nose
-	easy_install jasmine
+	source venv/bin/activate
+	pip install --upgrade pip &> /dev/null
+	pip install -r venv/requirements.txt &> /dev/null
+	nodeenv -p --prebuilt
+	nodeenv --requiremets=venv/npm-requirements.txt --jobs=4 env-copy
 	deactivate
-	cd ..
 fi
 
 mkdir db &> /dev/null
