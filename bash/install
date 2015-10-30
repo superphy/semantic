@@ -30,13 +30,12 @@ if ! find venv/bin/pip | read v; then
     npm install gulp-less
     npm install gulp-minify-css
     npm install gulp-concat
+    #install nodejs
 	easy_install nose
 	easy_install jasmine
 	deactivate
 	cd ..
 fi
-
-venv/bin/pip install 
 
 mkdir db &> /dev/null
 if ! find db/bigdata-bundled.jar | read v; then
