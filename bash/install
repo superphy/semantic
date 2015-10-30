@@ -19,12 +19,12 @@ esac
 #Virtualenvironment install
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
-	virtualenv --no-site-packages venv &> /dev/null
+	virtualenv --no-site-packages venv
 	source venv/bin/activate
-	pip install --upgrade pip &> /dev/null
-	pip install -r venv/requirements.txt &> /dev/null
+	pip install --upgrade pip
+	pip install -r venv/requirements.txt
 	nodeenv -p --prebuilt
-	nodeenv --requiremets=venv/npm-requirements.txt --jobs=4 env-copy
+	nodeenv --requirements=venv/npm-requirements.txt --jobs=4 env-copy
 	deactivate
 fi
 

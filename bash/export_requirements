@@ -4,5 +4,5 @@
 
 source venv/bin/activate
 pip freeze > venv/requirements.txt
-freeze > npm-requirements.txt
+freeze > venv/npm-requirements.txt
 deactivate
