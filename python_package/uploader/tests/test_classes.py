@@ -2,7 +2,7 @@ __author__ = 'Stephen Kan'
 
 import unittest
 import mock
-from python_package.uploader import classes
+from superphy.uploader import classes
 from rdflib import Graph, Namespace
 
 n = Namespace("https://github.com/superphy#")
@@ -229,7 +229,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(fields, objects)
 
-    @mock.patch('python_package.uploader.classes.sparql')
+    @mock.patch('superphy.uploader.classes.sparql')
     def test_Genome(self, mock_sparql):
 
         mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
@@ -281,7 +281,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch('python_package.uploader.classes.sparql')
+    @mock.patch('superphy.uploader.classes.sparql')
     def test_PendingGenome(self, mock_sparql):
 
         mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
@@ -334,7 +334,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch('python_package.uploader.classes.sparql')
+    @mock.patch('superphy.uploader.classes.sparql')
     def test_CompletedGenome(self, mock_sparql):
 
         mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
