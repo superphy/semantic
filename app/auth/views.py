@@ -7,7 +7,7 @@ from ..models import User
 from ..email import send_email
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm,\
     PasswordResetRequestForm, PasswordResetForm, ChangeEmailForm
-from superphy.sparql.user import insert_next_user 
+from superphy.sparql.user import insert_next_user
 
 @auth.before_app_request
 def before_request():

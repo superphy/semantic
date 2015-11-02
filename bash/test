@@ -1,3 +1,5 @@
-#!/bin/bashxvfb-run -a jasmine-ci
+#!/bin/bash
 
-xvfb-run -a venv/bin/nosetests && cd tests; xvfb-run -a ../venv/bin/jasmine-ci; cd ..
+source venv/bin/activate
+xvfb-run -a nosetests && cd tests && xvfb-run -a jasmine-ci && cd ../
+deactivate

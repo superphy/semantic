@@ -14,27 +14,15 @@ case $response in
         ;;
 esac
 
+#Virtualenvironment install
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
-	virtualenv --no-site-packages venv &> /dev/null
-	venv/bin/pip install --upgrade pip
-	venv/bin/pip install -r venv/requirements.txt
-	cd venv
-	source bin/activate
-
-	npm install gulp
-    npm install gulp-coffee
-    npm install gutil
-    npm install gulp-uglify
-    npm install gulp-rename
-    npm install gulp-less
-    npm install gulp-minify-css
-    npm install gulp-concat
-    #install nodejs
-	easy_install nose
-	easy_install jasmine
+	virtualenv --no-site-packages venv
+	source venv/bin/activate
+	pip install --upgrade pip
+	pip install -r venv/requirements.txt
+	nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
 	deactivate
-	cd ..
 fi
 
 mkdir db &> /dev/null
