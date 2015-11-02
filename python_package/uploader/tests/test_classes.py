@@ -229,7 +229,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(fields, objects)
 
-    @mock.patch('superphy.uploader.classes.sparql')
+    @mock.patch('python_package.uploader.classes.sparql')
     def test_Genome(self, mock_sparql):
 
         mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
@@ -281,7 +281,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch('superphy.uploader.classes.sparql')
+    @mock.patch('python_package.uploader.classes.sparql')
     def test_PendingGenome(self, mock_sparql):
 
         mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
@@ -334,7 +334,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch('superphy.uploader.classes.sparql')
+    @mock.patch('python_package.uploader.classes.sparql')
     def test_CompletedGenome(self, mock_sparql):
 
         mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"

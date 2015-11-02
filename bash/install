@@ -21,8 +21,7 @@ if ! find venv/bin/pip | read v; then
 	source venv/bin/activate
 	pip install --upgrade pip
 	pip install -r venv/requirements.txt
-	nodeenv -p --prebuilt
-	nodeenv --requirements=venv/npm-requirements.txt
+	nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
 	deactivate
 fi
 

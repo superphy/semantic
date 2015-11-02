@@ -5,7 +5,7 @@
 #Functionality:
 	#These are sparql queries. They are designed to be general non-specific queries:
 
-from superphy import endpoint
+from python_package import endpoint
 
 def delete_all_triples(): endpoint.update("""DELETE {?s?p?o} WHERE {?s?p?o}""")
 

@@ -10,6 +10,7 @@ addons:
 install:
   - pip install --upgrade pip
   - pip install -r venv/requirements.txt
+  - nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
   
 # command to run tests
 script: xvfb-run -a nosetests && cd tests && xvfb-run -a jasmine-ci && cd ../
