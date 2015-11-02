@@ -1,6 +1,5 @@
 #!/bin/bash
-#Use this when you have both imported requirements
-#AND added another requiremeent to the environment.
+#Use this when you imported requirements and added another requirement to the environment.
 
 source venv/bin/activate
 pip freeze > venv/requirements.txt
