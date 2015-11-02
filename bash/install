@@ -37,9 +37,9 @@ if ! find db/bigdata-bundled.jar | read v; then
 		cd db;
 		wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
 		cd ..;
-		read -r -p "Do you want to backup the blazegraph client in ../db ? [Y/N] " response
+		read -r -p "Do you want to backup the Blazegraph client in ../db ? [Y/N] " response
 		case $response in
-		    [yY][eE][sS]|[yY])d
+		    [yY][eE][sS]|[yY])
 			mkdir ../db
 			cp db/bigdata-bundled.jar ../db/bigdata-bundled.jar
 			;;*)
@@ -52,9 +52,5 @@ if ! find data-dev.sqlite | read v; then
 	./manage.py db upgrade &> /dev/null
 fi
 
-echo finished
-#echo """$ export MAIL_USERNAME='your-gmail-username'"""
-#echo """$ export MAIL_PASSWORD='your-gmail-password'"""
-echo """$ ./manage.py runserver"""
-echo to run the server
-#echo """you must not be behind a proxy"""
+echo Finished
+echo """$ ./manage.py runserver""" to run the server

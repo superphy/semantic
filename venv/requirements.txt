@@ -9,7 +9,7 @@ dominate==2.1.16
 enum34==1.0.4
 Flask==0.10.1
 Flask-Bootstrap==3.3.5.6
-Flask-HTTPAuth==2.2.0
+Flask-HTTPAuth==2.7.0
 Flask-Jasmine==1.4
 Flask-Login==0.3.2
 Flask-Mail==0.9.1
