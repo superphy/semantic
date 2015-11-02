@@ -8,6 +8,8 @@ addons:
 # command to install dependencies
 
 install:
+  - virtualenv --no-site-packages venv
+  - source venv/bin/activate
   - pip install --upgrade pip
   - pip install -r venv/requirements.txt
   - nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
