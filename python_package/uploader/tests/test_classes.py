@@ -2,7 +2,7 @@ __author__ = 'Stephen Kan'
 
 import unittest
 import mock
-from superphy.uploader import classes
+from python_package.uploader import classes
 from rdflib import Graph, Namespace
 
 n = Namespace("https://github.com/superphy#")

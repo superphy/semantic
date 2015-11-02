@@ -8,8 +8,6 @@ case $response in
 		#Put sudo packages that install to the development machine here. There should be no npm or pip here, because that is installed to the virtual environment below.
 		sudo apt-get install python-virtualenv
 		sudo apt-get install xvfb
-		sudo apt-get install nose
-		sudo apt-get install jasmine
         ;;
     *)
         echo "Not installing sudo packages."
@@ -24,7 +22,7 @@ if ! find venv/bin/pip | read v; then
 	pip install --upgrade pip
 	pip install -r venv/requirements.txt
 	nodeenv -p --prebuilt
-	nodeenv --requirements=venv/npm-requirements.txt --jobs=4 env-copy
+	nodeenv --requirements=venv/npm-requirements.txt
 	deactivate
 fi
 
