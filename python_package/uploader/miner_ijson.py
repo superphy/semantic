@@ -15,143 +15,157 @@ from sparql import check_NamedIndividual
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-genome_params = {"isolation_date":"date", "isolation_location":"location", "isolation_host":"host",
-                 "isolation_source":"source"}
-currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
-def load_minerJSON(filename, organism):
-    progress = 0
-    error = 0
-    dict = {}
+class MinerDataUploader(object):
+    genome_params = {"isolation_date":"date", "isolation_location":"location", "isolation_host":"host",
+                     "isolation_source":"source"}
+    currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
-    path = os.path.join(currdir, filename)
+    def __init__(self, filename, organism):
+        self.progress = 0
+        self.error = 0
+        self.dict = {}
+        self.filename = filename
+        self.organism = organism
 
-    with open(path, "r") as fd:
-        parser = ijson.parse(fd)
+        self.iterate()
 
-        for prefix, event, value in parser:
 
+    def load_JSON(self):
+        path = os.path.join(self.currdir, self.filename)
+        fd = open(path, "r")
+        self.parser = ijson.parse(fd)
+
+
+    def iterate(self):
+        self.load_JSON()
+        for prefix, event, value in self.parser:
             if ("." not in prefix) and (prefix is not "") and (event == "start_map"):
-                error, progress = add_to_graph(dict, error, progress)
-
-                dict.setdefault("accession", set())
-                dict["name"] = prefix
-                dict["accession"].add(prefix)
-                dict["organism"] = organism
+                self.add_to_graph()
+                self.start_new_genome(prefix)
 
             if prefix.endswith(".displayname"):
-                cat = prefix.split(".", 3)[1]
-                dict.setdefault(cat, set())
-                dict[cat].add(value)
+                self.add_genome_parameter(prefix, value)
 
-        error, progress = add_to_graph(dict, error, progress)
-        print "%d genomes parsed, %d errors occurred." %(progress, error)
-
-def add_to_graph(dict, error, progress):
-    if dict:
-        progress += 1
-        print str(progress) + ": downloading files"
-        try:
-            create_pending_genome(dict)
-        except Exception as e:
-            error = error_logging(dict, error)
-
-        dict.clear()
-    return error, progress
+        self.add_to_graph()
+        print "%d genomes parsed, %d errors occurred." %(self.progress, self.error)
 
 
-def error_logging(dict, error):
-    f = open(os.path.join(currdir, "outputs/errors.txt"), "a")
-    f.write(traceback.format_exc() + "\n")
-    f.write(dict["name"] + "\n" + "=======================" + "\n")
-    error += 1
-    print "Error %d occurred." % error
-    return error
+    def start_new_genome(self, prefix):
+        self.dict.setdefault("accession", set())
+        self.dict["name"] = prefix
+        self.dict["accession"].add(prefix)
+        self.dict["organism"] = self.organism
 
 
-def create_pending_genome(dict):
-    g = Graph()
-    n = dict["name"]
-    kwargs = {}
+    def add_genome_parameter(self, prefix, value):
+        cat = prefix.split(".", 3)[1]
+        self.dict.setdefault(cat, set())
+        self.dict[cat].add(value)
 
-    if check_NamedIndividual(n):
-        print n + " already in Blazegraph."
-    else:
+
+    def add_to_graph(self):
+        if self.dict:
+            try:
+                self.progress += 1
+                print str(self.progress) + ": downloading files"
+                self.create_pending_genome()
+            except Exception as e:
+                self.error_logging()
+
+            self.dict.clear()
+
+
+    def error_logging(self):
+        f = open(os.path.join(self.currdir, "outputs/errors.txt"), "a")
+        f.write(self.dict["name"] + "\n")
+        f.write(traceback.format_exc() + "\n" + "==============================================" + "\n")
+        self.error += 1
+        print "Error %d occurred." % self.error
+
+
+    def create_pending_genome(self):
+        g = Graph()
+        n = self.dict["name"]
+        kwargs = {}
+
+        if check_NamedIndividual(n):
+            print n + " already in Blazegraph."
+        else:
+            self.add_ids(kwargs, n)
+
+            for key, value in self.dict.iteritems():
+                if key in self.genome_params:
+                    param = self.genome_params.get(key)
+                    kwargs.update({param:value})
+
+                elif key == "serotype":
+                    (Otype, Htype) = self.return_serotypes(value)
+                    kwargs.update({"Otype":Otype, "Htype":Htype})
+
+                else:
+                    pass
+                    kwargs.update({key:value})
+
+            PendingGenome(g, **kwargs).rdf()
+            ontology_uploader.upload_data(generate_output(g))
+
+
+    def add_ids(self, kwargs, n):
         nuccore_id = return_esearch_uid("nuccore", n)
-        (biosample, bioproject) = return_bio_ids(nuccore_id)
-        kwargs.update({"bioproject":bioproject, "biosample":biosample})
+        (biosample, bioproject) = self.return_bio_ids(nuccore_id)
+        kwargs.update({"bioproject": bioproject, "biosample": biosample})
 
-        for key, value in dict.iteritems():
-            if key in genome_params:
-                param = genome_params.get(key)
-                kwargs.update({param:value})
 
-            elif key == "serotype":
-                (Otype, Htype) = return_serotypes(value)
-                kwargs.update({"Otype":Otype, "Htype":Htype})
+    def return_serotypes(self, serotypes):
+        Otype = None
+        Htype = None
 
+        for serotype in serotypes:
+            if "ONT" in serotype:
+                Otype = None
             else:
-                pass
-                kwargs.update({key:value})
+                Otype = serotype.split(":")[0][1:]
 
-        PendingGenome(g, **kwargs).rdf()
-        ontology_uploader.upload_data(generate_output(g))
+            if "NM" in serotype:
+                Htype = "-"
+            elif "NA" in serotype:
+                Htype = None
+            else:
+                Htype = serotype.split(":")[1][1:]
 
-def return_serotypes(serotypes):
-    Otype = None
-    Htype = None
-
-    for serotype in serotypes:
-        if "ONT" in serotype:
-            Otype = None
-        else:
-            Otype = serotype.split(":")[0][1:]
-
-        if "NM" in serotype:
-            Htype = "-"
-        elif "NA" in serotype:
-            Htype = None
-        else:
-            Htype = serotype.split(":")[1][1:]
-
-    return (Otype, Htype)
+        return (Otype, Htype)
 
 
-def return_bio_ids(nuccore_id):
-    bioproject = set()
-    biosample = set()
+    def return_bio_ids(self, nuccore_id):
+        bioproject = set()
+        biosample = set()
 
-    try:
-        bioproject = bioproject | return_elink_uid("nuccore","bioproject",nuccore_id)
-        biosample = biosample | try_elink_biosample(bioproject, biosample, nuccore_id)
+        try:
+            bioproject = bioproject | return_elink_uid("nuccore","bioproject",nuccore_id)
+            biosample = biosample | self.return_elink_biosample(bioproject, biosample, nuccore_id)
 
-    except IndexError:
-        try_efetch(bioproject, biosample, nuccore_id)
+        except IndexError:
+            self.return_efetch(bioproject, biosample, nuccore_id)
 
-    return (bioproject, biosample)
-
-
-def try_efetch(bioproject, biosample, nuccore_id):
-    for record in return_nuccore_efetch(nuccore_id):
-        for xref in record["GBSeq_xrefs"]:
-            if xref["GBXref_dbname"] == "BioProject":
-                bioproject.add(only_digits(xref["GBXref_id"]).lstrip("0"))
-            elif xref["GBXref_dbname"] == "BioSample":
-                biosample.add(only_digits(xref["GBXref_id"]).lstrip("0"))
+        return (bioproject, biosample)
 
 
-def try_elink_biosample(bioproject, biosample, nuccore_id):
-    item = set()
-    try:
-        item = biosample | return_elink_uid("nuccore", "biosample", nuccore_id)
-
-    except IndexError:
-        for id in bioproject:
-            item = biosample | return_elink_uid("bioproject", "biosample", id)
-    return item
+    def return_efetch(self, bioproject, biosample, nuccore_id):
+        for record in return_nuccore_efetch(nuccore_id):
+            for xref in record["GBSeq_xrefs"]:
+                if xref["GBXref_dbname"] == "BioProject":
+                    bioproject.add(only_digits(xref["GBXref_id"]).lstrip("0"))
+                elif xref["GBXref_dbname"] == "BioSample":
+                    biosample.add(only_digits(xref["GBXref_id"]).lstrip("0"))
 
 
-load_minerJSON("samples/test_set.json", "ecoli")
-print "If you ran test_set.json, the last sample is intended to fail (missing species from database)."
-#load_minerJSON("samples/meta_pipe_result.json", "ecoli")
-#load_minerJSON("25_genome.json", "ecoli")
+    def return_elink_biosample(self, bioproject, biosample, nuccore_id):
+        item = set()
+        try:
+            item = biosample | return_elink_uid("nuccore", "biosample", nuccore_id)
+
+        except IndexError:
+            for id in bioproject:
+                item = biosample | return_elink_uid("bioproject", "biosample", id)
+        return item

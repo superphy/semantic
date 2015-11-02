@@ -93,5 +93,3 @@ def upload_missing_sequences():
     for genome in find_missing_sequences():
         load_sequences(str(genome))
         gc.collect()
-
-upload_missing_sequences()
