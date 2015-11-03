@@ -105,7 +105,6 @@ class MinerDataUploader(object):
 
                 else:
                     pass
-                    kwargs.update({key:value})
 
             PendingGenome(g, **kwargs).rdf()
             ontology_uploader.upload_data(generate_output(g))

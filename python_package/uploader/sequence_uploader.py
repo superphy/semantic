@@ -26,7 +26,6 @@ def load_sequences(genome):
                 (sequence, bp, contigs) = from_nuccore(genome)
             except ValueError:
                 (sequence, bp, contigs) = from_ftp(genome)
-
             g = Graph()
             Sequence(g, name, genome, sequence, bp, contigs).rdf()
             upload_data(generate_output(g))
