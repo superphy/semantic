@@ -1,4 +1,9 @@
 #!/bin/bash
-cd db
-(java -jar bigdata-bundled.jar &> /dev/null) & sleep 0
-cd ..
+#starts up Blazegraph
+java -server -Xmx4g -jar db/bigdata-bundled.jar <&- 1>/dev/null 2>&1 &
+sleep 5
+
+#makes a superphy namespace
+source venv/bin/activate
+python ./python_package/uploader/main.py
+deactivate

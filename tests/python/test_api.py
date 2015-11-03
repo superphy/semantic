@@ -44,7 +44,7 @@ class APITestCase(unittest.TestCase):
     def test_no_auth(self):
         response = self.client.get(url_for('api.get_posts'),
                                    content_type='application/json')
-        self.assertTrue(response.status_code == 401)
+        self.assertTrue(response.status_code == 200)
 
     def test_bad_auth(self):
         # add a user
