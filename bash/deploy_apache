@@ -1,9 +1,11 @@
 #!/bin/bash
-
-A="$(pwd)"
-AA=${A}/app/static/
-B="/var/www/html/mithril"
-BB=${B}
-echo Making symlink from $AA, to $BB
-sudo rm $BB
-sudo ln  $AA $BB -s
+#This removes the old 'mithril' symlink from apache,
+#and adds a new one; the new one points to the mithril
+#index.html that is in the folder that the script is run on.
+ 
+origin="$(pwd)"
+static=${origin}/app/static/
+apache="/var/www/html/mithril"
+echo Making symlink from $static, to $apache
+sudo rm $apache
+sudo ln  $static $apache -s
