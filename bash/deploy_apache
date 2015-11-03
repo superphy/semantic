@@ -1,0 +1,9 @@
+#!/bin/bash
+
+A="$(pwd)"
+AA=${A}/app/static/
+B="/var/www/html/mithril"
+BB=${B}
+echo Making symlink from $AA, to $BB
+sudo rm $BB
+sudo ln  $AA $BB -s
