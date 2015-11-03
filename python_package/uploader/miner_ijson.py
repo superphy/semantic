@@ -104,7 +104,7 @@ class MinerDataUploader(object):
                     kwargs.update({"Otype":Otype, "Htype":Htype})
 
                 else:
-                    pass
+                    kwargs.update({key:value})
 
             PendingGenome(g, **kwargs).rdf()
             ontology_uploader.upload_data(generate_output(g))
