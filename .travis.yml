@@ -5,7 +5,9 @@ python:
 
 addons:
   firefox: "41.0"
-# command to install dependencies
+  apt:
+    packages:
+    - libyajl1
 
 install:
   - virtualenv --no-site-packages venv
