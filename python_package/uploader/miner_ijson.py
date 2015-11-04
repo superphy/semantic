@@ -8,14 +8,14 @@ except YAJLImportError:
 
 import sys
 import traceback
-import ontology_uploader
 import os
 import inspect
 
 from rdflib import Graph
-from eutils import return_elink_uid, return_nuccore_efetch, return_esearch_uid, only_digits
+from eutils import return_elink_uid, return_esearch_uid
 from classes import PendingGenome, generate_output
 from sparql import check_NamedIndividual
+from ontology_uploader import upload_data
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -29,22 +29,25 @@ class MinerDataUploader(object):
     def __init__(self, filename, organism):
         self.progress = 0
         self.error = 0
-        self.dict = {}
         self.filename = filename
         self.organism = organism
+        self.dict = {}
 
+
+    def upload(self):
+        self.load_JSON()
         self.iterate()
+        print "%d genomes parsed, %d errors occurred." %(self.progress, self.error)
 
 
     def load_JSON(self):
         path = os.path.join(self.currdir, self.filename)
         fd = open(path, "r")
-        self.parser = ijson.parse(fd)
+        self.data = ijson.parse(fd)
 
 
     def iterate(self):
-        self.load_JSON()
-        for prefix, event, value in self.parser:
+        for prefix, event, value in self.data:
             if ("." not in prefix) and (prefix is not "") and (event == "start_map"):
                 self.add_to_graph()
                 self.start_new_genome(prefix)
@@ -53,7 +56,18 @@ class MinerDataUploader(object):
                 self.add_genome_parameter(prefix, value)
 
         self.add_to_graph()
-        print "%d genomes parsed, %d errors occurred." %(self.progress, self.error)
+
+
+    def add_to_graph(self):
+        if self.dict:
+            try:
+                self.progress += 1
+                print str(self.progress) + ": downloading files"
+                self.create_pending_genome()
+            except Exception as e:
+                self.error_logging()
+
+            self.dict.clear()
 
 
     def start_new_genome(self, prefix):
@@ -69,23 +83,12 @@ class MinerDataUploader(object):
         self.dict[cat].add(value)
 
 
-    def add_to_graph(self):
-        if self.dict:
-            try:
-                self.progress += 1
-                print str(self.progress) + ": downloading files"
-                self.create_pending_genome()
-            except Exception as e:
-                self.error_logging()
-
-            self.dict.clear()
-
-
     def error_logging(self):
-        f = open(os.path.join(self.currdir, "outputs/errors.txt"), "a")
-        f.write(self.dict["name"] + "\n")
-        f.write(traceback.format_exc() + "\n" + "==============================================" + "\n")
         self.error += 1
+        f = open(os.path.join(self.currdir, "outputs/errors.txt"), "a")
+        f.write(self.dict["name"] + "\n" +
+                traceback.format_exc() + "\n" +
+                "================================" + "\n")
         print "Error %d occurred." % self.error
 
 
@@ -97,7 +100,7 @@ class MinerDataUploader(object):
         if check_NamedIndividual(n):
             print n + " already in Blazegraph."
         else:
-            self.add_ids(kwargs, n)
+            kwargs.update(self.get_ncbi_ids(n))
 
             for key, value in self.dict.iteritems():
                 if key in self.genome_params:
@@ -105,23 +108,27 @@ class MinerDataUploader(object):
                     kwargs.update({param:value})
 
                 elif key == "serotype":
-                    (Otype, Htype) = self.return_serotypes(value)
-                    kwargs.update({"Otype":Otype, "Htype":Htype})
+                    kwargs.update(self.get_serotypes(value))
 
                 else:
                     kwargs.update({key:value})
 
             PendingGenome(g, **kwargs).rdf()
-            ontology_uploader.upload_data(generate_output(g))
+            upload_data(generate_output(g))
 
+    def get_ncbi_ids(self, n):
+        bioproject = set()
+        biosample = set()
 
-    def add_ids(self, kwargs, n):
         nuccore_id = return_esearch_uid("nuccore", n)
-        (biosample, bioproject) = self.return_bio_ids(nuccore_id)
-        kwargs.update({"bioproject": bioproject, "biosample": biosample})
+
+        bioproject = bioproject | return_elink_uid("nuccore","bioproject",nuccore_id)
+        biosample = biosample | return_elink_uid("nuccore", "biosample", nuccore_id)
+
+        return {"bioproject": bioproject, "biosample": biosample}
 
 
-    def return_serotypes(self, serotypes):
+    def get_serotypes(self, serotypes):
         Otype = None
         Htype = None
 
@@ -138,38 +145,5 @@ class MinerDataUploader(object):
             else:
                 Htype = serotype.split(":")[1][1:]
 
-        return (Otype, Htype)
+        return {"Otype":Otype, "Htype":Htype}
 
-
-    def return_bio_ids(self, nuccore_id):
-        bioproject = set()
-        biosample = set()
-
-        try:
-            bioproject = bioproject | return_elink_uid("nuccore","bioproject",nuccore_id)
-            biosample = biosample | self.return_elink_biosample(bioproject, biosample, nuccore_id)
-
-        except IndexError:
-            self.return_efetch(bioproject, biosample, nuccore_id)
-
-        return (bioproject, biosample)
-
-
-    def return_efetch(self, bioproject, biosample, nuccore_id):
-        for record in return_nuccore_efetch(nuccore_id):
-            for xref in record["GBSeq_xrefs"]:
-                if xref["GBXref_dbname"] == "BioProject":
-                    bioproject.add(only_digits(xref["GBXref_id"]).lstrip("0"))
-                elif xref["GBXref_dbname"] == "BioSample":
-                    biosample.add(only_digits(xref["GBXref_id"]).lstrip("0"))
-
-
-    def return_elink_biosample(self, bioproject, biosample, nuccore_id):
-        item = set()
-        try:
-            item = biosample | return_elink_uid("nuccore", "biosample", nuccore_id)
-
-        except IndexError:
-            for id in bioproject:
-                item = biosample | return_elink_uid("bioproject", "biosample", id)
-        return item
