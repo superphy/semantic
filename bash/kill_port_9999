@@ -1,0 +1,3 @@
+#!/bin/bash
+#script to kill all programs using port 9999 (Blazegraph in particular). Use with caution.
+kill -9 `lsof -t -i TCP:9999 -c java -a`

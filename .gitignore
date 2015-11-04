@@ -49,14 +49,20 @@ nosetests.xml
 
 # SQLite databases
 *.sqlite
+*.sqlite-journal
 
 # Virtual environment
 venv/*
 !venv/lib
+!venv/requirements.txt
+!venv/npm-requirements.txt
 venv/lib/*
 !venv/lib/python2.7
 venv/lib/python2.7/*
-!venv/lib/python2.7/superphy
+!venv/lib/python2.7/site-packages/
+venv/lib/python2.7/site-packages/*
+!venv/lib/python2.7/site-packages/superphy
+
 
 #Pycharm files
 .idea/*

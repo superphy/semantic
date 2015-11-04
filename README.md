@@ -1,15 +1,13 @@
 # semantic   [![Build Status](https://travis-ci.org/superphy/semantic.svg?branch=master)](https://travis-ci.org/superphy/semantic)
 SuperPhy for the semantic web     
 
-# Master
-Installation instructions
-
 # Quick Start
 - Install Flask
     * bash bash/install
     * ./manage.py runserver
-- Install node
-- Install all npm packages listed under Gulp.js below
+- Start Blazegraph
+    * `bash bash/start_blazegraph`
+    * to stop it use `bash bash/kill_port_9999`
 - Running Gulp will compile all of the LESS to CSS, convert Coffeescript to JS, combine and minify all files
 - The index.html file therefore only needs to load `mithril.min.js` and `all.min.js`, where all.min.js is the combined and minified file of all the Coffeescript in the project.
 - Likewise, the css files included are `bootstrap.min.css` and `all.min.css`, where all.min.cs is the LESS --> CSS, combined and minified.

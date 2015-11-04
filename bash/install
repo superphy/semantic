@@ -2,12 +2,30 @@
 
 chmod a+x *.py
 
+read -r -p "Install sudo packages to your dev system? [Y/N] " response
+case $response in
+    [yY][eE][sS]|[yY])
+		#Put sudo packages that install to the development machine here. There should be no npm or pip here, because that is installed to the virtual environment below.
+		sudo apt-get install python-virtualenv
+		sudo apt-get install xvfb
+        ;;
+    *)
+        echo "Not installing sudo packages."
+        ;;
+esac
+
+#Virtualenvironment install
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
-	virtualenv venv &> /dev/null
-	venv/bin/pip install -r requirements/requirements.txt
+	virtualenv --no-site-packages venv
+	source venv/bin/activate
+	pip install --upgrade pip
+	pip install -r venv/requirements.txt
+	nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
+	deactivate
 fi
 
+#Getting the graph db jar file from remote server.
 mkdir db &> /dev/null
 if ! find db/bigdata-bundled.jar | read v; then
 	
@@ -20,17 +38,21 @@ if ! find db/bigdata-bundled.jar | read v; then
 		cd db;
 		wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
 		cd ..;
+		read -r -p "Do you want to backup the Blazegraph client in ../db ? [Y/N] " response
+		case $response in
+		    [yY][eE][sS]|[yY])
+			mkdir ../db
+			cp db/bigdata-bundled.jar ../db/bigdata-bundled.jar
+			;;*)
+		esac
 	fi
 fi
 
+#Setting up sqlite server for user auth
 if ! find data-dev.sqlite | read v; then
 	echo Setting up SQL server
 	./manage.py db upgrade &> /dev/null
 fi
 
-echo finished
-#echo """$ export MAIL_USERNAME='your-gmail-username'"""
-#echo """$ export MAIL_PASSWORD='your-gmail-password'"""
-echo """$ ./manage.py runserver"""
-echo to run the server
-#echo """you must not be behind a proxy"""
+echo Finished
+echo """$ ./manage.py runserver""" to run the server
