@@ -27,6 +27,7 @@ if ! find venv/bin/pip | read v; then
 	deactivate
 fi
 
+#Getting the graph db jar file from remote server.
 mkdir db &> /dev/null
 if ! find db/bigdata-bundled.jar | read v; then
 	
@@ -49,6 +50,7 @@ if ! find db/bigdata-bundled.jar | read v; then
 	fi
 fi
 
+#Setting up sqlite server for user auth
 if ! find data-dev.sqlite | read v; then
 	echo Setting up SQL server
 	./manage.py db upgrade &> /dev/null
