@@ -37,20 +37,29 @@ component [SNP computation] as SNP
 component [R/Shiny input] as Shiny
 component [Sequence validation, part 2] as SV2
 component [Global genome tree] as Tree
+component [In Silico typing] as IST
+component [Multi-locus Variable Number Tandem-Repeat Analysis] as MLVA
+component [Multi-locus Sequence Typing] as MLST
+component [Serotyping] as SRT
 
-SV1 --> SQ
+
+SV1 --> SV2
+SV2 --> SQ
 SQ --> LM
 LM --> PAMR
 LM --> PPG
 PAMR --> AMRTree
 PPG --> PGTree
 AMRTree --> ST
-PGTree --> SV2
 PGTree --> SNP
 PGTree --> Shiny
 SNP --> Shiny
 SNP --> Tree
 LM --> Shiny
+LM --> IST
+IST --> MLVA
+IST --> MLST
+IST --> SRT
 
 SV2 .. (Secondary checks based on\ncomposition e.g. core and\naccessory fragments,\nspecies e.g. E.coli fragments)
 
