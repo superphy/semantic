@@ -29,4 +29,4 @@ def create_namespace():
     headers = {'Content-Type':'application/xml'}
     data = "".join(line for line in open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "data/namespace.xml")))
     r = requests.post('http://localhost:9999/bigdata/namespace', data=data, headers=headers)
-    print r.content
+    return r.content

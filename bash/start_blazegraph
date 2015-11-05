@@ -2,9 +2,20 @@
 #starts up Blazegraph
 echo Starting Blazegraph...
 java -server -Xmx4g -jar db/bigdata-bundled.jar <&- 1>/dev/null 2>&1 &
-sleep 10
+
+response=$(curl -s -i http://localhost:9999/bigdata/ | grep "200 OK")
+
+while [[ $response = "" ]]; do
+	echo "Blazegraph not initialized"
+	sleep 1
+	response=$(curl -s -i http://localhost:9999/bigdata/ | grep "200 OK")
+done
+
+echo Blazegraph has been started!
 
 #makes a superphy namespace
 source venv/bin/activate
 python ./python_package/uploader/main.py
 deactivate
+
+exit 0
