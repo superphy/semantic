@@ -10,7 +10,7 @@ class MinerIJSONTestCase(unittest.TestCase):
         self.case = MinerDataUploader('samples/2_genome.json', 'ecoli')
 
     def tearDown(self):
-        pass
+        self.case = None
 
     def test_loadJSON(self):
         self.case.load_JSON()
