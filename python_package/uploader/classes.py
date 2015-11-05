@@ -658,7 +658,23 @@ class CompletedGenome(Genome):
 
 
 class Sequence(NamedIndividual):
+    """
+
+    """
     def __init__(self, graph, name, genome, sequence, bp, contigs):
+        """
+
+        Args:
+            graph:
+            name:
+            genome:
+            sequence:
+            bp:
+            contigs:
+
+        Returns:
+
+        """
         super(Sequence, self).__init__(graph, name)
         self.genome = genome
         self.sequence = sequence
@@ -666,6 +682,11 @@ class Sequence(NamedIndividual):
         self.contigs = contigs
 
     def rdf(self):
+        """
+
+        Convert all Sequence variables to RDF
+
+        """
         super(Sequence, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Sequence) )
         self.graph.add( (n[self.name], n.has_value, Literal(str(self.sequence), datatype=XSD.string)) )
@@ -673,6 +694,16 @@ class Sequence(NamedIndividual):
         self.graph.add( (n[self.name], n.has_contigs, Literal(str(self.contigs), datatype=XSD.int)))
         self.graph.add( (n[self.genome], n.has_sequence, n[self.name]) )
         self.graph.add( (n[self.name], n.is_sequence_of, n[self.genome]) )
+
+    def add_is_from(self, is_from):
+        """
+        Add a tag to identify the sequence as a WGS project, a core genome, or a plasmid
+
+        Args:
+            is_from: the tag to add, one of WGS, CORE, or PLASMID
+
+        """
+        self.graph.add( (n[self.name], n.is_from, Literal(str(is_from), datatype=XSD.string)) )
 
 
 def generate_output(graph):
