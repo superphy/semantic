@@ -1,6 +1,6 @@
 __author__ = 'Stephen Kan'
 
-from rdflib import Graph, Namespace, Literal, XSD
+from rdflib import Namespace, Literal, XSD
 import sparql
 
 """

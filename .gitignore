@@ -51,6 +51,10 @@ nosetests.xml
 *.sqlite
 *.sqlite-journal
 
+# Blazegraph databases
+bigdata.jnl
+rules.log
+
 # Virtual environment
 venv/*
 !venv/lib

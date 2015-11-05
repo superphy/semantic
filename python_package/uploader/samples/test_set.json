@@ -33,25 +33,25 @@
     ]
   },
   "CP001855": {
-        "serotype": [
-            {
-                "meta_term": "serotype",
-                "displayname": "O83:H1",
-                "value": "O83:H1"
-            }
-        ],
-        "HASH(0x5873f70)": [
-            null
-        ],
-        "strain": [
-            {
-                "value": "NRG 857C",
-                "meta_term": "strain",
-                "displayname": "NRG 857C",
-                "priority": 1
-            }
-        ]
-   },
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O83:H1",
+        "value": "O83:H1"
+      }
+    ],
+    "HASH(0x5873f70)": [
+      null
+    ],
+    "strain": [
+      {
+        "value": "NRG 857C",
+        "meta_term": "strain",
+        "displayname": "NRG 857C",
+        "priority": 1
+      }
+    ]
+  },
   "ADTX00000000": {
     "isolation_source": [
       {
@@ -136,117 +136,117 @@
       }
     ]
   },
-      "BA000007": {
-        "isolation_source": [
-            {
-                "1": {
-                    "id": 1,
-                    "meta_term": "isolation_source",
-                    "displayname": "Stool"
-                },
-                "2": {
-                    "displayname": "Feces",
-                    "meta_term": "isolation_source",
-                    "id": 11
-                },
-                "3": {
-                    "displayname": "Feces",
-                    "meta_term": "isolation_source",
-                    "id": 18
-                }
-            }
-        ]
-      },
+  "BA000007": {
+    "isolation_source": [
+      {
+        "1": {
+          "id": 1,
+          "meta_term": "isolation_source",
+          "displayname": "Stool"
+        },
+        "2": {
+          "displayname": "Feces",
+          "meta_term": "isolation_source",
+          "id": 11
+        },
+        "3": {
+          "displayname": "Feces",
+          "meta_term": "isolation_source",
+          "id": 18
+        }
+      }
+    ]
+  },
   "AMVV00000000": {
-        "isolation_location": [
-            {
-                "displayname": "Germany, Baden-WÃ¼rttemberg, Waldenburg",
-                "meta_term": "isolation_location",
-                "value": "Germany, Baden-WÃ¼rttemberg, Waldenburg"
-            }
-        ],
-        "isolation_date": [
-            {
-                "value": "2011-05-25",
-                "displayname": "2011-05-25",
-                "meta_term": "isolation_date"
-            }
-        ],
-        "strain": [
-            {
-                "displayname": "11-02281",
-                "meta_term": "strain",
-                "value": "11-02281",
-                "priority": 1
-            }
-        ],
-        "serotype": [
-            {
-                "value": "O104:H4",
-                "displayname": "O104:H4",
-                "meta_term": "serotype"
-            }
-        ],
-        "isolation_host": [
-            {
-                "category": 1,
-                "id": 1,
-                "displayname": "Homo sapiens (human)",
-                "meta_term": "isolation_host"
-            }
-        ]
-    },
-      "JPQG00000000": {
-        "isolation_location": [
-            {
-                "value": "Switzerland",
-                "displayname": "Switzerland",
-                "meta_term": "isolation_location"
-            }
-        ],
-        "isolation_date": [
-            {
-                "value": "2011-06-01",
-                "meta_term": "isolation_date",
-                "displayname": "2011-06-01"
-            }
-        ],
-        "strain": [
-            {
-                "priority": 1,
-                "displayname": "48",
-                "meta_term": "strain",
-                "value": "48"
-            }
-        ],
-        "isolation_source": [
-            {
-                "1": {
-                    "id": 1,
-                    "meta_term": "isolation_source",
-                    "displayname": "Stool"
-                },
-                "2": {
-                    "displayname": "Feces",
-                    "meta_term": "isolation_source",
-                    "id": 11
-                },
-                "3": {
-                    "displayname": "Feces",
-                    "meta_term": "isolation_source",
-                    "id": 18
-                }
-            }
-        ],
-        "isolation_host": [
-            {
-                "meta_term": "isolation_host",
-                "name": "Odocoileus sp. (deer)",
-                "displayname": "Odocoileus sp. (deer)",
-                "category": 2,
-                "id": null
-            }
-        ],
-        "serotype": []
-    }
+    "isolation_location": [
+      {
+        "displayname": "Germany, Baden-WÃ¼rttemberg, Waldenburg",
+        "meta_term": "isolation_location",
+        "value": "Germany, Baden-WÃ¼rttemberg, Waldenburg"
+      }
+    ],
+    "isolation_date": [
+      {
+        "value": "2011-05-25",
+        "displayname": "2011-05-25",
+        "meta_term": "isolation_date"
+      }
+    ],
+    "strain": [
+      {
+        "displayname": "11-02281",
+        "meta_term": "strain",
+        "value": "11-02281",
+        "priority": 1
+      }
+    ],
+    "serotype": [
+      {
+        "value": "O104:H4",
+        "displayname": "O104:H4",
+        "meta_term": "serotype"
+      }
+    ],
+    "isolation_host": [
+      {
+        "category": 1,
+        "id": 1,
+        "displayname": "Homo sapiens (human)",
+        "meta_term": "isolation_host"
+      }
+    ]
+  },
+  "JPQG00000000": {
+    "isolation_location": [
+      {
+        "value": "Switzerland",
+        "displayname": "Switzerland",
+        "meta_term": "isolation_location"
+      }
+    ],
+    "isolation_date": [
+      {
+        "value": "2011-06-01",
+        "meta_term": "isolation_date",
+        "displayname": "2011-06-01"
+      }
+    ],
+    "strain": [
+      {
+        "priority": 1,
+        "displayname": "48",
+        "meta_term": "strain",
+        "value": "48"
+      }
+    ],
+    "isolation_source": [
+      {
+        "1": {
+          "id": 1,
+          "meta_term": "isolation_source",
+          "displayname": "Stool"
+        },
+        "2": {
+          "displayname": "Feces",
+          "meta_term": "isolation_source",
+          "id": 11
+        },
+        "3": {
+          "displayname": "Feces",
+          "meta_term": "isolation_source",
+          "id": 18
+        }
+      }
+    ],
+    "isolation_host": [
+      {
+        "meta_term": "isolation_host",
+        "name": "Odocoileus sp. (deer)",
+        "displayname": "Odocoileus sp. (deer)",
+        "category": 2,
+        "id": null
+      }
+    ],
+    "serotype": []
+  }
 }

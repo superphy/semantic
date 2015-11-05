@@ -8,6 +8,8 @@ case $response in
 		#Put sudo packages that install to the development machine here. There should be no npm or pip here, because that is installed to the virtual environment below.
 		sudo apt-get install python-virtualenv
 		sudo apt-get install xvfb
+		sudo apt-get install libyajl1
+		sudo apt-get install libyajl2
         ;;
     *)
         echo "Not installing sudo packages."
