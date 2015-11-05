@@ -79,10 +79,10 @@ class MinerDataUploader(object):
 
     def error_logging(self):
         self.error += 1
-        f = open(os.path.join(self.currdir, "outputs/errors.txt"), "a")
-        f.write(self.dict["name"] + "\n" + "\n" +
-                traceback.format_exc() + "\n" +
-                "================================" + "\n" + "\n")
+        with open(os.path.join(self.currdir, "outputs/errors.txt"), "a") as f:
+            f.write(self.dict["name"] + "\n" + "\n" +
+                    traceback.format_exc() + "\n" +
+                    "================================" + "\n" + "\n")
         print "Error %d occurred." % self.error
 
     def create_pending_genome(self):
