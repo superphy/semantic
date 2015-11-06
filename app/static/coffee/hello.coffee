@@ -1,12 +1,5 @@
 urljson = 'http://10.139.14.121:5000/mithril/query'
 
-#This is not how you should do things. This is a basic working example.
-
-
-doSomething: (result) ->
-    for key, value of result
-        console.log("#{key} and #{value}")
-
 class Hello
     users = {}
     data = {}
