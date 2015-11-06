@@ -5,8 +5,6 @@ from superphy import sparql
 
 from . import mithril
 
-#Which one?
-@mithril.after_app_request
 @mithril.after_request
 def add_header(response):
     #Append after request the nessesary headers.
