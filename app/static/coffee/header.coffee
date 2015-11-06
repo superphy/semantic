@@ -6,6 +6,7 @@ class Header
         {title: "Group Browse", url: "/gbrowse"}
         {title: "Group Analyses", url: "/groups"}
         {title: "VF and AMR", url: "/factors"}
+        {title: "Flask - Hello", url: "/hello"}
     ]
 
     controller: ->
