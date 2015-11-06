@@ -27,11 +27,16 @@ class SequenceUploader(object):
             try:
                 g = Graph()
                 try:
-                    (sequence, bp, contigs) = self.from_nuccore(genome)
+                    (sequence, bp, contigs, is_from) = self.from_nuccore(genome)
+                    sequence = Sequence(g, name, genome, sequence, bp, contigs)
+                    sequence.rdf()
+                    sequence.add_is_from(is_from)
                 except ValueError:
                     (sequence, bp, contigs) = self.from_ftp(genome)
+                    sequence = Sequence(g, name, genome, sequence, bp, contigs)
+                    sequence.rdf()
+                    sequence.add_is_from("WGS")
 
-                Sequence(g, name, genome, sequence, bp, contigs).rdf()
                 upload_data(generate_output(g))
             except TypeError:
                 f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/seq_errors.txt"), "a")
@@ -50,7 +55,13 @@ class SequenceUploader(object):
                 sequence = record.seq
                 contigs = 1
                 bp = len(sequence)
-                return (sequence, bp, contigs)
+
+                if "plasmid" in record.description.lower():
+                    is_from = "PLASMID"
+                else:
+                    is_from = "CORE"
+
+                return (sequence, bp, contigs, is_from)
 
 
     def from_ftp(self, accession):
@@ -96,3 +107,5 @@ class SequenceUploader(object):
         for genome in find_missing_sequences():
             self.load_sequences(str(genome))
             gc.collect()
+
+SequenceUploader().upload_missing_sequences()

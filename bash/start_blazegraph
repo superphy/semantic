@@ -1,8 +1,9 @@
 #!/bin/bash
 #starts up Blazegraph
 echo Starting Blazegraph...
-java -server -Xmx4g -jar db/bigdata-bundled.jar <&- 1>/dev/null 2>&1 &
-
+cd db
+java -server -Xmx4g -jar bigdata-bundled.jar <&- 1>/dev/null 2>&1 &
+cd ../
 response=$(curl -s -i http://localhost:9999/bigdata/ | grep "200 OK")
 
 while [[ $response = "" ]]; do
