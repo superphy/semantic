@@ -3,7 +3,7 @@
 #Graph Database
 db
 
-
+ontology/setup.ttl
 
 #Debugging email log
 email.log
