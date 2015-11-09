@@ -17,6 +17,9 @@ def get_all_triples(): #Verified
 def get_object_literals(): #Verified
 	return endpoint.query("""SELECT ?s ?p ?o WHERE {?s ?p ?o FILTER  ISLITERAL(?o)}""")
 
+def get_x_tripples(x):
+	return endpoint.query("""SELECT * {?s ?p ?o} LIMIT %s""" % (x))
+
 #The sparql statement will get all tripples with at least 1 literal
 def get_all_literals():
 	return endpoint.query("""
