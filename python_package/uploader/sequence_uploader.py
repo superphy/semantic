@@ -108,4 +108,5 @@ class SequenceUploader(object):
             self.load_sequences(str(genome))
             gc.collect()
 
-SequenceUploader().upload_missing_sequences()
+if __name__ == "__main__":
+    SequenceUploader().upload_missing_sequences()
