@@ -6,6 +6,7 @@ class Data_Validator(object):
 
     def __init__(self):
         self.unmerged = set()
+        self.unmergedlist = []
 
     def merge_biosample_duplicates(self):
             results = sparql.find_duplicate_biosamples()
@@ -20,15 +21,13 @@ class Data_Validator(object):
                     for accession in accessions:
                         sparql.delete_instance(accession)
                         seq = "".join([accession, "_seq"])
-                        print seq
+                        sparql.insert_accession_sequence(core_genome[0],accession,seq)
+
                 else:
                     self.unmerged.add(biosample)
+                    self.unmergedlist.append(accessions)
 
             print [entry for entry in self.unmerged]
 
-
-
-
-
-
-Data_Validator().merge_biosample_duplicates()
+if __name__ == "__main__":
+    Data_Validator().merge_biosample_duplicates()

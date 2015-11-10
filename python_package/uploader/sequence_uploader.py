@@ -16,8 +16,8 @@ class SequenceUploader(object):
     def __init__(self):
         pass
 
-    def load_sequences(self, genome):
-        name = genome + '_seq'
+    def load_sequences(self, genome, accession):
+        name = accession + '_seq'
         print name
 
         if check_NamedIndividual(name):
@@ -27,12 +27,12 @@ class SequenceUploader(object):
             try:
                 g = Graph()
                 try:
-                    (sequence, bp, contigs, is_from) = self.from_nuccore(genome)
+                    (sequence, bp, contigs, is_from) = self.from_nuccore(accession)
                     sequence = Sequence(g, name, genome, sequence, bp, contigs)
                     sequence.rdf()
                     sequence.add_is_from(is_from)
                 except ValueError:
-                    (sequence, bp, contigs) = self.from_ftp(genome)
+                    (sequence, bp, contigs) = self.from_ftp(accession)
                     sequence = Sequence(g, name, genome, sequence, bp, contigs)
                     sequence.rdf()
                     sequence.add_is_from("WGS")
@@ -40,8 +40,8 @@ class SequenceUploader(object):
                 upload_data(generate_output(g))
             except TypeError:
                 f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/seq_errors.txt"), "a")
-                f.write(genome + ': The records for this sequence are not retrievable.\n')
-                print "%s: The records for this sequence are not retrievable." %genome
+                f.write("%s - %s: The records for this sequence are not retrievable." %(genome, accession))
+                print "%s - %s: The records for this sequence are not retrievable." %(genome, accession)
 
 
     def from_nuccore(self, accession):
@@ -104,8 +104,8 @@ class SequenceUploader(object):
 
 
     def upload_missing_sequences(self):
-        for genome in find_missing_sequences():
-            self.load_sequences(str(genome))
+        for (genome, accession) in find_missing_sequences():
+            self.load_sequences(str(genome), str(accession))
             gc.collect()
 
 if __name__ == "__main__":
