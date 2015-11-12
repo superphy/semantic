@@ -1,0 +1,15 @@
+#!/bin/bash
+default="none"
+port=${1:-${default}}
+if [ "$port" == "9999" ]
+#script to kill all programs using port 9999 (Blazegraph in particular). Use with caution.
+	then kill -9 `lsof -t -i TCP:9999 -c java -a`
+elif [ "$port" == "5000" ]
+#script to kill a python server on port 5000. Use with caution.
+then
+	var1=$(lsof -i TCP:5000 | grep "python" | cut -d ' ' -f 3);
+	kill -9 $var1 &> /dev/null;
+else
+	echo "Error: Choose a hardcoded port in the script to kill"
+	.
+fi
