@@ -20,8 +20,8 @@ SELECT
 ?Biosample_Id
 ?Bioproject_Id
 ?Strain
-?Serotype_O_Uri
-?Serotype_H_Uri
+?Serotype_O
+?Serotype_H
 ?Scientific_Name
 ?Common_Name
 ?Isolation_Date
@@ -47,10 +47,12 @@ WHERE{
   #Serotype_H
   OPTIONAL{
     ?Genome_Uri :has_Htype ?Serotype_H_Uri .
+    ?Serotype_H_Uri rdfs:label ?Serotype_H .
   }
   #Serotype_O
   OPTIONAL{
     ?Genome_Uri :has_Otype ?Serotype_O_Uri .
+    ?Serotype_O_Uri rdfs:label ?Serotype_O .
   }
   #Geographic_location
   OPTIONAL{ 
@@ -83,15 +85,3 @@ WHERE{
     ?Syndrome_Uri rdfs:label ?Syndrome
   }
 }
-
-""")
-
-#
-#
-#  #Serotype
-#  OPTIONAL{
-#    SELECT ?Genome_Uri (group_concat(?Serotype ; separator = '|') AS ?Serotypes)
-#      WHERE{
-#        ?Genome_Uri :has_serotype ?Serotype
-#      }GROUP BY ?Genome_Uri
-#  }
