@@ -1,4 +1,4 @@
-urljson = 'http://10.139.14.121:5000/mithril/query'
+urlhello = 'http://10.139.14.121:5000/mithril/query'
 
 class Hello
     users = {}
@@ -7,7 +7,7 @@ class Hello
         users = m.prop([])
         users = m.request({
             method: "GET", 
-            url: urljson,
+            url: urlhello,
             background: true, 
             initialValue: []
         }).then(users)

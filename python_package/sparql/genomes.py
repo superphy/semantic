@@ -1,6 +1,9 @@
+#!/usr/bin/python
+
 from superphy import endpoint
 
-def get_genome_meta_data(): return endpoint.query("""
+def get_genome_meta_data(append):
+    return endpoint.query("""
 
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -85,3 +88,5 @@ WHERE{
     ?Syndrome_Uri rdfs:label ?Syndrome
   }
 }
+%s
+""" % append )
