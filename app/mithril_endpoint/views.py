@@ -16,3 +16,7 @@ def query():
     #General query to test if the requests are working.
     data = (sparql.get_x_tripples(3))
     return jsonify(data)
+
+@mithril.route('/meta', methods = ['GET'])
+def meta():
+	return jsonify(sparql.get_genome_meta_data())

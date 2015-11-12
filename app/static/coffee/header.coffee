@@ -7,6 +7,7 @@ class Header
         {title: "Group Analyses", url: "/groups"}
         {title: "VF and AMR", url: "/factors"}
         {title: "Flask - Hello", url: "/hello"}
+        {title: "Meta", url: "/meta"}
     ]
 
     controller: ->
