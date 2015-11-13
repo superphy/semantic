@@ -76,7 +76,8 @@ def find_missing_sequences():
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    return ((result["s"]["value"].rsplit("#", 1)[1], result["acc"]["value"]) for result in results["results"]["bindings"])
+    return ((result["s"]["value"].rsplit("#", 1)[1], result["acc"]["value"]) for result in
+            results["results"]["bindings"])
 
 
 def find_unlabelled_sequences():
@@ -117,30 +118,6 @@ def find_duplicate_biosamples():
             for result in results["results"]["bindings"])
 
 
-def find_core_genomes():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
-        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
-        'PREFIX : <https://github.com/superphy#>\n'
-        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
-        'SELECT ?BioSample ?Sequence\n'
-        'WHERE { ?Genome rdf:type gfvo:Genome . ?Genome :has_biosample ?BioSample .'
-        '?Genome :has_sequence ?Sequence . ?Sequence :is_from "CORE"^^xsd:string .}\n'
-    )
-
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    dict = {}
-
-    for result in results["results"]["bindings"]:
-        dict[result["BioSample"]["value"]] = result["Sequence"]["value"].split("#", )[1].split("_seq")[0]
-
-    return dict
-
-
 def find_core_genome(biosample):
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
     queryString = (
@@ -160,25 +137,6 @@ def find_core_genome(biosample):
     return [result["Genome"]["value"].split("#", 1)[1] for result in results["results"]["bindings"]]
 
 
-def testing():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
-        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
-        'PREFIX : <https://github.com/superphy#>\n'
-        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
-        # 'INSERT DATA{ :ASDFASDFTESTING rdf:type gfvo:Genome}'
-        'DELETE { :ASDFASDFTESTING ?property ?value }\n'
-        'WHERE { :ASDFASDFTESTING ?property ?value }'
-    )
-
-    sparql.method = 'POST'
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    print results
-
 def delete_instance(name):
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
     queryString = (
@@ -196,6 +154,7 @@ def delete_instance(name):
     results = sparql.query().convert()
 
     print results
+
 
 def insert_accession_sequence(core, plasmid, plasmid_seq):
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
@@ -215,3 +174,28 @@ def insert_accession_sequence(core, plasmid, plasmid_seq):
     results = sparql.query().convert()
 
     print results
+
+
+def get_unvalidated_sequences():
+    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
+    queryString = (
+        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
+        'PREFIX : <https://github.com/superphy#>\n'
+        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
+        'SELECT ?name ?sequence\n'
+        'WHERE { ?name :has_value ?sequence .'
+        'MINUS { ?name :is_from "PLASMID"^^xsd:string }'
+        'MINUS { ?name :validated ?condition } }'
+        'LIMIT 10\n'
+    )
+
+    sparql.setQuery(queryString)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    if not results["results"]["bindings"]:
+        return None
+    else:
+        return ((result["name"]["value"].split("#", 1)[1], result["sequence"]["value"])
+                for result in results["results"]["bindings"])
