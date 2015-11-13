@@ -28,7 +28,6 @@ SELECT
 ?Scientific_Name
 ?Common_Name
 ?Isolation_Date
-
 ?Geographic_Location
 
 #?Stx1_Subtype
@@ -37,7 +36,7 @@ SELECT
 WHERE{
   #Genome
   {
-    ?Genome_Uri rdf:type gfvo:Genome
+    ?Genome_Uri rdf:type gfvo:Genome .
   }
   #Bioproject_Id
   OPTIONAL{
@@ -71,11 +70,11 @@ WHERE{
   }
   #Scientific & Common Name
   OPTIONAL{
-    ?Genome_Uri :has_attribute ?Host_Catagory .
-    ?Host_Catagory rdf:type :isolation_from_host .
-    ?Isolation_Host :has_object ?Species .
-    ?Species :scientific_name ?Scientific_Name .
-    ?Species :common_name ?Common_Name
+    ?Genome_Uri :has_attribute ?From_Host_Uri .
+    ?From_Host_Uri rdf:type :isolation_from_host .
+    ?From_Host_Uri :has_attribute ?Host_Uri .
+    ?Host_Uri :scientific_name ?Scientific_Name .
+    ?Host_Uri :common_name ?Common_Name .
   }
   #Isolation_Date
   OPTIONAL{
