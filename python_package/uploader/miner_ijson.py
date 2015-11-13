@@ -32,6 +32,8 @@ class MinerDataUploader(object):
         self.filename = filename
         self.organism = organism
         self.dict = {}
+        with open(os.path.join(self.currdir, "outputs/errors.txt"), "w") as f:
+            pass
 
     def upload(self):
         self.load_JSON()

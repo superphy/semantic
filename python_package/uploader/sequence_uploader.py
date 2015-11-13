@@ -71,12 +71,12 @@ class SequenceUploader(object):
         ftp.login('anonymous','stebokan@gmail.com')
         ftp.cwd('pub/biomirror/genbank/wgs')
         filename = self.get_filename('fsa_nt.gz', ftp, self.only_abecedarian(accession))
-        ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'tmp/sample.gz'), 'wb').write)
+        ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'tmp/loading.gz'), 'wb').write)
 
-        with gzip.open(os.path.join(currdir,'tmp/sample.gz')) as fasta:
-            open(os.path.join(currdir,'tmp/sample.fasta'), 'wb').write(fasta.read())
+        with gzip.open(os.path.join(currdir,'tmp/loading.gz')) as fasta:
+            open(os.path.join(currdir,'tmp/loading.fasta'), 'wb').write(fasta.read())
 
-        handle = open(os.path.join(currdir,'tmp/sample.fasta'), 'rb')
+        handle = open(os.path.join(currdir,'tmp/loading.fasta'), 'rb')
 
         sequence = ""
         contigs = 0

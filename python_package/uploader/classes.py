@@ -368,7 +368,7 @@ class Otype(Serotype):
         Args:
             id (str): the id of the O antigen
         """
-
+        self.id = str(id)
         self.name = "O" + str(id)
         super(Otype, self).__init__(graph, self.name)
 
@@ -378,6 +378,8 @@ class Otype(Serotype):
         """
         super(Otype, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Otype) )
+        literal = Literal(self.id, datatype=XSD.string)
+        self.graph.add((n[self.name], rdfs.label, literal))
 
 
 class Htype(Serotype):
@@ -392,7 +394,7 @@ class Htype(Serotype):
         Args:
             id (str): the id of the H antigen
         """
-
+        self.id = str(id)
         self.name = "H" + str(id)
         super(Htype, self).__init__(graph, self.name)
 
@@ -403,6 +405,9 @@ class Htype(Serotype):
 
         super(Htype, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Htype) )
+        literal = Literal(self.id, datatype=XSD.string)
+        self.graph.add((n[self.name], rdfs.label, literal))
+
 
 
 class Genome(NamedIndividual):
@@ -595,6 +600,7 @@ class Genome(NamedIndividual):
             self.graph.add((n[self.name], n.has_Htype, n["H" + str(Htype)]))
             self.graph.add((n["H" + str(Htype)], n.is_Htype_of, n[self.name]))
 
+
     def Otype(self, Otype=None):
         """
         Convert O serotype into RDF
@@ -609,6 +615,7 @@ class Genome(NamedIndividual):
         else:
             self.graph.add((n[self.name], n.has_Otype, n["O" + str(Otype)]))
             self.graph.add((n["O" + str(Otype)], n.is_Otype_of, n[self.name]))
+
 
     def User(self, User):
         """
