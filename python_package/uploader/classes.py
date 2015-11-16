@@ -368,7 +368,7 @@ class Otype(Serotype):
         Args:
             id (str): the id of the O antigen
         """
-
+        self.id = str(id)
         self.name = "O" + str(id)
         super(Otype, self).__init__(graph, self.name)
 
@@ -378,6 +378,8 @@ class Otype(Serotype):
         """
         super(Otype, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Otype) )
+        literal = Literal(self.id, datatype=XSD.string)
+        self.graph.add((n[self.name], rdfs.label, literal))
 
 
 class Htype(Serotype):
@@ -392,7 +394,7 @@ class Htype(Serotype):
         Args:
             id (str): the id of the H antigen
         """
-
+        self.id = str(id)
         self.name = "H" + str(id)
         super(Htype, self).__init__(graph, self.name)
 
@@ -403,6 +405,9 @@ class Htype(Serotype):
 
         super(Htype, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Htype) )
+        literal = Literal(self.id, datatype=XSD.string)
+        self.graph.add((n[self.name], rdfs.label, literal))
+
 
 
 class Genome(NamedIndividual):
@@ -595,6 +600,7 @@ class Genome(NamedIndividual):
             self.graph.add((n[self.name], n.has_Htype, n["H" + str(Htype)]))
             self.graph.add((n["H" + str(Htype)], n.is_Htype_of, n[self.name]))
 
+
     def Otype(self, Otype=None):
         """
         Convert O serotype into RDF
@@ -609,6 +615,7 @@ class Genome(NamedIndividual):
         else:
             self.graph.add((n[self.name], n.has_Otype, n["O" + str(Otype)]))
             self.graph.add((n["O" + str(Otype)], n.is_Otype_of, n[self.name]))
+
 
     def User(self, User):
         """
@@ -658,7 +665,23 @@ class CompletedGenome(Genome):
 
 
 class Sequence(NamedIndividual):
+    """
+
+    """
     def __init__(self, graph, name, genome, sequence, bp, contigs):
+        """
+
+        Args:
+            graph:
+            name:
+            genome:
+            sequence:
+            bp:
+            contigs:
+
+        Returns:
+
+        """
         super(Sequence, self).__init__(graph, name)
         self.genome = genome
         self.sequence = sequence
@@ -666,6 +689,11 @@ class Sequence(NamedIndividual):
         self.contigs = contigs
 
     def rdf(self):
+        """
+
+        Convert all Sequence variables to RDF
+
+        """
         super(Sequence, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Sequence) )
         self.graph.add( (n[self.name], n.has_value, Literal(str(self.sequence), datatype=XSD.string)) )
@@ -673,6 +701,16 @@ class Sequence(NamedIndividual):
         self.graph.add( (n[self.name], n.has_contigs, Literal(str(self.contigs), datatype=XSD.int)))
         self.graph.add( (n[self.genome], n.has_sequence, n[self.name]) )
         self.graph.add( (n[self.name], n.is_sequence_of, n[self.genome]) )
+
+    def add_is_from(self, is_from):
+        """
+        Add a tag to identify the sequence as a WGS project, a core genome, or a plasmid
+
+        Args:
+            is_from: the tag to add, one of WGS, CORE, or PLASMID
+
+        """
+        self.graph.add( (n[self.name], n.is_from, Literal(str(is_from), datatype=XSD.string)) )
 
 
 def generate_output(graph):

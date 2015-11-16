@@ -212,7 +212,8 @@ class ClassesTestCase(unittest.TestCase):
         fields =["http://www.w3.org/2002/07/owl#NamedIndividual",
                  "https://github.com/superphy#serotype",
                  "https://github.com/superphy#Attribute",
-                 "https://github.com/superphy#Otype"]
+                 "https://github.com/superphy#Otype",
+                 "157"]
         objects = list(self.graph.objects(n["O157"]))
 
         self.check_triples(fields, objects)
@@ -224,7 +225,8 @@ class ClassesTestCase(unittest.TestCase):
         fields =["http://www.w3.org/2002/07/owl#NamedIndividual",
                  "https://github.com/superphy#serotype",
                  "https://github.com/superphy#Attribute",
-                 "https://github.com/superphy#Htype"]
+                 "https://github.com/superphy#Htype",
+                 "7"]
         objects = list(self.graph.objects(n["H7"]))
 
         self.check_triples(fields, objects)
