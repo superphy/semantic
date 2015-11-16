@@ -2,6 +2,7 @@
 
 chmod a+x *.py
 
+#sudo installs
 read -r -p "Install sudo packages to your dev system? [Y/N] " response
 case $response in
     [yY][eE][sS]|[yY])
@@ -56,7 +57,10 @@ if ! find data-dev.sqlite | read v; then
 	./manage.py db upgrade &> /dev/null
 fi
 
-echo Finished
-echo """$ ./manage.py runserver""" to run the server
+#Run related scripts
+bash bash/deploy_apache superphy
+bash bash/start_blazegraph
 
+echo Finished
+echo """$ bash bash/run""" to run the server
 exit 0

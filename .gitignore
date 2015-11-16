@@ -72,6 +72,9 @@ venv/lib/python2.7/site-packages/*
 #Temporary Files
 python_package/uploader/tmp/*
 
+python_package/uploader/outputs/errors.txt
+app/static/css/all.min.css
+app/static/js/all.min.js
 
 #Pycharm files
 .idea/*
