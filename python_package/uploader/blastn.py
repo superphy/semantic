@@ -5,15 +5,12 @@ from Bio.Blast import NCBIXML
 import sparql
 from rdflib import Graph, Namespace, Literal, XSD
 from ontology_uploader import upload_data
-import os
-import inspect
-import time
+from caller_path_gen import path
 
 class SequenceValidator(object):
     def __init__(self):
         self.g = Graph()
         self.n =Namespace("https://github.com/superphy#")
-        self.currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
 
 
     def validator(self):
@@ -21,7 +18,7 @@ class SequenceValidator(object):
 
         while data:
             for (name, sequence) in data:
-                with open(self.path('tmp/validate.fasta'), 'w') as f:
+                with open(path('tmp/validate.fasta'), 'w') as f:
                     f.write(sequence)
 
                 self.blastn_commandline()
@@ -40,7 +37,7 @@ class SequenceValidator(object):
 
 
     def filter_passing_hits(self):
-        result_handle = open(self.path("tmp/validate.xml"))
+        result_handle = open(path("tmp/validate.xml"))
         blast_record = NCBIXML.read(result_handle)
 
         gene_identities = []
@@ -56,11 +53,11 @@ class SequenceValidator(object):
 
 
     def blastn_commandline(self):
-        blastn_cline = NcbiblastnCommandline(cmd=self.path("../../blast/ncbi*/bin/blastn"),
-                                             query=self.path("tmp/validate.fasta"),
-                                             db=self.path("data/blast/ValidationDB"),
+        blastn_cline = NcbiblastnCommandline(cmd=path("../../blast/ncbi*/bin/blastn"),
+                                             query=path("tmp/validate.fasta"),
+                                             db=path("data/blast/ValidationDB"),
                                              evalue=0.001, outfmt=5,
-                                             out=self.path("tmp/validate.xml"))
+                                             out=path("tmp/validate.xml"))
         blastn_cline()
 
 
@@ -72,9 +69,6 @@ class SequenceValidator(object):
         output = self.g.serialize(format="turtle")
         self.g.remove( (None, None, None) )
         return output
-
-    def path(self, filepath):
-        return os.path.join(self.currdir, filepath)
 
 if __name__ == "__main__":
     SequenceValidator().validator()

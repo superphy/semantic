@@ -5,9 +5,8 @@ from Bio import SeqIO, Entrez
 import gzip
 import string
 from ftplib import FTP
-import os
 import gc
-import inspect
+from caller_path_gen import path
 from classes import Sequence, generate_output
 from ontology_uploader import upload_data
 from sparql import check_NamedIndividual, find_missing_sequences
@@ -39,7 +38,7 @@ class SequenceUploader(object):
 
                 upload_data(generate_output(g))
             except TypeError:
-                f = open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "outputs/seq_errors.txt"), "a")
+                f = open(path("outputs/seq_errors.txt"), "a")
                 f.write("%s - %s: The records for this sequence are not retrievable." %(genome, accession))
                 print "%s - %s: The records for this sequence are not retrievable." %(genome, accession)
 
@@ -65,18 +64,16 @@ class SequenceUploader(object):
 
 
     def from_ftp(self, accession):
-        currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
-
         ftp = FTP('bio-mirror.jp.apan.net')
         ftp.login('anonymous','stebokan@gmail.com')
         ftp.cwd('pub/biomirror/genbank/wgs')
         filename = self.get_filename('fsa_nt.gz', ftp, self.only_abecedarian(accession))
-        ftp.retrbinary('RETR ' + filename, open(os.path.join(currdir,'tmp/loading.gz'), 'wb').write)
+        ftp.retrbinary('RETR ' + filename, open(path('tmp/loading.gz'), 'wb').write)
 
-        with gzip.open(os.path.join(currdir,'tmp/loading.gz')) as fasta:
-            open(os.path.join(currdir,'tmp/loading.fasta'), 'wb').write(fasta.read())
+        with gzip.open(path('tmp/loading.gz')) as fasta:
+            open(path('tmp/loading.fasta'), 'wb').write(fasta.read())
 
-        handle = open(os.path.join(currdir,'tmp/loading.fasta'), 'rb')
+        handle = open(path('tmp/loading.fasta'), 'rb')
 
         sequence = ""
         contigs = 0

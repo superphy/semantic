@@ -9,8 +9,7 @@ except YAJLImportError:
 
 import sys
 import traceback
-import os
-import inspect
+from caller_path_gen import path
 from rdflib import Graph
 from eutils import return_elink_uid, return_esearch_uid
 from classes import PendingGenome, generate_output
@@ -24,15 +23,13 @@ sys.setdefaultencoding("utf-8")
 class MinerDataUploader(object):
     genome_params = {"isolation_date": "date", "isolation_location": "location", "isolation_host": "host",
                      "isolation_source": "source"}
-    currdir = os.path.dirname(inspect.getfile(inspect.currentframe()))
-
     def __init__(self, filename, organism):
         self.progress = 0
         self.error = 0
         self.filename = filename
         self.organism = organism
         self.dict = {}
-        with open(os.path.join(self.currdir, "outputs/errors.txt"), "w") as f:
+        with open(path("outputs/errors.txt"), "w") as f:
             pass
 
     def upload(self):
@@ -42,8 +39,7 @@ class MinerDataUploader(object):
         self.fd.close()
 
     def load_JSON(self):
-        path = os.path.join(self.currdir, self.filename)
-        self.fd = open(path, "r")
+        self.fd = open(path(self.filename), "r")
         self.data = ijson.parse(self.fd)
 
     def iterate(self):
@@ -81,7 +77,7 @@ class MinerDataUploader(object):
 
     def error_logging(self):
         self.error += 1
-        with open(os.path.join(self.currdir, "outputs/errors.txt"), "a") as f:
+        with open(path("outputs/errors.txt"), "a") as f:
             f.write(self.dict["name"] + "\n" + "\n" +
                     traceback.format_exc() + "\n" +
                     "================================" + "\n" + "\n")

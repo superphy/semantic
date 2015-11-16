@@ -60,6 +60,7 @@ fi
 #Run related scripts
 bash bash/deploy_apache superphy
 bash bash/start_blazegraph
+bash bash/blastinstall
 
 echo Finished
 echo """$ bash bash/run""" to run the server
