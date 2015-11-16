@@ -3,7 +3,8 @@ class Routes
         m.route(document.body, "/", {
           "/": home
           "/home": home
-          "/login": login
+          #"/login": login
+          "/hello": hello
       })
 
 routes = new Routes()

@@ -67,6 +67,9 @@ venv/lib/python2.7/*
 venv/lib/python2.7/site-packages/*
 !venv/lib/python2.7/site-packages/superphy
 
+python_package/uploader/outputs/errors.txt
+app/static/css/all.min.css
+app/static/js/all.min.js
 
 #Pycharm files
 .idea/*
