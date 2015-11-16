@@ -199,3 +199,17 @@ def get_unvalidated_sequences():
     else:
         return ((result["name"]["value"].split("#", 1)[1], result["sequence"]["value"])
                 for result in results["results"]["bindings"])
+
+def delete_blank_nodes():
+    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
+    queryString = (
+        'DELETE { ?x ?y ?z }'
+        'WHERE { ?x ?y ?z . FILTER ( isBlank(?x) || isBlank(?z) ) }'
+    )
+
+    sparql.method = 'POST'
+    sparql.setQuery(queryString)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    print results
