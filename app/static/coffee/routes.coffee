@@ -1,12 +1,9 @@
 class Routes
-    locations: ->
-        m.route(document.body, "/", {
+      m.route(document.body, "/", {
           "/": home
           "/home": home
-          "/meta": meta
+          #"/meta": meta
           #"/login": login
           "/hello": hello
       })
 
-routes = new Routes()
-routes.locations()
