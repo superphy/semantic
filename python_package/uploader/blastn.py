@@ -6,6 +6,7 @@ import sparql
 from rdflib import Graph, Namespace, Literal, XSD
 from ontology_uploader import upload_data
 from caller_path_gen import path
+from classes import generate_output
 
 class SequenceValidator(object):
     def __init__(self):
@@ -32,7 +33,10 @@ class SequenceValidator(object):
                     self.g.add((self.n[name], self.n.validated, Literal("FAILED", datatype=XSD.string)))
                     print "FAILED"
 
-            upload_data(self.generate_output())
+                for (hit, identity) in above_threshold:
+                    self.g.add((self.n[name], self.n.has_hit, Literal(str(hit), datatype=XSD.string)))
+
+            upload_data(generate_output(self.g))
             data = sparql.get_unvalidated_sequences()
 
 
@@ -43,12 +47,13 @@ class SequenceValidator(object):
         gene_identities = []
 
         for alignment in blast_record.alignments:
+            hit = alignment.hit_def
             gene_length = alignment.length
             hsp = alignment.hsps[0]
-            if hsp.expect < 0.1:
-                gene_identities.append((float(hsp.positives) / float(gene_length)) * 100)
+            identity = (float(hsp.positives) / float(gene_length)) * 100
+            gene_identities.append((hit, identity))
 
-        above_threshold = [x for x in gene_identities if x >= 90.0]
+        above_threshold = [(x, y) for (x,y) in gene_identities if y >= 90.0]
         return above_threshold
 
 
@@ -60,15 +65,6 @@ class SequenceValidator(object):
                                              out=path("tmp/validate.xml"))
         blastn_cline()
 
-
-    def generate_output(self):
-        """
-        Returns RDF Graph data in the turtle format and clears the Graph
-        """
-
-        output = self.g.serialize(format="turtle")
-        self.g.remove( (None, None, None) )
-        return output
 
 if __name__ == "__main__":
     SequenceValidator().validator()

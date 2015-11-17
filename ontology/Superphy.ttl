@@ -380,6 +380,14 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#has_hit
+
+:has_hit rdf:type owl:DatatypeProperty ;
+          
+         rdfs:subPropertyOf owl:topDataProperty .
+
+
+
 ###  https://github.com/superphy#has_isolation_attribute
 
 :has_isolation_attribute rdf:type owl:DatatypeProperty .
@@ -606,14 +614,24 @@ xsd:date rdf:type rdfs:Datatype .
 :Sequence rdf:type owl:Class ;
           
           rdfs:subClassOf [ rdf:type owl:Restriction ;
-                            owl:onProperty :has_contigs ;
-                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onDataRange xsd:int
+                            owl:onProperty :has_hit ;
+                            owl:maxQualifiedCardinality "10"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:string
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :has_base_pair ;
                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                             owl:onDataRange xsd:int
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :has_contigs ;
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:int
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :validated ;
+                            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:string
                           ] ;
           
           rdfs:comment "" .
