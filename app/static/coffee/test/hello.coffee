@@ -6,13 +6,11 @@ class Hello
         getData: -> m.request({
           method: "GET",
           url: urlhello
-          background: true,
-          initialValue: []
         })
 
     model=
       flowers: ["roses","violets"]
-      data: controller.getData()
+      data: m.prop(controller.getData())
 
     view: () ->
         [
