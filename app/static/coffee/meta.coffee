@@ -1,3 +1,17 @@
+class Meta
+	controller =
+		getData: -> m.request({
+			method: "GET",
+			url: 'http://10.139.14.121:5000/mithril/meta'
+		})
+	model=
+		data: m.prop(controller.getData())
+
+	view: () ->
+		[
+			m("div", JSON.stringify(model.data))
+		]
+meta = new Meta
 #class Meta
 #    urlmeta = 'http://10.139.14.121:5000/mithril/meta'
 #    data = {}
