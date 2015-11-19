@@ -7,10 +7,10 @@
 ##   Superphy config settings from INI file
 ## 
 ##   To run:
-##     source init_env.sh
+##     source bash/init_env.sh [test]
 ##
 ##   INI config settings are loaded from path set in ENV variable
-##   "SUPERPHY_CONFIGFILE" or from default relative path:
+##   "SUPERPHY_CONFIGFILE" or from default file:
 ##
 ##      ../../config/superphy.cfg
 ##
@@ -21,8 +21,9 @@
 ##      Comments:   ; comment 
 ##                  # comment
 ##
-##   Name cannot contain any special characters. See below for 
-##   further details on the INI formatting.
+##   Name and sections cannot contain any special characters 
+##   and cannot contain whitespace. See below for further details 
+##   on the INI formatting.
 ##
 ##   Global variables in the INI file will be exported as:
 ##   
@@ -32,6 +33,14 @@
 ##
 ##     SUPERPHY_${SECTION}_${NAME} # section and variable names 
 ##                                 # will be capitalized
+##
+##   To run in test mode, add command-line argument:
+##
+##      source bash/init_env.sh 1
+##   
+##   This will initialize environment variables with the prefix:
+##
+##      SUPERPHYTEST_${NAME}
 ##
 ##
 ## author = Matt Whiteside
@@ -142,9 +151,11 @@
 # >abc def<
 #
 
+# Set by default in shell
 shopt -s extglob
 
 SUPERPHY=()
+TEST="$1"
 
 # Commands
 # --------
@@ -233,9 +244,15 @@ function exportAll() {
     local -i i
     for ((i=0; i<${#SUPERPHY[@]}; i+=2))
     do
+        
         VAR="SUPERPHY_${SUPERPHY[i]}"
+        if [[ -n "$TEST" ]]
+        then
+            VAR="SUPERPHYTEST_${SUPERPHY[i]}"
+        fi
         VAR=${VAR^^}
         VAR=${VAR//\./_}
+        VAR=${VAR//__/_}
         echo "setting $VAR=${SUPERPHY[((i+1))]}"
         export ${VAR}="${SUPERPHY[((i+1))]}"
     done
@@ -327,14 +344,29 @@ function testIniParser() {
     echo ">${XYZ}<"
 }
 
-# Check for ENV var or use default
-CFGFILE="${SUPERPHY_CONFIGFILE:-../../config/superphy.cfg}"
+if [[ -n "$TEST" ]]
+then
+    echo "<$TEST>Running in test mode. ENV variables will have prefix SUPERPHYTEST_."
+fi
+
+# Check for ENV var with config file or use default
+DEFAULTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DEFAULTFILE="../../config/superphy.cfg"
+DEFAULTCFG="$DEFAULTDIR/$DEFAULTFILE"
+CFGFILE="${SUPERPHY_CONFIGFILE:-$DEFAULTCFG}"
 
 # Initialize ENV variables
 echo "Initializing enviroment using config file: $CFGFILE"
-parseIniFile < "$CFGFILE"
+if [[ -e $CFGFILE ]]
+then
+    # Parse INI file
+    parseIniFile < "$CFGFILE"
+    # Export to session
+    exportAll
+else
+    echo "Config file not found. Initialization failed."
+fi
 
-# Export to session
-exportAll
+
 
 
