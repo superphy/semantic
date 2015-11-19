@@ -2,12 +2,12 @@ __author__ = 'Stephen Kan'
 
 import unittest
 import mock
-from superphy.uploader.miner_ijson import MinerDataUploader
+from superphy.uploader.metadata_uploader import MetadataUploader
 
 
 class MinerIJSONTestCase(unittest.TestCase):
     def setUp(self):
-        self.case = MinerDataUploader('samples/2_genome.json', 'ecoli')
+        self.case = MetadataUploader('samples/2_genome.json', 'ecoli')
 
     def tearDown(self):
         self.case = None
@@ -27,16 +27,16 @@ class MinerIJSONTestCase(unittest.TestCase):
         self.assertTrue("strain" in self.case.dict)
         self.assertEqual(self.case.dict["strain"], {"KTE59"})
 
-    @mock.patch('superphy.uploader.miner_ijson.open')
+    @mock.patch('superphy.uploader.metadata_uploader.open')
     def test_error_logging(self, mock_open):
         mock_open.return_value = mock.MagicMock(spec=file)
         self.case.dict["name"] = "ANVW00000000"
         self.case.error_logging()
         self.assertEqual(self.case.error, 1)
 
-    @mock.patch('superphy.uploader.miner_ijson.upload_data')
-    @mock.patch('superphy.uploader.miner_ijson.MinerDataUploader.get_ncbi_ids')
-    @mock.patch('superphy.uploader.miner_ijson.check_NamedIndividual')
+    @mock.patch('superphy.uploader.metadata_uploader.upload_data')
+    @mock.patch('superphy.uploader.metadata_uploader.MetadataUploader.get_ncbi_ids')
+    @mock.patch('superphy.uploader.metadata_uploader.check_NamedIndividual')
     def test_create_pending_genome(self, mock_check, mock_ncbi, mock_upload):
         mock_check.side_effect = [False, True]
         mock_ncbi.return_value = {}
@@ -55,7 +55,7 @@ class MinerIJSONTestCase(unittest.TestCase):
         except ValueError:
             self.fail("Did execute mock_upload and throw a ValueError")
 
-    @mock.patch('superphy.uploader.miner_ijson.MinerDataUploader.get_ncbi_ids')
+    @mock.patch('superphy.uploader.metadata_uploader.MetadataUploader.get_ncbi_ids')
     def test_setup_genome_kwargs(self, mock_ncbi):
         mock_ncbi.return_value = {"bioproject":{"164875"},
                                   "biosample":{"854618"}}
@@ -73,8 +73,8 @@ class MinerIJSONTestCase(unittest.TestCase):
         self.assertEqual(kwargs["Otype"], "157")
         self.assertEqual(kwargs["Htype"], "7")
 
-    @mock.patch('superphy.uploader.miner_ijson.return_elink_uid')
-    @mock.patch('superphy.uploader.miner_ijson.return_esearch_uid')
+    @mock.patch('superphy.uploader.metadata_uploader.return_elink_uid')
+    @mock.patch('superphy.uploader.metadata_uploader.return_esearch_uid')
     def test_get_ncbi_ids(self, mock_esearch, mock_elink):
         def elink_side_effect(*args, **kwargs):
             if args[1] is "bioproject":

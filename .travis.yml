@@ -9,6 +9,10 @@ addons:
     packages:
     - libyajl1
 
+cache:
+  directories:
+  - venv
+
 install:
   - virtualenv --no-site-packages venv
   - source venv/bin/activate

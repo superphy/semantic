@@ -20,7 +20,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 
-class MinerDataUploader(object):
+class MetadataUploader(object):
     genome_params = {"isolation_date": "date", "isolation_location": "location", "isolation_host": "host",
                      "isolation_source": "source"}
     def __init__(self, filename, organism):

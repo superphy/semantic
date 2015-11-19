@@ -2,7 +2,7 @@ __author__ = 'Stephen Kan'
 
 import _sparql
 
-class Data_Validator(object):
+class MetadataValidator(object):
 
     def __init__(self):
         self.unmerged = set()
@@ -30,4 +30,4 @@ class Data_Validator(object):
             print [entry for entry in self.unmerged]
 
 if __name__ == "__main__":
-    Data_Validator().merge_biosample_duplicates()
+    MetadataValidator().merge_biosample_duplicates()
