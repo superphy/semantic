@@ -3,7 +3,7 @@ __author__ = 'Stephen Kan'
 from classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_file_output
 from rdflib import Graph
 import json
-from caller_path_gen import path
+from _utils import path
 
 """
 This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all

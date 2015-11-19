@@ -1,7 +1,7 @@
 __author__ = 'Stephen Kan'
 
 from rdflib import Namespace, Literal, XSD
-import sparql
+import _sparql
 
 """
 This module converts inputted data into RDF triples in accordance to the Superphy ontology
@@ -555,7 +555,7 @@ class Genome(NamedIndividual):
         """
 
         for item in from_host:
-            node = sparql.find_from_host(item).split("#", 1)[1]
+            node = _sparql.find_from_host(item).split("#", 1)[1]
             self.graph.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             self.graph.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -568,7 +568,7 @@ class Genome(NamedIndividual):
         """
 
         for item in from_source:
-            node = sparql.find_source(item).split("#", 1)[1]
+            node = _sparql.find_source(item).split("#", 1)[1]
             self.graph.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             self.graph.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -581,7 +581,7 @@ class Genome(NamedIndividual):
         """
 
         for item in syndrome:
-            node = sparql.find_syndrome(item).split("#", 1)[1]
+            node = _sparql.find_syndrome(item).split("#", 1)[1]
             self.graph.add( (n[self.name], n.has_isolation_attribute, n[node]) )
             self.graph.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
 
@@ -668,23 +668,23 @@ class Sequence(NamedIndividual):
     """
 
     """
-    def __init__(self, graph, name, genome, sequence, bp, contigs):
+    def __init__(self, graph, name, genome, sequences, bp, contigs):
         """
 
         Args:
-            graph:
-            name:
-            genome:
-            sequence:
-            bp:
-            contigs:
+            graph: the RDF.Graph() Object
+            name: name of the sequence (Genome name with "_seq" appended to it
+            genome: the genome that the sequence belongs to
+            sequence: a list of sequences (contigs) that the sequence record has
+            bp: number of base pairs in the sequence
+            contigs: number of contiguous sequences in the sequence
 
         Returns:
 
         """
         super(Sequence, self).__init__(graph, name)
         self.genome = genome
-        self.sequence = sequence
+        self.sequences = sequences
         self.bp = bp
         self.contigs = contigs
 
@@ -696,7 +696,10 @@ class Sequence(NamedIndividual):
         """
         super(Sequence, self).rdf()
         self.graph.add( (n[self.name], rdf.type, n.Sequence) )
-        self.graph.add( (n[self.name], n.has_value, Literal(str(self.sequence), datatype=XSD.string)) )
+
+        for sequence in self.sequences:
+            self.graph.add( (n[self.name], n.has_value, Literal(str(sequence), datatype=XSD.string)) )
+
         self.graph.add( (n[self.name], n.has_base_pair, Literal(str(self.bp), datatype=XSD.int)))
         self.graph.add( (n[self.name], n.has_contigs, Literal(str(self.contigs), datatype=XSD.int)))
         self.graph.add( (n[self.genome], n.has_sequence, n[self.name]) )

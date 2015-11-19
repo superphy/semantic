@@ -1,6 +1,6 @@
 __author__ = 'Stephen Kan'
 
-import sparql
+import _sparql
 
 class Data_Validator(object):
 
@@ -9,19 +9,19 @@ class Data_Validator(object):
         self.unmergedlist = []
 
     def merge_biosample_duplicates(self):
-            results = sparql.find_duplicate_biosamples()
+            results = _sparql.find_duplicate_biosamples()
 
             for result in results:
                 (biosample, accessions) = result
-                core_genome = sparql.find_core_genome(biosample)
+                core_genome = _sparql.find_core_genome(biosample)
 
                 if len(core_genome) is 1:
                     accessions.remove(core_genome[0])
 
                     for accession in accessions:
-                        sparql.delete_instance(accession)
+                        _sparql.delete_instance(accession)
                         seq = "".join([accession, "_seq"])
-                        sparql.insert_accession_sequence(core_genome[0],accession,seq)
+                        _sparql.insert_accession_sequence(core_genome[0], accession, seq)
 
                 else:
                     self.unmerged.add(biosample)

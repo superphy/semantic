@@ -376,14 +376,16 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://github.com/superphy#has_geographic_location
 
-:has_geographic_location rdf:type owl:DatatypeProperty .
+:has_geographic_location rdf:type owl:DatatypeProperty ;
+                         
+                         rdfs:subPropertyOf :has_isolation_attribute .
 
 
 
 ###  https://github.com/superphy#has_hit
 
 :has_hit rdf:type owl:DatatypeProperty ;
-          
+         
          rdfs:subPropertyOf owl:topDataProperty .
 
 
@@ -396,7 +398,9 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://github.com/superphy#has_isolation_date
 
-:has_isolation_date rdf:type owl:DatatypeProperty .
+:has_isolation_date rdf:type owl:DatatypeProperty ;
+                    
+                    rdfs:subPropertyOf :has_isolation_attribute .
 
 
 
@@ -408,13 +412,23 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  https://github.com/superphy#has_strain
 
-:has_strain rdf:type owl:DatatypeProperty .
+:has_strain rdf:type owl:DatatypeProperty ;
+            
+            rdfs:subPropertyOf :has_isolation_attribute .
 
 
 
 ###  https://github.com/superphy#has_taxonomy_id
 
 :has_taxonomy_id rdf:type owl:DatatypeProperty .
+
+
+
+###  https://github.com/superphy#has_valid_sequence
+
+:has_valid_sequence rdf:type owl:DatatypeProperty ;
+                    
+                    rdfs:subPropertyOf owl:topDataProperty .
 
 
 
@@ -427,12 +441,6 @@ xsd:date rdf:type rdfs:Datatype .
 ###  https://github.com/superphy#is_from
 
 :is_from rdf:type owl:DatatypeProperty .
-
-
-
-###  https://github.com/superphy#validated
-
-:validated rdf:type owl:DatatypeProperty .
 
 
 
@@ -459,63 +467,62 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://www.biointerchange.org/gfvo#Genome
 
-<http://www.biointerchange.org/gfvo#Genome> owl:equivalentClass [ rdf:type owl:Class ;
-                                                                  owl:intersectionOf ( <http://purl.obolibrary.org/obo/SO_0001026>
-                                                                                       <http://semanticscience.org/resource/SIO_000984>
-                                                                                       <http://www.biointerchange.org/gfvo#BiologicalEntity>
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_isolation_attribute ;
-                                                                                         owl:someValuesFrom :isolation_attribute
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_sequence ;
-                                                                                         owl:someValuesFrom :Sequence
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :is_genome_of ;
-                                                                                         owl:someValuesFrom :Organism
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_Htype ;
-                                                                                         owl:onClass :Htype ;
-                                                                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_Otype ;
-                                                                                         owl:onClass :Otype ;
-                                                                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :is_owned_by ;
-                                                                                         owl:onClass :User ;
-                                                                                         owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_accession ;
-                                                                                         owl:someValuesFrom xsd:string
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_bioproject ;
-                                                                                         owl:someValuesFrom xsd:string
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_biosample ;
-                                                                                         owl:someValuesFrom xsd:string
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_geographic_location ;
-                                                                                         owl:someValuesFrom xsd:string
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_isolation_date ;
-                                                                                         owl:someValuesFrom xsd:date
-                                                                                       ]
-                                                                                       [ rdf:type owl:Restriction ;
-                                                                                         owl:onProperty :has_strain ;
-                                                                                         owl:someValuesFrom xsd:string
-                                                                                       ]
-                                                                                     )
-                                                                ] .
+<http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_geographic_location ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_isolation_attribute ;
+                                                              owl:someValuesFrom :isolation_attribute
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_biosample ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_Otype ;
+                                                              owl:onClass :Otype ;
+                                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_valid_sequence ;
+                                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onDataRange xsd:string
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_accession ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :is_genome_of ;
+                                                              owl:someValuesFrom :Organism
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_sequence ;
+                                                              owl:someValuesFrom :Sequence
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_strain ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_bioproject ;
+                                                              owl:someValuesFrom xsd:string
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_Htype ;
+                                                              owl:onClass :Htype ;
+                                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :has_isolation_date ;
+                                                              owl:someValuesFrom xsd:date
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :is_owned_by ;
+                                                              owl:onClass :User ;
+                                                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger
+                                                            ] .
 
 
 
@@ -619,9 +626,13 @@ xsd:date rdf:type rdfs:Datatype .
                             owl:onDataRange xsd:string
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty :has_base_pair ;
+                            owl:onProperty :is_from ;
                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onDataRange xsd:int
+                            owl:onDataRange xsd:string
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is_sequence_of ;
+                            owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome>
                           ] ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :has_contigs ;
@@ -629,9 +640,9 @@ xsd:date rdf:type rdfs:Datatype .
                             owl:onDataRange xsd:int
                           ] ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty :validated ;
+                            owl:onProperty :has_base_pair ;
                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                            owl:onDataRange xsd:string
+                            owl:onDataRange xsd:int
                           ] ;
           
           rdfs:comment "" .

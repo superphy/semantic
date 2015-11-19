@@ -2,7 +2,7 @@ __author__ = 'Stephen Kan'
 
 import requests
 import os
-from caller_path_gen import path
+from _utils import path
 
 bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
 

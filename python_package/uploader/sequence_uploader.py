@@ -3,13 +3,13 @@ __author__ = 'Stephen Kan'
 from rdflib import Graph
 from Bio import SeqIO, Entrez
 import gzip
-import string
+from _utils import only_abecedarian
 from ftplib import FTP
 import gc
-from caller_path_gen import path
+from _utils import path
 from classes import Sequence, generate_output
 from ontology_uploader import upload_data
-from sparql import check_NamedIndividual, find_missing_sequences
+from _sparql import check_NamedIndividual, find_missing_sequences
 
 class SequenceUploader(object):
     def __init__(self):
@@ -26,13 +26,13 @@ class SequenceUploader(object):
             try:
                 g = Graph()
                 try:
-                    (sequence, bp, contigs, is_from) = self.from_nuccore(accession)
-                    sequence = Sequence(g, name, genome, sequence, bp, contigs)
+                    (sequences, bp, contigs, is_from) = self.from_nuccore(accession)
+                    sequence = Sequence(g, name, genome, sequences, bp, contigs)
                     sequence.rdf()
                     sequence.add_is_from(is_from)
                 except ValueError:
-                    (sequence, bp, contigs) = self.from_ftp(accession)
-                    sequence = Sequence(g, name, genome, sequence, bp, contigs)
+                    (sequences, bp, contigs) = self.from_ftp(accession)
+                    sequence = Sequence(g, name, genome, sequences, bp, contigs)
                     sequence.rdf()
                     sequence.add_is_from("WGS")
 
@@ -51,23 +51,23 @@ class SequenceUploader(object):
             if str(record.seq) is "":
                 raise ValueError("The Genbank file is a master record with no sequence data.")
             else:
-                sequence = record.seq
+                sequences = [record.seq]
                 contigs = 1
-                bp = len(sequence)
+                bp = len(sequences)
 
                 if "plasmid" in record.description.lower():
                     is_from = "PLASMID"
                 else:
                     is_from = "CORE"
 
-                return (sequence, bp, contigs, is_from)
+                return (sequences, bp, contigs, is_from)
 
 
     def from_ftp(self, accession):
         ftp = FTP('bio-mirror.jp.apan.net')
         ftp.login('anonymous','stebokan@gmail.com')
         ftp.cwd('pub/biomirror/genbank/wgs')
-        filename = self.get_filename('fsa_nt.gz', ftp, self.only_abecedarian(accession))
+        filename = self.get_filename('fsa_nt.gz', ftp, only_abecedarian(accession))
         ftp.retrbinary('RETR ' + filename, open(path('tmp/loading.gz'), 'wb').write)
 
         with gzip.open(path('tmp/loading.gz')) as fasta:
@@ -75,16 +75,16 @@ class SequenceUploader(object):
 
         handle = open(path('tmp/loading.fasta'), 'rb')
 
-        sequence = ""
+        sequences = []
         contigs = 0
 
         for record in SeqIO.parse(handle, 'fasta'):
-            sequence += str(record.seq)
+            sequences.append(str(record.seq))
             contigs += 1
 
-        bp = len(sequence)
+        bp = sum(len(contig) for contig in sequences)
 
-        return (sequence, bp, contigs)
+        return (sequences, bp, contigs)
 
 
     def get_filename(self, filetype, ftp, id):
@@ -92,13 +92,6 @@ class SequenceUploader(object):
         for item in filelist:
             if id in str(item) and filetype in str(item):
                 return item
-
-
-    def only_abecedarian(self, str):
-        all = string.maketrans('','')
-        nodigs = all.translate(all, string.ascii_letters)
-        return str.translate(all, nodigs)
-
 
     def upload_missing_sequences(self):
         for (genome, accession) in find_missing_sequences():

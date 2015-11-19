@@ -9,11 +9,11 @@ except YAJLImportError:
 
 import sys
 import traceback
-from caller_path_gen import path
+from _utils import path
 from rdflib import Graph
-from eutils import return_elink_uid, return_esearch_uid
+from _eutils import return_elink_uid, return_esearch_uid
 from classes import PendingGenome, generate_output
-from sparql import check_NamedIndividual
+from _sparql import check_NamedIndividual
 from ontology_uploader import upload_data
 
 reload(sys)
