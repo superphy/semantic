@@ -422,6 +422,12 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 
+###  https://github.com/superphy#validated
+
+:validated rdf:type owl:DatatypeProperty .
+
+
+
 
 
 #################################################################
