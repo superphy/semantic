@@ -54,11 +54,10 @@ class ConfigParserTestCase(unittest.TestCase):
         try:
             props = parser.read()
             self.assertIsNotNone(props['rdf_url'], "Environment variable SUPERPHY_RDF_URL found")
-            
-        except parser.SuperphyConfigError:
-            self.fail("parser.read() raised SuperphyConfigError!")
-        
-        
+
+        except parser.SuperphyConfigError, e:
+            self.fail("parser.read() raised SuperphyConfigError! {}".format(str(e)))
+
 
 
 if __name__ == '__main__':
