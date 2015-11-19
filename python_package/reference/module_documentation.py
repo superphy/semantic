@@ -26,7 +26,7 @@ __copyright__ = "Copyright 2015, Public Health Agency of Canada"
 __license__ = "CC-SY"
 __version__ = "4.0"
 __maintainer__ = "Your Name"
-__email__ = "you@canda.ca"
+__email__ = "you@canada.ca"
 
 module_level_variable2 = 98765
 """int: Module level variable documented inline.

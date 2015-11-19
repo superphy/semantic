@@ -13,12 +13,21 @@
 
 import requests
 import subprocess
+import logging
+from urllib2 import urlopen
 from SPARQLWrapper import SPARQLWrapper, JSON
+from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
+from rdflib import Graph
+from superphy.config import parser
+
+
 
 
 #Change this to change where the sparql endpoint is pointing
 _url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
 _ontology_file = "file:////home/drewb/Desktop/User_Login_GraphDB/ontology/User_Ontology_RDF_XML.owl"
+
+logger = logging.getLogger(__name__)
 
 #Takes a sparql query and a url of your sparql endpoint. 
 #Returns an object containing the information you requested. -- http://rdflib.readthedocs.org/en/latest/gettingstarted.html
@@ -66,3 +75,117 @@ def print_spo(results):
 def start():
 	"""Starts the endpoint client"""
 	subprocess.call('bash/start_blazegraph')
+
+
+class SuperphySparqlStoreError(Exception):
+    """Exceptions are documented in the same way as classes.
+
+    """
+
+    def __init__(Exception):
+        pass
+
+
+class SuperphyStore(SPARQLUpdateStore):
+    """Wrapper for RDFlib SPARQLUpdateStore 
+
+    Initializes a RDFLib SPARQLUpdateStore connected to blazegraph API endpoint
+    (Note: SPARQLUpdateStore is a subclass of SPARQLWrapper)
+
+    Example:
+
+    Args:
+
+
+
+    """
+
+    def __init__(self, *args, **kwargs):
+        """
+
+
+        Args:
+            param1 (str): Description of `param1`.
+            param2 (Optional[int]): Description of `param2`. Multiple
+                lines are supported.
+            param3 (List[str]): Description of `param3`.
+
+        """
+
+        # Example on how to parse subclass arguments
+  #       try:
+	 #    	self._w = kwargs.pop('w')
+		# except KeyError:
+	 #    	pass
+
+
+        # Retrieve superphy config
+        self.config = parser.read()
+
+        # Initialize store
+        status = urlopen(self.config['rdf_url']).getcode()
+        if status != 200:
+        	raise SuperphySparqlStoreError("SPARQL API Endpoint URL {} not found".format(self.config['rdf_url']))
+
+        # Add super constructor arguments so that it is connected to endpoint
+        kwargs.update({ 'queryEndpoint': self.config['rdf_url'], 'update_endpoint': self.config['rdf_url'] })
+        
+        # Call parent constructor
+        super(SuperphyStore,self).__init__(*args, **kwargs)
+
+        # Set crudentials here
+        # self.setCredentials(user, passwd)
+      	# self.setHTTPAuth('DIGEST')
+        
+
+class SuperphyGraph(object):
+    """Container for RDFlib Graph 
+
+    Initializes a RDFLib Graph with SPARQLUpdateStore connected to blazegraph API endpoint
+    (Note: SPARQLUpdateStore is a subclass of SPARQLWrapper)
+
+    Example:
+
+    Args:
+
+
+
+    """
+
+    def __init__(self, logger=None):
+        """
+
+
+        Args:
+            param1 (str): Description of `param1`.
+            param2 (Optional[int]): Description of `param2`. Multiple
+                lines are supported.
+            param3 (List[str]): Description of `param3`.
+
+        """
+
+        self.logger = logger or logging.getLogger(__name__)
+
+    	# Initialize store connected to blazegraph (URL comes from ENV variable)
+    	self._superphyStore = SuperphyStore()
+
+    	# Initialize graph object connected to store
+    	self._graph = Graph(self._storeObj.store)
+
+    @property
+    def graph(self):
+    	"""
+    	RDF graph object
+
+    	"""
+        return self._graph
+
+    @property
+    def superphyStore(self):
+    	"""
+    	Returns SuperphyStore object
+
+    	"""
+        return self._superphyStore
+    
+    
