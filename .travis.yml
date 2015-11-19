@@ -17,6 +17,7 @@ install:
   - virtualenv --no-site-packages venv
   - echo "source $TRAVIS_BUILD_DIR/bash/postactivate.sh" >> venv/bin/activate
   - source venv/bin/activate
+  - echo "$SUPERPHY_CONFIGFILE"
   - pip install --upgrade pip
   - pip install -r venv/requirements.txt
   - nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
