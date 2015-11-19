@@ -349,10 +349,17 @@ then
     echo "<$TEST>Running in test mode. ENV variables will have prefix SUPERPHYTEST_."
 fi
 
-# Check for ENV var with config file or use default
+# Production enviroment default location for config file
 DEFAULTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DEFAULTFILE="../../config/superphy.cfg"
 DEFAULTCFG="$DEFAULTDIR/$DEFAULTFILE"
+# Default for travis environment
+if [[ -n "$TRAVIS" ]]
+then
+    DEFAULTCFG="$TRAVIS_BUILD_DIR/tests/travis-settings.cfg"
+fi
+
+# Enviroment variable SUERPHY_CONFIGFILE can override default config file location
 CFGFILE="${SUPERPHY_CONFIGFILE:-$DEFAULTCFG}"
 
 # Initialize ENV variables

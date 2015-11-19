@@ -54,7 +54,8 @@ def read(test=None):
     for prop,var in env_vars.iteritems():
         val = environ.get(var)
         if not val:
-            raise SuperphyConfigError("Superphy environment variable {} is not defined".format(var))
+            msg = "Superphy environment variable {} is not defined".format(var)
+            raise SuperphyConfigError(msg)
         else:
             config[prop] = val
 
@@ -64,18 +65,7 @@ def read(test=None):
 class SuperphyConfigError(Exception):
     """Exception class for missing/uninitialized config.
 
-    Args:
-        msg (str): Human readable string describing the exception.
-        code (Optional[int]): Error code.
-
-    Attributes:
-        msg (str): Human readable string describing the exception.
-        code (int): Exception error code.
-
     """
-
-    def __init__(self, msg, code=None):
-        self.msg = msg
-        self.code = code
+    pass
 
 

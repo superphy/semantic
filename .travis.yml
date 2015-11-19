@@ -1,7 +1,3 @@
-env:
-  global:
-    - SUPERPHY_CONFIGFILE="$TRAVIS_BUILD_DIR/tests/travis-settings.cfg
-
 language: python
 
 python:

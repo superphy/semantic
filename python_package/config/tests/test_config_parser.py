@@ -8,6 +8,7 @@ Example:
 """
 
 import unittest
+from os import environ
 from superphy.config import parser
 
 __author__ = "Matt Whiteside"
@@ -39,11 +40,10 @@ class ConfigParserTestCase(unittest.TestCase):
        
     def tearDown(self):
         pass
-       
-
+        
     def test_parse_superphy_environment_variables(self):
         """
-        Enviroment variables are initizialized with values
+        Superphy environment variables are initizialized with config values
         matching INI-config file settings. Environment initizialization
         happens in the postactivate.sh script called in venv/bin/activate.
 
@@ -51,12 +51,9 @@ class ConfigParserTestCase(unittest.TestCase):
         the environment contains the proper variables.
 
         """
-        try:
-            props = parser.read()
-            self.assertIsNotNone(props['rdf_url'], "Environment variable SUPERPHY_RDF_URL found")
-
-        except parser.SuperphyConfigError, e:
-            self.fail("parser.read() raised SuperphyConfigError! {}".format(str(e)))
+      
+        props = parser.read()
+        self.assertIsNotNone(props['rdf_url'], "Environment variable SUPERPHY_RDF_URL found")
 
 
 
