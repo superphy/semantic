@@ -1,34 +1,45 @@
 __author__ = 'Stephen Kan'
 
 from Bio.Blast import NCBIXML
-from _utils import path
+from _utils import generate_path
+from _sparql import check_checksum
 import subprocess
 
-"""
-SearchIO is still experimental, but there are no expected API changes. The file format I am using,
-BLAST+ tabular format, is not expected to change.
-
-See http://comments.gmane.org/gmane.comp.python.bio.general/8598
-"""
-
-
 class SequenceValidator(object):
-    def __init__(self, genome, sequence):
-        pass
+    def __init__(self, accession, sequences, bp, contigs, checksum):
+        self.min_bp = 3500000
+        self.max_bp = 7500000
+        self.max_contigs = 10000
 
-    def validator(self):
+        self.accession = accession
+        self.sequences = sequences
+        self.bp = bp
+        self.contigs = contigs
+        self.checksum = checksum
+
+    def validate(self):
         self.create_fasta()
         self.blastn_commandline()
         hits = self.filter_passing_hits()
 
-        if len(hits) < 3:
-            pass
-        else:
-            pass
+        valid_length = (len(hits)>=3)
+        valid_bp = (self.min_bp <= self.bp <= self.max_bp)
+        valid_contigs = (self.contigs <= self.max_contigs)
+        unique_checksum = not check_checksum(self.checksum)
 
+        print valid_length
+        print valid_contigs
+        print valid_bp
+        print unique_checksum
+
+        return ((valid_length and
+                valid_bp and
+                valid_contigs and
+                unique_checksum) ,
+                hits)
 
     def filter_passing_hits(self):
-        result_handle = open(path("tmp/results.xml"))
+        result_handle = open(generate_path("tmp/validate.xml"))
 
         hits = {}
 
@@ -49,20 +60,18 @@ class SequenceValidator(object):
         del result_handle
         return hits
 
-    def blastn_commandline(self):
-        command = path("../../blast/ncbi-blast*/bin/blastn")
-        fasta = path("tmp/validate.fasta")
-        db = path("data/blast/ValidationDB")
-        results = path("tmp/validate.xml")
 
-        subprocess.call("%s -query %s -db %s -outfmt 6 -out %s -best_hit_score_edge 0.05 -best_hit_overhang 0.1"
+    def blastn_commandline(self):
+        command = generate_path("../../blast/ncbi-blast*/bin/blastn")
+        fasta = generate_path("tmp/validate.fasta")
+        db = generate_path("data/blast/ValidationDB")
+        results = generate_path("tmp/validate.xml")
+
+        subprocess.call("%s -query %s -db %s -outfmt 5 -out %s -best_hit_score_edge 0.05 -best_hit_overhang 0.1"
                          % (command, fasta, db, results),
                         shell=True)
 
     def create_fasta(self):
-        with open(path("tmp/validate.fasta")) as f:
-            for contig in self.sequence:
-                f.write(">%s\n%s" %(self.genome, contig))
-
-if __name__ == "__main__":
-    print SequenceValidator().filter_passing_hits()
+        with open(generate_path("tmp/validate.fasta"), "w") as f:
+            for contig in self.sequences:
+                f.write(">%s\n%s\n" %(self.accession, contig))

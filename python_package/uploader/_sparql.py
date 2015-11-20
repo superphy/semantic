@@ -69,15 +69,16 @@ def find_missing_sequences():
         "PREFIX gfvo: <http://www.biointerchange.org/gfvo#>"
         "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
         "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-        "SELECT ?s ?acc WHERE { ?s rdf:type gfvo:Genome . ?s :has_accession ?acc MINUS { ?s :has_sequence ?o }}"
+        "SELECT ?s ?acc WHERE { ?s rdf:type gfvo:Genome . ?s :has_accession ?acc "
+        "MINUS { ?s :has_valid_sequence ?o }}"
     )
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    return ((result["s"]["value"].rsplit("#", 1)[1], result["acc"]["value"]) for result in
-            results["results"]["bindings"])
+    return ((result["s"]["value"].rsplit("#", 1)[1], result["acc"]["value"])
+            for result in results["results"]["bindings"])
 
 
 def find_unlabelled_sequences():
@@ -176,30 +177,6 @@ def insert_accession_sequence(core, plasmid, plasmid_seq):
     print results
 
 
-def get_unvalidated_sequences():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
-        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
-        'PREFIX : <https://github.com/superphy#>\n'
-        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
-        'SELECT ?name ?sequence\n'
-        'WHERE { ?name :has_value ?sequence .'
-        'MINUS { ?name :is_from "PLASMID"^^xsd:string }'
-        'MINUS { ?name :validated ?condition } }'
-        'LIMIT 10\n'
-    )
-
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    if not results["results"]["bindings"]:
-        return None
-    else:
-        return ((result["name"]["value"].split("#", 1)[1], result["sequence"]["value"])
-                for result in results["results"]["bindings"])
-
 def delete_blank_nodes():
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
     queryString = (
@@ -213,3 +190,19 @@ def delete_blank_nodes():
     results = sparql.query().convert()
 
     print results
+
+def check_checksum(checksum):
+    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
+    queryString = (
+        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
+        'PREFIX : <https://github.com/superphy#>\n'
+        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
+        'ASK { ?Sequence :has_checksum "%s"^^xsd:string}' % checksum
+    )
+
+    sparql.setQuery(queryString)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+
+    return results["boolean"]

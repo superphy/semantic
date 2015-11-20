@@ -1,9 +1,9 @@
 __author__ = 'Stephen Kan'
 
-from classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype, generate_file_output
+from classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype
 from rdflib import Graph
 import json
-from _utils import path
+from _utils import generate_path, generate_file_output
 
 """
 This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all
@@ -66,7 +66,7 @@ def generate_serotypes():
 
 
 def generate_json(filename):
-    file = open(path(filename), "r+")
+    file = open(generate_path(filename), "r+")
     return json.load(file)
 
 
@@ -77,4 +77,4 @@ def generate_all():
     convert_sources()
     convert_syndromes()
     generate_serotypes()
-    generate_file_output(g, path('ontologies/setup.ttl'))
+    generate_file_output(g, generate_path('ontologies/setup.ttl'))

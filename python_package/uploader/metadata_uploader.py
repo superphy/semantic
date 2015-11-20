@@ -9,10 +9,10 @@ except YAJLImportError:
 
 import sys
 import traceback
-from _utils import path
+from _utils import generate_path, generate_output
 from rdflib import Graph
 from _eutils import return_elink_uid, return_esearch_uid
-from classes import PendingGenome, generate_output
+from classes import PendingGenome
 from _sparql import check_NamedIndividual
 from ontology_uploader import upload_data
 
@@ -29,7 +29,7 @@ class MetadataUploader(object):
         self.filename = filename
         self.organism = organism
         self.dict = {}
-        with open(path("outputs/errors.txt"), "w") as f:
+        with open(generate_path("outputs/errors.txt"), "w") as f:
             pass
 
     def upload(self):
@@ -39,7 +39,7 @@ class MetadataUploader(object):
         self.fd.close()
 
     def load_JSON(self):
-        self.fd = open(path(self.filename), "r")
+        self.fd = open(generate_path(self.filename), "r")
         self.data = ijson.parse(self.fd)
 
     def iterate(self):
@@ -77,7 +77,7 @@ class MetadataUploader(object):
 
     def error_logging(self):
         self.error += 1
-        with open(path("outputs/errors.txt"), "a") as f:
+        with open(generate_path("outputs/errors.txt"), "a") as f:
             f.write(self.dict["name"] + "\n" + "\n" +
                     traceback.format_exc() + "\n" +
                     "================================" + "\n" + "\n")
@@ -141,3 +141,5 @@ class MetadataUploader(object):
                 Htype = serotype.split(":")[1][1:]
 
         return {"Otype": Otype, "Htype": Htype}
+
+MetadataUploader("samples/25_genome.json", "ecoli").upload()
