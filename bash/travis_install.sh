@@ -25,7 +25,7 @@ if ! find data-dev.sqlite | read v; then
 fi
 echo sqlite server setup complete!
 
-rm -rfv
+rm -rfv db
 #Getting the graph db jar file from remote server.
 mkdir db
 if ! find db/bigdata-bundled.jar | read v; then
@@ -36,7 +36,7 @@ if ! find db/bigdata-bundled.jar | read v; then
 fi
 echo Blazegraph setup complete!
 
-rm -rfv
+rm -rfv blast
 #Getting the BLAST+ gzip file from remote server.
 mkdir blast
 if ! find blast/ncbi*/ | read v; then
