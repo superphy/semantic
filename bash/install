@@ -62,6 +62,13 @@ if ! find data-dev.sqlite | read v; then
 	./manage.py db upgrade &> /dev/null
 fi
 
+# Add environment setup scripts to activate
+BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo Adding postactivate script to venv/bin/activate
+echo "# Superphy Enviromentment setup" >> venv/bin/activate
+echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
+
+
 #Run related scripts
 bash bash/deploy_apache superphy
 bash bash/start_blazegraph
