@@ -31,13 +31,8 @@ if ! find db/bigdata-bundled.jar | read v; then
 		cd db;
 		wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
 		cd ..;
-		read -r -p "Do you want to backup the Blazegraph client in ../db ? [Y/N] " response
-		case $response in
-		    [yY][eE][sS]|[yY])
-			mkdir ../db
-			cp db/bigdata-bundled.jar ../db/bigdata-bundled.jar
-			;;*)
-		esac
+		mkdir ../db
+		cp db/bigdata-bundled.jar ../db/bigdata-bundled.jar
 	fi
 fi
 
