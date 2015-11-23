@@ -95,8 +95,8 @@ echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
 
 
 #Run related scripts
-bash bash/deploy_apache superphy
 bash bash/start_blazegraph
+bash bash/deploy_apache superphy
 
 echo Finished
 echo """$ bash bash/run""" to run the server

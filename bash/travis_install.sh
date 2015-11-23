@@ -49,10 +49,10 @@ echo Adding postactivate script to venv/bin/activate
 echo "# Superphy Environment setup" >> venv/bin/activate
 echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
 
+sleep 10
 
 #Run related scripts
 bash bash/start_blazegraph
-bash bash/blastinstall
 
 echo Finished
 echo """$ bash bash/run""" to run the server

@@ -4,7 +4,7 @@ python:
   - "2.7"
 
 addons:
-  firefox: "41.0"
+  firefox: latest-esr
   apt:
     packages:
     - libyajl1
