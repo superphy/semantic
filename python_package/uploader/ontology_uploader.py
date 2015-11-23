@@ -2,12 +2,12 @@ __author__ = 'Stephen Kan'
 
 import requests
 import os
-import inspect
+from _utils import generate_path
 
 bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
 
 def upload_all_ontologies():
-    folder = os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "ontologies")
+    folder = generate_path("ontologies")
     files = os.listdir(folder)
 
     for file in files:
@@ -27,6 +27,6 @@ def upload_data(data):
 
 def create_namespace():
     headers = {'Content-Type':'application/xml'}
-    data = "".join(line for line in open(os.path.join(os.path.dirname(inspect.getfile(inspect.currentframe())), "data/namespace.xml")))
+    data = "".join(line for line in open(generate_path("data/namespace.xml")))
     r = requests.post('http://localhost:9999/bigdata/namespace', data=data, headers=headers)
     return r.content

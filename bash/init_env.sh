@@ -363,7 +363,7 @@ fi
 CFGFILE="${SUPERPHY_CONFIGFILE:-$DEFAULTCFG}"
 
 # Initialize ENV variables
-echo "Initializing enviroment using config file: $CFGFILE"
+echo "Initializing environment using config file: $CFGFILE"
 if [[ -e $CFGFILE ]]
 then
     # Parse INI file

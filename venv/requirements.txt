@@ -1,5 +1,5 @@
 alembic==0.8.3
-biopython==1.65
+biopython==1.66
 bleach==1.4.2
 blinker==1.4
 CherryPy==3.8.0
