@@ -21,6 +21,13 @@ esac
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
 	virtualenv --no-site-packages venv
+
+	# Add environment setup scripts to activate
+    BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    echo Adding postactivate script to venv/bin/activate
+    echo "# Superphy Environment setup" >> venv/bin/activate
+    echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
+
 fi
 
 source venv/bin/activate
@@ -86,13 +93,6 @@ if ! find data-dev.sqlite | read v; then
 	echo Setting up SQL server
 	./manage.py db upgrade &> /dev/null
 fi
-
-# Add environment setup scripts to activate
-BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo Adding postactivate script to venv/bin/activate
-echo "# Superphy Environment setup" >> venv/bin/activate
-echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
-
 
 #Run related scripts
 bash bash/start_blazegraph

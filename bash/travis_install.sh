@@ -5,9 +5,14 @@ chmod a+x *.py
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
 	virtualenv --no-site-packages venv
+
+    # Add environment setup scripts to activate
+    BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    echo Adding postactivate script to venv/bin/activate
+    echo "# Superphy Environment setup" >> venv/bin/activate
+    echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
 fi
 
-echo "source $TRAVIS_BUILD_DIR/bash/postactivate.sh" >> venv/bin/activate
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r venv/requirements.txt
@@ -25,10 +30,10 @@ if ! find data-dev.sqlite | read v; then
 fi
 echo sqlite server setup complete!
 
-rm -rfv db
 #Getting the graph db jar file from remote server.
 mkdir db
-if ! find db/bigdata-bundled.jar | read v; then
+if ! [ -s db/bigdata-bundled.jar ]; then
+    rm db/bigdata-bundled.jar
 	echo Downloading Blazegraph jar file...
 	cd db;
 	wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
@@ -36,7 +41,6 @@ if ! find db/bigdata-bundled.jar | read v; then
 fi
 echo Blazegraph setup complete!
 
-rm -rfv blast
 #Getting the BLAST+ gzip file from remote server.
 mkdir blast
 if ! find blast/ncbi*/ | read v; then
@@ -47,12 +51,6 @@ if ! find blast/ncbi*/ | read v; then
 	cd ..;
 fi
 echo BLAST+ setup complete!
-
-# Add environment setup scripts to activate
-BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-echo Adding postactivate script to venv/bin/activate
-echo "# Superphy Environment setup" >> venv/bin/activate
-echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
 
 #Run related scripts
 bash bash/start_blazegraph
