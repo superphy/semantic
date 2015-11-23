@@ -21,19 +21,20 @@ deactivate
 #Getting the graph db jar file from remote server.
 mkdir db &> /dev/null
 if ! find db/bigdata-bundled.jar | read v; then
+	echo Downloading Blazegraph jar file...
+	cd db;
+	wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
+	cd ..;
+fi
 
-	if find ../db/bigdata-bundled.jar | read v;
-	then
-		echo Copying Blazegraph jar file...
-		cp ../db/bigdata-bundled.jar db/bigdata-bundled.jar
-	else
-		echo Downloading Blazegraph jar file...
-		cd db;
-		wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
-		cd ..;
-		mkdir ../db
-		cp db/bigdata-bundled.jar ../db/bigdata-bundled.jar
-	fi
+#Getting the BLAST+ gzip file from remote server.
+mkdir blast &> /dev/null
+if ! find blast/ncbi*/ | read v; then
+	echo Downloading NCBI BLAST+ jar file...
+	cd blast;
+	wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"
+	tar zxvpf *x64-linux.tar.gz
+	cd ..;
 fi
 
 #Setting up sqlite server for user auth

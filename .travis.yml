@@ -12,6 +12,8 @@ addons:
 cache:
   directories:
   - venv
+  - db/bigdata-bundled.jar
+  - blast
 
 install:
  - bash bash/travis_install.sh
