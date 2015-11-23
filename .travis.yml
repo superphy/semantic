@@ -12,7 +12,7 @@ addons:
 cache:
   directories:
   - venv
-  - db/bigdata-bundled.jar
+  - db
   - blast
 
 install:
