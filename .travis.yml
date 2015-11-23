@@ -15,6 +15,7 @@ cache:
 
 install:
  - bash bash/travis_install.sh
-  
+
 # command to run tests
-script: xvfb-run -a nosetests && cd tests && xvfb-run -a jasmine-ci && cd ../
+script:
+  - bash bash/test
