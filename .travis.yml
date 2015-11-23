@@ -14,11 +14,7 @@ cache:
   - venv
 
 install:
-  - virtualenv --no-site-packages venv
-  - source venv/bin/activate
-  - pip install --upgrade pip
-  - pip install -r venv/requirements.txt
-  - nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
+ - bash bash/travis_install.sh
   
 # command to run tests
 script: xvfb-run -a nosetests && cd tests && xvfb-run -a jasmine-ci && cd ../
