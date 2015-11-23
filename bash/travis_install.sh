@@ -23,6 +23,7 @@ fi
 
 deactivate
 
+: <<'END'
 #Setting up sqlite server for user auth
 if ! find data-dev.sqlite | read v; then
 	echo Setting up SQL server
@@ -54,7 +55,7 @@ echo BLAST+ setup complete!
 
 #Run related scripts
 bash bash/start_blazegraph
-
+END
 echo Finished
 echo """$ bash bash/run""" to run the server
 exit 0
