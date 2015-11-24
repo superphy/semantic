@@ -15,12 +15,12 @@ cache:
   - db
   - blast
 
+before_cache:
+ - rm -fv venv/lib/python2.7/site-packages/superphy
+
 install:
  - bash bash/travis_install.sh
 
 # command to run tests
 script:
  - bash bash/test
-
-after-script:
- - rm -fv venv/lib/python2.7/site-packages/superphy
