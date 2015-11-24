@@ -231,12 +231,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(fields, objects)
 
-    @mock.patch('superphy.uploader.classes._sparql')
-    def test_Genome(self, mock_sparql):
-
-        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
-        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
-        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+    def test_Genome(self):
 
         kwargs = {"date": {"2013-06-24"},
                   "location": {"United States, California, Santa Clara"},
@@ -283,12 +278,8 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch('superphy.uploader.classes._sparql')
-    def test_PendingGenome(self, mock_sparql):
 
-        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
-        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
-        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+    def test_PendingGenome(self):
 
         kwargs = {"date": {"2013-06-24"},
                   "location": {"United States, California, Santa Clara"},
@@ -336,12 +327,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch('superphy.uploader.classes._sparql')
-    def test_CompletedGenome(self, mock_sparql):
-
-        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
-        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
-        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+    def test_CompletedGenome(self):
 
         kwargs = {"date": {"2013-06-24"},
                   "location": {"United States, California, Santa Clara"},
@@ -389,3 +375,39 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
+    def test_Sequence(self):
+        sequence = classes.Sequence(self.graph, "ABCD00000000_seq","ABCD00000000", ["CATGCATGCATGCATGCATG"], 15, 1,
+                                    "asdjkldf", "PLASMID")
+        sequence.rdf()
+
+        field = {"http://www.w3.org/2002/07/owl#NamedIndividual",
+                 "https://github.com/superphy#Sequence",
+                 "15",
+                 "asdjkldf",
+                 "1",
+                 "CATGCATGCATGCATGCATG",
+                 "PLASMID",
+                 "https://github.com/superphy#ABCD00000000"}
+        objects = list(self.graph.objects(n["ABCD00000000_seq"]))
+
+        self.check_triples(field, objects)
+
+        field = {"https://github.com/superphy#ABCD00000000"}
+        subjects = list(self.graph.subjects(object=n["ABCD00000000_seq"]))
+
+        self.check_triples(field, subjects)
+
+        sequence.add_seq_validation("False")
+
+        field = {"False"}
+        objects = list(self.graph.objects(predicate=n.has_valid_sequence))
+
+        self.check_triples(field, objects)
+
+
+        sequence.add_hits({"1","2","3"})
+
+        field = {"1","2","3"}
+        objects = list(self.graph.objects(predicate=n.has_hit))
+
+        self.check_triples(field, objects)

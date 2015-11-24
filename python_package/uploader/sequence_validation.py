@@ -46,7 +46,7 @@ class SequenceValidator(object):
 
 
     def check_chars(self):
-        allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-])/"
+        allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-]"
         s = "".join(str(contig) for contig in self.sequences)
         trans_table = string.maketrans('','')
         return not s.translate(trans_table, allowed_chars)

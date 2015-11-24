@@ -20,8 +20,14 @@ class SequenceValidatorTestCase(unittest.TestCase):
                                                "asdfasdf")
     def tearDown(self):
         del self.validSequence
+        del self.invalidSequence
 
-    def test_check_char(self):
+    def test_validate(self):
+        pass
+
+    def test_check_chars(self):
         self.assertTrue(self.validSequence.check_chars())
         self.assertFalse(self.invalidSequence.check_chars())
 
+    def test_filter_passing_hits(self):
+        pass

@@ -16,7 +16,7 @@ cache:
   - blast
 
 before_cache:
- - rm -f /home/travis/build/superphy/semantic/venv/lib/python2.7/site-packages/superphy
+ - rm -rf venv/lib/python2.7/site-packages/superphy
 
 install:
  - bash bash/travis_install.sh
