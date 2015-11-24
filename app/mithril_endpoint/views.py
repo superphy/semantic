@@ -19,4 +19,5 @@ def query():
 
 @mithril.route('/meta', methods = ['GET'])
 def meta():
-	return jsonify(sparql.get_genome_meta_data("LIMIT 10"))
+	results = (sparql.get_genome_meta_data("LIMIT 30"))
+	return jsonify(results)

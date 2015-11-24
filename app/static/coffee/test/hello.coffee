@@ -1,26 +1,45 @@
+#Move headers and genomes to meta class
+#Follow tutorial to get asych requests 
 
 class Hello
-    urlhello= "http://10.139.14.121:5000/mithril/query"
+    headers = []
+    genomes = []
+    meta=(data)->
+        setTimeout (-> say("hello world")), 50000000
+        for item in data.head.vars
+            headers.push(item)
+        if data.results
+            for i, binding in data.results.bindings
+                genome = []
+                for j, variable in data.head.vars
+                    a = data.results.bindings[binding][data.head.vars[variable]]["value"]
+                    genome.push(a)
+                genomes.push(genome)
+        {
+            headers: headers
+            genomes: genomes
+        }
 
-    controller =
-        getData: -> m.request({
-          method: "GET",
-          url: urlhello
-        })
+    controller: ->
+        return m.request(
+            method: "GET",
+            url: 'http://10.139.14.121:5000/mithril/meta'
+            datatype: 'json'
+            type: meta)
 
-    model=
-      flowers: ["roses","violets"]
-      data: m.prop(controller.getData())
-
-    view: () ->
+    view: (controller) ->
         [
             home.view()
-            m("div", ["Getting the first 3 triples in the triplestore."])
-            m("div", model.flowers)
-            m("div", JSON.stringify(model.data))
-            #m("div",[(data.results)])
-#            m("p.home-beta", {class:'text-center'}, [
-#                JSON.stringify(users)
-#            ])
+            m("table",{class:'text-center'},[
+                m("tr",[
+                    for item in headers
+                        m("td", [item])
+                ])
+                for sequence in genomes
+                    m("tr",
+                    for data in sequence
+                        m("td", data)
+                    )
+            ])
+            console.log(JSON.stringify(controller))
         ]
-
