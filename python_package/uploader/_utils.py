@@ -12,8 +12,8 @@ def generate_path(filename):
 
 def strip_non_alphabetic(str):
     all = string.maketrans('','')
-    nodigs = all.translate(all, string.ascii_letters)
-    return str.translate(all, nodigs)
+    nochars = all.translate(all, string.ascii_letters)
+    return str.translate(all, nochars)
 
 def strip_non_numeric(str):
     all = string.maketrans('','')

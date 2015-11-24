@@ -4,6 +4,7 @@ from Bio.Blast import NCBIXML
 from _utils import generate_path
 from _sparql import check_checksum
 import subprocess
+import string
 
 class SequenceValidator(object):
     def __init__(self, accession, sequences, bp, contigs, checksum):
@@ -17,6 +18,7 @@ class SequenceValidator(object):
         self.contigs = contigs
         self.checksum = checksum
 
+
     def validate(self):
         self.create_fasta()
         self.blastn_commandline()
@@ -25,18 +27,30 @@ class SequenceValidator(object):
         valid_length = (len(hits)>=3)
         valid_bp = (self.min_bp <= self.bp <= self.max_bp)
         valid_contigs = (self.contigs <= self.max_contigs)
+        valid_chars = self.check_chars()
         unique_checksum = not check_checksum(self.checksum)
 
-        print valid_length
-        print valid_contigs
-        print valid_bp
-        print unique_checksum
+        checks = {"length":valid_length,
+                  "bp":valid_bp,
+                  "contigs":valid_contigs,
+                  "chars":valid_chars,
+                  "checksum":unique_checksum}
 
-        return ((valid_length and
-                valid_bp and
-                valid_contigs and
-                unique_checksum) ,
-                hits)
+        for type, boolean in checks.iteritems():
+            if not boolean:
+                with open(generate_path("outputs/seq_errors.txt"), "a") as f:
+                    f.write("%s failed validation: %s was not valid" %(self.accession, type))
+                return (False, hits)
+
+        return (True, hits)
+
+
+    def check_chars(self):
+        allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-])/"
+        s = "".join(str(contig) for contig in self.sequences)
+        trans_table = string.maketrans('','')
+        return not s.translate(trans_table, allowed_chars)
+
 
     def filter_passing_hits(self):
         result_handle = open(generate_path("tmp/validate.xml"))
@@ -70,6 +84,7 @@ class SequenceValidator(object):
         subprocess.call("%s -query %s -db %s -outfmt 5 -out %s -best_hit_score_edge 0.05 -best_hit_overhang 0.1"
                          % (command, fasta, db, results),
                         shell=True)
+
 
     def create_fasta(self):
         with open(generate_path("tmp/validate.fasta"), "w") as f:

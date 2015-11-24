@@ -122,4 +122,4 @@ class SequenceUploader(object):
             gc.collect()
 
 if __name__ == "__main__":
-    SequenceUploader().load_sequences("CP002729","CP002729")
+    SequenceUploader().upload_missing_sequences()

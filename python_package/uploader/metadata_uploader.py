@@ -141,3 +141,5 @@ class MetadataUploader(object):
                 Htype = serotype.split(":")[1][1:]
 
         return {"Otype": Otype, "Htype": Htype}
+
+#MetadataUploader("samples/25_genome.json", "ecoli").upload()
