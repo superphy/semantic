@@ -12,8 +12,10 @@ class Hello
             for i, binding in data.results.bindings
                 genome = []
                 for j, variable in data.head.vars
-                    a = data.results.bindings[binding][data.head.vars[variable]]["value"]
-                    genome.push(a)
+                    try
+                        genome.push(data.results.bindings[binding][data.head.vars[variable]]["value"])
+                    catch
+                        genome.push("")
                 genomes.push(genome)
         {
             headers: headers
@@ -28,6 +30,7 @@ class Hello
             type: meta)
 
     view: (controller) ->
+        console.log(JSON.stringify(controller))
         [
             home.view()
             m("table",{class:'text-center'},[
@@ -41,5 +44,4 @@ class Hello
                         m("td", data)
                     )
             ])
-            console.log(JSON.stringify(controller))
         ]
