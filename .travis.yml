@@ -20,4 +20,7 @@ install:
 
 # command to run tests
 script:
-  - bash bash/test
+ - bash bash/test
+
+after-script:
+ - rm -f /home/ubiquitin/PycharmProjects/semantic/venv/lib/python2.7/site-packages/superphy
