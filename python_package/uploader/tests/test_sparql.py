@@ -27,7 +27,7 @@ class sparqlTestCase(unittest.TestCase):
         subprocess.call("bash bash/kill_port_9999", shell=True)
         subprocess.call("cp %s %s" %(src, dst), shell=True)
         subprocess.call("bash bash/start_blazegraph", shell=True)
-        MetadataUploader("python_package/uploader/samples/3_sequence.json", "ecoli").upload()
+        MetadataUploader("samples/3_sequence.json", "ecoli").upload()
 
     @classmethod
     def tearDownClass(cls):
