@@ -1,51 +1,76 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+"""
+This module wraps often-used queries to the Blazegraph SPARQL endpoint.
+"""
 
 from SPARQLWrapper import SPARQLWrapper, JSON
 
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
+
 
 def find_from_host(host):
+    """
+
+    Args:
+        host:
+
+    Returns:
+
+    """
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
     queryString = (
-        'PREFIX : <https://github.com/superphy#>'
-        'SELECT ?p WHERE {?s ?o "%s"^^xsd:string . ?s :is_object_of ?p}' % host
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?p WHERE {?s ?o "%s"^^xsd:string . ?s :is_object_of ?p . ?p rdf:type :isolation_from_host}' % host
     )
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    for result in results["results"]["bindings"]:
-        return result["p"]["value"]
+    try:
+        return results["results"]["bindings"][0]["p"]["value"].split("#", 1)[1]
+    except IndexError:
+        return None
 
 
 def find_syndrome(syndrome):
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
     queryString = (
-        'PREFIX : <https://github.com/superphy#>'
-        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string .}' % syndrome
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :isolation_syndrome . }' % syndrome
     )
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    for result in results["results"]["bindings"]:
-        return result["s"]["value"]
-
+    try:
+        return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
+    except IndexError:
+        return None
 
 def find_source(source):
     sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
     queryString = (
-        'PREFIX : <https://github.com/superphy#>'
-        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string .}' % source
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :isolation_from_source}' % source
     )
     sparql.setQuery(queryString)
 
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    for result in results["results"]["bindings"]:
-        return result["s"]["value"]
+    try:
+        return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
+    except IndexError:
+        return None
 
 
 def check_NamedIndividual(name):
@@ -79,23 +104,6 @@ def find_missing_sequences():
 
     return ((result["s"]["value"].rsplit("#", 1)[1], result["acc"]["value"])
             for result in results["results"]["bindings"])
-
-
-def find_unlabelled_sequences():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        "PREFIX : <https://github.com/superphy#>"
-        "PREFIX gfvo: <http://www.biointerchange.org/gfvo#>"
-        "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-        "SELECT ?s WHERE { ?s rdf:type :Sequence . MINUS { ?s :is_from ?o }}"
-    )
-    sparql.setQuery(queryString)
-
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    return (result["s"]["value"].rsplit("#", 1)[1] for result in results["results"]["bindings"])
 
 
 def find_duplicate_biosamples():

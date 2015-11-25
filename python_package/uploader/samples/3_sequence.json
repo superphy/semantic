@@ -1,0 +1,53 @@
+{
+  "CP001165": {
+    "serotype": [
+      {
+        "meta_term": "serotype",
+        "displayname": "O157:H7",
+        "value": "O157:H7"
+      }
+    ],
+    "strain": [
+      {
+        "displayname": "EC4115",
+        "meta_term": "strain",
+        "value": "EC4115",
+        "priority": 1
+      }
+    ]
+  },
+  "CP001164": {
+    "strain": [
+      {
+        "priority": 1,
+        "meta_term": "strain",
+        "displayname": "EC4115",
+        "value": "EC4115"
+      }
+    ],
+    "serotype": [
+      {
+        "value": "O157:H7",
+        "displayname": "O157:H7",
+        "meta_term": "serotype"
+      }
+    ]
+  },
+  "CP001163": {
+    "strain": [
+      {
+        "displayname": "EC4115",
+        "meta_term": "strain",
+        "value": "EC4115",
+        "priority": 1
+      }
+    ],
+    "serotype": [
+      {
+        "value": "O157:H7",
+        "meta_term": "serotype",
+        "displayname": "O157:H7"
+      }
+    ]
+  }
+}
