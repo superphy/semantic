@@ -7,6 +7,7 @@ import subprocess
 from superphy.uploader._utils import generate_path
 from superphy.uploader import _sparql
 from superphy.uploader.metadata_upload import MetadataUploader
+from superphy.uploader.sequence_upload import SequenceUploader
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -21,19 +22,18 @@ class sparqlTestCase(unittest.TestCase):
     def setUpClass(cls):
         top_dir = generate_path("../../../")
         os.chdir(top_dir)
-        print os.getcwd()
         src = os.path.join(os.getcwd(),"db/bigdata.jnl")
         dst = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
         subprocess.call("bash bash/kill_port_9999", shell=True)
         subprocess.call("cp %s %s" %(src, dst), shell=True)
         subprocess.call("bash bash/start_blazegraph", shell=True)
         MetadataUploader("samples/3_sequence.json", "ecoli").upload()
+        SequenceUploader().load_sequences("CP001164","CP001164")
 
     @classmethod
     def tearDownClass(cls):
         top_dir = generate_path("../../../")
         os.chdir(top_dir)
-        print os.getcwd()
         src = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
         dst = os.path.join(os.getcwd(),"db/bigdata.jnl")
         subprocess.call("bash bash/kill_port_9999", shell=True)
@@ -64,7 +64,7 @@ class sparqlTestCase(unittest.TestCase):
         self.assertFalse(_sparql.check_NamedIndividual("asdfasdf"))
 
     def test_find_missing_sequences(self):
-        self.assertEqual(len(list(_sparql.find_missing_sequences())), 3)
+        self.assertEqual(len(list(_sparql.find_missing_sequences())), 2)
 
     def test_find_duplicate_biosamples(self):
         for (biosample, sequences) in _sparql.find_duplicate_biosamples():
@@ -73,7 +73,7 @@ class sparqlTestCase(unittest.TestCase):
                 self.assertTrue(str(sequence) in expected)
 
     def test_find_core_genome(self):
-        pass
+        self.assertTrue(_sparql.find_core_genome("2603441")[0], "CP001164")
 
     def test_delete_instance(self):
         pass
