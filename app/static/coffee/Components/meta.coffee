@@ -1,6 +1,7 @@
 #Move headers and genomes to meta class
 #Follow tutorial to get asych requests 
 
+
 class Meta_Data
     headers = []
     genomes = []
@@ -29,16 +30,18 @@ class Meta_Data
     view: (controller) ->
         console.log(JSON.stringify(controller))
         [
-            home.view()
-            m("table",{class:'text-center'},[
-                m("tr",[
-                    for item in headers
-                        m("td", [item])
+            header.view()
+            m("div", {class:'container', id:'meta'},[
+                m("table",{class:'well center-block'},[
+                    m("tr",[
+                        for item in headers
+                            m("td", [item])
+                    ])
+                    for sequence in genomes
+                        m("tr",
+                            for data in sequence
+                                m("td", data)
+                        )
                 ])
-                for sequence in genomes
-                    m("tr",
-                        for data in sequence
-                            m("td", data)
-                    )
             ])
         ]
