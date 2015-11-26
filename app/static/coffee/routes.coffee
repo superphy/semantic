@@ -3,7 +3,5 @@ class Routes
           "/": home
           "/home": home
           "/meta": meta
-          #"/login": login
-          "/hello": hello
       })
 

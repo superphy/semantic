@@ -1,22 +1,19 @@
 #Move headers and genomes to meta class
 #Follow tutorial to get asych requests 
 
-class Hello
+class Meta_Data
     headers = []
     genomes = []
     meta=(data)->
-        setTimeout (-> say("hello world")), 50000000
-        for item in data.head.vars
-            headers.push(item)
-        if data.results
-            for i, binding in data.results.bindings
-                genome = []
-                for j, variable in data.head.vars
-                    try
-                        genome.push(data.results.bindings[binding][data.head.vars[variable]]["value"])
-                    catch
-                        genome.push("")
-                genomes.push(genome)
+        headers = data.head.vars
+        for binding in data.results.bindings
+            genome = []
+            for variable in data.head.vars
+                try
+                    genome.push(binding[variable]["value"])
+                catch
+                    genome.push("")
+            genomes.push(genome)
         {
             headers: headers
             genomes: genomes
@@ -40,8 +37,8 @@ class Hello
                 ])
                 for sequence in genomes
                     m("tr",
-                    for data in sequence
-                        m("td", data)
+                        for data in sequence
+                            m("td", data)
                     )
             ])
         ]

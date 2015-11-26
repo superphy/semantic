@@ -1,5 +1,5 @@
 header = new Header()
 home = new Home()
-hello = new Hello()
+meta = new Meta_Data()
 
 m.mount(document.body, home)
