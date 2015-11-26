@@ -28,7 +28,7 @@ class Meta_Data
             type: meta)
 
     view: (controller) ->
-        console.log(JSON.stringify(controller))
+        #console.log(JSON.stringify(controller))
         [
             header.view()
             m("div", {class:'container', id:'meta'},[
