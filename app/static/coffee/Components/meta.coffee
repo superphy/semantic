@@ -8,35 +8,34 @@ class Singleton
         return instance
         
 class Meta_Data
-    headers = []
-    genomes = []
-    meta=(data)->
-        headers = data.head.vars
-        genomes = data.results.bindings
-        {
-            headers: headers
-            genomes: genomes
-        }
+    data = {}
+    console.log("Meta_Data")
+    meta=(response)->
+        console.log("meta")
+        data.headers = response.head.vars
+        data.genomes = response.results.bindings
+        return data
 
-    controller: ->
-        return m.request(
+    controller: ()->
+        console.log("controller")
+        m.request(
             method: "GET",
             url: 'http://10.139.14.121:5000/mithril/meta'
             datatype: 'json'
             type: meta)
-
-    view: (controller) ->
+    views = {}
+    views.table= () ->
+        console.log("table")
         #console.log(JSON.stringify(controller))
         [
-            header.view()
             m("div", {class:'container', id:'meta'},[
                 m("table",[
                     m("tr", [
-                        m("td", [item]) for item in headers
+                        m("td", [item]) for item in data.headers
                     ])
-                    for binding in genomes
+                    for binding in data.genomes
                         m("tr",[ 
-                            for item in headers
+                            for item in data.headers
                                 try
                                     m("td", binding[item]["value"])
                                 catch
@@ -44,4 +43,10 @@ class Meta_Data
                         ])
                 ])
             ])
+        ]
+    view: () ->
+        console.log("view")
+        [
+            header.view()
+            views.table()
         ]
