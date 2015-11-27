@@ -1,4 +1,9 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+"""
+
+"""
 
 from Bio.Blast import NCBIXML
 from _utils import generate_path
@@ -6,8 +11,27 @@ from _sparql import check_checksum
 import subprocess
 import string
 
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
+
 class SequenceValidator(object):
     def __init__(self, accession, sequences, bp, contigs, checksum):
+        """
+
+        Args:
+            accession:
+            sequences:
+            bp:
+            contigs:
+            checksum:
+
+        Returns:
+
+        """
         self.min_bp = 3500000
         self.max_bp = 7500000
         self.max_contigs = 10000
@@ -20,6 +44,11 @@ class SequenceValidator(object):
 
 
     def validate(self):
+        """
+
+        Returns:
+
+        """
         self.create_fasta()
         self.blastn_commandline()
         hits = self.filter_passing_hits()
@@ -46,6 +75,11 @@ class SequenceValidator(object):
 
 
     def check_chars(self):
+        """
+
+        Returns:
+
+        """
         allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-]"
         s = "".join(str(contig) for contig in self.sequences)
         trans_table = string.maketrans('','')
@@ -53,6 +87,11 @@ class SequenceValidator(object):
 
 
     def filter_passing_hits(self):
+        """
+
+        Returns:
+
+        """
         result_handle = open(generate_path("tmp/validate.xml"))
 
         hits = {}
@@ -76,6 +115,11 @@ class SequenceValidator(object):
 
 
     def blastn_commandline(self):
+        """
+
+        Returns:
+
+        """
         command = generate_path("../../blast/ncbi-blast*/bin/blastn")
         fasta = generate_path("tmp/validate.fasta")
         db = generate_path("data/blast/ValidationDB")
@@ -87,6 +131,11 @@ class SequenceValidator(object):
 
 
     def create_fasta(self):
+        """
+
+        Returns:
+
+        """
         with open(generate_path("tmp/validate.fasta"), "w") as f:
             for contig in self.sequences:
                 f.write(">%s\n%s\n" %(self.accession, contig))

@@ -1,9 +1,16 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 import unittest
 import mock
 from superphy.uploader.metadata_upload import MetadataUploader
 
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
 
 class MetadataUploaderTestCase(unittest.TestCase):
     def setUp(self):
@@ -34,7 +41,7 @@ class MetadataUploaderTestCase(unittest.TestCase):
         self.case.error_logging()
         self.assertEqual(self.case.error, 1)
 
-    @mock.patch('superphy.uploader.metadata_upload.upload_data')
+    @mock.patch('superphy.uploader.metadata_upload.BlazegraphUploader.upload_data')
     @mock.patch('superphy.uploader.metadata_upload.MetadataUploader.get_ncbi_ids')
     @mock.patch('superphy.uploader.metadata_upload.check_NamedIndividual')
     def test_create_pending_genome(self, mock_check, mock_ncbi, mock_upload):
@@ -93,3 +100,7 @@ class MetadataUploaderTestCase(unittest.TestCase):
         self.assertEqual(self.case.get_serotypes({"ONT:NM"}), {"Otype": None, "Htype": "-"})
         self.assertEqual(self.case.get_serotypes({"O157:NA"}), {"Otype": "157", "Htype": None})
         self.assertEqual(self.case.get_serotypes({"O157:H7"}), {"Otype": "157", "Htype": "7"})
+
+
+if __name__ == '__main__':
+    unittest.main()

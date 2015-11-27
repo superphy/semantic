@@ -7,7 +7,7 @@ import subprocess
 from rdflib import Graph, Namespace, Literal, XSD, BNode
 from superphy.uploader._utils import generate_path, generate_output
 from superphy.uploader import _sparql
-from superphy.uploader.blazegraph_upload import upload_data
+from superphy.uploader.blazegraph_upload import BlazegraphUploader
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -80,7 +80,6 @@ class sparqlTestCase(unittest.TestCase):
         g.add((n.fakeGenome, rdf.type, gfvo.Genome))
         g.add((n.fakeGenome, n.has_valid_sequence, Literal("False", datatype=XSD.string)))
 
-
         g.add((n.testEntity, rdf.type, owl.NamedIndividual))
 
 
@@ -88,29 +87,29 @@ class sparqlTestCase(unittest.TestCase):
 
         g.add((n.test_object, n.has_checksum, Literal("asdfghjkl", datatype=XSD.string)))
 
-        upload_data(generate_output(g))
+        BlazegraphUploader().upload_data(generate_output(g))
 
     def test_find_from_host(self):
         self.assertEqual(_sparql.find_from_host("Bos taurus (cow)"), "from_btaurus")
         self.assertIsNone(_sparql.find_from_host("Asymptomatic"))
         self.assertIsNone(_sparql.find_from_host("Enteral feeding tube"))
-        self.assertIsNone(_sparql.find_from_host("asdlkjasdfjklsdf"))
+        self.assertIsNone(_sparql.find_from_host("foo"))
 
     def test_find_syndrome(self):
         self.assertEqual(_sparql.find_syndrome("Asymptomatic"), "asymptomatic")
         self.assertIsNone(_sparql.find_syndrome("Enteral feeding tube"))
         self.assertIsNone(_sparql.find_syndrome("Bos taurus (cow)"))
-        self.assertIsNone(_sparql.find_syndrome("asdlkjasdfjklsdf"))
+        self.assertIsNone(_sparql.find_syndrome("foo"))
 
     def test_find_source(self):
         self.assertEqual(_sparql.find_source("Enteral feeding tube"), "enteral_feeding_tube")
         self.assertIsNone(_sparql.find_source("Asymptomatic"))
         self.assertIsNone(_sparql.find_source("Bos taurus (cow)"))
-        self.assertIsNone(_sparql.find_source("asdlkjasdfjklsdf"))
+        self.assertIsNone(_sparql.find_source("foo"))
 
     def test_check_NamedIndividual(self):
         self.assertTrue(_sparql.check_NamedIndividual("btaurus"))
-        self.assertFalse(_sparql.check_NamedIndividual("asdlkjasdfjklsdf"))
+        self.assertFalse(_sparql.check_NamedIndividual("foo"))
 
     def test_find_missing_sequences(self):
         self.assertEqual(len(list(_sparql.find_missing_sequences())), 2)
@@ -132,7 +131,28 @@ class sparqlTestCase(unittest.TestCase):
         self.assertFalse(_sparql.check_NamedIndividual("testEntity"))
 
     def test_insert_accession_sequence(self):
-        pass
+        self.assertFalse(_sparql._sparql_query(
+            'PREFIX : <https://github.com/superphy#>\n'
+            'ASK { :fakeGenome :has_accession ?o}'
+        )["boolean"])
+
+        self.assertFalse(_sparql._sparql_query(
+            'PREFIX : <https://github.com/superphy#>\n'
+            'ASK { :fakeGenome :has_sequence ?o}'
+        )["boolean"])
+
+        _sparql.insert_accession_sequence("fakeGenome", "fakePlasmid", "fakePlasmidSeq")
+
+        self.assertTrue(_sparql._sparql_query(
+            'PREFIX : <https://github.com/superphy#>\n'
+            'ASK { :fakeGenome :has_accession "fakePlasmid"^^xsd:string}'
+        )["boolean"])
+
+        self.assertTrue(_sparql._sparql_query(
+            'PREFIX : <https://github.com/superphy#>\n'
+            'ASK { :fakeGenome :has_sequence :fakePlasmidSeq}'
+        )["boolean"])
+
 
     def test_blank_nodes(self):
         self.assertTrue(_sparql.check_blank_nodes())

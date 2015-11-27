@@ -1,4 +1,5 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 from rdflib import Graph
 from Bio import SeqIO, Entrez
@@ -8,11 +9,19 @@ from ftplib import FTP
 import gc
 from _utils import generate_path, generate_output
 from classes import Sequence
-from blazegraph_upload import upload_data
+from blazegraph_upload import BlazegraphUploader
 from _sparql import check_NamedIndividual, find_missing_sequences
 import hashlib
 from sequence_validation import SequenceValidator
 import traceback
+
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
+
 
 class SequenceUploader(object):
     def __init__(self):
@@ -30,28 +39,29 @@ class SequenceUploader(object):
             try:
                 bp, contigs, is_from, sequences = self.get_seqdata(accession)
                 checksum = self.generate_checksum(sequences)
-                seq_RDF =Sequence(g, name, genome, sequences, bp, contigs, checksum, is_from)
+                seq_RDF = Sequence(g, name, genome, sequences, bp, contigs, checksum, is_from)
 
                 if is_from is not "PLASMID":
                     (isValid, hits) = SequenceValidator(accession, sequences, bp, contigs, checksum).validate()
                     if isValid:
                         seq_RDF.rdf()
-                        seq_RDF.add_seq_validation(True)
-                    else:
-                        seq_RDF.add_seq_validation(False)
-
-                    seq_RDF.add_hits(hits)
+                        seq_RDF.add_hits(hits)
+                    seq_RDF.add_seq_validation(isValid)
                 else:
                     seq_RDF.rdf()
                     if genome == accession:
                         seq_RDF.add_seq_validation(True)
 
-                upload_data(generate_output(g))
+                BlazegraphUploader().upload_data(generate_output(g))
+
             except TypeError:
-                with open(generate_path("outputs/seq_errors.txt"), "a") as f:
-                    f.write("%s - %s: The records for this sequence are not retrievable.\n" %(genome, accession))
-                    f.write(traceback.format_exc() + "\n" + "================================" + "\n" + "\n")
-                print "%s - %s: The records for this sequence are not retrievable." %(genome, accession)
+                self.error_logging(accession, genome)
+
+    def error_logging(self, accession, genome):
+        with open(generate_path("outputs/seq_errors.txt"), "a") as f:
+            f.write("%s - %s: The records for this sequence are not retrievable.\n" % (genome, accession))
+            f.write(traceback.format_exc() + "\n" + "================================" + "\n" + "\n")
+        print "%s - %s: The records for this sequence are not retrievable." % (genome, accession)
 
     def generate_checksum(self, sequences):
         seqhash = hashlib.md5()

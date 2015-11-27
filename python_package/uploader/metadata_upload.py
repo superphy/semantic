@@ -1,4 +1,9 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+"""
+
+"""
 
 from ijson.backends import YAJLImportError
 
@@ -14,10 +19,17 @@ from rdflib import Graph
 from _eutils import return_elink_uid, return_esearch_uid
 from classes import PendingGenome
 from _sparql import check_NamedIndividual
-from blazegraph_upload import upload_data
+from blazegraph_upload import BlazegraphUploader
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
+
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
 
 
 class MetadataUploader(object):
@@ -92,7 +104,7 @@ class MetadataUploader(object):
         else:
             kwargs = self.setup_genome_kwargs()
             PendingGenome(g, **kwargs).rdf()
-            upload_data(generate_output(g))
+            BlazegraphUploader().upload_data(generate_output(g))
 
     def setup_genome_kwargs(self):
         kwargs = {}

@@ -1,8 +1,16 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 import unittest
 from superphy.uploader import classes
 from rdflib import Graph, Namespace
+
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
 
 n = Namespace("https://github.com/superphy#")
 owl = Namespace("http://www.w3.org/2002/07/owl#")
@@ -11,6 +19,8 @@ xml = Namespace("http://www.w3.org/XML/1998/namespace")
 xsd = Namespace("http://www.w3.org/2001/XMLSchema#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
+
+
 
 class ClassesTestCase(unittest.TestCase):
 
@@ -410,3 +420,6 @@ class ClassesTestCase(unittest.TestCase):
         objects = list(self.graph.objects(predicate=n.has_hit))
 
         self.check_triples(field, objects)
+
+if __name__ == '__main__':
+    unittest.main()
