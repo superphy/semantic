@@ -12,14 +12,7 @@ class Meta_Data
     genomes = []
     meta=(data)->
         headers = data.head.vars
-        for binding in data.results.bindings
-            genome = []
-            for variable in data.head.vars
-                try
-                    genome.push(binding[variable]["value"])
-                catch
-                    genome.push("")
-            genomes.push(genome)
+        genomes = data.results.bindings
         {
             headers: headers
             genomes: genomes
@@ -37,16 +30,18 @@ class Meta_Data
         [
             header.view()
             m("div", {class:'container', id:'meta'},[
-                m("table",{class:'well center-block'},[
-                    m("tr",[
-                        for item in headers
-                            m("td", [item])
+                m("table",[
+                    m("tr", [
+                        m("td", [item]) for item in headers
                     ])
-                    for sequence in genomes
-                        m("tr",
-                            for data in sequence
-                                m("td", data)
-                        )
+                    for binding in genomes
+                        m("tr",[ 
+                            for item in headers
+                                try
+                                    m("td", binding[item]["value"])
+                                catch
+                                    m("td", "")
+                        ])
                 ])
             ])
         ]
