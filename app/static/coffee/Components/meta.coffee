@@ -7,26 +7,24 @@ class Singleton
         instance ?= new @(data)
         return instance
         
+testdata = {email: "ivan@mail.com", password: "pass"}
+
 class Meta_Data
     data = {}
-    console.log("Meta_Data")
     meta=(response)->
-        console.log("meta")
         data.headers = response.head.vars
         data.genomes = response.results.bindings
-        return data
+        return
 
     controller: ()->
-        console.log("controller")
         m.request(
-            method: "GET",
-            url: 'http://10.139.14.121:5000/mithril/meta'
+            method: "POST",
+            url: 'http://10.139.14.121:5000/mithril/meta',
+            data: testdata,
             datatype: 'json'
             type: meta)
     views = {}
     views.table= () ->
-        console.log("table")
-        #console.log(JSON.stringify(controller))
         [
             m("div", {class:'container', id:'meta'},[
                 m("table",[
@@ -45,7 +43,6 @@ class Meta_Data
             ])
         ]
     view: () ->
-        console.log("view")
         [
             header.view()
             views.table()

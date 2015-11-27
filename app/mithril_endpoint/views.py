@@ -9,6 +9,7 @@ from . import mithril
 def add_header(response):
     #Append after request the nessesary headers.
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = "accept, content-type"
     return response
 
 @mithril.route('/query', methods = ['GET'])
@@ -17,7 +18,10 @@ def query():
     data = (sparql.get_x_tripples(3))
     return jsonify(data)
 
-@mithril.route('/meta', methods = ['GET'])
+@mithril.route('/meta', methods = ['GET','POST'])
 def meta():
-	results = (sparql.get_genome_meta_data(""))
-	return jsonify(results)
+    post = request.json
+    if post['password']:
+        print post['email']
+    results = (sparql.get_genome_meta_data("ORDER BY ?Genome_Id LIMIT 50 OFFSET 50"))
+    return jsonify(results)
