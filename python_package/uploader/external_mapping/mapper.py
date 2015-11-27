@@ -19,7 +19,7 @@ are also implicitly created anytime a new section starts.
 """
 
 import logging
-from superphy.config import parser
+from record import HostOntology, SourceOntology, GenomeRecord
 
 __author__ = "Matt Whiteside"
 __copyright__ = "Copyright 2015, Public Health Agency of Canada"
@@ -41,24 +41,6 @@ class SuperphyMapperError(Exception):
 class Mapper(object):
     """Maps various metadata JSON inputs to SuperphyDB URIs
 
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
-
-    Attribute and property types -- if given -- should be specified according
-    to `PEP 484`_, though `PEP 484`_ conformance isn't required or enforced.
-
-    Attributes:
-        attr1 (str): Description of `attr1`.
-        attr2 (Optional[int]): Description of `attr2`.
-
-
-    .. _PEP 484:
-       https://www.python.org/dev/peps/pep-0484/
 
     """
 
@@ -67,16 +49,175 @@ class Mapper(object):
 
 
         Args:
-            param1 (str): Description of `param1`.
-            param2 (Optional[int]): Description of `param2`. Multiple
-                lines are supported.
+            logger (Optional[object]): Pointer to logger op
             param3 (List[str]): Description of `param3`.
 
         """
 
         self.logger = logger or logging.getLogger(__name__)
 
-        # Retrieve superphy config
-        self.config = parser.read()
+        # Initialize object to unknown attributes encountered in input
+        self.unknowns = UnknownRecord()
+            
+        # Initialize attribute ontology objects
+        # host
+        h = HostOntology()
+        # source
+        s = SourceOntology()
 
-        # Init Rdflib endpoint 
+        self._ontologies = {
+            'host': h,
+            'source': s,
+        }
+
+        # Initialize standard parsing routines
+        self._default_cleanup_routines = [
+            'basic_formatting'
+        ]
+
+    
+    def parse(meta_json_file, decisiontree_json_file, overrides_json_file):
+        """
+
+        """
+
+        # Load JSON input
+
+        # Load & validate DecisionTree JSON input
+
+        # Load & validate Overrides JSON input
+
+        # Iterate through inputs
+        for g in inputs:
+            for att in g.meta:
+                pass
+
+    
+
+
+        # Output issues
+
+        # Output reports
+
+        pass
+
+    def _parse_attribute():
+        """
+        
+        """
+
+        # Default cleanup routines, does things like strip whitespace, changes case etc
+
+        # Custom cleanup routines are targeted for specific values
+        # Stop at first successful routine
+
+        # Find mapped superphy term and value
+
+        # Add to genome record
+
+
+
+
+        pass
+
+
+    def _add_attribute(self, record, att, val):
+        """
+
+        """
+
+        ontology_obj = self._ontologies[att]
+        if ontology_obj:
+            try:
+                att_obj = ontology_obj.individual(val)
+                setattr(record, att, val)
+            except:
+                # Unknown ontology value, likely needs to be added to DB
+
+                # Record for posterity
+                self.unknowns.val(att, val)
+
+        else:
+            # Unrecognized superphy attribute, probably typo in decision tree json file
+            raise SuperphyMapperError("Unrecognized superphy metadata attribute %s"%att)
+
+
+
+        pass
+
+
+class UnknownRecord(object):
+    """Counts unknown metadata attributes and values, as well
+    as discarded values
+
+
+    Attributes:
+        vals(dict): Counts of unknown values assigned to known attributes
+        atts(dict): Counts of unknown attributes
+        discarded(dict): Counts of which attributes have been discarded
+
+    """
+
+    def __init__(self):
+        """Constructor
+
+       
+        Args:
+            None
+
+        """
+        self.vals = {}
+        self.atts = {}
+        self.discarded = {}
+
+
+    def val(self, att, val):
+        """Increment count for unknown value
+
+        Args:
+            att(str): attribute name
+            val(str): value name
+
+        """
+        if val in self.vals[att]:
+            self.vals[att]++
+        else:
+            self.vals[att] = 1
+
+
+    def att(self, att):
+        """Increment count for unknown attribute
+
+        Args:
+            att(str): attribute name
+
+        """
+        if att in self.atts:
+            self.atts[att]++
+        else:
+            self.atts[att] = 1
+
+
+    def discarded(self, att, val):
+        """Increment count for discarded attribute & value
+
+        Args:
+            att(str): attribute name
+            val(str): value name
+
+        """
+        if self.discarded.get(att, {}).get(val, False):
+            self.discarded[att][val]++
+        else:
+            self.discarded[att][val] = 1
+
+
+    def write():
+        """Write summary of count values
+
+
+        """
+
+        pass
+
+
