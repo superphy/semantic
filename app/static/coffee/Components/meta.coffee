@@ -1,7 +1,12 @@
 #Move headers and genomes to meta class
 #Follow tutorial to get asych requests 
 
-
+class Singleton
+    instance = null
+    @get:(data)->
+        instance ?= new @(data)
+        return instance
+        
 class Meta_Data
     headers = []
     genomes = []
