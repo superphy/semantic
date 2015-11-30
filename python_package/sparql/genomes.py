@@ -2,9 +2,10 @@
 
 from superphy import endpoint
 
-def get_genome_meta_data(append):
+def get_genome_meta_data(order, offset, limit):
+    print "order, offset, limit"
+    print order, offset, limit
     return endpoint.query("""
-
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX : <https://github.com/superphy#>
@@ -13,8 +14,6 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 #Author: Bryce Drew
 #Date: November 10
-#These comments should be squashed in production.
-#Our current Meta-data is returning URIs where we don't have literals to return.
 
 SELECT 
 ?Genome_Uri
@@ -87,5 +86,8 @@ WHERE{
     ?Syndrome_Uri rdfs:label ?Syndrome
   }
 }
-%s
-""" % append )
+ORDER BY %s 
+OFFSET %s
+LIMIT %s 
+
+""" % (order, offset, limit) )

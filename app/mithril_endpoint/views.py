@@ -18,12 +18,13 @@ def query():
     data = (sparql.get_x_tripples(3))
     return jsonify(data)
 
-@mithril.route('/meta', methods = ['GET','POST'])
+@mithril.route('/meta', methods = ['POST'])
 def meta():
-    post = request.json
-    try:
-        print post['data']
-    except:
-        pass
-    results = (sparql.get_genome_meta_data("ORDER BY ?Genome_Uri LIMIT 50 OFFSET 50"))
+    results = (sparql.get_genome_meta_data(
+        limit   = request.json.get("limit","10"),
+        offset  = request.json.get("offset","0"),
+        order   = request.json.get("order", "?Genome_Uri")
+        ))
     return jsonify(results)
+
+#"ORDER BY ?Genome_Uri LIMIT 50 OFFSET 50"

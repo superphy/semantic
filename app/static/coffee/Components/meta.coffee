@@ -15,7 +15,7 @@ class Meta_Data extends Singleton
         return
     #controller
     constructor: ()->
-        json = {data: {Genome_Uri:"F"}}
+        json = {"limit":"5"}
         m.request(
             method: "POST",
             url: 'http://10.139.14.121:5000/mithril/meta',
