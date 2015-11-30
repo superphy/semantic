@@ -27,6 +27,12 @@ class SequenceUploader(object):
     def __init__(self):
         pass
 
+    def upload_missing_sequences(self):
+        for (genome, accession) in find_missing_sequences():
+            self.load_sequences(str(genome), str(accession))
+            gc.collect()
+
+
     def load_sequences(self, genome, accession):
         name = accession + '_seq'
         g = Graph()
@@ -130,11 +136,6 @@ class SequenceUploader(object):
         for item in filelist:
             if id in str(item) and filetype in str(item):
                 return item
-
-    def upload_missing_sequences(self):
-        for (genome, accession) in find_missing_sequences():
-            self.load_sequences(str(genome), str(accession))
-            gc.collect()
 
     def save_files(self):
         pass

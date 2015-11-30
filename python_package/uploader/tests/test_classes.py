@@ -29,6 +29,7 @@ class ClassesTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.graph.remove((None, None, None))
+        del self.graph
 
     def check_triples(self, fields, outputs):
         self.assertTrue(len(outputs) is len(fields))

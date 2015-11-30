@@ -31,6 +31,7 @@ class sparqlTestCase(unittest.TestCase):
         src = os.path.join(os.getcwd(),"db/bigdata.jnl")
         dst = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
         subprocess.call("bash bash/kill_port_9999", shell=True)
+        print "Killing existing Blazegraph process"
         subprocess.call("cp %s %s" %(src, dst), shell=True)
         subprocess.call("bash bash/start_blazegraph", shell=True)
         cls.setupBlazegraph()
@@ -43,6 +44,7 @@ class sparqlTestCase(unittest.TestCase):
         src = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
         dst = os.path.join(os.getcwd(),"db/bigdata.jnl")
         subprocess.call("bash bash/kill_port_9999", shell=True)
+        print "Killing existing Blazegraph process"
         subprocess.call("cp %s %s" %(src, dst), shell=True)
         subprocess.call("rm -f %s" % src, shell=True)
         subprocess.call("bash bash/start_blazegraph", shell=True)
@@ -88,6 +90,8 @@ class sparqlTestCase(unittest.TestCase):
         g.add((n.test_object, n.has_checksum, Literal("asdfghjkl", datatype=XSD.string)))
 
         BlazegraphUploader().upload_data(generate_output(g))
+
+        del g
 
     def test_find_from_host(self):
         self.assertEqual(_sparql.find_from_host("Bos taurus (cow)"), "from_btaurus")

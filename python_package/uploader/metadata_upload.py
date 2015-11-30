@@ -241,4 +241,4 @@ class GenomeMetadata(object):
 
 
 
-#MetadataUploader("samples/2_genome.json", "ecoli").upload()
+#MetadataUploader("samples/25_genome.json", "ecoli").upload()
