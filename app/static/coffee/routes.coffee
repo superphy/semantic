@@ -2,6 +2,6 @@ class Routes
       m.route(document.body, "/", {
           "/": home
           "/home": home
-          "/meta": meta
+          "/meta": Meta_Data.get()
       })
 

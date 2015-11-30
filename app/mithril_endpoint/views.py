@@ -25,5 +25,5 @@ def meta():
         print post['data']
     except:
         pass
-    results = (sparql.get_genome_meta_data("ORDER BY ?Genome_Id LIMIT 50 OFFSET 50"))
+    results = (sparql.get_genome_meta_data("ORDER BY ?Genome_Uri LIMIT 50 OFFSET 50"))
     return jsonify(results)

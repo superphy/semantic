@@ -2,25 +2,24 @@
 #Follow tutorial to get asych requests 
 
 class Singleton
-    instance = null
-    @get:(data)->
-        instance ?= new @(data)
-        return instance
-        
-testdata = {data: {Genome_Uri:"F"}}
+    @_instance: null
+    @get:(arg)->
 
-class Meta_Data
+        @_instance or= new @()
+
+class Meta_Data extends Singleton
     data = {}
     meta=(response)->
         data.headers = response.head.vars
         data.genomes = response.results.bindings
         return
-
-    controller: ()->
+    #controller
+    constructor: ()->
+        json = {data: {Genome_Uri:"F"}}
         m.request(
             method: "POST",
             url: 'http://10.139.14.121:5000/mithril/meta',
-            data: testdata,
+            data: json
             datatype: 'json'
             type: meta)
     views = {}
