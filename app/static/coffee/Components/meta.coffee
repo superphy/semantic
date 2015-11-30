@@ -1,7 +1,3 @@
-#Move headers and genomes to meta class
-#Follow tutorial to get asych requests 
-
-
 class Page
     data = {}
     meta=(response)->
