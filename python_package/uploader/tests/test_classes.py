@@ -242,15 +242,15 @@ class ClassesTestCase(unittest.TestCase):
 
     def test_Genome(self):
 
-        kwargs = {"date": {"2013-06-24"},
-                  "location": {"United States, California, Santa Clara"},
+        kwargs = {"isolation_date": {"2013-06-24"},
+                  "isolation_location": {"United States, California, Santa Clara"},
                   "accession": {"JNOG00000000"},
                   "bioproject": {"251898"},
                   "biosample": {"2841129"},
                   "strain": {"CS03"},
                   "organism": "ecoli",
-                  "host": {"Homo sapiens (human)"},
-                  "source": {"Feces"},
+                  "isolation_host": {"Homo sapiens (human)"},
+                  "isolation_source": {"Feces"},
                   "syndrome": {"Urinary tract infection (cystitis)"},
                   "Htype": "-",
                   "Otype": None,
@@ -290,15 +290,15 @@ class ClassesTestCase(unittest.TestCase):
 
     def test_PendingGenome(self):
 
-        kwargs = {"date": {"2013-06-24"},
-                  "location": {"United States, California, Santa Clara"},
+        kwargs = {"isolation_date": {"2013-06-24"},
+                  "isolation_location": {"United States, California, Santa Clara"},
                   "accession": {"JNOG00000000"},
                   "bioproject": {"251898"},
                   "biosample": {"2841129"},
                   "strain": {"CS03"},
                   "organism": "ecoli",
-                  "host": {"Homo sapiens (human)"},
-                  "source": {"Feces"},
+                  "isolation_host": {"Homo sapiens (human)"},
+                  "isolation_source": {"Feces"},
                   "syndrome": {"Urinary tract infection (cystitis)"},
                   "Htype": "-",
                   "Otype": None,
@@ -338,15 +338,15 @@ class ClassesTestCase(unittest.TestCase):
 
     def test_CompletedGenome(self):
 
-        kwargs = {"date": {"2013-06-24"},
-                  "location": {"United States, California, Santa Clara"},
+        kwargs = {"isolation_date": {"2013-06-24"},
+                  "isolation_location": {"United States, California, Santa Clara"},
                   "accession": {"JNOG00000000"},
                   "bioproject": {"251898"},
                   "biosample": {"2841129"},
                   "strain": {"CS03"},
                   "organism": "ecoli",
-                  "host": {"Homo sapiens (human)"},
-                  "source": {"Feces"},
+                  "isolation_host": {"Homo sapiens (human)"},
+                  "isolation_source": {"Feces"},
                   "syndrome": {"Urinary tract infection (cystitis)"},
                   "Htype": "-",
                   "Otype": None,

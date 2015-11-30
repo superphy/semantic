@@ -450,8 +450,8 @@ class Genome(NamedIndividual):
 
         """
 
-        searchparam = ["date", "location", "accession", "bioproject", "biosample", "strain", "organism", "host",
-                       "source", "syndrome", "Htype", "Otype", "User"]
+        searchparam = ["isolation_date", "isolation_location", "accession", "bioproject", "biosample", "strain",
+                       "organism", "isolation_host", "isolation_source", "syndrome", "Htype", "Otype", "User"]
 
         super(Genome, self).__init__(graph, name)
         self.kwargs = {key: value for key, value in kwargs.items() if key in searchparam}
@@ -479,7 +479,7 @@ class Genome(NamedIndividual):
 
         self.graph.add((n[self.name], rdf.type, gfvo.Genome))
 
-    def date(self, date):
+    def isolation_date(self, date):
         """
         Convert all date entries into RDF and adds them to the graph
 
@@ -491,7 +491,7 @@ class Genome(NamedIndividual):
             literal = Literal(item, datatype=XSD.date)
             self.graph.add((n[self.name], n.has_isolation_date, literal))
 
-    def location(self, location):
+    def isolation_location(self, location):
         """
         Convert all location entries into RDF and adds them to the graph
 
@@ -562,7 +562,7 @@ class Genome(NamedIndividual):
         self.graph.add((n[self.name], n.is_genome_of, n[organism]))
         self.graph.add((n[organism], n.has_genome, n[self.name]))
 
-    def host(self, from_host):
+    def isolation_host(self, from_host):
         """
         Convert all host data into RDF and adds them to the graph
 
@@ -575,7 +575,7 @@ class Genome(NamedIndividual):
             self.graph.add((n[self.name], n.has_isolation_attribute, n[node]))
             self.graph.add((n[node], n.is_isolation_attribute_of, n[self.name]))
 
-    def source(self, from_source):
+    def isolation_source(self, from_source):
         """
         Convert all source data into RDF and adds them to the graph
 
