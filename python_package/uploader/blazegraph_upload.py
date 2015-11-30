@@ -21,12 +21,10 @@ class BlazegraphUploader(object):
     A class that sets up data upload to Blazegraph via the initialized specified namespace
     """
 
-    def __init__(self):
-        """
-        Sets up class instance with a URL for accessing a specific Blazegraph namespace
+    bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
 
-        """
-        self.bg_url = "http://localhost:9999/bigdata/namespace/superphy/sparql"
+    def __init__(self):
+        pass
 
     def upload_all_ontologies(self):
         """

@@ -3,7 +3,7 @@
 
 import unittest
 import mock
-from superphy.uploader.metadata_upload import MetadataUploader
+from superphy.uploader.metadata_upload import MetadataUploader, GenomeMetadata
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -17,8 +17,29 @@ class MetadataUploaderTestCase(unittest.TestCase):
         self.case = MetadataUploader('samples/2_genome.json', 'ecoli')
 
     def tearDown(self):
-        self.case = None
+        del self.case
 
+    def test_upload(self):
+        pass
+
+
+    def test_add_to_graph(self):
+        pass
+
+
+    def test_error_logging(self):
+        pass
+
+
+    def test_create_pending_genome(self):
+        pass
+
+
+    def test_get_ncbi_ids(self):
+        pass
+
+
+"""
     def test_loadJSON(self):
         self.case.load_JSON()
         self.assertTrue(self.case.data)
@@ -100,7 +121,23 @@ class MetadataUploaderTestCase(unittest.TestCase):
         self.assertEqual(self.case.get_serotypes({"ONT:NM"}), {"Otype": None, "Htype": "-"})
         self.assertEqual(self.case.get_serotypes({"O157:NA"}), {"Otype": "157", "Htype": None})
         self.assertEqual(self.case.get_serotypes({"O157:H7"}), {"Otype": "157", "Htype": "7"})
+"""
 
+class GenomeMetadataTestCase(unittest.TestCase):
+    def setUp(self):
+        self.case = GenomeMetadata('JHNI00000000', 'ecoli')
+
+    def tearDown(self):
+        del self.case
+
+    def test_add_genome_parameter(self):
+        pass
+
+    def test_build_genome_kwargs(self):
+        pass
+
+    def test_get_serotypes(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
