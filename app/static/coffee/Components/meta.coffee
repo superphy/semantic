@@ -1,21 +1,16 @@
 #Move headers and genomes to meta class
 #Follow tutorial to get asych requests 
 
-class Singleton
-    @_instance: null
-    @get:(arg)->
 
-        @_instance or= new @()
-
-class Meta_Data extends Singleton
+class Page
     data = {}
     meta=(response)->
         data.headers = response.head.vars
         data.genomes = response.results.bindings
         return
     #controller
-    constructor: ()->
-        json = {"limit":"5"}
+    constructor: (limit = 5, page = 0)->
+        json = {"limit":limit, "page": page}
         m.request(
             method: "POST",
             url: 'http://10.139.14.121:5000/mithril/meta',

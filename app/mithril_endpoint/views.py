@@ -21,8 +21,8 @@ def query():
 @mithril.route('/meta', methods = ['POST'])
 def meta():
     results = (sparql.get_genome_meta_data(
-        limit   = request.json.get("limit","10"),
-        offset  = request.json.get("offset","0"),
+        limit   = request.json.get("limit",10),
+        offset  = request.json.get("page",0) * request.json.get("limit",10),
         order   = request.json.get("order", "?Genome_Uri")
         ))
     return jsonify(results)
