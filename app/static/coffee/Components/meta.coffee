@@ -7,7 +7,7 @@ class Singleton
         instance ?= new @(data)
         return instance
         
-testdata = {email: "ivan@mail.com", password: "pass"}
+testdata = {data: {Genome_Uri:"F"}}
 
 class Meta_Data
     data = {}
