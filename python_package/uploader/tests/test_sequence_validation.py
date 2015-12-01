@@ -3,6 +3,7 @@
 
 import unittest
 from superphy.uploader.sequence_validation import SequenceValidator
+from superphy.uploader.sequence_upload import SequenceMetadata
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -14,28 +15,16 @@ __email__ = 'stebokan@gmail.com'
 class SequenceValidatorTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.validSequence = SequenceValidator("ABCD00000000",
-                                               ["AAAAGCGCCTTTAGGGCGCTTTTTTACATTGGTGGGTCGTGCAGGATTCGAACCTGCGACCAATTGATTA",
-                                                "AAAGTCAACTGCTCTACCAACTGAGCTAACGACCCGAAGTGGTGGGTGATGACGGGATCGAACCGCCGAC"],
-                                               140,
-                                               2,
-                                               "asdfasdf")
-        self.invalidSequence = SequenceValidator("ABCD00000000",
-                                               ["AAAAGCGCCTTTAGGGCGC**&&$$ACATTGGTGGGTCGTGCAGGATTCGAACCTGCGACCAATTGATTA",
-                                                "AAAGTCAACTGCTCTACCAACTGAGCTAACGACCCGAAGTGGTGGGTGATGACGGGATCGAACCGCCGAC"],
-                                               140,
-                                               2,
-                                               "asdfasdf")
+        pass
+
     def tearDown(self):
-        del self.validSequence
-        del self.invalidSequence
+        pass
 
     def test_validate(self):
         pass
 
     def test_check_chars(self):
-        self.assertTrue(self.validSequence.check_chars())
-        self.assertFalse(self.invalidSequence.check_chars())
+        pass
 
     def test_filter_passing_hits(self):
         pass

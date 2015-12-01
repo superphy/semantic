@@ -27,6 +27,8 @@ from _sparql import check_NamedIndividual
 from classes import PendingGenome
 from blazegraph_upload import BlazegraphUploader
 
+# UTF-8 is necessary to handle the encoding for non-ASCII characters in user-inputed strings (user-inputted fields are
+# a big offender of this (e.g. location names)
 reload(sys)
 sys.setdefaultencoding("utf-8")
 

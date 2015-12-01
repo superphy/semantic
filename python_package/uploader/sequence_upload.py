@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from rdflib import Graph
-from Bio import SeqIO, Entrez
-import gzip
-from _utils import strip_non_alphabetic
-from ftplib import FTP
+
 import gc
-from _utils import generate_path, generate_output
+import gzip
+import hashlib
+import sys
+import traceback
+from Bio import SeqIO, Entrez
+from ftplib import FTP
+from rdflib import Graph
+from _sparql import check_NamedIndividual, find_missing_sequences
+from _utils import generate_path, generate_output, strip_non_alphabetic
 from classes import Sequence
 from blazegraph_upload import BlazegraphUploader
-from _sparql import check_NamedIndividual, find_missing_sequences
-import hashlib
 from sequence_validation import SequenceValidator
-import traceback
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -24,90 +28,73 @@ __email__ = "stebokan@gmail.com"
 
 
 class SequenceUploader(object):
-    def __init__(self):
-        pass
-
     def upload_missing_sequences(self):
         for (genome, accession) in find_missing_sequences():
-            self.load_sequences(str(genome), str(accession))
+            seqdata = SequenceMetadata(genome, accession)
+            self.load_sequence(seqdata)
             gc.collect()
 
-
-    def load_sequences(self, genome, accession):
-        name = accession + '_seq'
-        g = Graph()
-        print name
-
-        if check_NamedIndividual(name):
-            print name + " already in Blazegraph."
-
+    def load_sequence(self, metadata):
+        print metadata.name
+        if check_NamedIndividual(metadata.name):
+            print "%s already in Blazegraph." % metadata.name
         else:
             try:
-                bp, contigs, is_from, sequences = self.get_seqdata(accession)
-                checksum = self.generate_checksum(sequences)
-                seq_RDF = Sequence(g, name, genome, sequences, bp, contigs, checksum, is_from)
-
-                if is_from is not "PLASMID":
-                    (isValid, hits) = SequenceValidator(accession, sequences, bp, contigs, checksum).validate()
-                    if isValid:
-                        seq_RDF.rdf()
-                        seq_RDF.add_hits(hits)
-                    seq_RDF.add_seq_validation(isValid)
-                else:
-                    seq_RDF.rdf()
-                    if genome == accession:
-                        seq_RDF.add_seq_validation(True)
-
-                BlazegraphUploader().upload_data(generate_output(g))
-
+                self.validated_upload(metadata)
             except TypeError:
-                self.error_logging(accession, genome)
+                self.error_logging(metadata)
 
-    def error_logging(self, accession, genome):
+    def validated_upload(self, metadata):
+        self.get_seqdata(metadata)
+        g = Graph()
+        seq_RDF = Sequence(g, **metadata.generate_kwargs())
+
+        if metadata.is_from is not "PLASMID":
+            (isValid, hits) = SequenceValidator(metadata).validate()
+            if isValid:
+                seq_RDF.rdf()
+                seq_RDF.add_hits(hits)
+            seq_RDF.add_seq_validation(isValid)
+        else:
+            seq_RDF.rdf()
+            if metadata.accession is metadata.genome:
+                seq_RDF.add_seq_validation(True)
+
+        BlazegraphUploader().upload_data(generate_output(g))
+
+    def error_logging(self, metadata):
         with open(generate_path("outputs/seq_errors.txt"), "a") as f:
-            f.write("%s - %s: The records for this sequence are not retrievable.\n" % (genome, accession))
-            f.write(traceback.format_exc() + "\n" + "================================" + "\n" + "\n")
-        print "%s - %s: The records for this sequence are not retrievable." % (genome, accession)
+            f.write("Genome: %s - Accession: %s.\n" % (metadata.genome, metadata.accession))
+            f.write("%s \n ================================ \n\n" % traceback.format_exc())
+        print "%s - %s: The records for this sequence are not retrievable." % (metadata.genome, metadata.accession)
 
-    def generate_checksum(self, sequences):
-        seqhash = hashlib.md5()
-        for contig in sequences:
-            seqhash.update(str(contig))
-        checksum = seqhash.hexdigest()
-        return checksum
-
-    def get_seqdata(self, accession):
+    def get_seqdata(self, metadata):
         try:
-            (sequences, bp, contigs, is_from) = self.from_nuccore(accession)
+            self.from_nuccore(metadata)
         except ValueError:
-            (sequences, bp, contigs, is_from) = self.from_ftp(accession)
-        return bp, contigs, is_from, sequences
+            self.from_ftp(metadata)
 
-    def from_nuccore(self, accession):
-        Entrez.email = "stebokan@gmail.com"
-        handle = Entrez.efetch(db="nuccore", id=accession, rettype="fasta", retmode="text")
+    def from_nuccore(self, metadata):
+        Entrez.email = "superphy.info@gmail.com"
+        handle = Entrez.efetch(db="nuccore", id=metadata.accession, rettype="fasta", retmode="text")
 
         for record in SeqIO.parse(handle, 'fasta'):
             if str(record.seq) is "":
                 raise ValueError("The Genbank file is a master record with no sequence data.")
             else:
-                sequences = [record.seq]
-                contigs = 1
-                bp = sum(len(contig) for contig in sequences)
+                metadata.add_sequences([record.seq])
+                metadata.contigs = 1
 
                 if "plasmid" in record.description.lower():
-                    is_from = "PLASMID"
+                    metadata.is_from = "PLASMID"
                 else:
-                    is_from = "CORE"
+                    metadata.is_from = "CORE"
 
-                return (sequences, bp, contigs, is_from)
-
-
-    def from_ftp(self, accession):
+    def from_ftp(self, metadata):
         ftp = FTP('bio-mirror.jp.apan.net')
-        ftp.login('anonymous','stebokan@gmail.com')
+        ftp.login('anonymous', 'stebokan@gmail.com')
         ftp.cwd('pub/biomirror/genbank/wgs')
-        filename = self.get_filename('fsa_nt.gz', ftp, strip_non_alphabetic(accession))
+        filename = self.get_filename('fsa_nt.gz', ftp, strip_non_alphabetic(str(metadata.accession)))
 
         if filename:
             ftp.retrbinary('RETR ' + filename, open(generate_path('tmp/loading.gz'), 'wb').write)
@@ -118,18 +105,13 @@ class SequenceUploader(object):
             handle = open(generate_path('tmp/loading.fasta'), 'rb')
 
             sequences = []
-            contigs = 0
 
             for record in SeqIO.parse(handle, 'fasta'):
                 sequences.append(str(record.seq))
-                contigs += 1
+                metadata.contigs += 1
 
-            sequences = sorted(sequences, key=len)
-            bp = sum(len(contig) for contig in sequences)
-            is_from = "WGS"
-
-            return (sequences, bp, contigs, is_from)
-
+            metadata.add_sequences(sorted(sequences, key=len))
+            metadata.is_from = "WGS"
 
     def get_filename(self, filetype, ftp, id):
         filelist = ftp.nlst()
@@ -137,8 +119,39 @@ class SequenceUploader(object):
             if id in str(item) and filetype in str(item):
                 return item
 
-    def save_files(self):
-        pass
+
+class SequenceMetadata(object):
+    def __init__(self, genome, accession):
+        self.name = accession + "_seq"
+        self.accession = accession
+        self.genome = genome
+        self.sequences = None
+        self.bp = 0
+        self.contigs = 0
+        self.checksum = None
+        self.is_from = None
+
+    def add_sequences(self, sequences):
+        self.sequences = sequences
+        self.bp = sum(len(contig) for contig in sequences)
+
+    def generate_checksum(self):
+        seqhash = hashlib.md5()
+        for contig in self.sequences:
+            seqhash.update(str(contig))
+        self.checksum = seqhash.hexdigest()
+
+    def generate_kwargs(self):
+        self.generate_checksum()
+        kwargs = {"name": self.name,
+                  "genome": self.genome,
+                  "sequences": self.sequences,
+                  "bp": self.bp,
+                  "contigs": self.contigs,
+                  "checksum": self.checksum,
+                  "is_from": self.is_from}
+        return kwargs
+
 
 if __name__ == "__main__":
     SequenceUploader().upload_missing_sequences()

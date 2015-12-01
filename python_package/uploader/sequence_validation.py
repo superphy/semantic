@@ -10,6 +10,10 @@ from _utils import generate_path
 from _sparql import check_checksum
 import subprocess
 import string
+import sys
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -19,79 +23,51 @@ __maintainer__ = "Stephen Kan"
 __email__ = "stebokan@gmail.com"
 
 class SequenceValidator(object):
-    def __init__(self, accession, sequences, bp, contigs, checksum):
-        """
+    def __init__(self, seqdata):
 
-        Args:
-            accession:
-            sequences:
-            bp:
-            contigs:
-            checksum:
-
-        Returns:
-
-        """
         self.min_bp = 3500000
         self.max_bp = 7500000
         self.max_contigs = 10000
 
-        self.accession = accession
-        self.sequences = sequences
-        self.bp = bp
-        self.contigs = contigs
-        self.checksum = checksum
-
+        self.seqdata = seqdata
 
     def validate(self):
-        """
 
-        Returns:
-
-        """
         self.create_fasta()
         self.blastn_commandline()
         hits = self.filter_passing_hits()
 
         valid_length = (len(hits)>=3)
-        valid_bp = (self.min_bp <= self.bp <= self.max_bp)
-        valid_contigs = (self.contigs <= self.max_contigs)
+        valid_bp = (self.min_bp <= self.seqdata.bp <= self.max_bp)
+        valid_contigs = (self.seqdata.contigs <= self.max_contigs)
         valid_chars = self.check_chars()
-        unique_checksum = not check_checksum(self.checksum)
+        unique_checksum = not check_checksum(self.seqdata.checksum)
 
         checks = {"length":valid_length,
-                  "bp":valid_bp,
-                  "contigs":valid_contigs,
-                  "chars":valid_chars,
+                  "base pair count":valid_bp,
+                  "contigs count":valid_contigs,
+                  "characters":valid_chars,
                   "checksum":unique_checksum}
 
         for type, boolean in checks.iteritems():
             if not boolean:
                 with open(generate_path("outputs/seq_errors.txt"), "a") as f:
-                    f.write("%s failed validation: %s was not valid" %(self.accession, type))
+                    f.write("%s failed validation: the %s was not valid" %(self.seqdata.accession, type))
                 return (False, hits)
 
         return (True, hits)
 
 
     def check_chars(self):
-        """
 
-        Returns:
-
-        """
         allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-]"
-        s = "".join(str(contig) for contig in self.sequences)
+        s = "".join(str(contig) for contig in self.seqdata.sequences)
         trans_table = string.maketrans('','')
         return not s.translate(trans_table, allowed_chars)
 
 
     def filter_passing_hits(self):
-        """
 
-        Returns:
-
-        """
         result_handle = open(generate_path("tmp/validate.xml"))
 
         hits = {}
@@ -115,11 +91,7 @@ class SequenceValidator(object):
 
 
     def blastn_commandline(self):
-        """
 
-        Returns:
-
-        """
         command = generate_path("../../blast/ncbi-blast*/bin/blastn")
         fasta = generate_path("tmp/validate.fasta")
         db = generate_path("data/blast/ValidationDB")
@@ -131,11 +103,7 @@ class SequenceValidator(object):
 
 
     def create_fasta(self):
-        """
 
-        Returns:
-
-        """
         with open(generate_path("tmp/validate.fasta"), "w") as f:
-            for contig in self.sequences:
-                f.write(">%s\n%s\n" %(self.accession, contig))
+            for contig in self.seqdata.sequences:
+                f.write(">%s\n%s\n" %(self.seqdata.accession, contig))

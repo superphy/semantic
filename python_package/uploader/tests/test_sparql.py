@@ -2,12 +2,11 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
-import os
-import subprocess
 from rdflib import Graph, Namespace, Literal, XSD, BNode
-from superphy.uploader._utils import generate_path, generate_output
+from superphy.uploader._utils import generate_output
 from superphy.uploader import _sparql
 from superphy.uploader.blazegraph_upload import BlazegraphUploader
+from db_integration import BlazegraphIntegration
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -22,32 +21,12 @@ rdf = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
-class sparqlTestCase(unittest.TestCase):
+class SPARQLTestCase(BlazegraphIntegration):
 
     @classmethod
     def setUpClass(cls):
-        top_dir = generate_path("../../../")
-        os.chdir(top_dir)
-        src = os.path.join(os.getcwd(),"db/bigdata.jnl")
-        dst = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
-        subprocess.call("bash bash/kill_port_9999", shell=True)
-        print "Killing existing Blazegraph process"
-        subprocess.call("cp %s %s" %(src, dst), shell=True)
-        subprocess.call("bash bash/start_blazegraph", shell=True)
+        super(SPARQLTestCase, cls).setUpClass()
         cls.setupBlazegraph()
-
-
-    @classmethod
-    def tearDownClass(cls):
-        top_dir = generate_path("../../../")
-        os.chdir(top_dir)
-        src = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
-        dst = os.path.join(os.getcwd(),"db/bigdata.jnl")
-        subprocess.call("bash bash/kill_port_9999", shell=True)
-        print "Killing existing Blazegraph process"
-        subprocess.call("cp %s %s" %(src, dst), shell=True)
-        subprocess.call("rm -f %s" % src, shell=True)
-        subprocess.call("bash bash/start_blazegraph", shell=True)
 
     @classmethod
     def setupBlazegraph(cls):
