@@ -13,7 +13,6 @@ Example:
 """
 
 import abc
-from rdflib.namespace import RDF
 from superphy.endpoint import superphy_namespace, strip_superphy_namespace
 from pprint import pprint
 
@@ -176,6 +175,20 @@ class HostOntology(AttributeOntology):
             raise SuperphyMetaError("Unrecognized host uri: %s"%uri)
 
 
+    def uri_list(self):
+        """Get list of value uri's for superphy term
+
+        Args:
+            None
+
+        Returns:
+            List: list of strings
+
+        """
+
+        return list(self._ontology.keys())
+
+
 class HostIndividual(object):
     """Represents instance of host attribute
 
@@ -194,7 +207,7 @@ class HostIndividual(object):
             for key in dictionary:
                 setattr(self, key, dictionary[key])
         for key in kwargs:
-            setattr(self, key, kwargs[key])):
+            setattr(self, key, kwargs[key])
 
 
     @property
@@ -208,6 +221,7 @@ class HostIndividual(object):
     @property
     def label(self):
         return self._label
+
     
 
 class SourceOntology(AttributeOntology):
@@ -315,7 +329,7 @@ class SourceIndividual(object):
             for key in dictionary:
                 setattr(self, key, dictionary[key])
         for key in kwargs:
-            setattr(self, key, kwargs[key])):
+            setattr(self, key, kwargs[key])
 
 
     @property
@@ -353,25 +367,26 @@ class GenomeRecord(object):
     Metadata attributes are 
 
     Attributes:
-        host(HostIndividual): Host assigned to genome
-        source(SourceIndividual): Source assigned to genome
+        _host_list(List): List of HostIndividual objects assigned to genome
+        _source_list(List): List of SourceIndividual objects assigned to genome
 
     """
 
-    def __init__(self):
+    def __init__(self, uniquename):
         """Constructor
 
         Initializes all superphy attributes to None.  As attributes
         are parsed they will be recorded using the setattr function
        
         Args:
-            None
+            uniquename(string): URI for genome used in superphy
 
         """
-        self.host = None
-        self.source = None
+        self._host_list = []
+        self._source_list = []
+        
 
-    def is_valid():
+    def is_valid(self):
         """Checks for conflicts in metadata attributes
 
 
@@ -381,5 +396,24 @@ class GenomeRecord(object):
 
         # Check source
         pass
+
+
+    def host(self, host_individual):
+        """Add host to host list if its a new unique host
+
+        """
+        
+        # Check if host already in list
+        exists = False
+        for i in self._host_list:
+            if host_individual.uri == i.uri:
+                exists = True
+                break
+
+
+        if not exists:
+            self._host_list.append(host_individual)
+
+
 
 

@@ -1,0 +1,8 @@
+{
+	"specific_host": {
+		"keep": 1,
+		"validation_routines": ["hosts"],
+		"cleanup_routines": ["fix_human"]
+	}
+
+}
