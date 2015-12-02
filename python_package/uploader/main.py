@@ -5,10 +5,11 @@
 A module used to initialize and set up the superphy namespace in Blazegraph
 """
 
+import gc
+
+import _sparql
 from blazegraph_upload import BlazegraphUploader
 from blazegraph_setup import BlazegraphSetup
-import gc
-import _sparql
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"

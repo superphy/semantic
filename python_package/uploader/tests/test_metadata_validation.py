@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
+
 from superphy.uploader.metadata_validation import MetadataValidator
 
 __author__ = 'Stephen Kan'

@@ -2,8 +2,10 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
-from superphy.uploader.sequence_validation import SequenceValidator
+
 from superphy.uploader.sequence_upload import SequenceMetadata
+from superphy.uploader.sequence_validation import SequenceValidator
+
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"

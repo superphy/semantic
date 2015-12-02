@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import unittest
-import os
 import inspect
+import os
+import unittest
+
 from superphy.uploader import _utils
 
 __author__ = 'Stephen Kan'

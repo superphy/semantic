@@ -2,8 +2,10 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
-from superphy.uploader import classes
+
 from rdflib import Graph, Namespace
+
+from superphy.uploader import classes
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"

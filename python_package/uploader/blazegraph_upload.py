@@ -5,8 +5,10 @@
 Module containing some utility functions to upload data and files of various formats ont Blazegraph
 """
 
-import requests
 import os
+
+import requests
+
 from _utils import generate_path
 
 __author__ = "Stephen Kan"

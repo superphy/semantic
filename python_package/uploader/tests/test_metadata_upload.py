@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from ijson.backends import YAJLImportError
+import unittest
+import mock
 
+from ijson.backends import YAJLImportError
 try:
     import ijson.backends.yajl2 as ijson
 except YAJLImportError:
     import ijson.backends.yajl as ijson
 
-import unittest
-import mock
 from superphy.uploader.metadata_upload import MetadataUploader, GenomeMetadata
 from superphy.uploader._utils import generate_path
+
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
 __license__ = "ASL"
@@ -39,7 +40,6 @@ class MetadataUploaderTestCase(unittest.TestCase):
     def test_parse_metadata(self, mock_add):
 
         def side_effect(metadata):
-            print "Adding metadata to Graph"
             if metadata:
                 self.assertTrue("accession" in metadata.dict.keys())
 
@@ -52,12 +52,7 @@ class MetadataUploaderTestCase(unittest.TestCase):
     @mock.patch('superphy.uploader.metadata_upload.MetadataUploader.error_logging')
     @mock.patch('superphy.uploader.metadata_upload.MetadataUploader.create_pending_genome')
     def test_add_to_graph(self, mock_create, mock_error):
-        def error_effect(str):
-            print "%s had an error!" % str
-
         mock_create.side_effect = TypeError
-        mock_error.side_effect = error_effect
-
         self.case.add_to_graph(self.metadata)
         self.case.add_to_graph(self.metadata)
         mock_create.assert_called_with(mock.ANY)

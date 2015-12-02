@@ -7,7 +7,7 @@
 
 import os
 import subprocess
-import unittest
+
 from superphy.uploader._utils import generate_path
 
 __author__ = 'Stephen Kan'
@@ -17,7 +17,7 @@ __version__ = "2.0"
 __maintainer__ = 'Stephen Kan'
 __email__ = 'stebokan@gmail.com'
 
-class BlazegraphIntegration(unittest.TestCase):
+class BlazegraphIntegration(object):
     @classmethod
     def setUpClass(cls):
         top_dir = generate_path("../../../")

@@ -4,13 +4,14 @@
 """
 
 """
+import string
+import subprocess
+import sys
 
 from Bio.Blast import NCBIXML
-from _utils import generate_path
+
 from _sparql import check_checksum
-import subprocess
-import string
-import sys
+from _utils import generate_path
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -38,10 +39,10 @@ class SequenceValidator(object):
         hits = self.filter_passing_hits()
 
         valid_length = (len(hits)>=3)
-        valid_bp = (self.min_bp <= self.seqdata.bp <= self.max_bp)
-        valid_contigs = (self.seqdata.contigs <= self.max_contigs)
+        valid_bp = (self.min_bp <= self.seqdata.dict["bp"] <= self.max_bp)
+        valid_contigs = (self.seqdata.dict["contigs"] <= self.max_contigs)
         valid_chars = self.check_chars()
-        unique_checksum = not check_checksum(self.seqdata.checksum)
+        unique_checksum = not check_checksum(self.seqdata.dict["checksum"])
 
         checks = {"length":valid_length,
                   "base pair count":valid_bp,
@@ -61,7 +62,7 @@ class SequenceValidator(object):
     def check_chars(self):
 
         allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-]"
-        s = "".join(str(contig) for contig in self.seqdata.sequences)
+        s = "".join(str(contig) for contig in self.seqdata.dict["sequences"])
         trans_table = string.maketrans('','')
         return not s.translate(trans_table, allowed_chars)
 
@@ -105,5 +106,5 @@ class SequenceValidator(object):
     def create_fasta(self):
 
         with open(generate_path("tmp/validate.fasta"), "w") as f:
-            for contig in self.seqdata.sequences:
+            for contig in self.seqdata.dict["sequences"]:
                 f.write(">%s\n%s\n" %(self.seqdata.accession, contig))

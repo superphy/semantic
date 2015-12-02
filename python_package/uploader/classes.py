@@ -48,7 +48,8 @@ Classes:
     Sequence: a DNA sequence belonging to a genome
 """
 
-from rdflib import Namespace, Literal, XSD
+from rdflib import Literal, Namespace, XSD
+
 import _sparql
 
 __author__ = "Stephen Kan"

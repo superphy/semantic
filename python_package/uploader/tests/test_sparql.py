@@ -2,11 +2,13 @@
 # -*- coding: UTF-8 -*-
 
 import unittest
+
 from rdflib import Graph, Namespace, Literal, XSD, BNode
-from superphy.uploader._utils import generate_output
-from superphy.uploader import _sparql
-from superphy.uploader.blazegraph_upload import BlazegraphUploader
+
 from db_integration import BlazegraphIntegration
+from superphy.uploader import _sparql
+from superphy.uploader._utils import generate_output
+from superphy.uploader.blazegraph_upload import BlazegraphUploader
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -21,7 +23,7 @@ rdf = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
-class SPARQLTestCase(BlazegraphIntegration):
+class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):

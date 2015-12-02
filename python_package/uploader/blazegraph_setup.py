@@ -8,11 +8,13 @@ from classes.py) into RDF triples and exports it as a turtle file ready for conv
 TODO: add a way to modify source files by reading the json, check for duplicates, and write a new JSON
       Would be nice to do this serially
 """
-
-from classes import Host, HostCategory, FromSource, IsolationSyndrome, Microbe, Htype, Otype
-from rdflib import Graph
 import json
-from _utils import generate_path, generate_file_output
+
+from rdflib import Graph
+
+from _utils import generate_file_output, generate_path
+from classes import FromSource, Host, HostCategory, Htype, IsolationSyndrome, Microbe, Otype
+
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"

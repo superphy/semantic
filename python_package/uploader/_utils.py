@@ -6,8 +6,8 @@ A module containing some generic utility functions for the project
 
 """
 
-import os
 import inspect
+import os
 import string
 
 __author__ = "Stephen Kan"
