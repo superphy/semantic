@@ -5,6 +5,10 @@
 ijson is used to parse the JSON file because it reads from file line by line, instead of storing to memory first.
 
 TODO: join the two workflows someday as to avoid file IO issues and to allow for parallel operation and batching
+
+Classes:
+    MetadataUploader: uploads metadata from a stored JSON object
+    GenomeMetadata: stores genome metadata for uploading
 """
 
 from collections import defaultdict

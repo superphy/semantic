@@ -53,7 +53,7 @@ class SequenceValidator(object):
         for type, boolean in checks.iteritems():
             if not boolean:
                 with open(generate_path("outputs/seq_errors.txt"), "a") as f:
-                    f.write("%s failed validation: the %s was not valid" %(self.seqdata.accession, type))
+                    f.write("%s failed validation: the %s was not valid\n" %(self.seqdata.accession, type))
                 return (False, hits)
 
         return (True, hits)
