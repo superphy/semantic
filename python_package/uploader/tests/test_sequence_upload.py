@@ -5,9 +5,8 @@ import mock
 import unittest
 
 from Bio.SeqRecord import SeqRecord
-from rdflib import Graph, Namespace, XSD
 
-from db_integration import BlazegraphIntegration
+from superphy.uploader.classes import Sequence
 from superphy.uploader.sequence_upload import SequenceUploader, SequenceMetadata
 
 
@@ -18,40 +17,38 @@ __version__ = "2.0"
 __maintainer__ = 'Stephen Kan'
 __email__ = 'stebokan@gmail.com'
 
-n = Namespace("https://github.com/superphy#")
-owl = Namespace("http://www.w3.org/2002/07/owl#")
-rdf = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
-gfvo = Namespace("http://www.biointerchange.org/gfvo#")
-
 class SequenceUploaderTestCase(unittest.TestCase):
-
-    """
-    @classmethod
-    def setUpClass(cls):
-        super(SequenceUploaderTestCase, cls).setUpClass()
-        cls.setupBlazegraph()
-
-        cls.case = SequenceUploader()
-
-    @classmethod
-    def setupBlazegraph(cls):
-        g = Graph()
-    """
-
     def setUp(self):
         self.case = SequenceUploader()
+        self.mock_seqdata = mock.MagicMock(spec=SequenceMetadata)
 
     def tearDown(self):
         del self.case
 
-    def seqdata(self):
-        return SequenceMetadata("AAAA","AAAA")
+    def test_upload_missing_sequences(self):
+        pass
 
     def test_load_sequence(self):
         pass
 
-    def test_validated_upload(self):
+    def test_upload(self):
+        pass
+
+    def test_plasmid_rdf(self):
+        seq_ref = mock.MagicMock(spec=Sequence, create=True)
+
+        self.mock_seqdata.accession = "AAAA"
+        self.mock_seqdata.genome = "AAAA"
+        self.case.plasmid_rdf(self.mock_seqdata, seq_ref)
+        self.assertEqual(len(seq_ref.mock_calls), 2)
+
+        seq_ref.reset_mock()
+        self.mock_seqdata.accession = "AAAA"
+        self.mock_seqdata.genome = "BBBB"
+        self.case.plasmid_rdf(self.mock_seqdata, seq_ref)
+        self.assertEqual(len(seq_ref.mock_calls), 1)
+
+    def test_nonplasmid_rdf(self):
         pass
 
     def test_error_logging(self):
@@ -63,13 +60,13 @@ class SequenceUploaderTestCase(unittest.TestCase):
         mock_nuccore.side_effect = [ValueError, None]
         mock_ftp.side_effect = None
 
-        self.case.get_seqdata(self.seqdata())
+        self.case.get_seqdata(self.mock_seqdata)
         mock_nuccore.assert_called_once_with(mock.ANY)
         mock_ftp.assert_called_once_with(mock.ANY)
 
         mock_nuccore.reset_mock()
         mock_ftp.reset_mock()
-        self.case.get_seqdata(self.seqdata())
+        self.case.get_seqdata(self.mock_seqdata)
         mock_nuccore.assert_called_once_with(mock.ANY)
         mock_ftp.assert_not_called()
 
@@ -77,44 +74,44 @@ class SequenceUploaderTestCase(unittest.TestCase):
     @mock.patch('superphy.uploader.sequence_upload.Entrez', autospec=True)
     def test_from_nuccore(self, mock_entrez, mock_read):
         mock_entrez.efetch.return_value = mock.MagicMock(spec=file)
+        self.mock_seqdata.accession = None
+        self.mock_seqdata.dict = {}
 
-        seqdata = self.seqdata()
-        seqdata.dict["sequences"] = ['']
-
+        self.mock_seqdata.dict["sequences"] = ['']
         with self.assertRaises(ValueError):
-            self.case.from_nuccore(seqdata)
+            self.case.from_nuccore(self.mock_seqdata)
         self.assertEqual(mock_entrez.email, "superphy.info@gmail.com")
         self.assertEqual(mock_entrez.efetch.call_count, 1)
         self.assertEqual(mock_read.call_count, 1)
 
         mock_entrez.reset_mock()
         mock_read.reset_mock()
-        seqdata = self.seqdata()
-        seqdata.dict["sequences"] = ['asdf']
-        seqdata.dict["is_from"] = "PLASMID"
-        self.case.from_nuccore(seqdata)
-        self.assertEqual(seqdata.dict["is_from"], "PLASMID")
+        self.mock_seqdata.dict["sequences"] = ['asdf']
+        self.mock_seqdata.dict["is_from"] = "PLASMID"
+        self.case.from_nuccore(self.mock_seqdata)
+        self.assertEqual(self.mock_seqdata.dict["is_from"], "PLASMID")
 
         mock_entrez.reset_mock()
         mock_read.reset_mock()
-        seqdata = self.seqdata()
-        seqdata.dict["sequences"] = ['asdf']
-        self.case.from_nuccore(seqdata)
-        self.assertEqual(seqdata.dict["is_from"], "CORE")
+        self.mock_seqdata.dict["is_from"] = None
+        self.mock_seqdata.dict["sequences"] = ['asdf']
+        self.case.from_nuccore(self.mock_seqdata)
+        self.assertEqual(self.mock_seqdata.dict["is_from"], "CORE")
 
     @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.read_fasta')
     @mock.patch('superphy.uploader.sequence_upload.open')
     @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.download_file')
     def test_from_ftp(self, mock_download, mock_open, mock_read):
         mock_open.return_value = mock.MagicMock(spec=file)
-        seqdata = self.seqdata()
+        self.mock_seqdata.accession = None
+        self.mock_seqdata.dict = {}
 
-        self.case.from_ftp(seqdata)
+        self.case.from_ftp(self.mock_seqdata)
 
         mock_download.assert_called_once_with(mock.ANY, mock.ANY)
         mock_open.assert_called_once_with(mock.ANY, mock.ANY)
         mock_read.assert_called_once_with(mock.ANY, mock.ANY)
-        self.assertEqual(seqdata.dict["is_from"], "WGS")
+        self.assertEqual(self.mock_seqdata.dict["is_from"], "WGS")
 
     @mock.patch('superphy.uploader.sequence_upload.SeqIO.parse')
     def test_read_fasta(self, mock_SeqIO):
@@ -122,22 +119,23 @@ class SequenceUploaderTestCase(unittest.TestCase):
         record2 = SeqRecord(seq="efghi")
         record3 = SeqRecord(seq="jklmno")
         plasmid = SeqRecord(seq="abcd", description="PLASMID")
+
         mock_handle = mock.MagicMock(spec=file)
+        self.mock_seqdata.dict = {}
 
         mock_SeqIO.return_value = [record3, record1, record2]
 
-        seqdata = self.seqdata()
-        self.case.read_fasta(mock_handle, seqdata)
+        self.case.read_fasta(mock_handle, self.mock_seqdata)
+        print self.mock_seqdata.mock_calls
+        (name, args, keywords) = self.mock_seqdata.mock_calls
 
-        self.assertEqual(seqdata.dict["sequences"],["abcd", "efghi", 'jklmno'])
-        self.assertIsNone(seqdata.dict["is_from"])
+        print name, args, keywords
 
         mock_SeqIO.return_value = [plasmid]
-        seqdata = self.seqdata()
-        self.case.read_fasta(mock_handle, seqdata)
+        self.case.read_fasta(mock_handle, self.mock_seqdata)
 
-        self.assertEqual(seqdata.dict["sequences"],["abcd"])
-        self.assertEqual(seqdata.dict["is_from"], "PLASMID")
+        self.assertEqual(self.mock_seqdata.dict["sequences"],["abcd"])
+        self.assertEqual(self.mock_seqdata.dict["is_from"], "PLASMID")
 
     @mock.patch('superphy.uploader.sequence_upload.open')
     @mock.patch('superphy.uploader.sequence_upload.FTP', autospec=True)
@@ -163,13 +161,34 @@ class SequenceMetadataTestCase(unittest.TestCase):
         del self.case
 
     def test_add_sequence(self):
-        pass
+        sequences = ["abcd", "efghi", "jklmno", "pqrstuv"]
+        self.case.add_sequences(sequences)
+        self.assertEqual(self.case.dict["sequences"], sequences)
+        self.assertEqual(self.case.dict["contigs"], 4)
+        self.assertEqual(self.case.dict["bp"], 22)
+        self.assertIsNotNone(self.case.dict["checksum"])
 
     def test_generate_checksum(self):
-        pass
+        self.case.dict["sequences"] = ["abcd", "efghi", "jklmno", "pqrstuv"]
+        self.case.generate_checksum()
+        result = "44a66044834cbe55040089cabfc102d5"
+        self.assertEqual(self.case.dict["checksum"],result)
 
     def test_generate_kwargs(self):
-        pass
+        with self.assertRaises(TypeError):
+            self.case.generate_kwargs()
+
+        sequences = ["abcd", "efghi", "jklmno", "pqrstuv"]
+        self.case.add_sequences(sequences)
+        self.case.dict["is_from"] = "CORE"
+        results = {"name":"EFGH_seq",
+                   "genome":"ABCD",
+                   "sequences":sequences,
+                   "bp":22,
+                   "contigs":4,
+                   "checksum":"44a66044834cbe55040089cabfc102d5",
+                   "is_from":"CORE"}
+        self.assertEqual(self.case.generate_kwargs(), results)
 
 
 if __name__ == '__main__':

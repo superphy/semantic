@@ -48,16 +48,21 @@ class SequenceUploader(object):
         """
         for (genome, accession) in find_missing_sequences():
             seqdata = SequenceMetadata(genome, accession)
-            self.load_sequence(seqdata)
-            gc.collect()
+            try:
+                self.load_sequence(seqdata)
+                if seqdata.dict["is_from"] == "PLASMID":
+                    self.upload(seqdata, self.plasmid_rdf)
+                else:
+                    SequenceValidator(seqdata).validate()
+                    self.upload(seqdata, self.nonplasmid_rdf)
+                gc.collect()
+            except TypeError:
+                self.error_logging(seqdata)
 
     def load_sequence(self, seqdata):
-        """Checks to see if the sequence is already uploaded onto Blazegraph, and if not, try uploading the sequence.
+        """Checks to see if the sequence is already uploaded onto Blazegraph, and if not, try loading the sequence.
         Logs all TypeErrors (assumption: all other errors are mistakes in the process and not something that requires
         manual curation).
-
-        TODO: add an error to the check_NamedIndividual control flow? the sequence is uploaded but caught by
-        find_missing_sequences then there must be a bug elsewhere in the code.
 
         Args:
             seqdata: a SequenceMetadata instance storing sequence-related data that would otherwise be a data clump
@@ -65,36 +70,30 @@ class SequenceUploader(object):
         print seqdata.name
         if check_NamedIndividual(seqdata.name):
             print "%s already in Blazegraph." % seqdata.name
-            self.error_logging(seqdata)
+            raise TypeError
         else:
-            try:
-                self.validated_upload(seqdata)
-            except TypeError:
-                self.error_logging(seqdata)
+            self.get_seqdata(seqdata)
 
-    def validated_upload(self, seqdata):
-        """Obtains a FASTA sequence and annotates it with metadata, then passes it for validation before uploading to
-        Blazegraph. If it fails validation, indicate on the associated genome entry in Blazegraph that it has failed.
-
-        Args:
-            seqdata: a SequenceMetadata instance storing sequence-related data that would otherwise be a data clump
-        """
-        self.get_seqdata(seqdata)
+    def upload(self, seqdata, func):
         g = Graph()
         seq_rdf = Sequence(g, **seqdata.generate_kwargs())
 
-        if seqdata.dict["is_from"] is not "PLASMID":
-            (isValid, hits) = SequenceValidator(seqdata).validate()
-            if isValid:
-                seq_rdf.rdf()
-                seq_rdf.add_hits(hits)
-            seq_rdf.add_seq_validation(isValid)
-        else:
-            seq_rdf.rdf()
-            if seqdata.accession == seqdata.genome:
-                seq_rdf.add_seq_validation(True)
+        func(seqdata, seq_rdf)
 
         BlazegraphUploader().upload_data(generate_output(g))
+
+    def plasmid_rdf(self, seqdata, seq_rdf):
+        seq_rdf.rdf()
+
+        if seqdata.accession == seqdata.genome:
+            seq_rdf.add_seq_validation(True)
+
+    def nonplasmid_rdf(self, seqdata, seq_rdf):
+        seq_rdf.add_seq_validation(seqdata.valid)
+
+        if seqdata.valid:
+            seq_rdf.rdf()
+            seq_rdf.add_hits(seqdata.hits)
 
     def error_logging(self, seqdata):
         """Logs errors regarding sequence uploading to a file, for manual curation.
@@ -222,6 +221,7 @@ class SequenceMetadata(object):
         self.accession = str(accession)
         self.genome = str(genome)
         self.hits = None
+        self.valid = None
 
         keys = ["name", "genome", "sequences", "bp", "contigs", "checksum", "is_from"]
         self.dict = {key: None for key in keys}

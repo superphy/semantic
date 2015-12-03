@@ -33,18 +33,18 @@ class SequenceValidator(object):
         self.seqdata = seqdata
 
     def validate(self):
-
         self.create_fasta()
         self.blastn_commandline()
         hits = self.filter_passing_hits()
 
-        valid_length = (len(hits)>=3)
+        valid_hits = (len(hits)>=3)
         valid_bp = (self.min_bp <= self.seqdata.dict["bp"] <= self.max_bp)
-        valid_contigs = (self.seqdata.dict["contigs"] <= self.max_contigs)
+        valid_contigs = (0 < self.seqdata.dict["contigs"] <= self.max_contigs)
         valid_chars = self.check_chars()
         unique_checksum = not check_checksum(self.seqdata.dict["checksum"])
 
-        checks = {"length":valid_length,
+        self.seqdata.hits = hits
+        checks = {"number of hits":valid_hits,
                   "base pair count":valid_bp,
                   "contigs count":valid_contigs,
                   "characters":valid_chars,
@@ -54,9 +54,10 @@ class SequenceValidator(object):
             if not boolean:
                 with open(generate_path("outputs/seq_errors.txt"), "a") as f:
                     f.write("%s failed validation: the %s was not valid\n" %(self.seqdata.accession, type))
-                return (False, hits)
-
-        return (True, hits)
+                self.seqdata.valid = False
+                break
+            else:
+                self.seqdata.valid = True
 
 
     def check_chars(self):
