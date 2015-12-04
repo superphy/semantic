@@ -95,6 +95,7 @@ class SequenceUploader(object):
             seq_rdf.rdf()
             seq_rdf.add_hits(seqdata.hits)
 
+    #should replace with logger module
     def error_logging(self, seqdata):
         """Logs errors regarding sequence uploading to a file, for manual curation.
 
@@ -127,8 +128,9 @@ class SequenceUploader(object):
             seqdata: a SequenceMetadata instance storing sequence-related data that would otherwise be a data clump
         """
         Entrez.email = "superphy.info@gmail.com"
-
+        handle = None
         i = 0
+
         while(i<3):
             try:
                 handle = Entrez.efetch(db="nuccore", id=seqdata.accession, rettype="fasta", retmode="text")
@@ -139,11 +141,10 @@ class SequenceUploader(object):
 
                 if seqdata.dict["is_from"] is None:
                     seqdata.dict["is_from"] = "CORE"
-
                 break
             except HTTPError:
                 i += 1
-
+                continue
         try:
             handle is None
         except NameError:

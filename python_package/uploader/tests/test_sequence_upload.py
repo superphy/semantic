@@ -31,8 +31,18 @@ class SequenceUploaderTestCase(unittest.TestCase):
     def test_load_sequence(self):
         pass
 
-    def test_upload(self):
-        pass
+    @mock.patch('superphy.uploader.sequence_upload.BlazegraphUploader', autospec=True)
+    @mock.patch('superphy.uploader.sequence_upload.Sequence')
+    def test_upload(self, mock_rdf, mock_bg):
+        seq_ref = mock.MagicMock(spec=Sequence, create=True)
+        sample_func = mock.Mock()
+        mock_rdf.return_value = seq_ref
+
+        self.case.upload(self.mock_seqdata, sample_func)
+        self.assertEqual(self.mock_seqdata.generate_kwargs.call_count, 1)
+        sample_func.assert_called_once_with(mock.ANY, mock.ANY)
+        mock_rdf.assert_called_once_with(mock.ANY)
+        mock_bg.assert_called_once_with()
 
     def test_plasmid_rdf(self):
         seq_ref = mock.MagicMock(spec=Sequence, create=True)
@@ -49,7 +59,19 @@ class SequenceUploaderTestCase(unittest.TestCase):
         self.assertEqual(len(seq_ref.mock_calls), 1)
 
     def test_nonplasmid_rdf(self):
-        pass
+        seq_ref = mock.MagicMock(spec=Sequence, create=True)
+
+        self.mock_seqdata.valid = True
+        self.mock_seqdata.hits = []
+        self.case.nonplasmid_rdf(self.mock_seqdata, seq_ref)
+        self.assertEqual(len(seq_ref.mock_calls), 3)
+
+        seq_ref.reset_mock()
+        self.mock_seqdata.valid = False
+        self.mock_seqdata.hits = []
+        self.case.nonplasmid_rdf(self.mock_seqdata, seq_ref)
+        self.assertEqual(len(seq_ref.mock_calls), 1)
+
 
     def test_error_logging(self):
         pass
@@ -124,17 +146,15 @@ class SequenceUploaderTestCase(unittest.TestCase):
         self.mock_seqdata.dict = {}
 
         mock_SeqIO.return_value = [record3, record1, record2]
-
         self.case.read_fasta(mock_handle, self.mock_seqdata)
-        print self.mock_seqdata.mock_calls
-        (name, args, keywords) = self.mock_seqdata.mock_calls
+        (args,) = self.mock_seqdata.mock_calls[0][1]
+        self.assertEqual(args, ['abcd', 'efghi', 'jklmno'])
 
-        print name, args, keywords
-
+        self.mock_seqdata.reset_mock()
         mock_SeqIO.return_value = [plasmid]
         self.case.read_fasta(mock_handle, self.mock_seqdata)
-
-        self.assertEqual(self.mock_seqdata.dict["sequences"],["abcd"])
+        (args,) = self.mock_seqdata.mock_calls[0][1]
+        self.assertEqual(args, ["abcd"])
         self.assertEqual(self.mock_seqdata.dict["is_from"], "PLASMID")
 
     @mock.patch('superphy.uploader.sequence_upload.open')
