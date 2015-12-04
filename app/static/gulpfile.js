@@ -15,7 +15,8 @@ var streamqueue = require('streamqueue');
 gulp.task('coffee_to_js',  function() {
 	return streamqueue ({ objectMode: true},
 		//Add additional subfolders here
-		gulp.src(['./coffee/Components/*.coffee']),
+		gulp.src(['./coffee/gbrowse/*.coffee']),
+    gulp.src(['./coffee/home/*.coffee']),
 		gulp.src(['./coffee/*.coffee'])
 	)
   	   	.pipe(flatten())
