@@ -75,6 +75,12 @@ class SequenceUploader(object):
             self.get_seqdata(seqdata)
 
     def upload(self, seqdata, func):
+        """Uploads sequence data to Blazegraph based on the inputted function argument
+
+        Args:
+            seqdata: a SequenceMetadata instance storing sequence-related data that would otherwise be a data clump:
+            func: function that handles RDF conversion based on the type of genome
+        """
         g = Graph()
         seq_rdf = Sequence(g, **seqdata.generate_kwargs())
 
@@ -83,12 +89,27 @@ class SequenceUploader(object):
         BlazegraphUploader().upload_data(generate_output(g))
 
     def plasmid_rdf(self, seqdata, seq_rdf):
+        """Sets up RDF triples for a plasmid sequence and its metadata. Marks genome as possessing a valid sequence if
+        the accession id matches the genome id (i.e. metadata validation has not merged genomes with the same biosample
+        id together yet)
+
+        Args:
+            seqdata: a SequenceMetadata instance storing sequence-related data that would otherwise be a data clump
+            seq_rdf: an initalized RDF converter for Sequence data
+        """
         seq_rdf.rdf()
 
         if seqdata.accession == seqdata.genome:
             seq_rdf.add_seq_validation(True)
 
     def nonplasmid_rdf(self, seqdata, seq_rdf):
+        """Sets up RDF triples for a nonplasmid sequence and its metadata in accordance with its sequence validation
+         results
+
+        Args:
+            seqdata: a SequenceMetadata instance storing sequence-related data that would otherwise be a data clump
+            seq_rdf: an initalized RDF converter for Sequence data
+        """
         seq_rdf.add_seq_validation(seqdata.valid)
 
         if seqdata.valid:

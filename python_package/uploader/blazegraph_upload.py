@@ -81,6 +81,8 @@ class BlazegraphUploader(object):
         """
         headers = {'Content-Type':'application/x-turtle'}
         r = requests.post(self.bg_url, data=data, headers=headers)
+        with open("no-inference-metadata.txt", "a") as fd:
+            fd.write("%s\n" % r.content)
         print r.content
 
     def create_namespace(self):

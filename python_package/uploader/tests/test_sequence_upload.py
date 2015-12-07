@@ -28,8 +28,22 @@ class SequenceUploaderTestCase(unittest.TestCase):
     def test_upload_missing_sequences(self):
         pass
 
-    def test_load_sequence(self):
-        pass
+    @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.get_seqdata')
+    @mock.patch('superphy.uploader.sequence_upload.check_NamedIndividual')
+    def test_load_sequence(self, mock_check, mock_get):
+        mock_check.side_effect = [True, False]
+        self.mock_seqdata.name = "AAAA_seq"
+
+        with self.assertRaises(TypeError):
+            self.case.load_sequence(self.mock_seqdata)
+        mock_check.assert_called_once_with(mock.ANY)
+        mock_get.assert_not_called()
+
+        mock_check.reset_mock()
+        mock_get.reset_mock()
+        self.case.load_sequence(self.mock_seqdata)
+        mock_check.assert_called_once_with(mock.ANY)
+        mock_get.assert_called_once_with(mock.ANY)
 
     @mock.patch('superphy.uploader.sequence_upload.BlazegraphUploader', autospec=True)
     @mock.patch('superphy.uploader.sequence_upload.Sequence')

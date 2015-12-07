@@ -35,43 +35,43 @@ class SequenceValidator(object):
     def validate(self):
         self.create_fasta()
         self.blastn_commandline()
-        hits = self.filter_passing_hits()
+        self.filter_passing_hits()
 
-        valid_hits = (len(hits)>=3)
-        valid_bp = (self.min_bp <= self.seqdata.dict["bp"] <= self.max_bp)
-        valid_contigs = (0 < self.seqdata.dict["contigs"] <= self.max_contigs)
-        valid_chars = self.check_chars()
-        unique_checksum = not check_checksum(self.seqdata.dict["checksum"])
+        checks = {"number of hits":self.check_hits(),
+                  "base pair count":self.check_bp(),
+                  "contig count":self.check_contigs(),
+                  "characters": self.check_chars(),
+                  "checksum":not check_checksum(self.seqdata.dict["checksum"])}
 
-        self.seqdata.hits = hits
-        checks = {"number of hits":valid_hits,
-                  "base pair count":valid_bp,
-                  "contigs count":valid_contigs,
-                  "characters":valid_chars,
-                  "checksum":unique_checksum}
+        failed_checks = {(k, v) for k, v in checks.iteritems() if v is False}
 
-        for type, boolean in checks.iteritems():
-            if not boolean:
+        if failed_checks:
+            # replace this with logger, break would be replaced by a raised Exception where the Exception would be
+            # caught by the Sequence_Upload code
+            for k, v in failed_checks:
                 with open(generate_path("outputs/seq_errors.txt"), "a") as f:
-                    f.write("%s failed validation: the %s was not valid\n" %(self.seqdata.accession, type))
-                self.seqdata.valid = False
-                break
-            else:
-                self.seqdata.valid = True
+                    f.write("%s failed validation: the %s was not valid\n" %(self.seqdata.accession, k))
+            self.seqdata.valid = False
+        else:
+            self.seqdata.valid = True
 
+    def check_hits(self):
+        return 3 <= len(self.seqdata.hits) <= 10
+
+    def check_bp(self):
+        return self.min_bp <= self.seqdata.dict["bp"] <= self.max_bp
+
+    def check_contigs(self):
+        return 0 < self.seqdata.dict["contigs"] <= self.max_contigs
 
     def check_chars(self):
-
         allowed_chars = "[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-]"
         s = "".join(str(contig) for contig in self.seqdata.dict["sequences"])
         trans_table = string.maketrans('','')
         return not s.translate(trans_table, allowed_chars)
 
-
     def filter_passing_hits(self):
-
         result_handle = open(generate_path("tmp/validate.xml"))
-
         hits = {}
 
         for record in NCBIXML.parse(result_handle):
@@ -81,19 +81,17 @@ class SequenceValidator(object):
                 hsp = entry.hsps[0]
                 percent_ident = (float(hsp.positives) / float(seqlen)) * 100
 
-                if percent_ident >= 90:
+                if 90 <= percent_ident <= 100:
                     if hit in hits:
                         if percent_ident > hits[hit]:
                             hits[hit] = percent_ident
                     else:
                         hits[hit] = percent_ident
-
         del result_handle
-        return hits
+        self.seqdata.hits = hits
 
 
     def blastn_commandline(self):
-
         command = generate_path("../../blast/ncbi-blast*/bin/blastn")
         fasta = generate_path("tmp/validate.fasta")
         db = generate_path("data/blast/ValidationDB")
@@ -105,7 +103,6 @@ class SequenceValidator(object):
 
 
     def create_fasta(self):
-
         with open(generate_path("tmp/validate.fasta"), "w") as f:
             for contig in self.seqdata.dict["sequences"]:
                 f.write(">%s\n%s\n" %(self.seqdata.accession, contig))
