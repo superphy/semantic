@@ -9,7 +9,7 @@ class Data
         m.request(
             method: "POST",
             url: 'http://10.139.14.121:5000/mithril/meta',
-            data: {limit:50, page:20}
+            data: {}
             datatype: 'json'
             type: meta)
     data: () ->
@@ -42,7 +42,7 @@ class App
             m("table",[
                 m("tr", [
                     for header in data.headers
-                        m("th",{} ,[header]) 
+                        m('th[data-sort-by=' + header + ']',sort_table(data.genomes, header) ,[header]) 
                 ])
                 for binding in data.genomes
                     m("tr",[ 

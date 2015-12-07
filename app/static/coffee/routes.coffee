@@ -1,10 +1,12 @@
 header = new Header()
+meta = new App
 
 class Routes
 	home = new Home
 	m.route(document.body, "/", {
 		"/": home
 		"/home": home
-		"/meta": new Page(limit = 20, page = 2)
-		"/gbrowse": new App
+		"/meta": meta
+		"/gbrowse": meta
+		"/groups": new Sorting_Table
 	})
