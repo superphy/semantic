@@ -1,107 +1,122 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
-from SPARQLWrapper import SPARQLWrapper, JSON
+"""
+This module wraps often-used queries to the Blazegraph SPARQL endpoint.
+"""
+
+from SPARQLWrapper import JSON, SPARQLWrapper
+
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
 
 
 def find_from_host(host):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX : <https://github.com/superphy#>'
-        'SELECT ?p WHERE {?s ?o "%s"^^xsd:string . ?s :is_object_of ?p}' % host
+    """
+    Finds the correct isolation_from_host instance in Blazegraph given a host descriptor, or returns none if nothing
+    is found
+
+    Args:
+        host: a term used to identify the host (common or scientifi name, generally)
+
+    Returns: the SPARQL URI for the associated isolation_from_host object or None
+
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?p WHERE {?s ?o "%s"^^xsd:string . ?s :is_object_of ?p . ?p rdf:type :isolation_from_host}' % host
     )
-    sparql.setQuery(queryString)
 
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    for result in results["results"]["bindings"]:
-        return result["p"]["value"]
+    return results["results"]["bindings"][0]["p"]["value"].split("#", 1)[1]
 
 
 def find_syndrome(syndrome):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX : <https://github.com/superphy#>'
-        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string .}' % syndrome
+    """
+    Finds the correct isolation_syndrome instance in Blazegraph given a term, or returns none if nothing
+    is found
+
+    Args:
+        syndrome: a term used to identify the isolation_syndrome
+
+    Returns: the SPARQL URI for the associated isolation_syndrome or None
+
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :isolation_syndrome . }' % syndrome
     )
-    sparql.setQuery(queryString)
 
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    for result in results["results"]["bindings"]:
-        return result["s"]["value"]
-
+    return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
 
 def find_source(source):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX : <https://github.com/superphy#>'
-        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string .}' % source
+    """
+    Finds the correct isolation_from_source instance in Blazegraph given a term, or returns none if nothing is found
+
+    Args:
+        source: a term used to identify the isolation_from_source
+
+    Returns: the SPARQL URI for the associated isolation_from_source or None
+
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :isolation_from_source}' % source
     )
-    sparql.setQuery(queryString)
 
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    for result in results["results"]["bindings"]:
-        return result["s"]["value"]
+    return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
 
 
 def check_NamedIndividual(name):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX : <https://github.com/superphy#>'
+    """
+    Checks to see if a given SPARQL URI is an instance of any RDF class encoded into the database
+
+    Args:
+        name: the SPARQL URI of the instance (must be from the superphy ontology)
+
+    Returns: a boolean indicating if the instance exists or not in the database
+
+    """
+    results = _sparql_query(
+        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
+        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+        'PREFIX : <https://github.com/superphy#>\n'
         'ASK { :%s rdf:type owl:NamedIndividual .}' % name
     )
-    sparql.setQuery(queryString)
-
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
 
     return results["boolean"]
 
 
 def find_missing_sequences():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        "PREFIX : <https://github.com/superphy#>"
-        "PREFIX gfvo: <http://www.biointerchange.org/gfvo#>"
-        "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-        "SELECT ?s ?acc WHERE { ?s rdf:type gfvo:Genome . ?s :has_accession ?acc "
-        "MINUS { ?s :has_valid_sequence ?o }}"
-    )
-    sparql.setQuery(queryString)
+    """
+    Finds Genome instances in Blazegraph that are missing a sequence and hasn't failed sequence validation
 
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+    Returns:  list of SPARQL URIs for Genome instances
+
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
+        'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
+        'SELECT ?s ?acc WHERE { ?s rdf:type gfvo:Genome . ?s :has_accession ?acc . '
+        'MINUS { ?s :has_valid_sequence ?o }}'
+    )
 
     return ((result["s"]["value"].rsplit("#", 1)[1], result["acc"]["value"])
             for result in results["results"]["bindings"])
 
 
-def find_unlabelled_sequences():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        "PREFIX : <https://github.com/superphy#>"
-        "PREFIX gfvo: <http://www.biointerchange.org/gfvo#>"
-        "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-        "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-        "SELECT ?s WHERE { ?s rdf:type :Sequence . MINUS { ?s :is_from ?o }}"
-    )
-    sparql.setQuery(queryString)
-
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    return (result["s"]["value"].rsplit("#", 1)[1] for result in results["results"]["bindings"])
-
-
 def find_duplicate_biosamples():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+    """
+    Checks to see if a BioSample id is unique or not; if it is not, identify all Genomes that refer to it
+
+    Returns: a list of tuples composed of a BioSample id and a list of SPARQL URIs for Genomes
+
+    """
+    results = _sparql_query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
@@ -111,18 +126,21 @@ def find_duplicate_biosamples():
         'GROUP BY ?BioSample HAVING ( ?Elements > 1)'
     )
 
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
     return ((result["BioSample"]["value"], result["Genomes"]["value"].split("#", )[1::2])
             for result in results["results"]["bindings"])
 
 
 def find_core_genome(biosample):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+    """
+    Finds all Genoems with the specified BioSample id that are core genomes (labelled with CORE)
+
+    Args:
+        biosample: BioSample id of interest
+
+    Returns: a list of SPARQL URIs of Genomes that match the BioSample and are core genomes
+
+    """
+    results = _sparql_query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
@@ -131,78 +149,115 @@ def find_core_genome(biosample):
         '?Genome :has_sequence ?Sequence . ?Sequence :is_from "CORE"^^xsd:string .}\n' % biosample
     )
 
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
     return [result["Genome"]["value"].split("#", 1)[1] for result in results["results"]["bindings"]]
 
 
 def delete_instance(name):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+    """
+    Deletes an instance with a given SPARQL URI on the database by removing all triples with it (assumption:
+    not a predicate, but then predicates aren't instances)
+
+    Args:
+        name: the SPARQL URI of the instance you want to delete
+
+    Prints out the response from the server regarding the SPARQL Update query
+
+    """
+    print _sparql_update(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
-        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
         'DELETE { :%s ?property ?object . ?subject ?property :%s . }\n'
         'WHERE { { :%s ?property ?object } UNION { ?subject ?property :%s } }' % (name, name, name, name)
     )
 
-    sparql.method = 'POST'
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    print results
-
-
 def insert_accession_sequence(core, plasmid, plasmid_seq):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+    """
+    Given the SPARQL URIs for the core genome, the plasmid genome, and plasmid sequence, adds the plasmid sequence
+    under the core genome and removes the connection to the plasmid genome.
+
+    This is a cleanup routine, as core and plasmid genomes would share the same metadata, and it would not make sense
+    to have both a plasmid and core genome instance containing the same metadata.
+
+    Args:
+        core (str): SPARQL URI based on the superphy ontology for the core genome instance
+        plasmid (str): SPARQL URI based on the superphy ontology for the plasmid genome instance
+        plasmid_seq (str): SPARQL URI based on the superphy ontology for the plasmid sequence instance
+\
+    Prints out the response from the server regarding the SPARQL Update query
+
+    """
+    print _sparql_update(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
-        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
         'INSERT DATA { :%s :has_accession "%s"^^xsd:string. '
         ':%s :has_sequence :%s . :%s :is_sequence_of :%s . }\n'
         % (core, plasmid, core, plasmid_seq, plasmid_seq, core)
     )
 
-    sparql.method = 'POST'
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
 
-    print results
+def check_blank_nodes():
+    """
+    Checks to see if there are any blank nodes present on the database
+
+    Returns: a boolean indicating if blank nodes exists or not in the database
+
+    """
+    results = _sparql_query(
+        'ASK {?x ?y ?z . FILTER ( isBlank(?x) || isBlank(?z) )}'
+    )
+
+    return results["boolean"]
 
 
 def delete_blank_nodes():
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
+    """
+    Deletes all blank nodes on Blazegraph.
+
+    This should only be ran when setting up the database, as blank nodes increase exponentially as triples get
+    added and will cause a memory overflow error. Many of these blank nodes are from the interactions of the ontologies
+    that superphy is built upon, but they do not significantly contribute to querying.
+
+    Prints out the response from the server regarding the SPARQL Update query
+
+    """
+    print _sparql_update(
         'DELETE { ?x ?y ?z }'
         'WHERE { ?x ?y ?z . FILTER ( isBlank(?x) || isBlank(?z) ) }'
     )
 
-    sparql.method = 'POST'
-    sparql.setQuery(queryString)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-
-    print results
 
 def check_checksum(checksum):
-    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
-    queryString = (
-        'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
+    """
+    Checks if a particular checksum exists in the database.
+
+    As checksums are supposed to be unique to the sequence, if any are found in the database, the chances of
+    there being a duplicate sequence is high.
+
+    Args:
+        checksum (str): the hash for a sequence
+
+    Returns: a boolean indicating if the hash was found in the database
+
+    """
+    results = _sparql_query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
-        'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
         'ASK { ?Sequence :has_checksum "%s"^^xsd:string}' % checksum
     )
 
-    sparql.setQuery(queryString)
+    return results["boolean"]
+
+def _sparql_query(query):
+    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
+    sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
+    return results
 
-    return results["boolean"]
+def _sparql_update(query):
+    sparql = SPARQLWrapper("http://localhost:9999/bigdata/namespace/superphy/sparql")
+    sparql.method = 'POST'
+    sparql.setQuery(query)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    return results
