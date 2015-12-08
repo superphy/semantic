@@ -43,14 +43,14 @@ class Table
     view: () ->
         data = @data.data()
         pageY = state.pageY
-        begin = pageY / 31 | 0
-        end = begin + (state.pageHeight /31 | 0 + 2)
-        offset = pageY % 31
-        m(".Occlusion", {style: {height: data.genomes.length * 31 + "px", position: "relative", top: -offset + "px"}}, [
+        begin = pageY / 46 | 0
+        end = begin + (state.pageHeight /46 | 0 + 2)
+        offset = pageY % 46
+        m(".Occlusion", {style: {height: data.genomes.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
             m("table", {style: {top: state.pageY + "px"}}, [
                 m("tr", [
                     if numbers
-                        m 'th' , "Redering: " + (begin * 1 + 1) + " to " + (end * 1 + 1)#"#"
+                        m 'th' , "Redering: " + (begin * 1 + 1) + " to " + (end) + ". pageHeight: " + state.pageHeight#"#"
                     for header in data.headers
                         m('th[data-sort-by=' + header + ']',sort_table(data.genomes, header) ,[header]) 
                 ])
