@@ -29,23 +29,25 @@ class PageNumber
         ] for x in [1 .. @pages]
         m('text',[@currentPage()])
     ]
-class App
-    constructor: () ->
-        @data = new Data()
 
-        @pageNumber = new PageNumber(pages = 10, currentPage = 1)
-        @pageNumber2 = new PageNumber(pages = 20, currentPage = 5)
-        @search = new Search()
-    table: () -> 
+class Table
+    numbers = true
+    constructor: (data) ->
+        @data = data
+    view: () ->
         data = @data.data()
         [
             m("table",[
                 m("tr", [
+                    if numbers
+                        m 'th' , "#"
                     for header in data.headers
                         m('th[data-sort-by=' + header + ']',sort_table(data.genomes, header) ,[header]) 
                 ])
-                for binding in data.genomes
+                for binding, x in data.genomes
                     m("tr",[ 
+                        if numbers
+                            m 'td', x
                         for item in data.headers
                             try
                                 m("td", binding[item]["value"])
@@ -54,14 +56,22 @@ class App
                     ])
             ])
         ]
+
+class App
+    constructor: () ->
+        @data = new Data()
+        #@pageNumber = new PageNumber(pages = 10, currentPage = 1)
+        #@pageNumber2 = new PageNumber(pages = 20, currentPage = 5)
+        #@search = new Search()
+        @table = new Table(@data)
     view: ->
         [
-            m("div", ["object1" ,@pageNumber.view()])
-            m("div", ["object2" ,@pageNumber2.view()])
-            m("div", ["object1" ,@pageNumber.view()])
-            header.view()
-            @search.view()
-            @table()
+            try m("div", ["object1" ,@pageNumber.view()])
+            try m("div", ["object2" ,@pageNumber2.view()])
+            try m("div", ["object1" ,@pageNumber.view()])
+            try header.view()
+            try @search.view()
+            try @table.view()
             
         ]
 
