@@ -31,10 +31,7 @@ def find_from_host(host):
         'SELECT ?p WHERE {?s ?o "%s"^^xsd:string . ?s :is_object_of ?p . ?p rdf:type :isolation_from_host}' % host
     )
 
-    try:
-        return results["results"]["bindings"][0]["p"]["value"].split("#", 1)[1]
-    except IndexError:
-        return None
+    return results["results"]["bindings"][0]["p"]["value"].split("#", 1)[1]
 
 
 def find_syndrome(syndrome):
@@ -53,10 +50,7 @@ def find_syndrome(syndrome):
         'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :isolation_syndrome . }' % syndrome
     )
 
-    try:
-        return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
-    except IndexError:
-        return None
+    return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
 
 def find_source(source):
     """
@@ -73,10 +67,7 @@ def find_source(source):
         'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :isolation_from_source}' % source
     )
 
-    try:
-        return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
-    except IndexError:
-        return None
+    return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
 
 
 def check_NamedIndividual(name):

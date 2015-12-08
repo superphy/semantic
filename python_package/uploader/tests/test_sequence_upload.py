@@ -25,8 +25,62 @@ class SequenceUploaderTestCase(unittest.TestCase):
     def tearDown(self):
         del self.case
 
-    def test_upload_missing_sequences(self):
-        pass
+
+    @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.error_logging')
+    @mock.patch('superphy.uploader.sequence_upload.SequenceValidator')
+    @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.upload')
+    @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.load_sequence')
+    @mock.patch('superphy.uploader.sequence_upload.SequenceMetadata')
+    @mock.patch('superphy.uploader.sequence_upload.find_missing_sequences')
+    def test_upload_missing_sequences(self, mock_find, mock_data, mock_load, mock_upload, mock_valid, mock_error):
+        self.mock_seqdata.dict = {}
+
+        mock_find.return_value = []
+        self.case.upload_missing_sequences()
+
+        self.assertEqual(len(mock_find.mock_calls), 1)
+        mock_data.assert_not_called()
+        mock_load.assert_not_called()
+        mock_upload.assert_not_called()
+        mock_valid.assert_not_called()
+        mock_error.assert_not_called()
+
+        mock_find.return_value = [("AAAA", "AAAA")]
+        self.mock_seqdata.dict["is_from"] = "PLASMID"
+        mock_data.return_value = self.mock_seqdata
+        self.case.upload_missing_sequences()
+
+        self.assertEqual(len(mock_find.mock_calls), 2)
+        self.assertEqual(len(mock_data.mock_calls), 1)
+        self.assertEqual(len(mock_load.mock_calls), 1)
+        self.assertEqual(len(mock_upload.mock_calls), 1)
+        mock_valid.assert_not_called()
+        mock_error.assert_not_called()
+
+        mock_find.return_value = [("AAAA", "AAAA")]
+        self.mock_seqdata.dict["is_from"] = "CORE"
+        mock_data.return_value = self.mock_seqdata
+        self.case.upload_missing_sequences()
+
+        self.assertEqual(len(mock_find.mock_calls), 3)
+        self.assertEqual(len(mock_data.mock_calls), 2)
+        self.assertEqual(len(mock_load.mock_calls), 2)
+        self.assertEqual(len(mock_upload.mock_calls), 2)
+        self.assertEqual(len(mock_valid.mock_calls), 2)
+        mock_error.assert_not_called()
+
+        mock_find.return_value = [("AAAA", "AAAA")]
+        self.mock_seqdata.dict["is_from"] = "CORE"
+        mock_data.return_value = self.mock_seqdata
+        mock_load.side_effect = TypeError
+        self.case.upload_missing_sequences()
+
+        self.assertEqual(len(mock_find.mock_calls), 4)
+        self.assertEqual(len(mock_data.mock_calls), 3)
+        self.assertEqual(len(mock_load.mock_calls), 3)
+        self.assertEqual(len(mock_upload.mock_calls), 2)
+        self.assertEqual(len(mock_valid.mock_calls), 2)
+        self.assertEqual(len(mock_error.mock_calls), 1)
 
     @mock.patch('superphy.uploader.sequence_upload.SequenceUploader.get_seqdata')
     @mock.patch('superphy.uploader.sequence_upload.check_NamedIndividual')

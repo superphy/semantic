@@ -64,10 +64,8 @@ class BlazegraphUploader(object):
         print r.content
 
     def upload_data(self, data):
-        """
-        Uploads raw data onto Blazegraph.
-
-        To ensure that Blazegraph interprets properly, it is necessary to specify the format in a Context-Header.
+        """Uploads raw data onto Blazegraph. To ensure that Blazegraph interprets properly, it is necessary to specify
+        the format in a Context-Header.
 
         Accepted formats are listed on this site: https://wiki.blazegraph.com/wiki/index.php/REST_API#MIME_Types
 
@@ -77,12 +75,9 @@ class BlazegraphUploader(object):
             data (turtle): a turtle data object
 
         Prints out the response object from Blazegraph
-
         """
         headers = {'Content-Type':'application/x-turtle'}
         r = requests.post(self.bg_url, data=data, headers=headers)
-        with open("no-inference-metadata.txt", "a") as fd:
-            fd.write("%s\n" % r.content)
         print r.content
 
     def create_namespace(self):

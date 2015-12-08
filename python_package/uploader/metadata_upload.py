@@ -220,6 +220,4 @@ class GenomeMetadata(object):
 
         return {"Otype": Otype, "Htype": Htype}
 
-
-
-MetadataUploader("samples/meta_pipe_result.json", "ecoli").upload()
+#MetadataUploader("samples/meta_pipe_result.json", "ecoli").upload()

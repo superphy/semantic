@@ -76,21 +76,33 @@ class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
 
     def test_find_from_host(self):
         self.assertEqual(_sparql.find_from_host("Bos taurus (cow)"), "from_btaurus")
-        self.assertIsNone(_sparql.find_from_host("Asymptomatic"))
-        self.assertIsNone(_sparql.find_from_host("Enteral feeding tube"))
-        self.assertIsNone(_sparql.find_from_host("foo"))
+
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_from_host("Asymptomatic"))
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_from_host("Enteral feeding tube"))
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_from_host("foo"))
 
     def test_find_syndrome(self):
         self.assertEqual(_sparql.find_syndrome("Asymptomatic"), "asymptomatic")
-        self.assertIsNone(_sparql.find_syndrome("Enteral feeding tube"))
-        self.assertIsNone(_sparql.find_syndrome("Bos taurus (cow)"))
-        self.assertIsNone(_sparql.find_syndrome("foo"))
+
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_syndrome("Enteral feeding tube"))
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_syndrome("Bos taurus (cow)"))
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_syndrome("foo"))
 
     def test_find_source(self):
         self.assertEqual(_sparql.find_source("Enteral feeding tube"), "enteral_feeding_tube")
-        self.assertIsNone(_sparql.find_source("Asymptomatic"))
-        self.assertIsNone(_sparql.find_source("Bos taurus (cow)"))
-        self.assertIsNone(_sparql.find_source("foo"))
+
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_source("Asymptomatic"))
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_source("Bos taurus (cow)"))
+        with self.assertRaises(IndexError):
+            self.assertIsNone(_sparql.find_source("foo"))
 
     def test_check_NamedIndividual(self):
         self.assertTrue(_sparql.check_NamedIndividual("btaurus"))
@@ -137,7 +149,6 @@ class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
             'PREFIX : <https://github.com/superphy#>\n'
             'ASK { :fakeGenome :has_sequence :fakePlasmidSeq}'
         )["boolean"])
-
 
     def test_blank_nodes(self):
         self.assertTrue(_sparql.check_blank_nodes())

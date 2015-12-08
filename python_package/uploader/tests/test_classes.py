@@ -409,7 +409,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-        sequence.add_seq_validation("False")
+        sequence.add_seq_validation(False)
 
         field = {"False"}
         objects = list(self.graph.objects(predicate=n.has_valid_sequence))
@@ -417,7 +417,7 @@ class ClassesTestCase(unittest.TestCase):
         self.check_triples(field, objects)
 
 
-        sequence.add_hits({"1","2","3"})
+        sequence.add_hits(["1","2","3"])
 
         field = {"1","2","3"}
         objects = list(self.graph.objects(predicate=n.has_hit))

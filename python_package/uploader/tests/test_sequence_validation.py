@@ -24,8 +24,30 @@ class SequenceValidatorTestCase(unittest.TestCase):
     def tearDown(self):
         del self.sequence
 
-    def test_validate(self):
-        pass
+    @mock.patch("superphy.uploader.sequence_validation.open")
+    @mock.patch('superphy.uploader.sequence_validation.check_checksum')
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.check_chars')
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.check_contigs')
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.check_bp')
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.check_hits')
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.filter_passing_hits')
+    def test_validate(self, mock_filter, mock_hits, mock_bp, mock_contigs, mock_chars, mock_checksum, mock_open):
+        mock_open.return_value = mock.MagicMock(spec=file)
+        mock_hits.return_value = True
+        mock_bp.return_value = True
+        mock_contigs.return_value = True
+        mock_chars.return_value = True
+        mock_checksum.return_value = False
+
+        SequenceValidator(self.sequence).validate()
+        self.assertTrue(self.sequence.valid)
+
+        mock_open.reset_mock()
+        mock_contigs.return_value = False
+        mock_chars.return_value = False
+        SequenceValidator(self.sequence).validate()
+        self.assertFalse(self.sequence.valid)
+        self.assertEqual(mock_open.call_count, 2)
 
     def test_check_hits(self):
         test_set = [2, 11]
@@ -77,42 +99,43 @@ class SequenceValidatorTestCase(unittest.TestCase):
 
     @mock.patch('superphy.uploader.sequence_validation.NCBIXML.parse', autospec=True)
     @mock.patch('superphy.uploader.sequence_validation.open')
-    def test_filter_passing_hits(self, mock_open, mock_parse):
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.blastn_commandline')
+    @mock.patch('superphy.uploader.sequence_validation.SequenceValidator.create_fasta')
+    def test_filter_passing_hits(self, mock_fasta, mock_blast, mock_open, mock_parse):
         mock_open.return_value = mock.MagicMock(spec=file)
 
         tests = [x * 50  for x in range(15,18)]
 
         for n in tests:
-            mock_parse.return_value = [self.create_test_record("Test Region A", n, 1000),
-                                       self.create_test_record("Test Region A", n, 1000),
-                                       self.create_test_record("Test Region B", n, 1000),
-                                       self.create_test_record("Test Region B", n, 1000),
-                                       self.create_test_record("Test Region C", n, 1000)]
+            mock_parse.return_value = [self.create_sample_record("Test Region A", n, 1000),
+                                       self.create_sample_record("Test Region A", n, 1000),
+                                       self.create_sample_record("Test Region B", n, 1000),
+                                       self.create_sample_record("Test Region B", n, 1000),
+                                       self.create_sample_record("Test Region C", n, 1000)]
             SequenceValidator(self.sequence).filter_passing_hits()
             self.assertFalse(self.sequence.hits)
 
         tests = [x * 50  for x in range(18,21)]
         for n in tests:
-            mock_parse.return_value = [self.create_test_record("Test Region A", n, 1000),
-                                       self.create_test_record("Test Region A", n, 1000),
-                                       self.create_test_record("Test Region B", n, 1000),
-                                       self.create_test_record("Test Region B", n, 1000),
-                                       self.create_test_record("Test Region C", n, 1000)]
+            mock_parse.return_value = [self.create_sample_record("Test Region A", n, 1000),
+                                       self.create_sample_record("Test Region A", n, 1000),
+                                       self.create_sample_record("Test Region B", n, 1000),
+                                       self.create_sample_record("Test Region B", n, 1000),
+                                       self.create_sample_record("Test Region C", n, 1000)]
             SequenceValidator(self.sequence).filter_passing_hits()
             self.assertTrue(self.sequence.hits)
 
         tests = [x * 50  for x in range(21, 23)]
         for n in tests:
-            mock_parse.return_value = [self.create_test_record("Test Region A", n, 1000),
-                                       self.create_test_record("Test Region A", n, 1000),
-                                       self.create_test_record("Test Region B", n, 1000),
-                                       self.create_test_record("Test Region B", n, 1000),
-                                       self.create_test_record("Test Region C", n, 1000)]
+            mock_parse.return_value = [self.create_sample_record("Test Region A", n, 1000),
+                                       self.create_sample_record("Test Region A", n, 1000),
+                                       self.create_sample_record("Test Region B", n, 1000),
+                                       self.create_sample_record("Test Region B", n, 1000),
+                                       self.create_sample_record("Test Region C", n, 1000)]
             SequenceValidator(self.sequence).filter_passing_hits()
             self.assertFalse(self.sequence.hits)
 
-
-    def create_test_record(self, hit_def, positives, length):
+    def create_sample_record(self, hit_def, positives, length):
         record = mock.MagicMock(spec=Record)
         entry = mock.MagicMock(spec=Record.Alignment)
         hsp = mock.MagicMock(spec=Record.HSP)
