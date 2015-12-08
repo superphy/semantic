@@ -1,3 +1,4 @@
+
 class Data
     resp = {}
     meta=(response)->
@@ -32,22 +33,31 @@ class PageNumber
 
 class Table
     numbers = true
+    state = {pageY: 0, pageHeight: window.innerHeight}
+    window.addEventListener("scroll", (e) ->
+        state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
+        state.pageHeight = window.innerHeight
+        m.redraw())
     constructor: (data) ->
         @data = data
     view: () ->
         data = @data.data()
-        [
-            m("table",[
+        pageY = state.pageY
+        begin = pageY / 31 | 0
+        end = begin + (state.pageHeight /31 | 0 + 2)
+        offset = pageY % 31
+        m(".Occlusion", {style: {height: data.genomes.length * 31 + "px", position: "relative", top: -offset + "px"}}, [
+            m("table", {style: {top: state.pageY + "px"}}, [
                 m("tr", [
                     if numbers
-                        m 'th' , "#"
+                        m 'th' , "Redering: " + (begin * 1 + 1) + " to " + (end * 1 + 1)#"#"
                     for header in data.headers
                         m('th[data-sort-by=' + header + ']',sort_table(data.genomes, header) ,[header]) 
                 ])
-                for binding, x in data.genomes
+                for binding, x in data.genomes[begin ... end]
                     m("tr",[ 
                         if numbers
-                            m 'td', x
+                            m 'td', x * 1 + 1 + begin
                         for item in data.headers
                             try
                                 m("td", binding[item]["value"])
@@ -55,7 +65,8 @@ class Table
                                 m("td", "")
                     ])
             ])
-        ]
+        ])
+
 
 class App
     constructor: () ->
