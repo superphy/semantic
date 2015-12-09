@@ -1,5 +1,5 @@
 class App
-    model : () =>
+    model: () =>
         @data ?= new Data()
         @table ?= new Table(@data)
         return
@@ -16,13 +16,11 @@ class App
         ]
 
 class Data
-    #model
-    resp = {}
-    meta=(response)->
-        resp.headers = response.head.vars
-        resp.genomes = response.results.bindings
-        return
-    constructor: () ->
+    model: () =>
+        meta=(response)=>
+            @headers = response.head.vars
+            @genomes = response.results.bindings
+            return
         m.request(
             method: "POST",
             url: 'http://10.139.14.121:5000/mithril/meta',
@@ -30,11 +28,14 @@ class Data
             datatype: 'json'
             type: meta)
     #controller
-    response: () ->
-        return resp
+    constructor: () ->
+        @model()
     #view
-    view: () ->
-        return JSON.stringify(resp)
+    response: () =>
+        return {
+            headers: @headers
+            genomes: @genomes
+        }
 
 class Table
     ###
