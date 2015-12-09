@@ -1,11 +1,29 @@
 
+class App
+    constructor: () ->
+        @data = new Data()
+        #@pageNumber = new PageNumber(pages = 10, currentPage = 1)
+        #@pageNumber2 = new PageNumber(pages = 20, currentPage = 5)
+        @table = new Table(@data)
+        #@filter = new Filter()
+    view: ->
+        [
+            #try m("div", ["object1" ,@pageNumber.view()])
+            #try m("div", ["object2" ,@pageNumber2.view()])
+            #try m("div", ["object1" ,@pageNumber.view()])
+            try header.view()
+            try @filter.view()
+            try @table.view()
+            
+        ]
+
 class Data
+    #model
     resp = {}
     meta=(response)->
         resp.headers = response.head.vars
         resp.genomes = response.results.bindings
         return
-    #controller
     constructor: () ->
         m.request(
             method: "POST",
@@ -13,23 +31,12 @@ class Data
             data: {}
             datatype: 'json'
             type: meta)
-    data: () ->
+    #controller
+    response: () ->
         return resp
-
-class PageNumber
-    constructor: (pages = 1, currentPage = 1) ->
-        @pages = pages
-        @currentPage= m.prop(currentPage)
-    next: ->
-        @currentPage() * 1 + 1
-    view: -> [
-        [
-            m('button',{onclick: m.withAttr("value", @currentPage), "value": x},[x]) 
-            #if x % 10 == 0
-            #    m("br")
-        ] for x in [1 .. @pages]
-        m('text',[@currentPage()])
-    ]
+    #view
+    view: () ->
+        return JSON.stringify(resp)
 
 class Table
     ###
@@ -46,7 +53,7 @@ class Table
     constructor: (data) ->
         @data = data
     view: () ->
-        data = @data.data()
+        data = @data.response()
         pageY = state.pageY
         begin = pageY / 46 | 0
         end = begin + (state.pageHeight /46 | 0 + 2)
@@ -73,25 +80,8 @@ class Table
         ])
 
 
-class App
-    constructor: () ->
-        @data = new Data()
-        #@pageNumber = new PageNumber(pages = 10, currentPage = 1)
-        #@pageNumber2 = new PageNumber(pages = 20, currentPage = 5)
-        @table = new Table(@data)
-        @filter = new Filter()
-    view: ->
-        [
-            try @v.view.text
-            try m("div", ["object1" ,@pageNumber.view()])
-            try m("div", ["object2" ,@pageNumber2.view()])
-            try m("div", ["object1" ,@pageNumber.view()])
-            try header.view()
-            try @filter.view()
-            try @table.view()
-            
-        ]
 
+###
 class Filter
     constructor: (data) ->
         @data = data
@@ -108,3 +98,21 @@ class Filter
         m 'br'
         m('text',[@search_term()])
     ]
+###
+
+###
+class PageNumber
+    constructor: (pages = 1, currentPage = 1) ->
+        @pages = pages
+        @currentPage= m.prop(currentPage)
+    next: ->
+        @currentPage() * 1 + 1
+    view: -> [
+        [
+            m('button',{onclick: m.withAttr("value", @currentPage), "value": x},[x]) 
+            #if x % 10 == 0
+            #    m("br")
+        ] for x in [1 .. @pages]
+        m('text',[@currentPage()])
+    ]
+###
