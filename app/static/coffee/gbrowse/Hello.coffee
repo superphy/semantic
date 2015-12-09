@@ -78,33 +78,33 @@ class App
         @data = new Data()
         #@pageNumber = new PageNumber(pages = 10, currentPage = 1)
         #@pageNumber2 = new PageNumber(pages = 20, currentPage = 5)
-        #@search = new Search()
         @table = new Table(@data)
+        @filter = new Filter()
     view: ->
         [
+            try @v.view.text
             try m("div", ["object1" ,@pageNumber.view()])
             try m("div", ["object2" ,@pageNumber2.view()])
             try m("div", ["object1" ,@pageNumber.view()])
             try header.view()
-            try @search.view()
+            try @filter.view()
             try @table.view()
             
         ]
 
-class Search
-    constructor: () ->
-        @currentPage= m.prop(2)
-        @text= m.prop(5)
-    next: ->
-        @currentPage() * 1 + 1
+class Filter
+    constructor: (data) ->
+        @data = data
+        @input_text= m.prop(2)
+        @search_term= m.prop(5)
     view: -> [
         [
-            m('input',{oninput: m.withAttr("value", @currentPage), "value": @currentPage()},[1]) 
-            m('button',{onclick: m.withAttr("value", @text), "value": @currentPage()},["Search"])
+            m('input',{oninput: m.withAttr("value", @input_text), "value": @input_text()},[1]) 
+            m('button',{onclick: m.withAttr("value", @search_term), "value": @input_text()},["Search"])
             
         ]
         m 'br'
-        m('text',[@currentPage()])
+        m('text',[@input_text()])
         m 'br'
-        m('text',[@text()])
+        m('text',[@search_term()])
     ]
