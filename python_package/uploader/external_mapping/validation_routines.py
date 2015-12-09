@@ -20,8 +20,6 @@ Validation routine methods have specification:
         [(superphy_term_uri, superphy_value_uri),...]
       
 
-
-
 """
 
 import re
@@ -34,33 +32,12 @@ __version__ = "2.0"
 __maintainer__ = "Matt Whiteside"
 __email__ = "matthew.whiteside@canada.ca"
 
-class IV(object):
-    """Input validation
-
-    Checks if input is recognized and returns equivalent superphy metatdata term
-    and value
-
-    """
-
-    def __init__(self, ontology_dict):
-        """
-
-
-        Args:
-            logger (Optional[object]): Pointer to logger op
-            param3 (List[str]): Description of `param3`.
-
-        """
-
-
 
 ##################
 # Utility methods
 ##################
 
 def _exact_match(v, patterns):
-
-    pprint(patterns)
 
     combined = "(" + ")|(".join(patterns) + ")"
     

@@ -13,7 +13,11 @@ Example:
 """
 
 import abc
-from superphy.endpoint import superphy_namespace, strip_superphy_namespace
+import itertools
+from pprint import pformat
+from superphy.endpoint import strip_superphy_namespace
+
+# REMOVE not needed in production
 from pprint import pprint
 
 
@@ -24,6 +28,19 @@ __version__ = "2.0"
 __maintainer__ = "Matt Whiteside"
 __email__ = "matthew.whiteside@canada.ca"
 
+
+def make_unicode(input):
+    """Encode byte string in utf-8
+
+    Strings coming from json will be in utf-8 format
+    encode uri's in unicode type to match
+
+    """
+    if type(input) != unicode:
+        input =  input.decode('utf-8')
+        return input
+    else:
+        return input
 
 
 class SuperphyMetaError(Exception):
@@ -113,7 +130,6 @@ class HostOntology(AttributeOntology):
         self._attribute_class = 'HostIndividual'
 
 
-    @property
     def attribute_class(self):
         """Attribute class represented by ontology
 
@@ -145,10 +161,13 @@ class HostOntology(AttributeOntology):
         
         ontology = {}
         for h in hosts:
-            ontology[h[0]] = {
-                '_uri': h[0],
-                '_category': h[1],
-                '_label': h[2]
+            uri = str(h[0])
+            cat = str(h[1])
+            lab = str(h[2])
+            ontology[uri] = {
+                '_uri': uri,
+                '_category': cat,
+                '_label': lab
             }
 
         return ontology
@@ -170,7 +189,7 @@ class HostOntology(AttributeOntology):
         if uri in self._ontology:
             host = self._ontology[uri]
             constuctor = globals()[self._attribute_class]
-            return constuctor(uri, host)
+            return constuctor(host)
         else:
             raise SuperphyMetaError("Unrecognized host uri: %s"%uri)
 
@@ -210,15 +229,12 @@ class HostIndividual(object):
             setattr(self, key, kwargs[key])
 
 
-    @property
     def uri(self):
-        return self._uri()
+        return self._uri
 
-    @property
     def category(self):
         return self._category
 
-    @property
     def label(self):
         return self._label
 
@@ -244,7 +260,6 @@ class SourceOntology(AttributeOntology):
         self._attribute_class = 'SourceIndividual'
 
 
-    @property
     def attribute_class(self):
         """Attribute class represented by ontology
 
@@ -276,15 +291,18 @@ class SourceOntology(AttributeOntology):
         
         ontology = {}
         for s in sources:
-            if s[0] in ontology:
+            uri = str(s[0])
+            cat = str(s[1])
+            lab = str(s[2])
+            if uri in ontology:
                 # Add new category
-                ontology[s[0]]['_category'].append(s[1])
+                ontology[uri]['_category'].append(cat)
             else:
                 # New source
-                ontology[s[0]] = {
-                    '_uri': s[0],
-                    '_category': [ s[1] ],
-                    '_label': s[2]
+                ontology[uri] = {
+                    '_uri': uri,
+                    '_category': [ cat ],
+                    '_label': lab
                 }
 
         return ontology
@@ -306,7 +324,7 @@ class SourceOntology(AttributeOntology):
         if uri in self._ontology:
             source = self._ontology[uri]
             constuctor = globals()[self._attribute_class]
-            return constuctor(uri, source)
+            return constuctor(source)
         else:
             raise SuperphyMetaError("Unrecognized source uri: %s"%uri)
 
@@ -332,15 +350,12 @@ class SourceIndividual(object):
             setattr(self, key, kwargs[key])
 
 
-    @property
     def uri(self):
         return self._uri()
 
-    @property
     def category(self):
         return self._category
 
-    @property
     def label(self):
         return self._label
 
@@ -369,6 +384,7 @@ class GenomeRecord(object):
     Attributes:
         _host_list(List): List of HostIndividual objects assigned to genome
         _source_list(List): List of SourceIndividual objects assigned to genome
+        _uniquename(str): genome accession string
 
     """
 
@@ -384,19 +400,81 @@ class GenomeRecord(object):
         """
         self._host_list = []
         self._source_list = []
+        self._uniquename = uniquename
         
 
     def is_valid(self):
         """Checks for conflicts in metadata attributes
 
+        Args:
+            None
+
+        Returns:
+            tuple containing:
+                bool: True if no conflicts found
+                str: Further information if bool == False, else None
+
+       
+        """
+
+        # There can only be one host
+        # Host list is a set of unique HostIndividual objects
+        if len(self._host_list) > 1:
+            m = [ h.uri() for h in self._host_list ]
+            return (False, 'Multiple hosts detected: ' + pformat(m))
+
+        # There can only be one source
+        if len(self._source_list) > 1:
+            m = [ h.uri() for h in self._source_list ]
+            return (False, 'Multiple sources detected: ' + pformat(m))
+
+        # Check for category conflicts
+        current_category = None
+        if self._host_list:
+            current_category = self._host_list[0].category()
+
+        category_based_data = itertools.chain(self._source_list)
+        for d in category_based_data:
+            if not current_category:
+                current_category = d.category()
+
+            else:
+                if not d.belongs(current_category):
+                    # No overlap between categories
+                    return (False, 'Category conflict! Data individual %s is lacking category %s'%(d.uri(), pformat(current_category)))
+
+
+        return (True, None)
+
+
+    def output(self):
+        """Return genome metadata as dictionary
+
+        Returns:
+            dict: Superphy metadata keys and values
+
 
         """
 
-        # Check host
+        genome_dict = {}
 
-        # Check source
-        pass
+        if self._host_list:
+            genome_dict['isolation_host'] = self._host_list[0].uri()
 
+        if self._source_list: 
+             genome_dict['isolation_source'] = self._host_source[0].uri()
+
+
+        return genome_dict
+
+
+    def uniquename(self):
+        """Return uniquename/accession for genome object
+
+        """
+
+        return self._uniquename
+        
 
     def host(self, host_individual):
         """Add host to host list if its a new unique host

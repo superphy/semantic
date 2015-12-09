@@ -2,18 +2,49 @@
 
 """mapper
 
-Converts input metadata JSON input with varisous metadata type-value pairs
-to URIs used in the Superphy DB
+Converts input metadata JSON input with various metadata type-value pairs
+to URIs used in the Superphy DB.
 
 Example:
-    Examples can be given using either the ``Example`` or ``Examples``
-    sections. Sections support any reStructuredText formatting, including
-    literal blocks::
+    python mapper.py decision
 
-        $ python example_google.py
+Rules for assigning foreign metadata key/value pairs to superphy URIs are defined in decision_tree JSON file.
+This decision_tree structure list specific functions in cleanup_routines.py that santizes the input (maps synonyms to a single
+term, formats, etc) and specific functions in validation_routines.py that can recognize the targeted foreign data terms values
+ and can return superphy URIs.
 
-Section breaks are created by resuming unindented text. Section breaks
-are also implicitly created anytime a new section starts.
+Decision Tree JSON format:
+
+    {
+        'foreign_term1': {
+            'keep': 0
+        },
+        {
+            'keep': 1,
+            'cleanup_routines': ['routine1','routine2'],
+            'validation_routines': ['routine3']
+        }
+    }
+
+Input metadata JSON format:
+
+    {
+        'genome_accession1': { 
+            'term1': ['string1', 'string2'],
+            'term2': 'string'
+        },
+        'genome_accession2': { 
+            'term1': ['string1', 'string2'],
+            'term2': 'string'
+        }
+    }
+
+Occasionally there will be conflicts in foreign meta-data (e.g. suggestions of multiple hosts, incompatible source and host).
+Overrides JSON file allows the user to define correct annotations for specific genomes in order to resolive the conflicts.
+
+Overrides JSON format:
+
+
 
 
 """
@@ -22,11 +53,13 @@ import logging
 import json
 import argparse
 import itertools
-from pprint import pprint
 from superphy.endpoint import SuperphyGraph
 from ontology import HostOntology, SourceOntology, GenomeRecord
 import cleanup_routines
 import validation_routines
+
+# REMOVE not needed in production
+from pprint import pprint
 
 __author__ = "Matt Whiteside"
 __copyright__ = "Copyright 2015, Public Health Agency of Canada"
@@ -88,14 +121,33 @@ class Mapper(object):
         ]
 
         # Load & validate DecisionTree JSON input
-        with open(decisiontree_json_file) as data_file:    
-            self.decision_tree = json.load(data_file)
+        with open(decisiontree_json_file) as data_file:
+            try:     
+                self.decision_tree = json.load(data_file)
+                #self.decision_tree = self._byteify(self.decision_tree)
+            except Exception, m:
+                self.logger.error("Error encountered during JSON parsing: %s"%m)
+                raise SuperphyMapperError("Invalid decision tree. Check log for details.")
+
         
         if not self._valid_dt():
             raise SuperphyMapperError("Invalid decision tree. Check log for details.")
             
         # Load & validate Overrides JSON input
     
+    def _byteify(self, input):
+        """Convert utf-8 input to strings
+
+        """
+        if isinstance(input, dict):
+            return { self._byteify(key): self._byteify(value) for key,value in input.iteritems() }
+        elif isinstance(input, list):
+            return [ self._byteify(element) for element in input ]
+        elif isinstance(input, unicode):
+            return input.encode('utf-8')
+        else:
+            return input
+
 
     def ontology(self, name):
         """Get method for ontology object
@@ -111,10 +163,19 @@ class Mapper(object):
         return self._ontologies[name]
 
     
-    def map(self, meta_json_file):
-        """
+    def run(self, meta_json_file, outfile):
+        """Top-level method that runs foreign-to-superphy mapping
+        algorithm
 
-        Format:
+        Args:
+            meta_json_file(str): filepath to input JSON file
+            outfile(str): filepath to output JSON file
+
+        Returns:
+            bool: True if successful
+
+
+        Input format:
             {
                 genome_accession1: { 
                     term1: ['string1', 'string2'],
@@ -135,6 +196,7 @@ class Mapper(object):
         meta = {}
         with open(meta_json_file) as data_file:
             meta = json.load(data_file)
+            #meta = self._byteify(meta)
 
         if not isinstance(meta, dict):
             raise SuperphyMapperError("Invalid input meta file. Expecting JSON object.")
@@ -159,11 +221,41 @@ class Mapper(object):
             genomes.append(g)
 
 
+        self.logger.info(self.unknowns.summary())
+
+        if self.unknowns.unresolved_terms():
+            return False
+
+        # Apply overrides that resolve issues like multiple hosts
+        # for specific genomes
+        #self.overrides()
+
         # Output issues
+        all_ok = True
+        for g in genomes:
+            valid, message = g.is_valid()
 
-        # Output reports
+            if not valid:
+                m = "Genome %s failed checks:\n\t%s"%(g.uniquename(), message)
+                self.logger.warn(m)
+                raise SuperphyMapperError(m)
 
-        pass
+
+        if not all_ok:
+            return False
+
+
+        # Output foreign-to-superphy mapping
+        mapping = {}
+        for g in genomes:
+            mapping[g.uniquename()] = g.output()
+
+        # Convert to JSON
+        with open(outfile, 'w') as outfile:
+            json.dump(mapping, outfile)
+
+        return True
+
 
     def assign(self, genome, att, val):
         """Using decision tree rules, assign term-value pair to superphy ontology
@@ -213,7 +305,6 @@ class Mapper(object):
                 assigned = False
                 vr = itertools.chain(self._default_validation_routines, dt['validation_routines'])
                 for m in vr:
-                    pprint( m)
                     superphy_tuples = getattr(validation_routines, m)(clean_val, self)
 
                     if superphy_tuples:
@@ -231,9 +322,7 @@ class Mapper(object):
                                         assigned = True
                                     except:
                                         # Unknown ontology value, likely needs to be added to DB
-
-                                        # Record for posterity
-                                        self.unknowns.val(att, clean_val)
+                                        pass
 
                                 else:
                                     # Unrecognized superphy attribute, probably typo in decision tree json file
@@ -241,12 +330,15 @@ class Mapper(object):
 
                         else:
                             self.unknowns.skipped(att, val)
+
                         break
 
                 # Was foreign attribute assigned to at least one superphy key-value pair?
                 if assigned:
                     return True
                 else:
+                    # Value is not matched by any validation method
+                    self.unknowns.val(att, clean_val)
                     return False
                 
             else:
@@ -280,7 +372,7 @@ class Mapper(object):
 
         """
 
-        for term, tree  in self.decision_tree.iteritems():
+        for term, tree in self.decision_tree.iteritems():
 
             recognized_fields = [(cleanup_routines, 'cleanup_routines'), (validation_routines, 'validation_routines')]
             
@@ -359,7 +451,8 @@ class UnknownRecord(object):
     Attributes:
         vals(dict): Counts of unknown values assigned to known attributes
         atts(dict): Counts of unknown attributes
-        discarded(dict): Counts of which attributes have been discarded
+        discarded(dict): Counts of which attributes have been entirely discarded
+        skipped(dict): Counts of discarded values in attributes that were at least partially parsed
 
     """
 
@@ -374,6 +467,7 @@ class UnknownRecord(object):
         self.vals = {}
         self.atts = {}
         self.discarded = {}
+        self.skipped = {}
 
 
     def val(self, att, val):
@@ -384,10 +478,14 @@ class UnknownRecord(object):
             val(str): value name
 
         """
-        if self.vals.get(att, {}).get(val, False):
-            self.vals[att][val] += 1
+
+        if att in self.vals:
+            if val in self.vals[att]:
+                self.vals[att][val] += 1
+            else:
+                self.vals[att][val] = 1
         else:
-            self.vals[att][val] = 1
+            self.vals[att] = { val: 1 }
 
 
     def att(self, att, val):
@@ -398,10 +496,15 @@ class UnknownRecord(object):
             val(str): value name
 
         """
-        if self.atts.get(att, {}).get(val, False):
-            self.atts[att][val] += 1
+        
+        if att in self.atts:
+            if val in self.atts[att]:
+                self.atts[att][val] += 1
+            else:
+                self.atts[att][val] = 1
         else:
-            self.atts[att][val] = 1
+            self.atts[att] = { val: 1 }
+
 
 
     def discarded(self, att, val):
@@ -412,19 +515,114 @@ class UnknownRecord(object):
             val(str): value name
 
         """
-        if self.discarded.get(att, {}).get(val, False):
-            self.discarded[att][val] += 1
+
+        if att in self.discarded:
+            if val in self.discarded[att]:
+                self.discarded[att][val] += 1
+            else:
+                self.discarded[att][val] = 1
         else:
-            self.discarded[att][val] = 1
+            self.discarded[att] = { val: 1 }
 
 
-    def write():
-        """Write summary of count values
+    def skipped(self, att, val):
+        """Increment count for skipped value in an attribute
 
+        Args:
+            att(str): attribute name
+            val(str): value name
 
         """
 
-        pass
+        if att in self.skipped:
+            if val in self.skipped[att]:
+                self.skipped[att][val] += 1
+            else:
+                self.skipped[att][val] = 1
+        else:
+            self.skipped[att] = { val: 1 }
+
+
+    def unresolved_terms(self):
+        """Unresolved terms/values are foreign metadata terms/values
+        that have been encountered in the input but have no defined
+        rules in the decision_tree object
+
+        Returns:
+            bool: True if unknown terms/values have been recorded
+
+        """
+
+        if self.atts or self.vals:
+            return True
+
+        return False
+
+
+    def summary(self):
+        """Generate summary of unresolved terms
+
+        Returns:
+            str: Summary text
+
+        """
+
+        tot = 0
+        summary_string = "\n\nList of unresolved foreign data.  These must be dealt with before Mapper.run() can successfully complete.\n"
+        summary_string += "\nUnresolved foreign attributes:\n-------------------------------\n"
+
+        n = 0
+        if self.atts:
+            for a in self.atts:
+                for v in self.atts[a]:
+                    n += 1
+                    summary_string += "%i. %s - %s (%i occurences)\n"%(n, a, v, self.atts[a][v])
+                    
+
+        else:
+            summary_string += "None\n"
+
+        tot += n
+
+        summary_string += "\nUnresolved foreign values:\n-------------------------------\n(known attribute, unknown value)\n"
+        n = 0
+        if self.vals:
+            for a in self.vals:
+                for v in self.vals[a]:
+                    n += 1
+                    summary_string += "%i. %s - %s (%i occurences)\n"%(n, a, v, self.vals[a][v])
+        else:
+            summary_string += "None\n"
+
+        tot += n
+        summary_string += "\nTOTAL UNRESOLVED FOREIGN TERMS & VALUES: %i\n"%tot
+
+        summary_string += "\nList of intentially discarded foreign terms and values.  Only for reference.\n"
+        summary_string += "\nDiscarded attributes:\n-------------------------------\n"
+
+        n = 0
+        if self.discarded:
+            for a in self.discarded:
+                for v in self.discarded[a]:
+                    n += 1
+                    summary_string += "%i. %s - %s (%i occurences)\n"%(n, a, v, self.discarded[a][v])
+                    
+
+        else:
+            summary_string += "None\n"
+
+        summary_string += "\nDiscarded values:\n-------------------------------\n(entire attribute is not discarded, only certain values)\n"
+        n = 0
+        if self.skipped:
+            for a in self.skipped:
+                for v in self.skipped[a]:
+                    n += 1
+                    summary_string += "%i. %s - %s (%i occurences)\n"%(n, a, v, self.skipped[a][v])
+        else:
+            summary_string += "None\n"
+
+
+        return summary_string
 
 
 
@@ -439,9 +637,10 @@ if __name__ == "__main__":
     parser.add_argument('decision_tree_json', action="store")
     parser.add_argument('overrides_json', action="store")
     parser.add_argument('meta_json', action="store")
+    parser.add_argument('output', action="store")
 
     files = parser.parse_args()
 
     mapper = Mapper(files.decision_tree_json, files.overrides_json)
 
-    mapper.map(files.meta_json)
+    mapper.run(files.meta_json, files.output)

@@ -15,7 +15,7 @@ import requests
 import subprocess
 import logging
 import re
-from urllib2 import urlopen
+from urllib import urlopen
 from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from rdflib import Graph
@@ -153,7 +153,8 @@ class SuperphyStore(SPARQLUpdateStore):
         self.config = parser.read()
 
         # Initialize store
-        status = urlopen(self.config['rdf_url']).getcode()
+        response = urlopen(self.config['rdf_url'])
+        status = response.getcode()
         if status != 200:
             raise SuperphySparqlStoreError("SPARQL API Endpoint URL {} not found".format(self.config['rdf_url']))
 
