@@ -6,6 +6,6 @@ body {
 }
 th,
 td {
-  overflow: hidden;
+  word-wrap: break-word;
   width: 145px;
 }
