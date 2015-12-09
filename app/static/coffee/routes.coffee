@@ -8,5 +8,5 @@ class Routes
 		"/home": home
 		"/meta": meta
 		"/gbrowse": meta
-		"/groups": new Sorting_Table
+		"/groups": meta
 	})

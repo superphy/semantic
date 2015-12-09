@@ -1,20 +1,18 @@
-
 class App
-    constructor: () ->
-        @data = new Data()
-        #@pageNumber = new PageNumber(pages = 10, currentPage = 1)
-        #@pageNumber2 = new PageNumber(pages = 20, currentPage = 5)
-        @table = new Table(@data)
-        #@filter = new Filter()
-    view: ->
+    model : () =>
+        @data ?= new Data()
+        @table ?= new Table(@data)
+        return
+    controller: (options) =>
+        @model()
+        return
+    view: () =>
         [
             #try m("div", ["object1" ,@pageNumber.view()])
             #try m("div", ["object2" ,@pageNumber2.view()])
             #try m("div", ["object1" ,@pageNumber.view()])
-            try header.view()
-            try @filter.view()
-            try @table.view()
-            
+            header.view()
+            @table.view()
         ]
 
 class Data
