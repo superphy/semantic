@@ -32,6 +32,11 @@ class PageNumber
     ]
 
 class Table
+    ###
+        Set $numbers to false to not display the left column in the table
+        $pageY is window.pageYOffset (How far the user has scrolled down the page)
+        $pageHeight is window.innerHeight (the area visable to the user.)
+    ###
     numbers = true
     state = {pageY: 0, pageHeight: window.innerHeight}
     window.addEventListener("scroll", (e) ->
