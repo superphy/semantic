@@ -1,13 +1,11 @@
-__author__ = 'Stephen Kan'
-
-from rdflib import Namespace, Literal, XSD
-import sparql
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 """
-This module converts inputted data into RDF triples in accordance to the Superphy ontology
+This module converts inputted data into RDF triples in accordance with the Superphy ontology
 
-This module uses the rdflib to handle RDF triples in a Graph instance in preparation for conversion
-into a turtle or other RDF format.
+This module uses the rdflib module to handle RDF triples in a Graph instance in preparation for conversion
+into a turtle file (.ttl) or other RDF format.
 
 The format to add triples would be:
 
@@ -25,9 +23,9 @@ Examples:
     organism = "ecoli"
     tid = "562"
 
-    g.add( (superphy[organism], superphy.has_taxonomy_id, Literal(str(tid), datatype=XSD.string) )
+    g.add( (superphy[organism], superphy.has_taxonomy_id, Literal(tid, datatype=XSD.string) )
 
-If you want to have an RDF object with many optional arguments, Genome is a good example.
+If you want to contruct an RDF object with many optional arguments, the Genome class is a good example.
 
 Classes:
     NamedIndividual: superclass of all RDF Objects
@@ -48,13 +46,19 @@ Classes:
     PendingGenome: a genome that has not finished processing
     CompletedGenome: a genome that has finished processing
     Sequence: a DNA sequence belonging to a genome
-
-Methods:
-    generate_output: returns RDF Graph data into a turtle string and clears the Graph
-    generate_file_output: exports RDF Graph data in turtle format to a given destination and clears the Graph
 """
 
-# initialize a Graph
+from rdflib import Literal, Namespace, XSD
+
+import _sparql
+
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
+
 
 # setting up namespaces for use
 n = Namespace("https://github.com/superphy#")
@@ -65,24 +69,29 @@ xsd = Namespace("http://www.w3.org/2001/XMLSchema#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
+
 class NamedIndividual(object):
     """
-    The superclass for all RDF Objects (excluding Blank Nodes as they are not named)
+    The superclass for all RDF Object instances (excluding Blank Nodes as they are not named)
     """
 
     def __init__(self, graph, name):
         """
         Create a NamedIndividual with associated metadata
+
+        Args:
+            graph (rdflib.Graph): container object to store RDF triples
+            name (str): name of the instance
         """
         self.graph = graph
         self.name = name
 
     def rdf(self):
         """
-        Convert NamedIndividual metadata into RDF
+        Convert NamedIndividual metadata into RDF and adds them to the graph
         """
 
-        self.graph.add( (n[self.name], rdf.type, owl.NamedIndividual) )
+        self.graph.add((n[self.name], rdf.type, owl.NamedIndividual))
 
 
 class User(NamedIndividual):
@@ -95,25 +104,26 @@ class User(NamedIndividual):
         Create a new User with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             email (str): is both the individual name, and the only field literal
         """
 
-        super(User,self).__init__(graph, email)
+        super(User, self).__init__(graph, email)
         self.email = email
 
     def rdf(self):
         """
-        Convert User metadata into RDF
+        Convert User metadata into RDF and adds them to the graph
         """
 
         super(User, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.User) )
-        self.graph.add( (n[self.name], n.email, Literal(str(self.email), datatype = XSD.string)))
+        self.graph.add((n[self.name], rdf.type, n.User))
+        self.graph.add((n[self.name], n.email, Literal(str(self.email), datatype=XSD.string)))
 
 
 class Organism(NamedIndividual):
     """
-    A organism
+    A biological organism with associated metadata.
     """
 
     def __init__(self, graph, name, label, scientific_name, common_name, taxonomy_id=None):
@@ -121,6 +131,7 @@ class Organism(NamedIndividual):
         Create an Organism with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             name (str): the name of the Organism
             label (str): a label used by Meta::Miner to refer to the Organism
             scientific_name (str): the scientific name (genus species) of the Organism
@@ -136,20 +147,20 @@ class Organism(NamedIndividual):
 
     def rdf(self):
         """
-        Convert Organism metadata into RDF
+        Convert Organism metadata into RDF and adds them to the graph
         """
 
         super(Organism, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Organism) )
-        self.graph.add( (n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)) )
-        self.graph.add( (n[self.name], n.scientific_name, Literal(str(self.scientific_name), datatype=XSD.string)) )
-        self.graph.add( (n[self.name], n.common_name, Literal(str(self.common_name), datatype=XSD.string)) )
-        self.graph.add( (n[self.name], n.has_taxonomy_id, Literal(str(self.taxonomy_id), datatype=XSD.string)) )
+        self.graph.add((n[self.name], rdf.type, n.Organism))
+        self.graph.add((n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)))
+        self.graph.add((n[self.name], n.scientific_name, Literal(str(self.scientific_name), datatype=XSD.string)))
+        self.graph.add((n[self.name], n.common_name, Literal(str(self.common_name), datatype=XSD.string)))
+        self.graph.add((n[self.name], n.has_taxonomy_id, Literal(str(self.taxonomy_id), datatype=XSD.string)))
 
 
 class Host(Organism):
     """
-    A host for another organism
+    A host organism for another organism with associated metadata
     """
 
     def __init__(self, graph, name, label, scientific_name, common_name, host_category, taxonomy_id=None):
@@ -166,28 +177,28 @@ class Host(Organism):
 
     def rdf(self):
         """
-        Convert Host metadta into RDF
+        Convert Host metadata into RDF and adds them to the graph
         """
 
         super(Host, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Host) )
-        self.graph.add( (n[self.name], n.has_host_category, n[self.host_category]) )
-        self.graph.add( (n[self.host_category], n.is_host_category_of, n[self.name]) )
+        self.graph.add((n[self.name], rdf.type, n.Host))
+        self.graph.add((n[self.name], n.has_host_category, n[self.host_category]))
+        self.graph.add((n[self.host_category], n.is_host_category_of, n[self.name]))
         FromHost(self.graph, self.name, self.host_category).rdf()
 
 
 class Microbe(Organism):
     """
-    A microbe
+    A microbe with associated metadata
     """
 
     def rdf(self):
         """
-        Convert Microbe metadata into RDF
+        Convert Microbe metadata into RDF and adds them to the graph
         """
 
         super(Microbe, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Microbe) )
+        self.graph.add((n[self.name], rdf.type, n.Microbe))
 
 
 class Attribute(NamedIndividual):
@@ -197,11 +208,11 @@ class Attribute(NamedIndividual):
 
     def rdf(self):
         """
-        Convert Attribute metadata into RDF
+        Convert Attribute metadata into RDF and adds them to the graph
         """
 
         super(Attribute, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Attribute) )
+        self.graph.add((n[self.name], rdf.type, n.Attribute))
 
 
 class HostCategory(Attribute):
@@ -216,6 +227,7 @@ class HostCategory(Attribute):
         Create a HostCategory with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             name (str): name of the HostCategory
             label (str): a label used by Meta::Miner to refer to the HostCategory
         """
@@ -225,12 +237,12 @@ class HostCategory(Attribute):
 
     def rdf(self):
         """
-        Convert HostCategory metadata into RDF
+        Convert HostCategory metadata into RDF and adds them to the graph
         """
 
         super(Attribute, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.host_category) )
-        self.graph.add( (n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)) )
+        self.graph.add((n[self.name], rdf.type, n.host_category))
+        self.graph.add((n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)))
 
 
 class IsolationAttribute(Attribute):
@@ -242,11 +254,11 @@ class IsolationAttribute(Attribute):
 
     def rdf(self):
         """
-        Convert IsolationAttribute metadata into RDF
+        Convert IsolationAttribute metadata into RDF and adds them to the graph
         """
 
         super(IsolationAttribute, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.isolation_attribute) )
+        self.graph.add((n[self.name], rdf.type, n.isolation_attribute))
 
 
 class FromHost(IsolationAttribute):
@@ -259,6 +271,7 @@ class FromHost(IsolationAttribute):
         Create a FromHost with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             host (str): the host that FromHost references
             host_category (str): the host category that FromHost belongs to
         """
@@ -270,15 +283,15 @@ class FromHost(IsolationAttribute):
 
     def rdf(self):
         """
-        Convert FromHost metadata into RDF
+        Convert FromHost metadata into RDF and adds them to the graph
         """
 
         super(FromHost, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.isolation_from_host) )
-        self.graph.add( (n[self.name], n.has_object, n[self.host]) )
-        self.graph.add( (n[self.host], n.is_object_of, n[self.name]))
-        self.graph.add( (n[self.name], n.has_host_category, n[self.host_category]) )
-        self.graph.add( (n[self.host_category], n.is_host_category_of, n[self.name]) )
+        self.graph.add((n[self.name], rdf.type, n.isolation_from_host))
+        self.graph.add((n[self.name], n.has_object, n[self.host]))
+        self.graph.add((n[self.host], n.is_object_of, n[self.name]))
+        self.graph.add((n[self.name], n.has_host_category, n[self.host_category]))
+        self.graph.add((n[self.host_category], n.is_host_category_of, n[self.name]))
 
 
 class FromSource(IsolationAttribute):
@@ -291,6 +304,7 @@ class FromSource(IsolationAttribute):
         Create a FromSource with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             name (str): the name of the FromSource
             label (str): a label used by Meta::Miner to refer to the FromSource
             host_category (str): the host category of the FromSource
@@ -302,14 +316,14 @@ class FromSource(IsolationAttribute):
 
     def rdf(self):
         """
-        Convert FromSource metadata into RDF
+        Convert FromSource metadata into RDF and adds them to the graph
         """
 
         super(FromSource, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.isolation_from_source) )
-        self.graph.add( (n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)) )
-        self.graph.add( (n[self.name], n.has_host_category, n[self.host_category]) )
-        self.graph.add( (n[self.host_category], n.is_host_category_of, n[self.name]) )
+        self.graph.add((n[self.name], rdf.type, n.isolation_from_source))
+        self.graph.add((n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)))
+        self.graph.add((n[self.name], n.has_host_category, n[self.host_category]))
+        self.graph.add((n[self.host_category], n.is_host_category_of, n[self.name]))
 
 
 class IsolationSyndrome(IsolationAttribute):
@@ -322,6 +336,7 @@ class IsolationSyndrome(IsolationAttribute):
         Create an IsolationSyndrome with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             name (str): the name of the IsolationSyndrome
             label (str): a label used by Meta::Miner to refer to the IsolationSyndrome
             host_category (str): the host category of the IsolationSyndrome
@@ -332,14 +347,14 @@ class IsolationSyndrome(IsolationAttribute):
 
     def rdf(self):
         """
-        Convert IsolationSyndrome metadata into RDF
+        Convert IsolationSyndrome metadata into RDF and adds them to the graph
         """
 
         super(IsolationSyndrome, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.isolation_syndrome) )
-        self.graph.add( (n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)) )
-        self.graph.add( (n[self.name], n.has_host_category, n[self.host_category]) )
-        self.graph.add( (n[self.host_category], n.is_host_category_of, n[self.name]) )
+        self.graph.add((n[self.name], rdf.type, n.isolation_syndrome))
+        self.graph.add((n[self.name], rdfs.label, Literal(str(self.label), datatype=XSD.string)))
+        self.graph.add((n[self.name], n.has_host_category, n[self.host_category]))
+        self.graph.add((n[self.host_category], n.is_host_category_of, n[self.name]))
 
 
 class Serotype(Attribute):
@@ -349,11 +364,11 @@ class Serotype(Attribute):
 
     def rdf(self):
         """
-        Convert Serotype metadata into RDF
+        Convert Serotype metadata into RDF and adds them to the graph
         """
 
         super(Serotype, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.serotype) )
+        self.graph.add((n[self.name], rdf.type, n.serotype))
 
 
 class Otype(Serotype):
@@ -366,18 +381,21 @@ class Otype(Serotype):
         Create a Otype with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             id (str): the id of the O antigen
         """
-
+        self.id = str(id)
         self.name = "O" + str(id)
         super(Otype, self).__init__(graph, self.name)
 
     def rdf(self):
         """
-        Convert Otype metadata into RDF
+        Convert Otype metadata into RDF and adds them to the graph
         """
         super(Otype, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Otype) )
+        self.graph.add((n[self.name], rdf.type, n.Otype))
+        literal = Literal(self.id, datatype=XSD.string)
+        self.graph.add((n[self.name], rdfs.label, literal))
 
 
 class Htype(Serotype):
@@ -390,19 +408,22 @@ class Htype(Serotype):
         Create a Htype with associated metadata
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             id (str): the id of the H antigen
         """
-
+        self.id = str(id)
         self.name = "H" + str(id)
         super(Htype, self).__init__(graph, self.name)
 
     def rdf(self):
         """
-        Convert Htype metadata into RDF
+        Convert Htype metadata into RDF and adds them to the graph
         """
 
         super(Htype, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Htype) )
+        self.graph.add((n[self.name], rdf.type, n.Htype))
+        literal = Literal(self.id, datatype=XSD.string)
+        self.graph.add((n[self.name], rdfs.label, literal))
 
 
 class Genome(NamedIndividual):
@@ -423,21 +444,22 @@ class Genome(NamedIndividual):
             searchparam: list of keywords to filter kwargs by
 
         Args:
+            graph (rdflib.Graph): container object to store RDF triples
             name (str): name of the Genome
-            kwargs (dict): optional arguments for Genome, that will be filtered for
+            **kwargs (dict): optional arguments for Genome, that will be filtered for
                            spurious entries
 
         """
 
-        searchparam = ["date", "location", "accession", "bioproject", "biosample", "strain", "organism", "host",
-                       "source", "syndrome", "Htype", "Otype", "User"]
+        searchparam = ["isolation_date", "isolation_location", "accession", "bioproject", "biosample", "strain",
+                       "organism", "isolation_host", "isolation_source", "syndrome", "Htype", "Otype", "User"]
 
         super(Genome, self).__init__(graph, name)
-        self.kwargs = {key:value for key, value in kwargs.items() if key in searchparam}
+        self.kwargs = {key: value for key, value in kwargs.items() if key in searchparam}
 
     def rdf(self):
         """
-        Convert all Genome metadata to RDF
+        Convert all Genome metadata to RDF and adds it to the graph
 
         To ensure that H and O types are assigned Unknowns, if kwargs does not include at least
         one of them, it would call the appropriate RDF method.
@@ -456,11 +478,11 @@ class Genome(NamedIndividual):
         for key, value in self.kwargs.iteritems():
             getattr(self, key)(value)
 
-        self.graph.add( (n[self.name], rdf.type, gfvo.Genome) )
+        self.graph.add((n[self.name], rdf.type, gfvo.Genome))
 
-    def date(self, date):
+    def isolation_date(self, date):
         """
-        Convert all date entries into RDF
+        Convert all date entries into RDF and adds them to the graph
 
         Args:
             date: a collection of sampling dates for the Genome in the XSD date format (YYYY-MM-DD)
@@ -468,11 +490,11 @@ class Genome(NamedIndividual):
 
         for item in date:
             literal = Literal(item, datatype=XSD.date)
-            self.graph.add( (n[self.name], n.has_isolation_date, literal) )
+            self.graph.add((n[self.name], n.has_isolation_date, literal))
 
-    def location(self, location):
+    def isolation_location(self, location):
         """
-        Convert all location entries into RDF
+        Convert all location entries into RDF and adds them to the graph
 
         Args:
             location: a collection of sampling locations for the Genome
@@ -480,23 +502,23 @@ class Genome(NamedIndividual):
 
         for item in location:
             literal = Literal(item, datatype=XSD.string)
-            self.graph.add( (n[self.name], n.has_geographic_location, literal) )
+            self.graph.add((n[self.name], n.has_geographic_location, literal))
 
     def accession(self, accession):
         """
-        Convert all NCBI Genbank/Nuccore accession numbers into RDF
+        Convert all NCBI Genbank/Nucleotide accession numbers into RDF and adds then to the graph
 
         Args:
-            accession: a collection of Nuccore accession ids associated with the Genome
+            accession: a collection of Nucleotide accession ids associated with the Genome
         """
 
         for item in accession:
             literal = Literal(item, datatype=XSD.string)
-            self.graph.add( (n[self.name], n.has_accession, literal) )
+            self.graph.add((n[self.name], n.has_accession, literal))
 
     def bioproject(self, bioproject):
         """
-        Convert all BioProject ids into RDF
+        Convert all BioProject ids into RDF and adds them to the graph
 
         Args:
             bioproject: a collection of BioProject ids associated with the Genome
@@ -504,11 +526,11 @@ class Genome(NamedIndividual):
 
         for item in bioproject:
             literal = Literal(item, datatype=XSD.string)
-            self.graph.add( (n[self.name], n.has_bioproject, literal) )
+            self.graph.add((n[self.name], n.has_bioproject, literal))
 
     def biosample(self, biosample):
         """
-        Convert all BioSample ids into RDF
+        Convert all BioSample ids into RDF and adds them to the graph
 
         Args:
             biosample: a collection of BioSample ids associated with the Genome
@@ -516,11 +538,11 @@ class Genome(NamedIndividual):
 
         for item in biosample:
             literal = Literal(item, datatype=XSD.string)
-            self.graph.add( (n[self.name], n.has_biosample, literal) )
+            self.graph.add((n[self.name], n.has_biosample, literal))
 
     def strain(self, strain):
         """
-        Convert all strain names into RDF
+        Convert all strain names into RDF and adds them to the graph
 
         Args:
             strain: a collection of strain names associated with the Genome
@@ -528,61 +550,61 @@ class Genome(NamedIndividual):
 
         for item in strain:
             literal = Literal(item, datatype=XSD.string)
-            self.graph.add( (n[self.name], n.has_strain, literal) )
+            self.graph.add((n[self.name], n.has_strain, literal))
 
     def organism(self, organism):
         """
-        Convert organism into RDF
+        Convert organism into RDF and adds it to the graph
 
         Args:
             organism (str): name of the organism of the Genome
         """
 
-        self.graph.add( (n[self.name], n.is_genome_of, n[organism]))
-        self.graph.add( (n[organism], n.has_genome, n[self.name]))
+        self.graph.add((n[self.name], n.is_genome_of, n[organism]))
+        self.graph.add((n[organism], n.has_genome, n[self.name]))
 
-    def host(self, from_host):
+    def isolation_host(self, from_host):
         """
-        Convert all host data into RDF
+        Convert all host data into RDF and adds them to the graph
 
         Args:
             from_host: a collection of hosts that the Genome has been sampled from
         """
 
         for item in from_host:
-            node = sparql.find_from_host(item).split("#", 1)[1]
-            self.graph.add( (n[self.name], n.has_isolation_attribute, n[node]) )
-            self.graph.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
+            node = _sparql.find_from_host(item)
+            self.graph.add((n[self.name], n.has_isolation_attribute, n[node]))
+            self.graph.add((n[node], n.is_isolation_attribute_of, n[self.name]))
 
-    def source(self, from_source):
+    def isolation_source(self, from_source):
         """
-        Convert all source data into RDF
+        Convert all source data into RDF and adds them to the graph
 
         Args:
             from_source: a collection of biological sources that the Genome has been sampled from
         """
 
         for item in from_source:
-            node = sparql.find_source(item).split("#", 1)[1]
-            self.graph.add( (n[self.name], n.has_isolation_attribute, n[node]) )
-            self.graph.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
+            node = _sparql.find_source(item)
+            self.graph.add((n[self.name], n.has_isolation_attribute, n[node]))
+            self.graph.add((n[node], n.is_isolation_attribute_of, n[self.name]))
 
     def syndrome(self, syndrome):
         """
-        Convert all syndrome data into RDF
+        Convert all syndrome data into RDF and adds them to the graph
 
         Args:
             syndrome: a collection of syndromes associated with the Genome
         """
 
         for item in syndrome:
-            node = sparql.find_syndrome(item).split("#", 1)[1]
-            self.graph.add( (n[self.name], n.has_isolation_attribute, n[node]) )
-            self.graph.add( (n[node], n.is_isolation_attribute_of, n[self.name]) )
+            node = _sparql.find_syndrome(item)
+            self.graph.add((n[self.name], n.has_isolation_attribute, n[node]))
+            self.graph.add((n[node], n.is_isolation_attribute_of, n[self.name]))
 
     def Htype(self, Htype=None):
         """
-        Convert H serotype into RDF
+        Convert H serotype into RDF and adds it to the graph
 
         Args:
             Htype: the id of the H-antigen associated with the Genome, or None if not provided
@@ -597,7 +619,7 @@ class Genome(NamedIndividual):
 
     def Otype(self, Otype=None):
         """
-        Convert O serotype into RDF
+        Convert O serotype into RDF and adds it to the graph
 
         Args:
             Otype: the id of the O-antigen associated with the Genome, or None if not provided
@@ -612,14 +634,14 @@ class Genome(NamedIndividual):
 
     def User(self, User):
         """
-        Converts User id into RDF
+        Converts User id into RDF and adds it to the graph
 
         Args:
-            User: the id of the user who uploaded the Genome, restricting permissions to him
+            User: the id of the user who uploaded the Genome, restricting permissions to that user
         """
 
-        self.graph.add( (n[self.name], n.is_owned_by, n[User]) )
-        self.graph.add( (n[User], n.owns, n[self.name]) )
+        self.graph.add((n[self.name], n.is_owned_by, n[User]))
+        self.graph.add((n[User], n.owns, n[self.name]))
 
 
 class PendingGenome(Genome):
@@ -632,11 +654,11 @@ class PendingGenome(Genome):
 
     def rdf(self):
         """
-        Convert all PendingGenome variables to RDF and tags the Genome as a PendingGenome
+        Convert all PendingGenome variables to RDF, tags the Genome as a PendingGenome, and adds them to the graph
         """
 
         super(PendingGenome, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.pending_genome) )
+        self.graph.add((n[self.name], rdf.type, n.pending_genome))
 
 
 class CompletedGenome(Genome):
@@ -649,48 +671,78 @@ class CompletedGenome(Genome):
 
     def rdf(self):
         """
-        Convert all CompletedGenome variables to RDF and tags the Genome as a CompletedGenome
+        Convert all CompletedGenome variables to RDF, tags the Genome as a CompletedGenome, and adds them to the graph
 
         """
 
         super(CompletedGenome, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.completed_genome) )
+        self.graph.add((n[self.name], rdf.type, n.completed_genome))
 
 
 class Sequence(NamedIndividual):
-    def __init__(self, graph, name, genome, sequence, bp, contigs):
+    """
+    A sequence and its associated informatics metadata.
+
+    """
+
+    def __init__(self, graph, name, genome, sequences, bp, contigs, checksum, is_from):
+        """
+        Create a Sequence with its associated metadata.
+
+        Args:
+            graph(rdflib.Graph): container object to store RDF triples
+            name (str): name of the sequence (Genome name with "_seq" appended to it
+            genome (str): the genome that the sequence belongs to
+            sequence (list[str]): a list of sequences (contigs) that the sequence record has
+            bp (int): number of base pairs in the sequence
+            contigs (int): number of contiguous sequences in the sequence
+            checksum (str): the hash generated from a hashlib used to confirm sequences are unique
+            is_from (str): identifier explaining origin of sequence (e.g. WGS, PLASMID, CORE)
+
+        """
         super(Sequence, self).__init__(graph, name)
         self.genome = genome
-        self.sequence = sequence
+        self.sequences = sequences
         self.bp = bp
         self.contigs = contigs
+        self.checksum = checksum
+        self.is_from = is_from
+
 
     def rdf(self):
+        """
+        Convert all Sequence variables to RDF and adds it to the graph
+
+        """
         super(Sequence, self).rdf()
-        self.graph.add( (n[self.name], rdf.type, n.Sequence) )
-        self.graph.add( (n[self.name], n.has_value, Literal(str(self.sequence), datatype=XSD.string)) )
-        self.graph.add( (n[self.name], n.has_base_pair, Literal(str(self.bp), datatype=XSD.int)))
-        self.graph.add( (n[self.name], n.has_contigs, Literal(str(self.contigs), datatype=XSD.int)))
-        self.graph.add( (n[self.genome], n.has_sequence, n[self.name]) )
-        self.graph.add( (n[self.name], n.is_sequence_of, n[self.genome]) )
+        self.graph.add((n[self.name], rdf.type, n.Sequence))
+
+        for sequence in self.sequences:
+            self.graph.add((n[self.name], n.has_value, Literal(str(sequence), datatype=XSD.string)))
+
+        self.graph.add((n[self.name], n.has_base_pair, Literal(str(self.bp), datatype=XSD.int)))
+        self.graph.add((n[self.name], n.has_contigs, Literal(str(self.contigs), datatype=XSD.int)))
+        self.graph.add((n[self.name], n.has_checksum, Literal(str(self.checksum), datatype=XSD.string)))
+        self.graph.add((n[self.name], n.is_from, Literal(str(self.is_from), datatype=XSD.string)))
+        self.graph.add((n[self.genome], n.has_sequence, n[self.name]))
+        self.graph.add((n[self.name], n.is_sequence_of, n[self.genome]))
 
 
-def generate_output(graph):
-    """
-    Returns RDF Graph data in the turtle format and clears the Graph
-    """
+    def add_seq_validation(self, boolean):
+        """
+        Converts result of sequence validation to RDF and adds it to the graph
 
-    output = graph.serialize(format="turtle")
-    graph.remove( (None, None, None) )
-    return output
+        Args:
+            boolean (bool): indicates whether or not the sequence has passed validation
+        """
+        self.graph.add((n[self.genome], n.has_valid_sequence, Literal(str(boolean), datatype=XSD.string)))
 
-def generate_file_output(graph, destination):
-    """
-    Export RDF Graph data to a turtle file at the given destination
+    def add_hits(self, hits):
+        """
+        Converts a list of hits from sequence validation to RDF and adds it to the graph
 
-    Args:
-        destination: an internal filepath relative to the  __init__.py file this module belongs to
-    """
-
-    graph.serialize(destination=destination, format="turtle")
-    graph.remove( (None, None, None) )
+        Args:
+            hits(list[str]): list of validating regions that the sequence had 90%+ identity with
+        """
+        for hit in hits:
+            self.graph.add((n[self.name], n.has_hit, Literal(str(hit), datatype=XSD.string)))

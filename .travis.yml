@@ -4,17 +4,23 @@ python:
   - "2.7"
 
 addons:
-  firefox: "41.0"
+  firefox: latest-esr
   apt:
     packages:
     - libyajl1
 
+cache:
+  directories:
+  - venv
+  - db
+  - blast
+
+before_cache:
+ - rm -f venv/lib/python2.7/site-packages/superphy
+
 install:
-  - virtualenv --no-site-packages venv
-  - source venv/bin/activate
-  - pip install --upgrade pip
-  - pip install -r venv/requirements.txt
-  - nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
-  
+ - bash bash/travis_install.sh
+
 # command to run tests
-script: xvfb-run -a nosetests && cd tests && xvfb-run -a jasmine-ci && cd ../
+script:
+ - bash bash/test

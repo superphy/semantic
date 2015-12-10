@@ -1,0 +1,9 @@
+CBWT000000000 failed validation: the number of hits was not valid
+JNPC00000000 failed validation: the number of hits was not valid
+JOQX00000000 failed validation: the number of hits was not valid
+CBVN000000000 failed validation: the base pair count was not valid
+CBVN000000000 failed validation: the number of hits was not valid
+JHNY00000000 failed validation: the number of hits was not valid
+ADBT00000000 failed validation: the number of hits was not valid
+JNPD00000000 failed validation: the number of hits was not valid
+CBWP000000000 failed validation: the number of hits was not valid

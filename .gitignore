@@ -1,7 +1,9 @@
 #Superphy
 
-#Graph Database
+#Applications
 db
+blast
+!python_package/uploader/data/blast
 
 ontology/setup.ttl
 
@@ -67,6 +69,7 @@ venv/lib/python2.7/*
 venv/lib/python2.7/site-packages/*
 !venv/lib/python2.7/site-packages/superphy
 
+#Temporary Files
 python_package/uploader/outputs/errors.txt
 app/static/css/all.min.css
 app/static/js/all.min.js
