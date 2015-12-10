@@ -9,14 +9,22 @@ var rename = require('gulp-rename');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
+var flatten = require('gulp-flatten');
+var streamqueue = require('streamqueue');
 
 gulp.task('coffee_to_js',  function() {
-  return gulp.src(['./coffee/*.coffee'])
-      .pipe(concat('all.coffee'))
-      .pipe(coffee())
-      //.pipe(uglify())
+	return streamqueue ({ objectMode: true},
+		//Add additional subfolders here
+		gulp.src(['./coffee/gbrowse/*.coffee']),
+    gulp.src(['./coffee/home/*.coffee']),
+		gulp.src(['./coffee/*.coffee'])
+	)
+  	   	.pipe(flatten())
+		.pipe(concat('all.coffee'))
+		.pipe(coffee())
+      	//.pipe(uglify())
         .pipe(rename({
-          extname: '.min.js'
+        	extname: '.min.js'
         }))
         .pipe(gulp.dest('./js')
     );

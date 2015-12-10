@@ -2,11 +2,11 @@ class Header
 
     #a list to be passed to the link generator function
     links: [
-        {title: "Home", url: "/home"}
+        {title: "Gnome", url: "/home"}
         {title: "Group Browse", url: "/gbrowse"}
         {title: "Group Analyses", url: "/groups"}
         {title: "VF and AMR", url: "/factors"}
-        {title: "Flask - Hello", url: "/hello"}
+        {title: "Meta", url: "/meta"}
     ]
 
     controller: ->
@@ -28,4 +28,3 @@ class Header
             ])
         ])
 
-header = new Header()

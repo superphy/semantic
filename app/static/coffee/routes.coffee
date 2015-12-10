@@ -1,16 +1,12 @@
+header = new Header()
+meta = new App
+
 class Routes
-    locations: ->
-        m.route(document.body, "/", {
-          "/": home
-          "/home": home
-          #"/login": login
-          "/hello": hello
-      })
-
-routes = new Routes()
-routes.locations()
-
-
-
-
-
+	home = new Home
+	m.route(document.body, "/", {
+		"/": home
+		"/home": home
+		"/meta": meta
+		"/gbrowse": meta
+		"/groups": meta
+	})

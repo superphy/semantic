@@ -42,4 +42,4 @@ class Home
             ])
         ]
 
-home = new Home()
+

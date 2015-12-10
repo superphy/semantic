@@ -5,7 +5,7 @@ db
 blast
 !python_package/uploader/data/blast
 
-
+ontology/setup.ttl
 
 #Debugging email log
 email.log
