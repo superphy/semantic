@@ -7,16 +7,13 @@ class App
         @model()
         return
     view: () =>
-        [
-            #try m("div", ["object1" ,@pageNumber.view()])
-            #try m("div", ["object2" ,@pageNumber2.view()])
-            #try m("div", ["object1" ,@pageNumber.view()])
+        return [
             header.view()
             @table.view()
         ]
 
 class Data
-    model: () =>
+    model: (json = {}) =>
         meta=(response)=>
             @headers = response.head.vars
             @genomes = response.results.bindings
@@ -24,12 +21,14 @@ class Data
         m.request(
             method: "POST",
             url: 'http://10.139.14.121:5000/mithril/meta',
-            data: {}
+            data: json
             datatype: 'json'
             type: meta)
     #controller
-    constructor: () ->
-        @model()
+    request: (json = {}) =>
+    	@model(json)
+    constructor: (json = {}) ->
+        @model(json)
     #view
     response: () =>
         return {
@@ -164,10 +163,12 @@ class Header
             ])
         ])
 
+
+#Singleton?
 header = new Header()
 meta = new App
-
 home = new Home
+
 m.route(document.body, "/", {
     "/": home
     "/home": home
