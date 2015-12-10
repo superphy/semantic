@@ -20,13 +20,13 @@ class Data
             return
         m.request(
             method: "POST",
-            url: 'http://10.139.14.121:5000/mithril/meta',
+            url: 'http://' + location.hostname + ':5000/mithril/meta',
             data: json
             datatype: 'json'
             type: meta)
     #controller
     request: (json = {}) =>
-    	@model(json)
+        @model(json)
     constructor: (json = {}) ->
         @model(json)
     #view
