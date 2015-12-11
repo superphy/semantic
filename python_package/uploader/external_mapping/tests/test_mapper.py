@@ -24,30 +24,36 @@ __email__ = "matthew.whiteside@canada.ca"
 
 class MapperTestCase(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
         """
         Create tmp directory & logging 
 
         """
-        self.test_dir = tempfile.mkdtemp()
-        print "Tmpdir: %s"%self.test_dir
+        cls.test_dir = tempfile.mkdtemp()
+        print "Tmpdir: %s"%cls.test_dir
 
         logger = logging.getLogger('mapper.py test')
         logger.setLevel(logging.DEBUG)
-        fh = logging.FileHandler(self.test_dir + '/mapper_tests.log')
+        fh = logging.FileHandler(cls.test_dir + '/mapper_tests.log')
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         fh.setFormatter(formatter)
         logger.addHandler(fh)
-        self.logger = logger
+        cls.logger = logger
 
-       
-    def tearDown(self):
+
+    @classmethod
+    def tearDownClass(self):
         """
         Remove tmp directory
 
         """
     
         #shutil.rmtree(self.test_dir)
+
+
+    def setUp(self):
+        self.logger.info("\n\n\n**********START OF NEW TEST*********\n\n")
 
 
     # Test initialization of Mapper object with various decision_tree JSON objects
@@ -170,15 +176,15 @@ class MapperTestCase(unittest.TestCase):
         # Decision tree json file
         filenm1 = path.join(self.test_dir, 'invalid_decision_tree.json')
         with open(filenm1, 'w') as f1:
-            dt = { "test_host1": {
+            dt = { "test_host": {
                     "keep": True,
                     "validation_routines": ["hosts"],
                     "cleanup_routines": ["fix_human"]
                     },
-                "test_host2": {
+                "test_source": {
                     "keep": True,
-                    "validation_routines": ["hosts"],
-                    "cleanup_routines": ["fix_cow"]
+                    "validation_routines": ["sources"],
+                    "cleanup_routines": []
                     },
                 }
             json.dump(dt, f1)
@@ -193,8 +199,8 @@ class MapperTestCase(unittest.TestCase):
         filenm3 = path.join(self.test_dir, 'inputs.json')
         with open(filenm3, 'w') as f3:
             meta = { "accession1": {
-                    "test_host1": "human",
-                    "test_host2": "cow"
+                    "test_host": "human",
+                    "test_source": "soil"
                 }
             }
             json.dump(meta, f3)

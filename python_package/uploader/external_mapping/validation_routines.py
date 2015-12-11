@@ -91,3 +91,53 @@ def hosts(v, mapper):
         return False
 
 
+def sources(v, mapper):
+    """Checks for match against known source values
+
+    Note: the cleanup routines should handle any
+    synonyms
+    
+    """
+
+    if _exact_match(v, mapper.ontology('source').uri_list()):
+        return [('source', v)]
+    else:
+        return False
+
+
+def syndromes(v, mapper):
+    """Checks for match against known syndrome values
+
+    Note: the cleanup routines should handle any
+    synonyms
+    
+    """
+
+    if _exact_match(v, mapper.ontology('syndrome').uri_list()):
+        return [('syndrome', v)]
+    else:
+        return False
+
+
+def multi_syndromes(v, mapper):
+    """Splits disease descriptions into individual syndrome values
+    
+    """
+  
+    breakdowns = {
+        'uti induced bacteremia': [
+            'uti',
+            'bacteremia'
+        ],
+        'hc, hus': [
+            'hc',
+            'hus'
+        ]
+    }
+    
+    if _exact_match(v, breakdowns.keys ):
+        return [ ('syndrome', i) for i in breakdowns[v] ]
+    else:
+        return False
+
+

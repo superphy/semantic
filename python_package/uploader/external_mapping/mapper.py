@@ -224,7 +224,12 @@ class Mapper(object):
         self.logger.info(self.unknowns.summary())
 
         if self.unknowns.unresolved_terms():
+            m = "Unknown values found in input. These must be handled"
+            self.logger.warn(m)
+            raise SuperphyMapperError(m)
             return False
+
+
 
         # Apply overrides that resolve issues like multiple hosts
         # for specific genomes
@@ -313,16 +318,16 @@ class Mapper(object):
 
                             for superphy_term,superphy_value in superphy_tuples:
                                 # Add each assigned key-value pair to genome record
-
+                               
                                 ontology_obj = self._ontologies[superphy_term]
                                 if ontology_obj:
                                     try:
                                         att_obj = ontology_obj.individual(superphy_value)
                                         getattr(genome, superphy_term)(att_obj)
                                         assigned = True
-                                    except:
+                                    except Exception, m:
                                         # Unknown ontology value, likely needs to be added to DB
-                                        pass
+                                        self.logger.warn(m)
 
                                 else:
                                     # Unrecognized superphy attribute, probably typo in decision tree json file

@@ -172,13 +172,112 @@ def fix_intestine(v):
 	"""
 
 	synonyms = [
-		'stool sample',
-		'fecal sample',
-		'feces envo:00002003',
-		'animal - feces',
-		'stool',
-		'fecal',
-		'feces'
+		"gastrointestinal_tract", 
+		"intestinal mucosa tissue",
+		"gastrointestinal"
 	]
 
-	return _replacement(v, synonyms, 'feces')
+	return _replacement(v, synonyms, 'intestine')
+
+
+# Convert all urinary tract synonyms
+def fix_ut(v):
+	"""Map intestine synonyms to intestine ontology uri
+
+	"""
+
+	synonyms = [
+		"urinary tract",
+		"urogenital_tract",
+		"genitourinary"
+	]
+	
+	return _replacement(v, synonyms, 'urogenital')
+
+
+def fix_water(v):
+	"""Map water source synonyms to environment:water uri
+
+	"""
+	
+	synonyms = [
+		"terrain - watershed",
+		"water - canal",
+		"water - river",
+		"water - stream",
+		"water - intake",
+		"water - waste water",
+		"agricultural - irrigation ditch",
+		"environmental water study",
+		"water study"
+		"water"
+	]
+	
+	return _replacement(v, synonyms, 'environment: water');
+
+
+def fix_syndromes(v):
+	"""Map several disease synonyms to their DB uri
+
+	"""
+	
+	success = False
+
+	diseases = {
+		"uti": ['urinary tract infection', 'recurrent uti'],
+		"hus": ['hemolytic uremic syndrome'],
+		"hc": ['hemorrhagic colitis'],
+		"septicaemia": ['sepsis'],
+		"diarrhea": ['travellers diarhhea']
+	}
+		
+	for d in diseases:
+		cleaned, clean_v = _replacement(v, diseases[d], d)
+
+		if cleaned: 
+			v = clean_v
+			success = True
+		
+	return (success, v);
+
+
+def fix_serotype(v):
+	"""Edit serotype so the follow standard nomenclature
+
+	"""
+
+	# Run serotype through some regex 'cleaners';
+	
+	# O fixes
+	new_v = re.sub(r'\:k\d+', '', v, flags=re.IGNORECASE) # Remove capsule
+	new_v = re.sub(r'\s*non-typable', 'nt', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'^ountypeable', 'ont', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'^o\?', 'ont', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'e. coli\s*\b', '', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'sf\?', '', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'^or', 'ont', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'^0', 'o', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'^(\d)', r'o\1', new_v, flags=re.IGNORECASE) # Put o in front of leading number
+	new_v = re.sub(r'^(o\d+)[a-z]+\:', r'\1\:', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'^o\d+\s*\,\s*o\d+[a-z]*+\:', r'ont\:', new_v, flags=re.IGNORECASE)
+	
+
+	# H fixes
+	new_v = re.sub(r'\:h-$', r'\:nm', new_v, flags=re.IGNORECASE) # Missing H
+	new_v = re.sub(r'\:hnm$', r'\:nm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:ut$', r'\:nm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:h\s*rough$', r'\:nm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'-$', r'\:nm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:huntypeable$', r'\:nm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:\?$', r'\:na', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'(o\d+)$', r'\1\:na', new_v, flags=re.IGNORECASE)
+	
+	# Remove trailing ???
+	new_v = re.sub(r'\s*\?+$', r'', new_v, flags=re.IGNORECASE)
+	
+	if new_v != v:
+		return (True, new_v)
+	else:
+		return (False, v)
+
+

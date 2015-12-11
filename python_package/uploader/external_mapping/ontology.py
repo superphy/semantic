@@ -239,7 +239,6 @@ class HostIndividual(object):
         return self._label
 
     
-
 class SourceOntology(AttributeOntology):
     """Interface for Source ontology
 
@@ -329,10 +328,24 @@ class SourceOntology(AttributeOntology):
             raise SuperphyMetaError("Unrecognized source uri: %s"%uri)
 
 
-class SourceIndividual(object):
-    """Represents instance of host attribute
+    def uri_list(self):
+        """Get list of value uri's for superphy term
 
-        Tracks category and label associated with host
+        Args:
+            None
+
+        Returns:
+            List: list of strings
+
+        """
+
+        return list(self._ontology.keys())
+
+
+class SourceIndividual(object):
+    """Represents instance of source attribute
+
+        Tracks category and label associated with source
 
     """
 
@@ -351,7 +364,7 @@ class SourceIndividual(object):
 
 
     def uri(self):
-        return self._uri()
+        return self._uri
 
     def category(self):
         return self._category
@@ -361,6 +374,156 @@ class SourceIndividual(object):
 
     def belongs(self, c):
         """Checks if category is in sources list of allowable categories
+
+        Args:
+            c(str): category name 
+
+        Returns:
+            bool
+
+        """
+
+        if c in self._category:
+            return True
+        else:
+            return False
+    
+
+class SyndromeOntology(AttributeOntology):
+    """Interface for Syndrome ontology
+
+
+    """
+    
+    def __init__(self, graph):
+        """Constructor
+
+        Retrieves ontology terms from DB
+
+        Args:
+            graph (object): SupephyGraph object
+
+        """
+        self._ontology = self._initialize_ontology(graph)
+
+        self._attribute_class = 'SyndromeIndividual'
+
+
+    def attribute_class(self):
+        """Attribute class represented by ontology
+
+        """
+        return self._attribute_class()
+
+
+    def _initialize_ontology(self, graph):
+        """Retrieves ontology terms from Superphy blazegraph
+        and initializes internal dictionary object
+
+        Args:
+            graph (object): SupephyGraph object
+
+        Returns:
+            dictionary: Ontology uri -> list of categories
+
+        """
+        
+        syndrome = graph.query(
+            """SELECT ?h ?c ?l
+               WHERE {
+                ?h a superphy:isolation_syndrome ;
+                superphy:has_host_category ?c ;
+                rdfs:label ?l .
+               }""")
+       
+        syndrome = strip_superphy_namespace(syndrome)
+        
+        ontology = {}
+        for s in syndrome:
+            uri = str(s[0])
+            cat = str(s[1])
+            lab = str(s[2])
+            if uri in ontology:
+                # Add new category
+                ontology[uri]['_category'].append(cat)
+            else:
+                # New source
+                ontology[uri] = {
+                    '_uri': uri,
+                    '_category': [ cat ],
+                    '_label': lab
+                }
+
+        return ontology
+
+
+    def individual(self, uri):
+        """If uri is part of ontology and
+        returns instance of attribute class if found.
+
+        Throws exception if none found
+
+        Args:
+            uri (string): uri in ontology
+
+        Returns:
+            object: Instance of attribute class matching uri
+
+        """
+        if uri in self._ontology:
+            syndrome = self._ontology[uri]
+            constuctor = globals()[self._attribute_class]
+            return constuctor(syndrome)
+        else:
+            raise SuperphyMetaError("Unrecognized syndrome uri: %s"%uri)
+
+
+    def uri_list(self):
+        """Get list of value uri's for superphy term
+
+        Args:
+            None
+
+        Returns:
+            List: list of strings
+
+        """
+
+        return list(self._ontology.keys())
+
+
+class SyndromeIndividual(object):
+    """Represents instance of syndrome attribute
+
+        Tracks category and label associated with syndrome
+
+    """
+
+    def __init__(self, *args, **kwargs):
+        """Constructor
+
+        Args:
+            args (dictionary): Expects keys '_uri', '_label', '_category'
+            kwargs (keywords): See above
+        """
+        for dictionary in args:
+            for key in dictionary:
+                setattr(self, key, dictionary[key])
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+
+
+    def uri(self):
+        return self._uri
+
+    def category(self):
+        return self._category
+
+    def label(self):
+        return self._label
+
+    def belongs(self, c):
+        """Checks if category is in syndrome list of allowable categories
 
         Args:
             c(str): category name 
@@ -491,6 +654,22 @@ class GenomeRecord(object):
 
         if not exists:
             self._host_list.append(host_individual)
+
+    def source(self, source_individual):
+        """Add isolation_source to source list if its a new unique source
+
+        """
+        
+        # Check if host already in list
+        exists = False
+        for i in self._source_list:
+            if source_individual.uri == i.uri:
+                exists = True
+                break
+
+        if not exists:
+            self._source_list.append(source_individual)
+
 
 
 
