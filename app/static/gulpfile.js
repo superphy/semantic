@@ -14,10 +14,10 @@ var streamqueue = require('streamqueue');
 
 gulp.task('coffee_to_js',  function() {
 	return streamqueue ({ objectMode: true},
-		//Add additional subfolders here
-		gulp.src(['./coffee/gbrowse/*.coffee']),
-    gulp.src(['./coffee/home/*.coffee']),
-		gulp.src(['./coffee/*.coffee'])
+		//By including __init__ last, every other class has initialized already.
+    gulp.src(['./coffee/!(__init__)*.coffee']),
+    gulp.src(['./coffee/*/*.coffee']),
+    gulp.src(['./coffee/__init__.coffee'])
 	)
   	   	.pipe(flatten())
 		.pipe(concat('all.coffee'))
@@ -49,4 +49,3 @@ gulp.task('minify_css', function() {
 gulp.task('default', ['less_to_css'], function() {
   gulp.start('coffee_to_js', 'minify_css');
 });
-
