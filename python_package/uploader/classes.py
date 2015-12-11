@@ -610,10 +610,7 @@ class Genome(NamedIndividual):
             Htype: the id of the H-antigen associated with the Genome, or None if not provided
         """
 
-        if Htype is None:
-            self.graph.add((n[self.name], n.has_Htype, n.HUnknown))
-            self.graph.add((n.HUnknown, n.is_Htype_of, n[self.name]))
-        else:
+        if Htype:
             self.graph.add((n[self.name], n.has_Htype, n["H" + str(Htype)]))
             self.graph.add((n["H" + str(Htype)], n.is_Htype_of, n[self.name]))
 
@@ -625,10 +622,7 @@ class Genome(NamedIndividual):
             Otype: the id of the O-antigen associated with the Genome, or None if not provided
         """
 
-        if Otype is None:
-            self.graph.add((n[self.name], n.has_Otype, n.OUnknown))
-            self.graph.add((n.OUnknown, n.is_Otype_of, n[self.name]))
-        else:
+        if Otype:
             self.graph.add((n[self.name], n.has_Otype, n["O" + str(Otype)]))
             self.graph.add((n["O" + str(Otype)], n.is_Otype_of, n[self.name]))
 
