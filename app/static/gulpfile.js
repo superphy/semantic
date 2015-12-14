@@ -15,8 +15,11 @@ var streamqueue = require('streamqueue');
 gulp.task('coffee_to_js',  function() {
 	return streamqueue ({ objectMode: true},
 		//By including __init__ last, every other class has initialized already.
-    gulp.src(['./coffee/!(__init__)*.coffee']),
+    gulp.src(['./coffee/Templates.coffee']),
+    gulp.src(['./coffee/Components/*.coffee']),
+    gulp.src(['./coffee/Pages/*.coffee']),
     gulp.src(['./coffee/*/*.coffee']),
+    gulp.src(['./coffee/!(__init__)*.coffee']),
     gulp.src(['./coffee/__init__.coffee'])
 	)
   	   	.pipe(flatten())
