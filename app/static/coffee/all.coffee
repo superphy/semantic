@@ -1,4 +1,29 @@
-class App
+###
+    Patterns
+###
+class Singleton
+    model: () =>
+    constructor: () ->
+        @model()
+    @get: ->
+        @instance ?= new @()
+        return @instance
+    @getView: () ->
+        return @get().view()
+    view: () ->    
+
+class Page_Template extends Singleton
+    model: () ->
+    controller: () ->
+    view: () ->
+        return [
+            Header.getView()
+        ]
+### 
+    /Patterns
+###
+
+class App extends Page_Template
     model: () =>
         @data ?= new Data()
         @table ?= new Table(@data)
@@ -8,7 +33,7 @@ class App
         return
     view: () =>
         return [
-            header.view()
+            Header.getView()
             @table.view()
         ]
 
@@ -96,7 +121,7 @@ events.sort_table = (list, attribute = 'data-sort-by') ->
         return
     }
 
-class Home
+class Home extends Page_Template
     model: =>
     controller: ->
 
@@ -104,8 +129,8 @@ class Home
     #Wrap as an array to return all elements
     view: ->
         [
-            header.view()
-            m("div", {class:'container', id:'home-beta'}, [
+            super()
+            m("div", {class:'container', id:'Home.get()-beta'}, [
                 m("div", {class:'row'}, [
                     m("div", {class:'well center-block'}, [
 
@@ -141,22 +166,17 @@ class Home
             ])
         ]
 
-class Header
+class Header extends Singleton
     #a list to be passed to the link generator function
     model: () => 
         @links = [
-            {title: "Gnome", url: "/home"}
+            {title: "Gnome", url: "/Home.get()"}
             {title: "Group Browse", url: "/gbrowse"}
             {title: "Group Analyses", url: "/groups"}
             {title: "VF and AMR", url: "/factors"}
             {title: "Meta", url: "/meta"}
         ]
         return
-    constructor: () ->
-        @model()
-    @get: () =>
-    	@instance ?= new @()
-    	return @instance
     view: ->
         m("div", {class:'container-fluid'}, [
             m("nav", {class:'navbar navbar-default navbar-fixed-top', role:'navigation'}, [
@@ -173,4 +193,11 @@ class Header
                 ])
             ])
         ])
-header = Header.get()
+
+m.route(document.body, "/", {
+    "/": Home.get()
+    "/home": Home.get()
+    "/meta": App.get()
+    "/gbrowse": App.get()
+    "/groups": App.get()
+})
