@@ -1,6 +1,7 @@
 ###
     Patterns
 ###
+
 class Singleton
     model: () =>
     constructor: () ->
@@ -20,10 +21,14 @@ class Page_Template extends Singleton
             Header.getView()
         ]
 ### 
-    /Patterns
+    Pages
 ###
+class Foo extends Page_Template
+    model: () =>
+    controller: =>
+    view: () =>
 
-class App extends Page_Template
+class GroupBrowse extends Page_Template
     model: () =>
         @data ?= new Data()
         @table ?= new Table(@data)
@@ -36,90 +41,6 @@ class App extends Page_Template
             Header.getView()
             @table.view()
         ]
-
-class Data
-    model: (json = {}) =>
-        meta=(response)=>
-            @headers = response.head.vars
-            @genomes = response.results.bindings
-            return
-        m.request(
-            method: "POST",
-            url: 'http://' + location.hostname + ':5000/mithril/meta',
-            data: json
-            datatype: 'json'
-            type: meta)
-    #controller
-    request: (json = {}) =>
-        @model(json)
-    constructor: (json = {}) ->
-        @model(json)
-    #view
-    response: () =>
-        return {
-            headers: @headers
-            genomes: @genomes
-        }
-
-class Table
-    ###
-        Set $numbers to false to not display the left column in the table
-        $pageY is window.pageYOffset (How far the user has scrolled down the page)
-        $pageHeight is window.innerHeight (the area visable to the user.)
-    ###
-    numbers = true
-    state = {pageY: 0, pageHeight: window.innerHeight}
-    window.addEventListener("scroll", (e) ->
-        state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
-        state.pageHeight = window.innerHeight
-        m.redraw())
-    constructor: (data) ->
-        @data = data
-    view: () ->
-        data = @data.response()
-        pageY = state.pageY
-        begin = pageY / 46 | 0
-        end = begin + (state.pageHeight /46 | 0 + 2)
-        offset = pageY % 46
-        m(".Occlusion", {style: {height: data.genomes.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
-            m("table", {style: {top: state.pageY + "px"}}, [
-                m("tr", [
-                    if numbers
-                        m 'th' , "Redering: " + (begin * 1 + 1) + " to " + (end) + ". pageHeight: " + state.pageHeight#"#"
-                    for header in data.headers
-                        m('th[data-sort-by=' + header + ']',events.sort_table(list = data.genomes) ,[header]) 
-                ])
-                for binding, x in data.genomes[begin ... end]
-                    m("tr",[ 
-                        if numbers
-                            m 'td', x * 1 + 1 + begin
-                        for item in data.headers
-                            try
-                                m("td", binding[item]["value"])
-                            catch
-                                m("td", "")
-                    ])
-            ])
-        ])
-events = {}
-events.sort_table = (list, attribute = 'data-sort-by') ->
-    { onclick: (e) ->     
-        numeric = true
-        item = e.target.getAttribute(attribute)
-        if item
-            first = list[0]
-            list.sort (a, b) ->
-                if isNaN(parseFloat(a[item]["value"] * 1))
-                    if isNaN(parseFloat(b[item]["value"] * 1))
-                        if a[item]["value"] > b[item]["value"] then 1 else if b[item]["value"] > a[item]["value"] then -1 else 0
-                    else -1
-                else if isNaN(parseFloat(b[item]["value"] * 1)) then 1
-                else if a[item]["value"] * 1 < b[item]["value"] * 1 then 1 else if b[item]["value"] * 1 < a[item]["value"] * 1 then -1 else 0
-
-            if first == list[0]
-                list.reverse()
-        return
-    }
 
 class Home extends Page_Template
     model: =>
@@ -166,6 +87,79 @@ class Home extends Page_Template
             ])
         ]
 
+###
+    Components
+###
+
+class Data
+    model: (json = {}) =>
+        meta=(response)=>
+            @headers = response.head.vars
+            @genomes = response.results.bindings
+            return
+        m.request(
+            method: "POST",
+            url: 'http://' + location.hostname + ':5000/mithril/meta',
+            data: json
+            datatype: 'json'
+            type: meta)
+    #controller
+    request: (json = {}) =>
+        @model(json)
+    constructor: (json = {}) ->
+        @model(json)
+    #view
+    response: () =>
+        return {
+            headers: @headers
+            genomes: @genomes
+        }
+
+class Table
+    model: (data) =>
+        ###
+            Set $numbers to false to not display the left column in the table
+            $pageY is window.pageYOffset (How far the user has scrolled down the page)
+            $pageHeight is window.innerHeight (the area visable to the user.)
+        ###
+        @numbers = true
+        @state = {pageY: 0, pageHeight: window.innerHeight}
+        @data = data
+
+    constructor: (data) ->
+        @model(data)
+        window.addEventListener("scroll", (e) =>
+            @state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
+            @state.pageHeight = window.innerHeight
+            m.redraw())
+        
+    view: () ->
+        data = @data.response()
+        pageY = @state.pageY
+        begin = pageY / 46 | 0
+        end = begin + (@state.pageHeight /46 | 0 + 2)
+        offset = pageY % 46
+        m(".Occlusion", {style: {height: data.genomes.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
+            m("table", {style: {top: @state.pageY + "px"}}, [
+                m("tr", [
+                    if @numbers
+                        m 'th' , "Redering: " + (begin * 1 + 1) + " to " + (end) + ". pageHeight: " + @state.pageHeight#"#"
+                    for header in data.headers
+                        m('th[data-sort-by=' + header + ']',events.sort_table(list = data.genomes) ,[header]) 
+                ])
+                for binding, x in data.genomes[begin ... end]
+                    m("tr",[ 
+                        if @numbers
+                            m 'td', x * 1 + 1 + begin
+                        for item in data.headers
+                            try
+                                m("td", binding[item]["value"])
+                            catch
+                                m("td", "")
+                    ])
+            ])
+        ])
+
 class Header extends Singleton
     #a list to be passed to the link generator function
     model: () => 
@@ -193,11 +187,35 @@ class Header extends Singleton
                 ])
             ])
         ])
+###
+    Events
+###
+
+events = {}
+#Stuctured for Blazegraph response data
+events.sort_table = (list, attribute = 'data-sort-by') ->
+    { onclick: (e) ->     
+        numeric = true
+        item = e.target.getAttribute(attribute)
+        if item
+            first = list[0]
+            list.sort (a, b) ->
+                if isNaN(parseFloat(a[item]["value"] * 1))
+                    if isNaN(parseFloat(b[item]["value"] * 1))
+                        if a[item]["value"] > b[item]["value"] then 1 else if b[item]["value"] > a[item]["value"] then -1 else 0
+                    else -1
+                else if isNaN(parseFloat(b[item]["value"] * 1)) then 1
+                else if a[item]["value"] * 1 < b[item]["value"] * 1 then 1 else if b[item]["value"] * 1 < a[item]["value"] * 1 then -1 else 0
+
+            if first == list[0]
+                list.reverse()
+        return
+    }
 
 m.route(document.body, "/", {
     "/": Home.get()
     "/home": Home.get()
-    "/meta": App.get()
-    "/gbrowse": App.get()
-    "/groups": App.get()
+    "/meta": GroupBrowse.get()
+    "/gbrowse": GroupBrowse.get()
+    "/groups": GroupBrowse.get()
 })
