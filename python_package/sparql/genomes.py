@@ -49,6 +49,7 @@ WHERE
   }
 GROUP BY ?Genome_Uri
 ORDER BY (?Genome_Uri)
+LIMIT 3
 """
     #string = string.replace("\r\n", "\n")
     return endpoint.query(string)
