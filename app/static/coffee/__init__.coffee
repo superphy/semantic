@@ -5,11 +5,12 @@
 events = {}
 #Stuctured for Blazegraph response data
 events.sort_table = (list, attribute = 'data-sort-by') ->
-    { onclick: (e) ->     
-        numeric = true
+    { onclick: (e) ->
+        console.log("CLICK!")
         item = e.target.getAttribute(attribute)
         if item
             first = list[0]
+            console.log(first[item]["value"])
             list.sort (a, b) ->
                 if isNaN(parseFloat(a[item]["value"] * 1))
                     if isNaN(parseFloat(b[item]["value"] * 1))
@@ -19,8 +20,20 @@ events.sort_table = (list, attribute = 'data-sort-by') ->
                 else if a[item]["value"] * 1 < b[item]["value"] * 1 then 1 else if b[item]["value"] * 1 < a[item]["value"] * 1 then -1 else 0
 
             if first == list[0]
+                console.log("Reverse!")
                 list.reverse()
         return
+    }
+events.delete_item = (list) ->
+    {onclick: (e) ->
+        console.log('*****************')
+        index = e.target.getAttribute('index')
+        for x,y in list
+            console.log("x: " + x, "y: " + y, "index: " + index)
+            if parseInt(index) == parseInt(y)
+                list.splice(y,1)
+
+        console.log("list: " + list)
     }
 
 m.route(document.body, "/", {
@@ -28,5 +41,5 @@ m.route(document.body, "/", {
     "/home": Foo.get()
     "/meta": GroupBrowse.get()
     "/gbrowse": GroupBrowse.get()
-    "/groups": GroupBrowse.get()
+    "/groups": new List()
 })

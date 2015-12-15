@@ -8,6 +8,6 @@ class GroupBrowse extends Page_Template
         return
     view: () =>
         return [
-            Header.getView()
+            super()
             @table.view()
         ]

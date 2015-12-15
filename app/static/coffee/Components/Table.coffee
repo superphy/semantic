@@ -40,9 +40,9 @@ class Table
                             m 'td', x * 1 + 1 + begin
                         for item in data.headers
                             try
-                                m("td", binding[item]["value"])
+                                m("td",{}, binding[item]["value"])
                             catch
-                                m("td", "")
+                                m("td",{}, "")
                     ])
             ])
         ])
