@@ -7,6 +7,7 @@ class Table
         ###
         @state = {pageY: 0, pageHeight: window.innerHeight}
         @data = data
+        @searchterm = ''
     constructor: (data) ->
         @model(data)
         window.addEventListener("scroll", (e) =>
@@ -19,9 +20,10 @@ class Table
             @state.pageHeight = window.innerHeight
             m.redraw()
         )
+    search: (searchterm) ->
+        @searchterm = searchterm
+        console.log(@searchterm)
     view: (searchterm) ->
-        if searchterm
-            console.log(searchterm)
         rows = @data.response().rows
         headers = @data.response().headers
         pageY = @state.pageY
@@ -37,7 +39,7 @@ class Table
                     for header in headers
                         m('th[data-sort-by=' + header + ']',events.sort_table(list = rows) ,[header])
                 ])
-                for row, x in rows[begin .. end]
+                for row, x in rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
                         for header in headers
                             m('td', [row[header]])

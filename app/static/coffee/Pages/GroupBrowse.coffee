@@ -1,6 +1,5 @@
 class GroupBrowse extends Page_Template
     model: () =>
-        @search = m.prop('')
         @value = m.prop('')
         @data ?= new Data()
         @table ?= new Table(@data)
@@ -12,6 +11,6 @@ class GroupBrowse extends Page_Template
         return [
             super()
             m('input', {oninput: m.withAttr('value', @value), value : @value() })
-            m('button', { disabled : !@value(), onclick: => if @value() then @search(@value())},["Search"])
-            @table.view(@search())
+            m('button', { disabled : !@value(), onclick: => if @value() then @table.search(@value())},["Search"])
+            @table.view()
         ]
