@@ -19,7 +19,9 @@ class Table
             @state.pageHeight = window.innerHeight
             m.redraw()
         )
-    view: () ->
+    view: (searchterm) ->
+        if searchterm
+            console.log(searchterm)
         rows = @data.response().rows
         headers = @data.response().headers
         pageY = @state.pageY
@@ -35,14 +37,10 @@ class Table
                     for header in headers
                         m('th[data-sort-by=' + header + ']',events.sort_table(list = rows) ,[header])
                 ])
-                for row, x in rows[begin .. end] when show[x] = true
+                for row, x in rows[begin .. end]
                     m('tr', [
                         for header in headers
                             m('td', [row[header]])
                     ])
             ])
         ])
-
-show = (json) ->
-    console.log(JSON.stringify(json))
-    return(JSON.stringify(json))
