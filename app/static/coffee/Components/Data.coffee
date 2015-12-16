@@ -2,8 +2,14 @@ class Data
     model: (json = {}) =>
         meta=(response)=>
             @headers = response.head.vars
-            @genomes = response.results.bindings
-            return
+            @rows = []
+            for binding, x in response.results.bindings
+                @rows[x] = {}
+                for item in response.head.vars
+                    try
+                        @rows[x][item] = binding[item]['value']
+                    catch
+                        @rows[x][item] = ''
         m.request(
             method: "POST",
             url: 'http://' + location.hostname + ':5000/mithril/meta',
@@ -18,6 +24,6 @@ class Data
     #view
     response: () =>
         return {
+            rows: @rows
             headers: @headers
-            genomes: @genomes
         }
