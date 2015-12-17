@@ -267,7 +267,6 @@ class ClassesTestCase(unittest.TestCase):
                  "United States, California, Santa Clara",
                  "JNOG00000000",
                  "https://github.com/superphy#ecoli",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#feces",
                  "2841129",
                  "https://github.com/superphy#uti",
@@ -284,7 +283,6 @@ class ClassesTestCase(unittest.TestCase):
                  "https://github.com/superphy#from_hsapiens",
                  "https://github.com/superphy#H-",
                  "https://github.com/superphy#feces",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#ecoli"}
         subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
 
@@ -315,7 +313,6 @@ class ClassesTestCase(unittest.TestCase):
                  "United States, California, Santa Clara",
                  "JNOG00000000",
                  "https://github.com/superphy#ecoli",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#feces",
                  "2841129",
                  "https://github.com/superphy#uti",
@@ -333,7 +330,6 @@ class ClassesTestCase(unittest.TestCase):
                  "https://github.com/superphy#from_hsapiens",
                  "https://github.com/superphy#H-",
                  "https://github.com/superphy#feces",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#ecoli"}
         subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
 
@@ -363,7 +359,6 @@ class ClassesTestCase(unittest.TestCase):
                  "United States, California, Santa Clara",
                  "JNOG00000000",
                  "https://github.com/superphy#ecoli",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#feces",
                  "2841129",
                  "https://github.com/superphy#uti",
@@ -381,7 +376,6 @@ class ClassesTestCase(unittest.TestCase):
                  "https://github.com/superphy#from_hsapiens",
                  "https://github.com/superphy#H-",
                  "https://github.com/superphy#feces",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#ecoli"}
         subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
 
