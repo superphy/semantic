@@ -7,7 +7,6 @@ class Table
         ###
         @state = {pageY: 0, pageHeight: window.innerHeight}
         @data = data
-        @searchterm = ''
     constructor: (data) ->
         @model(data)
         window.addEventListener("scroll", (e) =>
@@ -23,12 +22,12 @@ class Table
     search: (searchterm) ->
         @searchterm = searchterm
         console.log(@searchterm)
-    view: (searchterm) ->
+        #@rows = data.response().rows.filter (e) -> e != searchterm
+    view: (searchterm) =>
         rows = @data.response().rows
         headers = @data.response().headers
         pageY = @state.pageY
         begin = pageY / 46 | 0
-        displaying = 0
         end = begin + (@state.pageHeight /46 | 0 + 10)
         offset = pageY % 46
         #console.log(pageY,begin,end,displaying)
