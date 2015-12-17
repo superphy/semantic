@@ -22,7 +22,7 @@ response = BlazegraphUploader().create_namespace()
 
 if ("EXISTS" in response):
     print response
-#else:
+else:
     print response
     BlazegraphSetup().setup_curated_data()
     BlazegraphUploader().upload_all_ontologies()
