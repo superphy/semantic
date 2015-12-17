@@ -1,14 +1,6 @@
 class Table
-    model: (data) =>
-        ###
-            Set $numbers to false to not display the left column in the table
-            $pageY is window.pageYOffset (How far the user has scrolled down the page)
-            $pageHeight is window.innerHeight (the area visable to the user.)
-        ###
+    constructor: () ->
         @state = {pageY: 0, pageHeight: window.innerHeight}
-        @data = data
-    constructor: (data) ->
-        @model(data)
         window.addEventListener("scroll", (e) =>
             @state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
             @state.pageHeight = window.innerHeight
@@ -19,13 +11,9 @@ class Table
             @state.pageHeight = window.innerHeight
             m.redraw()
         )
-    search: (searchterm) ->
-        @searchterm = searchterm
-        console.log(@searchterm)
-        #@rows = data.response().rows.filter (e) -> e != searchterm
-    view: (searchterm) =>
-        rows = @data.response().rows
-        headers = @data.response().headers
+    view: (data) =>
+        rows = data.response().rows
+        headers = data.response().headers
         pageY = @state.pageY
         begin = pageY / 46 | 0
         end = begin + (@state.pageHeight /46 | 0 + 10)
