@@ -206,13 +206,15 @@ class GenomeMetadata(object):
         Htype = None
 
         for serotype in serotypes:
-            if "ONT" in serotype or "OR" in serotype:
+            if "NT" in serotype or "R" in serotype:
                 Otype = "NT"
             else:
                 Otype = serotype.split(":")[0][1:]
 
-            if "HNM" in serotype:
+            if "NM" in serotype:
                 Htype = "NM"
+            elif "NA" in serotype:
+                Htype = None
             else:
                 Htype = serotype.split(":")[1][1:]
 

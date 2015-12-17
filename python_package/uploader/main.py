@@ -22,11 +22,9 @@ response = BlazegraphUploader().create_namespace()
 
 if ("EXISTS" in response):
     print response
-else:
+#else:
     print response
     BlazegraphSetup().setup_curated_data()
     BlazegraphUploader().upload_all_ontologies()
     gc.collect()
     _sparql.delete_blank_nodes()
-
-BlazegraphSetup().setup_curated_data()

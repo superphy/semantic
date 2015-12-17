@@ -24,7 +24,7 @@ class BlazegraphIntegration(object):
         os.chdir(top_dir)
         src = os.path.join(os.getcwd(),"db/bigdata.jnl")
         dst = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
-        subprocess.call("bash bash/kill_port_9999", shell=True)
+        subprocess.call("bash bash/kill_port 9999", shell=True)
         print "Killing existing Blazegraph process"
         subprocess.call("cp %s %s" %(src, dst), shell=True)
         subprocess.call("bash bash/start_blazegraph", shell=True)
@@ -35,7 +35,7 @@ class BlazegraphIntegration(object):
         os.chdir(top_dir)
         src = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
         dst = os.path.join(os.getcwd(),"db/bigdata.jnl")
-        subprocess.call("bash bash/kill_port_9999", shell=True)
+        subprocess.call("bash bash/kill port_9999", shell=True)
         print "Killing existing Blazegraph process"
         subprocess.call("cp %s %s" %(src, dst), shell=True)
         subprocess.call("rm -f %s" % src, shell=True)
