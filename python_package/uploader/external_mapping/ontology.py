@@ -15,7 +15,10 @@ Example:
 import abc
 import itertools
 from pprint import pformat
+from rdflib.plugins.sparql import prepareQuery
+from geopy.geocoders import GoogleV3
 from superphy.endpoint import strip_superphy_namespace
+
 
 # REMOVE not needed in production
 from pprint import pprint
@@ -672,5 +675,255 @@ class GenomeRecord(object):
 
 
 
+class LocationOntology(AttributeOntology):
+    """Interface for Locations
 
+
+    """
+    
+    def __init__(self, graph):
+        """Constructor
+
+        Interface to locations cache in DB
+
+        Args:
+            graph (object): SupephyGraph object
+
+        """
+        self._ontology = self._initialize_ontology(graph)
+
+        self._attribute_class = 'LocationIndividual'
+
+
+    def attribute_class(self):
+        """Attribute class represented by ontology
+
+        """
+        return self._attribute_class()
+
+
+    def _initialize_ontology(self, graph):
+        """Prepares queries and initialize geocoder
+
+        Args:
+            graph (object): SupephyGraph object
+
+        Returns:
+            None
+
+        """
+
+        self.queries = {
+            'uri_lookup': prepareQuery(
+                """ASK { 
+                    ?uri a superphy:isolation_location
+                   }
+                """, initNs={ 'superphy', u'https://github.com/superphy#' }),
+
+            'search_term_lookup': prepareQuery(
+                """SELECT ?l
+                   WHERE { 
+                    ?l a superphy:isolation_location .
+                    ?l superphy:has_location_search_string ?search_term
+                   }
+                """, initNs={ 'superphy', u'https://github.com/superphy#' }),
+
+            'insert_location': prepareQuery(
+                """INSERT { 
+                    ?location a superphy:isolation_location ;
+                       superphy:has_location_search_string ?search_term ;
+                       superphy:has_latitude ?latitude ;
+                       superphy:has_longitude ?longitude ;
+                       superphy:has_googlemapv3_json ?json .
+                   }
+                """, initNs={ 'superphy', u'https://github.com/superphy#' }),
+
+            'insert_search_term': prepareQuery(
+                """INSERT { 
+                    ?location superphy:has_location_search_string ?search_term ;
+                   }
+                """, initNs={ 'superphy', u'https://github.com/superphy#' })
+        }
+
+        self.graph = graph
+
+        # Initialize geocoder
+        self.geolocater = GoogleV3(api_key='blahblah')
+
+
+        return None
+
+
+    def individual(self, uri):
+        """If uri is part of ontology and
+        returns instance of attribute class if found.
+
+        Throws exception if none found
+
+        Args:
+            uri (string): uri in ontology
+
+        Returns:
+            object: Instance of attribute class matching uri
+
+        """
+        # Add namespace back-in
+        uri = "superphy:"+uri
+        g = self.graph()
+        result = g.query(self.queries['uri_lookup'], initBindings={'uri': uri})
+
+        if result:
+            constuctor = globals()[self._attribute_class]
+            return constuctor(uri)
+
+        else:
+            raise SuperphyMetaError("Unrecognized location uri: %s"%uri)
+
+
+    def _location_query(self, search_term): 
+        """Returns location with matching search_term property
+
+        Args:
+            search_term[string]: location string
+
+        Returns:
+            rdflib.query.Result
+
+        """
+
+        g = self.graph()
+        result = g.query(self.queries['search_term_lookup'], initBindings={'search_term': search_term})
+
+        return result
+
+
+
+    def has_location(self, search_term):
+        """Checks if location exists in db with matching search term
+
+        Args:
+            search_term[string]: location string
+
+        Returns:
+            bool
+
+        """
+
+        result = self._location_query(search_term)
+       
+        return result != 0
+
+
+    def get_location(self, search_term):
+        """Adds new location to cache (if it does not exist already)
+
+        Args:
+            search_term[string]: location string
+
+        Returns:
+            string: new/existing location URI
+
+        """
+
+        result = self._location_query(search_term)
+
+        if result:
+            # Found term in DB matching search_term
+            locations = strip_superphy_namespace(result)
+
+            return locations[0]
+
+        else:
+            # No matching entry in cache with search_term
+
+            # Use geocoder to translate/validate the search_term
+            location = self.geolocater.geocode(search_term, exactly_one=True)
+
+            uri = "superphy:"+location.address() # use formatted address as uri
+
+            result = self.graph().query(self.queries['uri_lookup'], initBindings={'uri': uri})
+            if result:
+                # Found location object in DB with that uri
+
+                # Link this search term to formatted address
+                self._add_search_term(uri, search_term)
+
+                return uri
+
+            else:
+                # Need to add new location object
+                uri = 'superphy:'+location.address();
+                self._add_db_location(location, uri, search_term)
+
+                return 
+
+
+    def _add_db_location(self, location, uri, search_term):
+        """Insert new location object into DB
+
+        Args:
+            location[geopy.location.Location]: location object
+            uri[string]: URI to use in DB
+            search_term[string]: Search term string linked to geocoded address
+
+        Returns:
+            None on success, raises exception on failure/error
+
+        """
+
+        return self.graph().update(self.queries['insert_location'], initBindings = {
+                'location': uri,
+                'search_term': search_term,
+                'latitude': location.latitude(),
+                'longitude': location.longitude(),
+                'json': location.raw()
+            })
+
+
+    def _add_search_term(self, uri, search_term):
+        """Link search term to location object into DB
+
+        Args:
+            location[geopy.location.Location]: location object
+            uri[string]: URI to use in DB
+            search_term[string]: Search term string linked to geocoded address
+
+        Returns:
+            None on success, raises exception on failure/error
+
+        """
+
+        return self.graph().update(self.queries['insert_search_term'], initBindings = {
+                'location': uri,
+                'search_term': search_term
+            })
+
+
+
+class LocationIndividual(object):
+    """Represents instance of host attribute
+
+        Tracks category and label associated with host
+
+    """
+
+    def __init__(self, *args, **kwargs):
+        """Constructor
+
+        Args:
+            args (dictionary): Expects keys '_uri', '_label', '_category'
+            kwargs (keywords): See above
+        """
+        for dictionary in args:
+            for key in dictionary:
+                setattr(self, key, dictionary[key])
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+
+
+    def uri(self):
+        return self._uri
+
+
+    
 

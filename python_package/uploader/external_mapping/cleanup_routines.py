@@ -20,6 +20,7 @@ Returns:
 """
 
 import re
+from dateutil.parser import parse
 from pprint import pprint
 
 __author__ = "Matt Whiteside"
@@ -263,14 +264,14 @@ def fix_serotype(v):
 	
 
 	# H fixes
-	new_v = re.sub(r'\:h-$', r'\:nm', new_v, flags=re.IGNORECASE) # Missing H
-	new_v = re.sub(r'\:hnm$', r'\:nm', new_v, flags=re.IGNORECASE)
-	new_v = re.sub(r'\:ut$', r'\:nm', new_v, flags=re.IGNORECASE)
-	new_v = re.sub(r'\:h\s*rough$', r'\:nm', new_v, flags=re.IGNORECASE)
-	new_v = re.sub(r'-$', r'\:nm', new_v, flags=re.IGNORECASE)
-	new_v = re.sub(r'\:huntypeable$', r'\:nm', new_v, flags=re.IGNORECASE)
-	new_v = re.sub(r'\:\?$', r'\:na', new_v, flags=re.IGNORECASE)
-	new_v = re.sub(r'(o\d+)$', r'\1\:na', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:h-$', r'\:hnm', new_v, flags=re.IGNORECASE) # Missing H
+	new_v = re.sub(r'\:hnm$', r'\:hnm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:ut$', r'\:hnm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:h\s*rough$', r'\:hnm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'-$', r'\:hnm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:huntypeable$', r'\:hnm', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'\:\?$', r'\:hna', new_v, flags=re.IGNORECASE)
+	new_v = re.sub(r'(o\d+)$', r'\1\:hna', new_v, flags=re.IGNORECASE)
 	
 	# Remove trailing ???
 	new_v = re.sub(r'\s*\?+$', r'', new_v, flags=re.IGNORECASE)
@@ -281,3 +282,14 @@ def fix_serotype(v):
 		return (False, v)
 
 
+def parse_date(v):
+	"""Try to parse date and convert to standard format
+
+	"""
+
+	try:
+		datetime = parse(v)
+		return (True, datetime.strftime('%Y-%m-%d'))
+	except ValueError:
+		return False
+	
