@@ -11,6 +11,6 @@ class GroupBrowse extends Page_Template
         return [
             super()
             m('input', {oninput: m.withAttr('value', @value), value : @value() })
-            m('button', { disabled : !@value(), onclick: => if @value() then @data.search(@value())},["Search"])
+            m('button', {onclick: => @data.search(@value())},["Search"])
             @table.view(@data)
         ]

@@ -41,8 +41,3 @@ class Data
         @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1
         console.log(searchterm)
         @headers = @_headers
-    response: () =>
-        return {
-            rows: @rows
-            headers: @headers
-        }
