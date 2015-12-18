@@ -6,13 +6,11 @@ class GroupBrowse extends Page_Template
         return
     controller: (options) =>
         @model()
-        return
-    search: (searchterm) =>
-        console.log(searchterm)
+        return 
     view: () =>
         return [
             super()
             m('input', {oninput: m.withAttr('value', @value), value : @value() })
-            m('button', { disabled : !@value(), onclick: => if @value() then @search(@value())},["Search"])
+            m('button', { disabled : !@value(), onclick: => if @value() then @data.search(@value())},["Search"])
             @table.view(@data)
         ]

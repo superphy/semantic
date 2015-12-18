@@ -12,8 +12,8 @@ class Table
             m.redraw()
         )
     view: (data) =>
-        rows = data.response().rows
-        headers = data.response().headers
+        rows = data.rows
+        headers = data.headers
         pageY = @state.pageY
         begin = pageY / 46 | 0
         end = begin + (@state.pageHeight /46 | 0 + 10)

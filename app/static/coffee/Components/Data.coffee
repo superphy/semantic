@@ -1,26 +1,28 @@
 class Data
     model: (json = {}) =>
         noID=(response)=>
-            @headers = response.head.vars
-            @rows = []
+            @_headers = response.head.vars
+            @_rows = []
             for binding, x in response.results.bindings
-                @rows[x] = {}
+                @_rows[x] = {}
                 for item in response.head.vars
                     try
-                        @rows[x][item] = binding[item]['value']
+                        @_rows[x][item] = binding[item]['value']
                     catch
-                        @rows[x][item] = ''
+                        @_rows[x][item] = ''
+            @search('')
         ID=(response)=>
-            @headers = ["id"].concat(response.head.vars)
-            @rows = []
+            @_headers = ["id"].concat(response.head.vars)
+            @_rows = []
             for binding, x in response.results.bindings
-                @rows[x] = {}
-                @rows[x]["id"] = x
+                @_rows[x] = {}
+                @_rows[x]["id"] = x
                 for item in response.head.vars
                     try
-                        @rows[x][item] = binding[item]['value']
+                        @_rows[x][item] = binding[item]['value']
                     catch
-                        @rows[x][item] = ''
+                        @_rows[x][item] = ''
+            @search('')
         m.request(
             method: "POST",
             url: 'http://' + location.hostname + ':5000/mithril/meta',
@@ -33,6 +35,12 @@ class Data
     constructor: (json = {}) ->
         @model(json)
     #view
+    search: (searchterm) =>
+        searchterm = searchterm.toLowerCase()
+        @rows = []
+        @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1
+        console.log(searchterm)
+        @headers = @_headers
     response: () =>
         return {
             rows: @rows
