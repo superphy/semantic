@@ -3,7 +3,6 @@
 ###
 
 events = {}
-#Stuctured for Blazegraph response data
 events.sort_table = (list, attribute = 'data-sort-by') ->
     { onclick: (e) ->
         item = e.target.getAttribute(attribute)

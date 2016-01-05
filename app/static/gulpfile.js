@@ -14,12 +14,17 @@ var streamqueue = require('streamqueue');
 
 gulp.task('coffee_to_js',  function() {
 	return streamqueue ({ objectMode: true},
-		//By including __init__ last, every other class has initialized already.
+		//Templates are inherited by both Components and Pages
     gulp.src(['./coffee/Templates.coffee']),
+    //Components are used in Pages
     gulp.src(['./coffee/Components/*.coffee']),
+    //Pages are used in routes. Routes are found in root folder
     gulp.src(['./coffee/Pages/*.coffee']),
+    //All other subfolders are imported before the root
     gulp.src(['./coffee/*/*.coffee']),
+    //All other root files are imported before __init__
     gulp.src(['./coffee/!(__init__)*.coffee']),
+    //By including __init__ last, every other class is before this in the single page aplication.
     gulp.src(['./coffee/__init__.coffee'])
 	)
   	   	.pipe(flatten())
