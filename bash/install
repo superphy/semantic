@@ -17,6 +17,18 @@ case $response in
         ;;
 esac
 
+#deploy apache
+read -r -p "Deploy apache? [Y/N] " response
+case $response in 
+   [yY][eE][sS]|[yY])
+	bash bash/deploy_apache superphy
+	;;
+   *)
+	echo "Not deploying apache."
+	;;
+esac
+
+
 #Virtualenvironment install
 if ! find venv/bin/pip | read v; then
 	echo Setting up Virtual Environment
