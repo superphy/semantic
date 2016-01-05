@@ -1,16 +1,14 @@
-class Header
-
+class Header extends Singleton
     #a list to be passed to the link generator function
-    links: [
-        {title: "Gnome", url: "/home"}
-        {title: "Group Browse", url: "/gbrowse"}
-        {title: "Group Analyses", url: "/groups"}
-        {title: "VF and AMR", url: "/factors"}
-        {title: "Meta", url: "/meta"}
-    ]
-
-    controller: ->
-
+    model: () => 
+        @links = [
+            {title: "Gnome", url: "/Home.get()"}
+            {title: "Group Browse", url: "/gbrowse"}
+            {title: "Group Analyses", url: "/groups"}
+            {title: "VF and AMR", url: "/factors"}
+            {title: "Meta", url: "/meta"}
+        ]
+        return
     view: ->
         m("div", {class:'container-fluid'}, [
             m("nav", {class:'navbar navbar-default navbar-fixed-top', role:'navigation'}, [
@@ -27,4 +25,3 @@ class Header
                 ])
             ])
         ])
-

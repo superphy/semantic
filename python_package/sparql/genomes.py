@@ -48,7 +48,6 @@ WHERE
       }
   }
 GROUP BY ?Genome_Uri
-ORDER BY (?Genome_Uri) 
+ORDER BY (?Genome_Uri)
 """
-    #string = string.replace("\r\n", "\n")
     return endpoint.query(string)
