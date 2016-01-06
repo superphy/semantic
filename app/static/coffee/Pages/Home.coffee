@@ -1,12 +1,13 @@
-class Home
+class Home extends Page_Template
+    model: =>
     controller: ->
 
     #By default Coffeescript only returns the last item.
     #Wrap as an array to return all elements
     view: ->
         [
-            header.view()
-            m("div", {class:'container', id:'home-beta'}, [
+            super()
+            m("div", {class:'container', id:'Home.get()-beta'}, [
                 m("div", {class:'row'}, [
                     m("div", {class:'well center-block'}, [
 
@@ -41,5 +42,3 @@ class Home
                 ])
             ])
         ]
-
-
