@@ -108,7 +108,6 @@ fi
 
 #Run related scripts
 bash bash/start_blazegraph
-bash bash/deploy_apache superphy
 
 echo Finished
 echo """$ bash bash/run""" to run the server
