@@ -126,7 +126,7 @@ class GenomeMetadataTestCase(unittest.TestCase):
         self.assertEqual(kwargs, expected)
 
     def test_get_serotypes(self):
-        self.assertEqual(self.case.get_serotypes({"ONT:NM"}), {"Otype": None, "Htype": "-"})
+        self.assertEqual(self.case.get_serotypes({"ONT:NM"}), {"Otype": "NT", "Htype": "NM"})
         self.assertEqual(self.case.get_serotypes({"O157:NA"}), {"Otype": "157", "Htype": None})
         self.assertEqual(self.case.get_serotypes({"O157:H7"}), {"Otype": "157", "Htype": "7"})
 

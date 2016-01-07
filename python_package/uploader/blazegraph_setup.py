@@ -112,12 +112,11 @@ class BlazegraphSetup(object):
         """
         for num in range(1,56):
             Htype(self.g, str(num)).rdf()
-        Htype(self.g, "Unknown").rdf()
-        Htype(self.g, "-").rdf()
+        Htype(self.g, "NM").rdf()
 
-        for num in range(1,187):
+        for num in range(1,188):
             Otype(self.g, str(num)).rdf()
-        Otype(self.g, "Unknown").rdf()
+        Otype(self.g, "NT").rdf()
 
 
     def import_json(self, filename):

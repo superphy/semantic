@@ -28,5 +28,3 @@ else:
     BlazegraphUploader().upload_all_ontologies()
     gc.collect()
     _sparql.delete_blank_nodes()
-
-BlazegraphSetup().setup_curated_data()
