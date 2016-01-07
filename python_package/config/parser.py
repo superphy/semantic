@@ -24,7 +24,8 @@ __email__ = "matthew.whiteside@canada.ca"
 
 
 env_vars = { 
-    'rdf_url': 'SUPERPHY_RDF_URL'
+    'rdf_url': 'SUPERPHY_RDF_URL',
+    'geocoding_apikey': 'SUPERPHY_GEOCODING_APIKEY'
 }
 """dictionary: Required config properties and their corresponding ENV variable names
 

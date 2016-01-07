@@ -3,6 +3,11 @@
 		"keep": 1,
 		"validation_routines": ["hosts"],
 		"cleanup_routines": ["fix_human"]
+	},
+	"test_location": {
+		"keep": 1,
+		"validation_routines": ["location"],
+		"cleanup_routines": []
 	}
 
 }

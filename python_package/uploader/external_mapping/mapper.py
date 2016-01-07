@@ -54,7 +54,7 @@ import json
 import argparse
 import itertools
 from superphy.endpoint import SuperphyGraph
-from ontology import HostOntology, SourceOntology, GenomeRecord
+from ontology import HostOntology, SourceOntology, LocationOntology, GenomeRecord
 import cleanup_routines
 import validation_routines
 
@@ -63,8 +63,8 @@ from pprint import pprint
 
 __author__ = "Matt Whiteside"
 __copyright__ = "Copyright 2015, Public Health Agency of Canada"
-__license__ = "CC-SY"
-__version__ = "4.0"
+__license__ = "ASL"
+__version__ = "2.0"
 __maintainer__ = "Matt Whiteside"
 __email__ = "matthew.whiteside@canada.ca"
 
@@ -105,10 +105,13 @@ class Mapper(object):
         h = HostOntology(self.graph)
         # source
         s = SourceOntology(self.graph)
+        # location
+        l = LocationOntology(self.graph)
 
         self._ontologies = {
             'host': h,
             'source': s,
+            'location': l
         }
 
         # Initialize standard parsing routines

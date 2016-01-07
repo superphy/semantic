@@ -1,6 +1,7 @@
 {
 	"ANWA00000000":
 	{
-		"specific_host":"Homo sapiens"
+		"specific_host":"Homo sapiens",
+		"test_location": "USA"
 	}
 }

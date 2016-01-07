@@ -192,8 +192,22 @@ def location(v, mapper):
     to superphy cache
 
     """
+    o = mapper.ontology('location')
 
-    pass
+    # Determine if location is in DB cache 
+    if not (o.has_location(v)):
+        # Add location to cache if valid
+        try:
+            o.get_location(v)
+                                       
+        except Exception:
+            # Invalid location
+            return False
+
+    return [('location', v)]
+
+
+    
 
 """serotype => {
         cvterm => 'serotype',

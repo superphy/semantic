@@ -16,9 +16,11 @@ import abc
 import itertools
 from pprint import pformat
 from rdflib.plugins.sparql import prepareQuery
+from rdflib.plugins.sparql.parser import parseUpdate
+from rdflib.plugins.sparql.algebra import translateUpdate
 from geopy.geocoders import GoogleV3
 from superphy.endpoint import strip_superphy_namespace
-
+from superphy.config import parser
 
 # REMOVE not needed in production
 from pprint import pprint
@@ -712,43 +714,49 @@ class LocationOntology(AttributeOntology):
             None
 
         """
-
+        initNs = { 'superphy': u'https://github.com/superphy#' }
         self.queries = {
             'uri_lookup': prepareQuery(
                 """ASK { 
-                    ?uri a superphy:isolation_location
+                    ?uri a superphy:geographic_location
                    }
-                """, initNs={ 'superphy', u'https://github.com/superphy#' }),
+                """, initNs=initNs),
 
             'search_term_lookup': prepareQuery(
                 """SELECT ?l
                    WHERE { 
-                    ?l a superphy:isolation_location .
-                    ?l superphy:has_location_search_string ?search_term
+                    ?l a superphy:geographic_location .
+                    ?l superphy:matches_location_query ?search_term
                    }
-                """, initNs={ 'superphy', u'https://github.com/superphy#' }),
+                """, initNs=initNs),
 
-            'insert_location': prepareQuery(
-                """INSERT { 
-                    ?location a superphy:isolation_location ;
-                       superphy:has_location_search_string ?search_term ;
-                       superphy:has_latitude ?latitude ;
-                       superphy:has_longitude ?longitude ;
-                       superphy:has_googlemapv3_json ?json .
-                   }
-                """, initNs={ 'superphy', u'https://github.com/superphy#' }),
+            'insert_location': translateUpdate(
+                parseUpdate(
+                    """INSERT DATA { 
+                        ?location a superphy:geographic_location ;
+                           superphy:matches_location_query ?search_term ;
+                           superphy:has_formatted_address ?address ;
+                           superphy:has_geocoding_result ?json .
+                       }
+                    """), 
+                initNs=initNs),
 
-            'insert_search_term': prepareQuery(
-                """INSERT { 
-                    ?location superphy:has_location_search_string ?search_term ;
-                   }
-                """, initNs={ 'superphy', u'https://github.com/superphy#' })
+            'insert_search_term': translateUpdate(
+                parseUpdate(
+                    """INSERT DATA { 
+                        ?location superphy:matches_location_query ?search_term .
+                       }
+                    """), 
+                initNs=initNs)
         }
 
         self.graph = graph
 
         # Initialize geocoder
-        self.geolocater = GoogleV3(api_key='blahblah')
+        apikey = parser.read()['geocoding_apikey']
+        if not(apikey):
+            raise Exception("Undefined config variable: geocoding_apikey")
+        self.geolocater = GoogleV3(api_key=apikey)
 
 
         return None
@@ -823,6 +831,9 @@ class LocationOntology(AttributeOntology):
         Returns:
             string: new/existing location URI
 
+        Raises:
+            SuperphyMetaError: if location is invalid/geocoding failed
+
         """
 
         result = self._location_query(search_term)
@@ -839,7 +850,16 @@ class LocationOntology(AttributeOntology):
             # Use geocoder to translate/validate the search_term
             location = self.geolocater.geocode(search_term, exactly_one=True)
 
-            uri = "superphy:"+location.address() # use formatted address as uri
+            if not (location):
+                raise SuperphyMetaError("Invalid location/geocoding failed for %s"%search_term)
+
+            googleResponse = location.raw()
+
+            # Retreive place ID (only one result requested)
+            locationBlock = googleResponse['results'][0]
+            place_id = locationBlock['place_id']
+
+            uri = "superphy:googlemaps_place_id_"+place_id # use place_id as uri
 
             result = self.graph().query(self.queries['uri_lookup'], initBindings={'uri': uri})
             if result:
@@ -852,10 +872,9 @@ class LocationOntology(AttributeOntology):
 
             else:
                 # Need to add new location object
-                uri = 'superphy:'+location.address();
                 self._add_db_location(location, uri, search_term)
 
-                return 
+                return uri
 
 
     def _add_db_location(self, location, uri, search_term):
@@ -874,8 +893,7 @@ class LocationOntology(AttributeOntology):
         return self.graph().update(self.queries['insert_location'], initBindings = {
                 'location': uri,
                 'search_term': search_term,
-                'latitude': location.latitude(),
-                'longitude': location.longitude(),
+                'address': location.address(),
                 'json': location.raw()
             })
 
