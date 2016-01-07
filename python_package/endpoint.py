@@ -109,8 +109,7 @@ def strip_superphy_namespace(URIs):
     modified = []
     for row in URIs:
         if isinstance(row, basestring):
-            row = modified.append(re.sub(r'^https://github.com/superphy#', '', row))
-            print "single: %s"%row
+            modified.append(re.sub(r'^https://github.com/superphy#', '', row))
         else:
             modified.append([ re.sub(r'^https://github.com/superphy#', '', u) for u in row ])
 
@@ -166,7 +165,7 @@ class SuperphyStore(SPARQLUpdateStore):
         super(SuperphyStore,self).__init__(*args, **kwargs)
 
         # Set default namespaces 
-        self.bind('superphy', 'https://github.com/superphy#')
+        self.bind('superphy', u'https://github.com/superphy#')
 
         # Set crudentials here
         # self.setCredentials(user, passwd)
