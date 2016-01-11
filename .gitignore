@@ -54,7 +54,7 @@ nosetests.xml
 *.sqlite-journal
 
 # Blazegraph databases
-bigdata.jnl
+blazegraph.jnl
 rules.log
 
 # Virtual environment

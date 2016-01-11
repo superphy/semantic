@@ -25,11 +25,11 @@ deactivate
 
 #Getting the graph db jar file from remote server.
 mkdir db
-if ! [ -s db/bigdata-bundled.jar ]; then
-    rm db/bigdata-bundled.jar
+if ! [ -s db/blazegraph-bundled.jar ]; then
+    rm db/blazegraph-bundled.jar
 	echo Downloading Blazegraph jar file...
 	cd db;
-	wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
+	wget "http://sourceforge.net/projects/bigdata/files/latest/download/blazegraph-bundled.jar";
 	cd ..;
 fi
 echo Blazegraph setup complete!
