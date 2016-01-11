@@ -22,8 +22,8 @@ class BlazegraphIntegration(object):
     def setUpClass(cls):
         top_dir = generate_path("../../../")
         os.chdir(top_dir)
-        src = os.path.join(os.getcwd(),"db/bigdata.jnl")
-        dst = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
+        src = os.path.join(os.getcwd(),"db/blazegraph.jnl")
+        dst = os.path.join(os.getcwd(),"db/blazegraph.jnl.bk")
         subprocess.call("bash bash/kill_port 9999", shell=True)
         print "Killing existing Blazegraph process"
         subprocess.call("cp %s %s" %(src, dst), shell=True)
@@ -33,8 +33,8 @@ class BlazegraphIntegration(object):
     def tearDownClass(cls):
         top_dir = generate_path("../../../")
         os.chdir(top_dir)
-        src = os.path.join(os.getcwd(),"db/bigdata.jnl.bk")
-        dst = os.path.join(os.getcwd(),"db/bigdata.jnl")
+        src = os.path.join(os.getcwd(),"db/blazegraph.jnl.bk")
+        dst = os.path.join(os.getcwd(),"db/blazegraph.jnl")
         subprocess.call("bash bash/kill_port 9999", shell=True)
         print "Killing existing Blazegraph process"
         subprocess.call("cp %s %s" %(src, dst), shell=True)

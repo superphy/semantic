@@ -4,12 +4,12 @@
 <!-- -->
 <!-- NEW KB NAMESPACE (required). -->
 <!-- -->
-<entry key="com.bigdata.rdf.sail.namespace">superphy</entry>
+<entry key="com.blazegraph.rdf.sail.namespace">superphy</entry>
 <!-- -->
 <!-- Specify any KB specific properties here to override defaults for the BigdataSail -->
 <!-- AbstractTripleStore, or indices in the namespace of the new KB instance. -->
 <!-- -->
-<entry key="com.bigdata.rdf.store.AbstractTripleStore.quads">false</entry>
-<entry key="com.bigdata.rdf.store.AbstractTripleStore.axiomsClass">com.bigdata.rdf.axioms.OwlAxioms</entry>
-<entry key="com.bigdata.rdf.sail.truthMaintenance">true</entry>
+<entry key="com.blazegraph.rdf.store.AbstractTripleStore.quads">false</entry>
+<entry key="com.blazegraph.rdf.store.AbstractTripleStore.axiomsClass">com.blazegraph.rdf.axioms.OwlAxioms</entry>
+<entry key="com.blazegraph.rdf.sail.truthMaintenance">true</entry>
 </properties>

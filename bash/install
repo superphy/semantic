@@ -53,30 +53,30 @@ fi
 deactivate
 
 #Getting the graph db jar file from remote server.
-mkdir db &> /dev/null
-if ! find db/bigdata-bundled.jar | read v; then
+mkdir db &> /dev/null || true
+if ! find db/blazegraph-bundled.jar | read v; then
 	
-	if find ../db/bigdata-bundled.jar | read v; 
+	if find ../db/blazegraph-bundled.jar | read v; 
 	then
 		echo Copying Blazegraph jar file...
-		cp ../db/bigdata-bundled.jar db/bigdata-bundled.jar
+		cp ../db/blazegraph-bundled.jar db/blazegraph-bundled.jar
 	else
 		echo Downloading Blazegraph jar file...
 		cd db;
-		wget "http://iweb.dl.sourceforge.net/project/bigdata/bigdata/1.5.3/bigdata-bundled.jar";
+		wget "http://sourceforge.net/projects/bigdata/files/latest/download/blazegraph-bundled.jar";
 		cd ..;
 		read -r -p "Do you want to backup the Blazegraph client in ../db ? [Y/N] " response
 		case $response in
 		    [yY][eE][sS]|[yY])
-			mkdir ../db
-			cp db/bigdata-bundled.jar ../db/bigdata-bundled.jar
+			mkdir ../db | true #Redundant?
+			cp db/blazegraph-bundled.jar ../db/blazegraph-bundled.jar
 			;;*)
 		esac
 	fi
 fi
 
 #Getting the BLAST+ gzip file from remote server.
-mkdir blast &> /dev/null
+mkdir blast &> /dev/null || true
 if ! find blast/ncbi*/ | read v; then
 
 	if find ../blast/ncbi*/ | read v;
@@ -93,7 +93,7 @@ if ! find blast/ncbi*/ | read v; then
 		read -r -p "Do you want to backup the NCBI BLAST+ client in ../blast ? [Y/N] " response
 		case $response in
 		    [yY][eE][sS]|[yY])
-			mkdir ../blast
+			mkdir ../blast || true #Redundant?
 			cp -r blast/ncbi*/ ../blast/
 			;;*)
 		esac
