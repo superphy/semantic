@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source bash/config
 chmod a+x *.py
 
 #sudo installs
@@ -52,28 +52,6 @@ fi
 
 deactivate
 
-#Getting the graph db jar file from remote server.
-mkdir db &> /dev/null || true
-if ! find db/blazegraph-bundled.jar | read v; then
-	
-	if find ../db/blazegraph-bundled.jar | read v; 
-	then
-		echo Copying Blazegraph jar file...
-		cp ../db/blazegraph-bundled.jar db/blazegraph-bundled.jar
-	else
-		echo Downloading Blazegraph jar file...
-		cd db;
-		wget "http://sourceforge.net/projects/bigdata/files/latest/download/blazegraph-bundled.jar";
-		cd ..;
-		read -r -p "Do you want to backup the Blazegraph client in ../db ? [Y/N] " response
-		case $response in
-		    [yY][eE][sS]|[yY])
-			mkdir ../db | true #Redundant?
-			cp db/blazegraph-bundled.jar ../db/blazegraph-bundled.jar
-			;;*)
-		esac
-	fi
-fi
 
 #Getting the BLAST+ gzip file from remote server.
 mkdir blast &> /dev/null || true
@@ -105,9 +83,6 @@ if ! find data-dev.sqlite | read v; then
 	echo Setting up SQL server
 	./manage.py db upgrade &> /dev/null
 fi
-
-#Run related scripts
-bash bash/start_blazegraph
 
 echo Finished
 echo """$ bash bash/run""" to run the server
