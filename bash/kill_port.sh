@@ -1,9 +1,9 @@
 #!/bin/bash
-default="none"
-port=${1:-${default}}
-if [ "$port" == "9999" ]
+source bash/config
+port=${1:-${NULL}}
+if [ "$port" == ${TRIPLESTORE_PORT} ]
 #script to kill all programs using port 9999 (Blazegraph in particular). Use with caution.
-	then kill -9 `lsof -t -i TCP:9999 -c java -a`
+	then kill -9 `lsof -t -i TCP:${TRIPLESTORE_PORT} -c java -a`
 elif [ "$port" == "5000" ]
 #script to kill a python server on port 5000. Use with caution.
 then
