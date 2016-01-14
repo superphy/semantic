@@ -52,9 +52,6 @@ if ! find data-dev.sqlite | read v; then
 fi
 echo sqlite server setup complete!
 
-#Run related scripts
-bash bash/start_blazegraph
-
 echo Finished
 echo """$ bash bash/run""" to run the server
 exit 0
