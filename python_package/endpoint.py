@@ -17,7 +17,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 
 #Change this to change where the sparql endpoint is pointing
-_url = "http://localhost:9999/blazegraph/namespace/superphy/sparql"
+_url = "http://10.139.14.124:9000/blazegraph/namespace/superphy/sparql"
 _ontology_file = "file:////home/drewb/Desktop/User_Login_GraphDB/ontology/User_Ontology_RDF_XML.owl"
 
 #Takes a sparql query and a url of your sparql endpoint. 
