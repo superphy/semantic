@@ -1,9 +1,18 @@
-__author__ = 'Stephen Kan'
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 
 import unittest
-import mock
-from superphy.uploader import classes
+
 from rdflib import Graph, Namespace
+
+from superphy.uploader import classes
+
+__author__ = "Stephen Kan"
+__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__license__ = "ASL"
+__version__ = "2.0"
+__maintainer__ = "Stephen Kan"
+__email__ = "stebokan@gmail.com"
 
 n = Namespace("https://github.com/superphy#")
 owl = Namespace("http://www.w3.org/2002/07/owl#")
@@ -13,6 +22,8 @@ xsd = Namespace("http://www.w3.org/2001/XMLSchema#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 
+
+
 class ClassesTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -20,6 +31,7 @@ class ClassesTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.graph.remove((None, None, None))
+        del self.graph
 
     def check_triples(self, fields, outputs):
         self.assertTrue(len(outputs) is len(fields))
@@ -231,22 +243,17 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(fields, objects)
 
-    @mock.patch('superphy.uploader.classes.sparql')
-    def test_Genome(self, mock_sparql):
+    def test_Genome(self):
 
-        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
-        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
-        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
-
-        kwargs = {"date": {"2013-06-24"},
-                  "location": {"United States, California, Santa Clara"},
+        kwargs = {"isolation_date": {"2013-06-24"},
+                  "isolation_location": {"United States, California, Santa Clara"},
                   "accession": {"JNOG00000000"},
                   "bioproject": {"251898"},
                   "biosample": {"2841129"},
                   "strain": {"CS03"},
                   "organism": "ecoli",
-                  "host": {"Homo sapiens (human)"},
-                  "source": {"Feces"},
+                  "isolation_host": {"Homo sapiens (human)"},
+                  "isolation_source": {"Feces"},
                   "syndrome": {"Urinary tract infection (cystitis)"},
                   "Htype": "-",
                   "Otype": None,
@@ -260,7 +267,6 @@ class ClassesTestCase(unittest.TestCase):
                  "United States, California, Santa Clara",
                  "JNOG00000000",
                  "https://github.com/superphy#ecoli",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#feces",
                  "2841129",
                  "https://github.com/superphy#uti",
@@ -277,28 +283,23 @@ class ClassesTestCase(unittest.TestCase):
                  "https://github.com/superphy#from_hsapiens",
                  "https://github.com/superphy#H-",
                  "https://github.com/superphy#feces",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#ecoli"}
         subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
 
         self.check_triples(field, subjects)
 
-    @mock.patch('superphy.uploader.classes.sparql')
-    def test_PendingGenome(self, mock_sparql):
 
-        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
-        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
-        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
+    def test_PendingGenome(self):
 
-        kwargs = {"date": {"2013-06-24"},
-                  "location": {"United States, California, Santa Clara"},
+        kwargs = {"isolation_date": {"2013-06-24"},
+                  "isolation_location": {"United States, California, Santa Clara"},
                   "accession": {"JNOG00000000"},
                   "bioproject": {"251898"},
                   "biosample": {"2841129"},
                   "strain": {"CS03"},
                   "organism": "ecoli",
-                  "host": {"Homo sapiens (human)"},
-                  "source": {"Feces"},
+                  "isolation_host": {"Homo sapiens (human)"},
+                  "isolation_source": {"Feces"},
                   "syndrome": {"Urinary tract infection (cystitis)"},
                   "Htype": "-",
                   "Otype": None,
@@ -312,7 +313,6 @@ class ClassesTestCase(unittest.TestCase):
                  "United States, California, Santa Clara",
                  "JNOG00000000",
                  "https://github.com/superphy#ecoli",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#feces",
                  "2841129",
                  "https://github.com/superphy#uti",
@@ -330,28 +330,22 @@ class ClassesTestCase(unittest.TestCase):
                  "https://github.com/superphy#from_hsapiens",
                  "https://github.com/superphy#H-",
                  "https://github.com/superphy#feces",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#ecoli"}
         subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
 
         self.check_triples(field, subjects)
 
-    @mock.patch('superphy.uploader.classes.sparql')
-    def test_CompletedGenome(self, mock_sparql):
+    def test_CompletedGenome(self):
 
-        mock_sparql.find_from_host.return_value = "https://github.com/superphy#from_hsapiens"
-        mock_sparql.find_source.return_value = "https://github.com/superphy#feces"
-        mock_sparql.find_syndrome.return_value = "https://github.com/superphy#uti"
-
-        kwargs = {"date": {"2013-06-24"},
-                  "location": {"United States, California, Santa Clara"},
+        kwargs = {"isolation_date": {"2013-06-24"},
+                  "isolation_location": {"United States, California, Santa Clara"},
                   "accession": {"JNOG00000000"},
                   "bioproject": {"251898"},
                   "biosample": {"2841129"},
                   "strain": {"CS03"},
                   "organism": "ecoli",
-                  "host": {"Homo sapiens (human)"},
-                  "source": {"Feces"},
+                  "isolation_host": {"Homo sapiens (human)"},
+                  "isolation_source": {"Feces"},
                   "syndrome": {"Urinary tract infection (cystitis)"},
                   "Htype": "-",
                   "Otype": None,
@@ -365,7 +359,6 @@ class ClassesTestCase(unittest.TestCase):
                  "United States, California, Santa Clara",
                  "JNOG00000000",
                  "https://github.com/superphy#ecoli",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#feces",
                  "2841129",
                  "https://github.com/superphy#uti",
@@ -383,9 +376,47 @@ class ClassesTestCase(unittest.TestCase):
                  "https://github.com/superphy#from_hsapiens",
                  "https://github.com/superphy#H-",
                  "https://github.com/superphy#feces",
-                 "https://github.com/superphy#OUnknown",
                  "https://github.com/superphy#ecoli"}
         subjects = list(self.graph.subjects(object=n["JNOG00000000"]))
 
         self.check_triples(field, subjects)
 
+    def test_Sequence(self):
+        sequence = classes.Sequence(self.graph, "ABCD00000000_seq","ABCD00000000", ["CATGCATGCATGCATGCATG"], 15, 1,
+                                    "asdjkldf", "PLASMID")
+        sequence.rdf()
+
+        field = {"http://www.w3.org/2002/07/owl#NamedIndividual",
+                 "https://github.com/superphy#Sequence",
+                 "15",
+                 "asdjkldf",
+                 "1",
+                 "CATGCATGCATGCATGCATG",
+                 "PLASMID",
+                 "https://github.com/superphy#ABCD00000000"}
+        objects = list(self.graph.objects(n["ABCD00000000_seq"]))
+
+        self.check_triples(field, objects)
+
+        field = {"https://github.com/superphy#ABCD00000000"}
+        subjects = list(self.graph.subjects(object=n["ABCD00000000_seq"]))
+
+        self.check_triples(field, subjects)
+
+        sequence.add_seq_validation(False)
+
+        field = {"False"}
+        objects = list(self.graph.objects(predicate=n.has_valid_sequence))
+
+        self.check_triples(field, objects)
+
+
+        sequence.add_hits(["1","2","3"])
+
+        field = {"1","2","3"}
+        objects = list(self.graph.objects(predicate=n.has_hit))
+
+        self.check_triples(field, objects)
+
+if __name__ == '__main__':
+    unittest.main()

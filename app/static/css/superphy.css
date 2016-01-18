@@ -1,3 +1,11 @@
 .p {
   color: #aaccff;
 }
+body {
+  padding-top: 80px;
+}
+th,
+td {
+  word-wrap: break-word;
+  width: 300px;
+}

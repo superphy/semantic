@@ -45,6 +45,8 @@ Used to compile and minify everything for the site
     * npm install gulp-rename
     * npm install gulp-less
     * npm install gulp-minify-css
+    * npm install gulp-flatten
+    * npm install streamqueue
 
 ## [LESS](http://lesscss.org/features/)
 - CSS pre-processor
