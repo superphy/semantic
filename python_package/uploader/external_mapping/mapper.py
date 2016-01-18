@@ -53,7 +53,8 @@ import logging
 import json
 import argparse
 import itertools
-from superphy.endpoint import SuperphyGraph
+import sys
+from superphy.endpoint import SuperphyStore
 from ontology import HostOntology, SourceOntology, LocationOntology, GenomeRecord
 import cleanup_routines
 import validation_routines
@@ -70,12 +71,10 @@ __email__ = "matthew.whiteside@canada.ca"
 
 
 class SuperphyMapperError(Exception):
-    """Exceptions are documented in the same way as classes.
+    """Errors encountered in workflow e.g. malformed input
 
     """
-
-    def __init__(Exception, m):
-        pass
+    pass
 
 
 class Mapper(object):
@@ -100,13 +99,13 @@ class Mapper(object):
         self.unknowns = UnknownRecord()
             
         # Initialize attribute ontology objects
-        self.graph = SuperphyGraph().graph
+        self.store = SuperphyStore()
         # host
-        h = HostOntology(self.graph)
+        h = HostOntology(self.store, self.logger)
         # source
-        s = SourceOntology(self.graph)
+        s = SourceOntology(self.store, self.logger)
         # location
-        l = LocationOntology(self.graph)
+        l = LocationOntology(self.store, self.logger)
 
         self._ontologies = {
             'host': h,
@@ -224,14 +223,12 @@ class Mapper(object):
             genomes.append(g)
 
 
-        self.logger.info(self.unknowns.summary())
-
         if self.unknowns.unresolved_terms():
+            self.logger.info(self.unknowns.summary())
             m = "Unknown values found in input. These must be handled"
             self.logger.warn(m)
             raise SuperphyMapperError(m)
             return False
-
 
 
         # Apply overrides that resolve issues like multiple hosts
@@ -313,9 +310,11 @@ class Mapper(object):
                 assigned = False
                 vr = itertools.chain(self._default_validation_routines, dt['validation_routines'])
                 for m in vr:
+                    self.logger.debug("Trying validation routine: %s on value: %s"%(m,clean_val))
                     superphy_tuples = getattr(validation_routines, m)(clean_val, self)
 
                     if superphy_tuples:
+                        self.logger.debug("Validation routine result: %s"%superphy_tuples)
                         if superphy_tuples != 'skip':
                             # Store one or more superphy key-value pairs
 
@@ -328,9 +327,9 @@ class Mapper(object):
                                         att_obj = ontology_obj.individual(superphy_value)
                                         getattr(genome, superphy_term)(att_obj)
                                         assigned = True
-                                    except Exception, m:
+                                    except Exception:
                                         # Unknown ontology value, likely needs to be added to DB
-                                        self.logger.warn(m)
+                                        self.logger.exception("Creation of annotation record for genome %s and term %s/%s failed."%(genome.uniquename(), superphy_term, superphy_value))
 
                                 else:
                                     # Unrecognized superphy attribute, probably typo in decision tree json file
@@ -638,7 +637,8 @@ if __name__ == "__main__":
     """Run mapper with given inputs
 
     """
-    logging.basicConfig(level=logging.WARNING)
+    #logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
+    logging.basicConfig(level=logging.DEBUG)
 
     # Parse command-line args
     parser = argparse.ArgumentParser(description='Foreign metadata mapping to Superphy ontology terms')

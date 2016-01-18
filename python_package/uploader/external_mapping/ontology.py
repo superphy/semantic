@@ -14,13 +14,13 @@ Example:
 
 import abc
 import itertools
+import json
 from pprint import pformat
-from rdflib.plugins.sparql import prepareQuery
-from rdflib.plugins.sparql.parser import parseUpdate
-from rdflib.plugins.sparql.algebra import translateUpdate
+from rdflib import Literal
 from geopy.geocoders import GoogleV3
 from superphy.endpoint import strip_superphy_namespace
 from superphy.config import parser
+from superphy.uploader.namespaces import SUPERPHY, RDF
 
 # REMOVE not needed in production
 from pprint import pprint
@@ -52,9 +52,7 @@ class SuperphyMetaError(Exception):
     """Conflicts or missing metadata
 
     """
-
-    def __init__(Exception):
-        pass
+    pass
 
 
 class AttributeOntology(object):
@@ -64,14 +62,14 @@ class AttributeOntology(object):
     """
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, graph):
+    def __init__(self, store):
         """Constructor
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         """
-        self._ontology = self._initialize_ontology(graph)
+        self._ontology = self._initialize_ontology(store)
         self._attribute_class = 'Attribute'
 
         pass
@@ -86,12 +84,12 @@ class AttributeOntology(object):
 
 
     @abc.abstractmethod
-    def _initialize_ontology(self, graph):
+    def _initialize_ontology(self, store):
         """Retrieves ontology terms from Superphy blazegraph
         and initializes internal dictionary object
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         Returns:
             dictionary: Ontology uri -> list of categories
@@ -121,16 +119,19 @@ class HostOntology(AttributeOntology):
 
     """
     
-    def __init__(self, graph):
+    def __init__(self, store, logger):
         """Constructor
 
         Retrieves ontology terms from DB
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): SupephyStore object
 
         """
-        self._ontology = self._initialize_ontology(graph)
+
+        self.logger = logger
+
+        self._ontology = self._initialize_ontology(store)
 
         self._attribute_class = 'HostIndividual'
 
@@ -142,19 +143,19 @@ class HostOntology(AttributeOntology):
         return self._attribute_class()
 
 
-    def _initialize_ontology(self, graph):
+    def _initialize_ontology(self, store):
         """Retrieves ontology terms from Superphy blazegraph
         and initializes internal dictionary object
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         Returns:
             dictionary: Ontology uri -> list of categories
 
         """
         
-        hosts = graph.query(
+        hosts = store.query(
             """SELECT ?h ?c ?l
                WHERE {
                 ?h a superphy:Host ;
@@ -250,16 +251,18 @@ class SourceOntology(AttributeOntology):
 
     """
     
-    def __init__(self, graph):
+    def __init__(self, store, logger):
         """Constructor
 
         Retrieves ontology terms from DB
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         """
-        self._ontology = self._initialize_ontology(graph)
+        self.logger = logger
+
+        self._ontology = self._initialize_ontology(store)
 
         self._attribute_class = 'SourceIndividual'
 
@@ -271,19 +274,19 @@ class SourceOntology(AttributeOntology):
         return self._attribute_class()
 
 
-    def _initialize_ontology(self, graph):
+    def _initialize_ontology(self, store):
         """Retrieves ontology terms from Superphy blazegraph
         and initializes internal dictionary object
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         Returns:
             dictionary: Ontology uri -> list of categories
 
         """
         
-        sources = graph.query(
+        sources = store.query(
             """SELECT ?h ?c ?l
                WHERE {
                 ?h a superphy:isolation_from_source ;
@@ -400,16 +403,18 @@ class SyndromeOntology(AttributeOntology):
 
     """
     
-    def __init__(self, graph):
+    def __init__(self, store, logger):
         """Constructor
 
         Retrieves ontology terms from DB
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         """
-        self._ontology = self._initialize_ontology(graph)
+        self.logger = logger
+
+        self._ontology = self._initialize_ontology(store)
 
         self._attribute_class = 'SyndromeIndividual'
 
@@ -421,19 +426,19 @@ class SyndromeOntology(AttributeOntology):
         return self._attribute_class()
 
 
-    def _initialize_ontology(self, graph):
+    def _initialize_ontology(self, store):
         """Retrieves ontology terms from Superphy blazegraph
         and initializes internal dictionary object
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         Returns:
             dictionary: Ontology uri -> list of categories
 
         """
         
-        syndrome = graph.query(
+        syndrome = store.query(
             """SELECT ?h ?c ?l
                WHERE {
                 ?h a superphy:isolation_syndrome ;
@@ -568,6 +573,7 @@ class GenomeRecord(object):
         """
         self._host_list = []
         self._source_list = []
+        self._location_list = []
         self._uniquename = uniquename
         
 
@@ -633,6 +639,8 @@ class GenomeRecord(object):
              genome_dict['isolation_source'] = self._host_source[0].uri()
 
 
+
+
         return genome_dict
 
 
@@ -675,6 +683,22 @@ class GenomeRecord(object):
         if not exists:
             self._source_list.append(source_individual)
 
+    def location(self, location_individual):
+        """Add isolation_location to location list if its a new unique source
+
+        """
+        
+        # Check if host already in list
+        exists = False
+        for i in self._location_list:
+            if location_individual.uri == i.uri:
+                exists = True
+                break
+
+        if not exists:
+            self._location_list.append(location_individual)
+
+
 
 
 class LocationOntology(AttributeOntology):
@@ -683,16 +707,18 @@ class LocationOntology(AttributeOntology):
 
     """
     
-    def __init__(self, graph):
+    def __init__(self, store, logger):
         """Constructor
 
         Interface to locations cache in DB
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         """
-        self._ontology = self._initialize_ontology(graph)
+        self.logger = logger
+
+        self._ontology = self._initialize_ontology(store)
 
         self._attribute_class = 'LocationIndividual'
 
@@ -704,53 +730,34 @@ class LocationOntology(AttributeOntology):
         return self._attribute_class()
 
 
-    def _initialize_ontology(self, graph):
+    def _initialize_ontology(self, store):
         """Prepares queries and initialize geocoder
 
         Args:
-            graph (object): SupephyGraph object
+            store (object): Supephystore object
 
         Returns:
             None
 
         """
-        initNs = { 'superphy': u'https://github.com/superphy#' }
+
         self.queries = {
-            'uri_lookup': prepareQuery(
+            'uri_lookup':
                 """ASK { 
                     ?uri a superphy:geographic_location
                    }
-                """, initNs=initNs),
+                """,
 
-            'search_term_lookup': prepareQuery(
+            'search_term_lookup':
                 """SELECT ?l
                    WHERE { 
                     ?l a superphy:geographic_location .
                     ?l superphy:matches_location_query ?search_term
                    }
-                """, initNs=initNs),
-
-            'insert_location': translateUpdate(
-                parseUpdate(
-                    """INSERT DATA { 
-                        ?location a superphy:geographic_location ;
-                           superphy:matches_location_query ?search_term ;
-                           superphy:has_formatted_address ?address ;
-                           superphy:has_geocoding_result ?json .
-                       }
-                    """), 
-                initNs=initNs),
-
-            'insert_search_term': translateUpdate(
-                parseUpdate(
-                    """INSERT DATA { 
-                        ?location superphy:matches_location_query ?search_term .
-                       }
-                    """), 
-                initNs=initNs)
+                """
         }
 
-        self.graph = graph
+        self.store = store
 
         # Initialize geocoder
         apikey = parser.read()['geocoding_apikey']
@@ -762,30 +769,32 @@ class LocationOntology(AttributeOntology):
         return None
 
 
-    def individual(self, uri):
-        """If uri is part of ontology and
-        returns instance of attribute class if found.
+    def individual(self, search_term):
+        """If search_term is part of ontology,
+        returns instance of attribute class.
 
         Throws exception if none found
 
         Args:
-            uri (string): uri in ontology
+            search_term (string): search_term string in ontology
 
         Returns:
             object: Instance of attribute class matching uri
 
         """
-        # Add namespace back-in
-        uri = "superphy:"+uri
-        g = self.graph()
-        result = g.query(self.queries['uri_lookup'], initBindings={'uri': uri})
 
-        if result:
+        g = self.store
+        result = g.query(self.queries['search_term_lookup'], initBindings={'search_term': Literal(search_term)})
+       
+        if bool(result):
+            
             constuctor = globals()[self._attribute_class]
-            return constuctor(uri)
-
+            for uri in result:
+                self.logger.debug("Adding LocationIndividual %s"%uri)
+                return constuctor({'_uri': uri})
+            
         else:
-            raise SuperphyMetaError("Unrecognized location uri: %s"%uri)
+            raise SuperphyMetaError("Unrecognized location search_term: %s"%search_term)
 
 
     def _location_query(self, search_term): 
@@ -799,8 +808,12 @@ class LocationOntology(AttributeOntology):
 
         """
 
-        g = self.graph()
-        result = g.query(self.queries['search_term_lookup'], initBindings={'search_term': search_term})
+        g = self.store
+
+        # Create variables
+        st = Literal(search_term)
+       
+        result = g.query(self.queries['search_term_lookup'], initBindings={'search_term': st})
 
         return result
 
@@ -818,8 +831,8 @@ class LocationOntology(AttributeOntology):
         """
 
         result = self._location_query(search_term)
-       
-        return result != 0
+        
+        return bool(result)
 
 
     def get_location(self, search_term):
@@ -838,6 +851,8 @@ class LocationOntology(AttributeOntology):
 
         result = self._location_query(search_term)
 
+        self.logger.debug("Found location: %s"%bool(result))
+
         if result:
             # Found term in DB matching search_term
             locations = strip_superphy_namespace(result)
@@ -850,31 +865,38 @@ class LocationOntology(AttributeOntology):
             # Use geocoder to translate/validate the search_term
             location = self.geolocater.geocode(search_term, exactly_one=True)
 
+            self.logger.debug("Geocoded location: %s"%location)
+
             if not (location):
                 raise SuperphyMetaError("Invalid location/geocoding failed for %s"%search_term)
 
-            googleResponse = location.raw()
-
+            googleResponse = location.raw
+            
             # Retreive place ID (only one result requested)
-            locationBlock = googleResponse['results'][0]
-            place_id = locationBlock['place_id']
+            place_id = googleResponse[u'place_id'].decode('utf-8','ignore')
+            assert place_id, "place_id not found in google Maps API response: %r"%place_id
 
-            uri = "superphy:googlemaps_place_id_"+place_id # use place_id as uri
+            uristr = "googlemaps_place_id_"+place_id
+            uri = SUPERPHY[uristr] # use place_id as uri
+            self.logger.debug("New geographic_location URI being added: %s"%uri.n3())
 
-            result = self.graph().query(self.queries['uri_lookup'], initBindings={'uri': uri})
+            result = self.store.query(self.queries['uri_lookup'], initBindings={'uri': uri})
             if result:
                 # Found location object in DB with that uri
+                self.logger.debug("Linking new location search term %s"%search_term)
 
                 # Link this search term to formatted address
                 self._add_search_term(uri, search_term)
 
-                return uri
+                return uristr
 
             else:
                 # Need to add new location object
+                self.logger.debug("Adding new geographic_location URI %s"%uri.n3())
+
                 self._add_db_location(location, uri, search_term)
 
-                return uri
+                return uristr
 
 
     def _add_db_location(self, location, uri, search_term):
@@ -882,20 +904,49 @@ class LocationOntology(AttributeOntology):
 
         Args:
             location[geopy.location.Location]: location object
-            uri[string]: URI to use in DB
+            uri[string|rdflib.term.URIRef]: URI to use in DB
             search_term[string]: Search term string linked to geocoded address
 
         Returns:
-            None on success, raises exception on failure/error
+            SparqlWrapper.Wrapper.QueryResult
 
         """
 
-        return self.graph().update(self.queries['insert_location'], initBindings = {
-                'location': uri,
-                'search_term': search_term,
-                'address': location.address(),
-                'json': location.raw()
-            })
+        # Create variables
+        if isinstance(uri,basestring):
+            uri = SUPERPHY[uri]
+
+        googleResponse = location.raw
+        jsonResponse = json.dumps(googleResponse)
+
+        po = [
+            (RDF.type, SUPERPHY.geographic_location),
+            (SUPERPHY.matches_location_query, Literal(search_term)),
+            (SUPERPHY.has_formatted_address, Literal(location.address)),
+            (SUPERPHY.has_geocoding_result, Literal(jsonResponse))
+        ]
+      
+       
+        # Run query
+        try:
+
+            # Add insert stmts
+            for p, o in po:
+                self.store.add((uri, p, o))
+
+            # Send request to server
+            r = self.store.commit()
+            self.logger.debug("Insert call returned response %s"%r.info())
+            self.logger.debug("Insert url %s"%r.geturl())
+            self.logger.debug("Insert results %s"%r.convert())
+            self.logger.debug("QUERY:\n%s"%self.store.queryString)
+
+            return r
+
+        except Exception, e:
+            self.logger.debug("Insert call raised exception %s"%e)
+            raise e
+
 
 
     def _add_search_term(self, uri, search_term):
@@ -903,7 +954,7 @@ class LocationOntology(AttributeOntology):
 
         Args:
             location[geopy.location.Location]: location object
-            uri[string]: URI to use in DB
+            uri[string|rdflib.term.URIRef]: URI to use in DB
             search_term[string]: Search term string linked to geocoded address
 
         Returns:
@@ -911,10 +962,41 @@ class LocationOntology(AttributeOntology):
 
         """
 
-        return self.graph().update(self.queries['insert_search_term'], initBindings = {
-                'location': uri,
-                'search_term': search_term
-            })
+        """
+
+            'insert_search_term':
+                    INSERT DATA { 
+                        ?location superphy:matches_location_query ?search_term .
+                       }
+                    
+        
+        """
+
+        # Create variables
+        if isinstance(uri,basestring):
+            uri = URIRef(uri)
+
+        po = [
+            (URIRef('superphy:matches_location_query'), Literal(search_term)),
+        ]
+      
+       
+        # Run query
+        try:
+
+            # Add insert stmts
+            for p, o in po:
+                self.store.add((uri, p, o))
+
+            # Send request to server
+            r = self.store.store.commit()
+            self.logger.debug("Insert call returned response %s"%r.info())
+
+            return r
+
+        except Exception, e:
+            self.logger.debug("Insert call raised exception %s"%e)
+            raise e
 
 
 

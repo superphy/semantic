@@ -194,16 +194,17 @@ def location(v, mapper):
     """
     o = mapper.ontology('location')
 
-    # Determine if location is in DB cache 
+    # Determine if location is in DB cache
     if not (o.has_location(v)):
         # Add location to cache if valid
         try:
             o.get_location(v)
                                        
-        except Exception:
+        except Exception, e:
             # Invalid location
+            mapper.logger.info(e)
             return False
-
+            
     return [('location', v)]
 
 

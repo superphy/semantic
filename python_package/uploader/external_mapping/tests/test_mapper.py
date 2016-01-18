@@ -216,6 +216,7 @@ class MapperTestCase(unittest.TestCase):
 
 
     def test_mapper(self):
+        self.logger.info('test_mapper log')
 
         # Use test files in etc/ directory
         etcdir = path.dirname(path.realpath(__file__)) + "/../etc/"
