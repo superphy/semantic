@@ -1,6 +1,6 @@
 #!/bin/bash
 source bash/config
-source "$(pwd)"/venv/bin/activate
+source venv/bin/activate
 cd "$(pwd)"${HTML_DIRECTORY}
 gulp
 cd ../..

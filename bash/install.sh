@@ -21,7 +21,7 @@ esac
 read -r -p "Deploy apache? [Y/N] " response
 case $response in 
    [yY][eE][sS]|[yY])
-	bash bash/deploy_apache superphy
+	bash bash/deploy_apache.sh superphy
 	;;
    *)
 	echo "Not deploying apache."
@@ -85,5 +85,5 @@ if ! find data-dev.sqlite | read v; then
 fi
 
 echo Finished
-echo """$ bash bash/run""" to run the server
+echo """$ bash bash/run.sh""" to run the server
 exit 0
