@@ -6,6 +6,9 @@ This module wraps often-used queries to the Blazegraph SPARQL endpoint.
 """
 
 from SPARQLWrapper import JSON, SPARQLWrapper
+from superphy import endpoint
+from superphy.endpoint import query as _sparql_query
+from superphy.endpoint import update as _sparql_update
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -247,6 +250,8 @@ def check_checksum(checksum):
 
     return results["boolean"]
 
+
+'''
 def _sparql_query(query):
     sparql = SPARQLWrapper("http://localhost:9999/blazegraph/namespace/superphy/sparql")
     sparql.setQuery(query)
@@ -261,3 +266,4 @@ def _sparql_update(query):
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results
+'''

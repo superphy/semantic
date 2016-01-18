@@ -63,6 +63,8 @@ def print_query(results,*args):
 def print_spo(results):
 	print_query(results,"s","p","o")
 '''
+'''
 def start():
 	"""Starts the endpoint client"""
 	subprocess.call('bash/start_blazegraph')
+'''
