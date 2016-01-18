@@ -24,7 +24,7 @@ def get_x_tripples(x):
 def get_all_literals():
 	return endpoint.query("""
 	SELECT ?s ?p ?o
-	WHERE {d
+	WHERE {
 	  {?s ?p ?o
 	   FILTER  ISLITERAL(?o)
 	  }
