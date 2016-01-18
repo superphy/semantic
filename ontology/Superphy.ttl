@@ -319,12 +319,6 @@ xsd:date a rdfs:Datatype .
 <http://purl.obolibrary.org/obo/SO_0000704> rdfs:subClassOf _:genid1 .
 
 _:genid1 a owl:Restriction ;
-	owl:onProperty <http://purl.obolibrary.org/obo/so_has_part> ;
-	owl:someValuesFrom :Sequence .
-
-<http://purl.obolibrary.org/obo/SO_0000704> rdfs:subClassOf _:genid2 .
-
-_:genid2 a owl:Restriction ;
 	owl:onProperty <http://purl.obolibrary.org/obo/so_part_of> ;
 	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Contig> .
 # 
@@ -334,11 +328,17 @@ _:genid2 a owl:Restriction ;
 # 
 # http://www.biointerchange.org/gfvo#Contig
 
+<http://www.biointerchange.org/gfvo#Contig> rdfs:subClassOf _:genid2 .
+
+_:genid2 a owl:Restriction ;
+	owl:onProperty <http://purl.obolibrary.org/obo/so_has_part> ;
+	owl:someValuesFrom <http://purl.obolibrary.org/obo/SO_0000704> .
+
 <http://www.biointerchange.org/gfvo#Contig> rdfs:subClassOf _:genid3 .
 
 _:genid3 a owl:Restriction ;
 	owl:onProperty <http://purl.obolibrary.org/obo/so_has_part> ;
-	owl:someValuesFrom <http://purl.obolibrary.org/obo/SO_0000704> .
+	owl:someValuesFrom :Sequence .
 
 <http://www.biointerchange.org/gfvo#Contig> rdfs:subClassOf _:genid4 .
 
@@ -575,7 +575,7 @@ _:genid36 a owl:Class .
 
 _:genid40 a owl:Restriction ;
 	owl:onProperty <http://purl.obolibrary.org/obo/so_part_of> ;
-	owl:someValuesFrom <http://purl.obolibrary.org/obo/SO_0000704> .
+	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Contig> .
 
 :Sequence rdfs:subClassOf _:genid41 .
 
