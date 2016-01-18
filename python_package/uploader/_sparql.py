@@ -253,14 +253,14 @@ def check_checksum(checksum):
 
 '''
 def _sparql_query(query):
-    sparql = SPARQLWrapper("http://localhost:9999/blazegraph/namespace/superphy/sparql")
+    sparql = SPARQLWrapper(os.getenv('SUPERPHY_RDF_URL', "http://localhost:9999/blazegraph/namespace/superphy/sparql"))
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
     return results
 
 def _sparql_update(query):
-    sparql = SPARQLWrapper("http://localhost:9999/blazegraph/namespace/superphy/sparql")
+    sparql = SPARQLWrapper(os.getenv('SUPERPHY_RDF_URL', "http://localhost:9999/blazegraph/namespace/superphy/sparql"))
     sparql.method = 'POST'
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)

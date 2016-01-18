@@ -23,7 +23,7 @@ class BlazegraphUploader(object):
     A class that sets up data upload to Blazegraph via the initialized specified namespace
     """
 
-    bg_url = "http://localhost:9999/blazegraph/namespace/superphy/sparql"
+    bg_url = os.getenv('SUPERPHY_RDF_URL', "http://localhost:9999/blazegraph/namespace/superphy/sparql")
 
     def __init__(self):
         pass
@@ -89,5 +89,5 @@ class BlazegraphUploader(object):
         """
         headers = {'Content-Type':'application/xml'}
         data = "".join(line for line in open(generate_path("data/namespace.xml")))
-        r = requests.post('http://localhost:9999/blazegraph/namespace', data=data, headers=headers)
+        r = requests.post(os.getenv('SUPERPHY_RDF_URL', "http://localhost:9999/blazegraph/namespace/superphy/sparql"), data=data, headers=headers)
         return r.content

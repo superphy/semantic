@@ -13,12 +13,12 @@
 
 import requests
 import subprocess
+import os
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 
 #Change this to change where the sparql endpoint is pointing
-_url = "http://10.139.14.124:9000/blazegraph/namespace/superphy/sparql"
-_ontology_file = "file:////home/drewb/Desktop/User_Login_GraphDB/ontology/User_Ontology_RDF_XML.owl"
+_url = os.getenv('SUPERPHY_RDF_URL', "http://localhost:9999/blazegraph/namespace/superphy/sparql")
 
 #Takes a sparql query and a url of your sparql endpoint. 
 #Returns an object containing the information you requested. -- http://rdflib.readthedocs.org/en/latest/gettingstarted.html
