@@ -1,6 +1,6 @@
 #!/bin/bash
 #makes a superphy namespace
-source="$(pwd)"/venv/bin/activate
+source venv/bin/activate
 python "$(pwd)"/python_package/uploader/sequence_upload.py
 deactivate
 
