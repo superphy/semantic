@@ -1,4 +1,4 @@
-#!../venv/bin/python
+#!../../venv/bin/python
 import os
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
