@@ -1,7 +1,7 @@
 #!/bin/bash
 
 GULPFILE_LOCATION="/app/static/"
-source ../venv/bin/activate
+source ../../venv/bin/activate
 #Point symlink to index html file.
 bash bash/deploy_apache.sh
 root="$(pwd)"
