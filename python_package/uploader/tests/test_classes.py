@@ -21,6 +21,7 @@ xml = Namespace("http://www.w3.org/XML/1998/namespace")
 xsd = Namespace("http://www.w3.org/2001/XMLSchema#")
 rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
+faldo = Namespace("http://biohackathon.org/resource/faldo#")
 
 
 
@@ -382,7 +383,8 @@ class ClassesTestCase(unittest.TestCase):
         self.check_triples(field, subjects)
 
     def test_Sequence(self):
-        sequence = classes.Sequence(self.graph, "ABCD00000000_seq","ABCD00000000", ["CATGCATGCATGCATGCATG"], 15, 1,
+        sequence = classes.Sequence(self.graph, "ABCD00000000_seq","ABCD00000000", 
+                                    ["CATGCATGCATGCATGCATG"], 15, 1,
                                     "asdjkldf", "PLASMID")
         sequence.rdf()
 
@@ -417,6 +419,36 @@ class ClassesTestCase(unittest.TestCase):
         objects = list(self.graph.objects(predicate=n.has_hit))
 
         self.check_triples(field, objects)
+
+    def test_Gene(self):
+
+        kwargs = {"reference_genome": {"ANVW00000000"},
+                  "begin": {"10"},
+                  "end": {"1000"},
+                  "vfo_id": {"251898"},
+                  "category": {"adherence"},
+                  "sub_category": {"bundle_forming_pilus"},
+                  "uniprot": {"B7UTE2"}
+                  }
+
+        gene = classes.Gene(self.graph, "espL2", **kwargs)
+        gene.rdf()
+
+        field = {"https://github.com/superphy#ANVW00000000",
+                 "espL2",
+                 "espL2_begin",
+                 "espL2_end",
+                 "251898",
+                 "https://github.com/superphy#adherence",
+                 "https://github.com/superphy#bundle_forming_pilus",
+                 "B7UTE2",
+                 "http://www.w3.org/2002/07/owl#NamedIndividual",
+                 "http://www.biointerchange.org/gfvo#Gene"
+                 }
+        objects = list(self.graph.objects(n["espL2"]))
+
+        self.check_triples(field, objects)
+
 
 if __name__ == '__main__':
     unittest.main()
