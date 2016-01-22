@@ -53,25 +53,25 @@ deactivate
 
 
 #Getting the BLAST+ gzip file from remote server.
-mkdir blast &> /dev/null || true
-if ! find blast/ncbi*/ | read v; then
+mkdir venv/lib/blast &> /dev/null || true
+if ! find venv/lib/blast/ncbi*/ | read v; then
 
 	if find ../blast/ncbi*/ | read v;
 	then
 		echo Copying NCBI BLAST+ jar file...
-		cp -r ../blast/ncbi*/ blast/
+		cp -r ../blast/ncbi*/ venv/lib/blast/
 	else
 		echo Downloading NCBI BLAST+ jar file...
-		cd blast;
+		cd venv/lib/blast;
 	    wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"
 		tar zxvpf *x64-linux.tar.gz
 
-		cd ..;
+		cd ../../..;
 		read -r -p "Do you want to backup the NCBI BLAST+ client in ../blast ? [Y/N] " response
 		case $response in
 		    [yY][eE][sS]|[yY])
 			mkdir ../blast || true #Redundant?
-			cp -r blast/ncbi*/ ../blast/
+			cp -r venv/lib/blast/ncbi*/ ../blast/
 			;;*)
 		esac
 	fi
