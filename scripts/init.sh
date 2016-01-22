@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Config file
 if ! find ../config/superphy.cfg | read v; then
 	echo "Creating ../config ..."
 	mkdir ../config
@@ -26,16 +27,7 @@ case $response in
 esac
 
 #deploy apache
-read -r -p "Deploy apache? [Y/N] " response
-case $response in 
-   [yY][eE][sS]|[yY])
-	bash bash/deploy_apache.sh superphy
-	;;
-   *)
-	echo "Not deploying apache."
-	;;
-esac
-
+bash bash/deploy_apache.sh superphy
 
 #Virtualenvironment install
 if ! find venv/bin/pip | read v; then
@@ -85,6 +77,11 @@ if ! find venv/lib/blast/ncbi*/ | read v; then
 		esac
 	fi
 fi
+
+#Downloading Graph database
+cd database
+	bash scripts/start.sh
+cd ..
 
 echo Finished
 echo """$ bash scripts/run.sh""" to run the server

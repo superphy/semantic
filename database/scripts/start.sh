@@ -20,7 +20,10 @@ if find ${JARNAME} | read v; then
 	done
 	echo Blazegraph has been started!
 else
-	echo Cannot find ${JARNAME}. Use 'Init.sh' to download jar file.
+	cd ..
+	echo Cannot find ${JARNAME}. Downloading file now...
+	bash scripts/init.sh
+	bash scripts/start.sh
 fi
 cd ..
 exit 0
