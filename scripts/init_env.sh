@@ -7,7 +7,7 @@
 ##   Superphy config settings from INI file
 ## 
 ##   To run:
-##     source bash/init_env.sh [test]
+##     source scripts/init_env.sh [test]
 ##
 ##   INI config settings are loaded from path set in ENV variable
 ##   "SUPERPHY_CONFIGFILE" or from default file:
@@ -36,7 +36,7 @@
 ##
 ##   To run in test mode, add command-line argument:
 ##
-##      source bash/init_env.sh 1
+##      source scripts/init_env.sh 1
 ##   
 ##   This will initialize environment variables with the prefix:
 ##

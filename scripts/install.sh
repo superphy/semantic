@@ -1,5 +1,4 @@
 #!/bin/bash
-source bash/config
 chmod a+x *.py
 
 #sudo installs
@@ -39,7 +38,7 @@ if ! find venv/bin/pip | read v; then
     echo Adding postactivate script to venv/bin/activate
     echo "# Superphy Environment setup" >> venv/bin/activate
     echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
-
+    
 fi
 
 source venv/bin/activate
@@ -78,12 +77,6 @@ if ! find blast/ncbi*/ | read v; then
 	fi
 fi
 
-#Setting up sqlite server for user auth
-if ! find data-dev.sqlite | read v; then
-	echo Setting up SQL server
-	./manage.py db upgrade &> /dev/null
-fi
-
 echo Finished
-echo """$ bash bash/run.sh""" to run the server
+echo """$ bash scripts/run.sh""" to run the server
 exit 0

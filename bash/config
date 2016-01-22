@@ -1,4 +1,0 @@
-TRIPLESTORE_PORT="9000"
-NULL="null"
-APACHE="/var/www/html/"
-HTML_DIRECTORY="/app/static/"

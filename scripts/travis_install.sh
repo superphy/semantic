@@ -53,5 +53,5 @@ fi
 echo sqlite server setup complete!
 
 echo Finished
-echo """$ bash bash/run.sh""" to run the server
+echo """$ bash scripts/run.sh""" to run the server
 exit 0

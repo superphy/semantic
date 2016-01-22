@@ -4,10 +4,10 @@ SuperPhy for the semantic web
 # Quick Start
 
 - Install Packages and download Applications
-	* bash bash/install.sh
+	* bash scripts/install.sh
 
 - Compile the Coffeescript, and start the Flask Server
-	* bash bash/run.sh
+	* bash scripts/run.sh
 
 ## [Coffeescript](http://coffeescript.org/)
 * Setup coffeelint to ensure we are all following the same coding style
