@@ -1,9 +1,9 @@
 #!/bin/bash
-
+BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 GULPFILE_LOCATION="/app/static/"
 source ../../venv/bin/activate
 #Point symlink to index html file.
-bash bash/deploy_apache.sh
+bash ${BASHDIR}/deploy_apache.sh
 root="$(pwd)"
 index="${root}""${GULPFILE_LOCATION}"
 echo $index
