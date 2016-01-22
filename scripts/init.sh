@@ -1,5 +1,14 @@
 #!/bin/bash
-chmod a+x *.py
+
+if ! find ../config/superphy.cfg | read v; then
+	echo "Creating ../config ..."
+	mkdir ../config
+	IP="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+	#IP="localhost"
+	PORT="9000"
+	echo "[rdf]" >> ../config/superphy.cfg
+	echo "url = http://"$IP":"$PORT"/blazegraph/namespace/superphy/sparql" >> ../config/superphy.cfg
+fi
 
 #sudo installs
 read -r -p "Install sudo packages to your dev system? [Y/N] " response
@@ -51,7 +60,6 @@ fi
 
 deactivate
 
-
 #Getting the BLAST+ gzip file from remote server.
 mkdir venv/lib/blast &> /dev/null || true
 if ! find venv/lib/blast/ncbi*/ | read v; then
@@ -67,6 +75,7 @@ if ! find venv/lib/blast/ncbi*/ | read v; then
 		tar zxvpf *x64-linux.tar.gz
 
 		cd ../../..;
+		pwd
 		read -r -p "Do you want to backup the NCBI BLAST+ client in ../blast ? [Y/N] " response
 		case $response in
 		    [yY][eE][sS]|[yY])
