@@ -1,0 +1,4 @@
+PORT=9000
+PROPERTIES_FILE=RWStore.properties
+NAMESPACE="superphy"
+JARNAME="blazegraph-bundled.jar"
