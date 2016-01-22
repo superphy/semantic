@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+Classes:
+    Attribute: attributes of objects in the ontology (abstract class)
+    HostCategory: host category for an object
+    IsolationAttribute: details associated with isolation of a genome (abstract class)
+    FromHost: the host from which the organism was extracted from
+    FromSource: the biological source of the sample
+    IsolationSyndrome: the syndromes associated with the sample
+    Serotype: the serotype of the genome (abstract class)
+    Otype: the id of the O-antigen associated with the sample
+    Htype: the id of the H-antigen associated with the sample
+"""
+
 from named_individual import *
 from namespaces import *
 

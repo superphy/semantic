@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+Classes:
+    NamedIndividual: superclass of all RDF Objects
+"""
+
 from rdflib import Literal, Namespace, XSD
 from namespaces import *
 

@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+Classes for a Genome:
+    Genome: a genome sequenced from a sample
+    PendingGenome: a genome that has not finished processing
+    CompletedGenome: a genome that has finished processing
+"""
+
 from named_individual import *
 from superphy.uploader import _sparql
 
