@@ -337,8 +337,20 @@ _:genid2 a owl:Restriction ;
 <http://www.biointerchange.org/gfvo#Contig> rdfs:subClassOf _:genid3 .
 
 _:genid3 a owl:Restriction ;
+	owl:onProperty <http://purl.obolibrary.org/obo/so_has_part> ;
+	owl:someValuesFrom :Sequence .
+
+<http://www.biointerchange.org/gfvo#Contig> rdfs:subClassOf _:genid4 .
+
+_:genid4 a owl:Restriction ;
 	owl:onProperty <http://purl.obolibrary.org/obo/so_part_of> ;
 	owl:someValuesFrom <http://semanticscience.org/resource/SIO_000984> .
+
+<http://www.biointerchange.org/gfvo#Contig> rdfs:subClassOf _:genid5 .
+
+_:genid5 a owl:Restriction ;
+	owl:onProperty :has_sequence ;
+	owl:someValuesFrom :Sequence .
 # 
 # http://www.biointerchange.org/gfvo#DNASequence
 
@@ -346,90 +358,90 @@ _:genid3 a owl:Restriction ;
 # 
 # http://www.biointerchange.org/gfvo#Genome
 
-<http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid4 .
-
-_:genid4 a owl:Restriction ;
-	owl:onProperty <http://purl.obolibrary.org/obo/so_has_part> ;
-	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Contig> .
-
-<http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid5 .
-
-_:genid5 a owl:Restriction ;
-	owl:onProperty :has_isolation_attribute ;
-	owl:someValuesFrom :isolation_attribute .
-
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid6 .
 
 _:genid6 a owl:Restriction ;
-	owl:onProperty :has_sequence ;
-	owl:someValuesFrom :Sequence .
+	owl:onProperty <http://purl.obolibrary.org/obo/so_has_part> ;
+	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Contig> .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid7 .
 
 _:genid7 a owl:Restriction ;
-	owl:onProperty :is_genome_of ;
-	owl:someValuesFrom :Organism .
+	owl:onProperty :has_isolation_attribute ;
+	owl:someValuesFrom :isolation_attribute .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid8 .
 
 _:genid8 a owl:Restriction ;
-	owl:onProperty :has_Htype ;
-	owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onClass :Htype .
+	owl:onProperty :has_sequence ;
+	owl:someValuesFrom :Sequence .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid9 .
 
 _:genid9 a owl:Restriction ;
-	owl:onProperty :has_Otype ;
-	owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onClass :Otype .
+	owl:onProperty :is_genome_of ;
+	owl:someValuesFrom :Organism .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid10 .
 
 _:genid10 a owl:Restriction ;
-	owl:onProperty :is_owned_by ;
+	owl:onProperty :has_Htype ;
 	owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onClass :User .
+	owl:onClass :Htype .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid11 .
 
 _:genid11 a owl:Restriction ;
-	owl:onProperty :has_accession ;
-	owl:someValuesFrom xsd:string .
+	owl:onProperty :has_Otype ;
+	owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onClass :Otype .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid12 .
 
 _:genid12 a owl:Restriction ;
-	owl:onProperty :has_bioproject ;
-	owl:someValuesFrom xsd:string .
+	owl:onProperty :is_owned_by ;
+	owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onClass :User .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid13 .
 
 _:genid13 a owl:Restriction ;
-	owl:onProperty :has_biosample ;
+	owl:onProperty :has_accession ;
 	owl:someValuesFrom xsd:string .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid14 .
 
 _:genid14 a owl:Restriction ;
-	owl:onProperty :has_geographic_location ;
+	owl:onProperty :has_bioproject ;
 	owl:someValuesFrom xsd:string .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid15 .
 
 _:genid15 a owl:Restriction ;
-	owl:onProperty :has_isolation_date ;
-	owl:someValuesFrom xsd:date .
+	owl:onProperty :has_biosample ;
+	owl:someValuesFrom xsd:string .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid16 .
 
 _:genid16 a owl:Restriction ;
-	owl:onProperty :has_strain ;
+	owl:onProperty :has_geographic_location ;
 	owl:someValuesFrom xsd:string .
 
 <http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid17 .
 
 _:genid17 a owl:Restriction ;
+	owl:onProperty :has_isolation_date ;
+	owl:someValuesFrom xsd:date .
+
+<http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid18 .
+
+_:genid18 a owl:Restriction ;
+	owl:onProperty :has_strain ;
+	owl:someValuesFrom xsd:string .
+
+<http://www.biointerchange.org/gfvo#Genome> rdfs:subClassOf _:genid19 .
+
+_:genid19 a owl:Restriction ;
 	owl:onProperty :has_valid_sequence ;
 	owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
 	owl:onDataRange xsd:string .
@@ -441,57 +453,57 @@ _:genid17 a owl:Restriction ;
 # https://github.com/superphy#Host
 
 :Host a owl:Class ;
-	owl:equivalentClass _:genid18 .
+	owl:equivalentClass _:genid20 .
 
-_:genid18 owl:intersectionOf _:genid23 .
+_:genid20 owl:intersectionOf _:genid25 .
+
+_:genid25 a rdf:List ;
+	rdf:first :Organism ;
+	rdf:rest _:genid23 .
 
 _:genid23 a rdf:List ;
-	rdf:first :Organism ;
-	rdf:rest _:genid21 .
+	rdf:first _:genid24 .
+
+_:genid24 a owl:Restriction ;
+	owl:onProperty :has_host_category ;
+	owl:someValuesFrom :host_category .
+
+_:genid23 rdf:rest _:genid21 .
 
 _:genid21 a rdf:List ;
 	rdf:first _:genid22 .
 
 _:genid22 a owl:Restriction ;
-	owl:onProperty :has_host_category ;
-	owl:someValuesFrom :host_category .
-
-_:genid21 rdf:rest _:genid19 .
-
-_:genid19 a rdf:List ;
-	rdf:first _:genid20 .
-
-_:genid20 a owl:Restriction ;
 	owl:onProperty :is_object_of ;
 	owl:someValuesFrom :isolation_from_host .
 
-_:genid19 rdf:rest rdf:nil .
+_:genid21 rdf:rest rdf:nil .
 
-_:genid18 a owl:Class .
+_:genid20 a owl:Class .
 
 :Host rdfs:subClassOf :Organism .
 # 
 # https://github.com/superphy#Htype
 
 :Htype a owl:Class ;
-	owl:equivalentClass _:genid24 .
+	owl:equivalentClass _:genid26 .
 
-_:genid24 owl:intersectionOf _:genid27 .
+_:genid26 owl:intersectionOf _:genid29 .
+
+_:genid29 a rdf:List ;
+	rdf:first :serotype ;
+	rdf:rest _:genid27 .
 
 _:genid27 a rdf:List ;
-	rdf:first :serotype ;
-	rdf:rest _:genid25 .
+	rdf:first _:genid28 .
 
-_:genid25 a rdf:List ;
-	rdf:first _:genid26 .
-
-_:genid26 a owl:Restriction ;
+_:genid28 a owl:Restriction ;
 	owl:onProperty :is_Htype_of ;
 	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
 
-_:genid25 rdf:rest rdf:nil .
+_:genid27 rdf:rest rdf:nil .
 
-_:genid24 a owl:Class .
+_:genid26 a owl:Class .
 
 :Htype rdfs:subClassOf :serotype ;
 	owl:disjointWith :Otype .
@@ -504,98 +516,104 @@ _:genid24 a owl:Class .
 # https://github.com/superphy#Organism
 
 :Organism a owl:Class ;
-	owl:equivalentClass _:genid28 .
+	owl:equivalentClass _:genid30 .
 
-_:genid28 owl:intersectionOf _:genid33 .
+_:genid30 owl:intersectionOf _:genid35 .
+
+_:genid35 a rdf:List ;
+	rdf:first <http://www.biointerchange.org/gfvo#SequencedIndividual> ;
+	rdf:rest _:genid33 .
 
 _:genid33 a rdf:List ;
-	rdf:first <http://www.biointerchange.org/gfvo#SequencedIndividual> ;
-	rdf:rest _:genid31 .
+	rdf:first _:genid34 .
+
+_:genid34 a owl:Restriction ;
+	owl:onProperty :has_genome ;
+	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
+
+_:genid33 rdf:rest _:genid31 .
 
 _:genid31 a rdf:List ;
 	rdf:first _:genid32 .
 
 _:genid32 a owl:Restriction ;
-	owl:onProperty :has_genome ;
-	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
-
-_:genid31 rdf:rest _:genid29 .
-
-_:genid29 a rdf:List ;
-	rdf:first _:genid30 .
-
-_:genid30 a owl:Restriction ;
 	owl:onProperty :has_taxonomy_id ;
 	owl:someValuesFrom xsd:string .
 
-_:genid29 rdf:rest rdf:nil .
+_:genid31 rdf:rest rdf:nil .
 
-_:genid28 a owl:Class .
+_:genid30 a owl:Class .
 # 
 # https://github.com/superphy#Otype
 
 :Otype a owl:Class ;
-	owl:equivalentClass _:genid34 .
+	owl:equivalentClass _:genid36 .
 
-_:genid34 owl:intersectionOf _:genid37 .
+_:genid36 owl:intersectionOf _:genid39 .
+
+_:genid39 a rdf:List ;
+	rdf:first :serotype ;
+	rdf:rest _:genid37 .
 
 _:genid37 a rdf:List ;
-	rdf:first :serotype ;
-	rdf:rest _:genid35 .
+	rdf:first _:genid38 .
 
-_:genid35 a rdf:List ;
-	rdf:first _:genid36 .
-
-_:genid36 a owl:Restriction ;
+_:genid38 a owl:Restriction ;
 	owl:onProperty :is_Otype_of ;
 	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
 
-_:genid35 rdf:rest rdf:nil .
+_:genid37 rdf:rest rdf:nil .
 
-_:genid34 a owl:Class .
+_:genid36 a owl:Class .
 
 :Otype rdfs:subClassOf :serotype .
 # 
 # https://github.com/superphy#Sequence
 
 :Sequence a owl:Class ;
-	rdfs:subClassOf _:genid38 .
-
-_:genid38 a owl:Restriction ;
-	owl:onProperty :is_sequence_of ;
-	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
-
-:Sequence rdfs:subClassOf _:genid39 .
-
-_:genid39 a owl:Restriction ;
-	owl:onProperty :has_base_pair ;
-	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:int .
-
-:Sequence rdfs:subClassOf _:genid40 .
+	rdfs:subClassOf _:genid40 .
 
 _:genid40 a owl:Restriction ;
-	owl:onProperty :has_checksum ;
-	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:string .
+	owl:onProperty <http://purl.obolibrary.org/obo/so_part_of> ;
+	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Contig> .
 
 :Sequence rdfs:subClassOf _:genid41 .
 
 _:genid41 a owl:Restriction ;
-	owl:onProperty :has_contigs ;
-	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:int .
+	owl:onProperty :is_sequence_of ;
+	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
 
 :Sequence rdfs:subClassOf _:genid42 .
 
 _:genid42 a owl:Restriction ;
-	owl:onProperty :is_from ;
+	owl:onProperty :has_base_pair ;
 	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:string .
+	owl:onDataRange xsd:int .
 
 :Sequence rdfs:subClassOf _:genid43 .
 
 _:genid43 a owl:Restriction ;
+	owl:onProperty :has_checksum ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Sequence rdfs:subClassOf _:genid44 .
+
+_:genid44 a owl:Restriction ;
+	owl:onProperty :has_contigs ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:int .
+
+:Sequence rdfs:subClassOf _:genid45 .
+
+_:genid45 a owl:Restriction ;
+	owl:onProperty :is_from ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+:Sequence rdfs:subClassOf _:genid46 .
+
+_:genid46 a owl:Restriction ;
 	owl:onProperty :has_hit ;
 	owl:maxQualifiedCardinality "10"^^xsd:nonNegativeInteger ;
 	owl:onDataRange xsd:string .
@@ -605,9 +623,9 @@ _:genid43 a owl:Restriction ;
 # https://github.com/superphy#User
 
 :User a owl:Class ;
-	rdfs:subClassOf _:genid44 .
+	rdfs:subClassOf _:genid47 .
 
-_:genid44 a owl:Restriction ;
+_:genid47 a owl:Restriction ;
 	owl:onProperty :owns ;
 	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
 # 
@@ -619,156 +637,156 @@ _:genid44 a owl:Restriction ;
 # https://github.com/superphy#host_category
 
 :host_category a owl:Class ;
-	owl:equivalentClass _:genid45 .
+	owl:equivalentClass _:genid48 .
 
-_:genid45 owl:intersectionOf _:genid54 .
+_:genid48 owl:intersectionOf _:genid57 .
 
-_:genid54 a rdf:List ;
+_:genid57 a rdf:List ;
 	rdf:first :Attribute ;
-	rdf:rest _:genid52 .
+	rdf:rest _:genid55 .
 
-_:genid52 a rdf:List ;
-	rdf:first _:genid53 .
+_:genid55 a rdf:List ;
+	rdf:first _:genid56 .
 
-_:genid53 a owl:Restriction ;
+_:genid56 a owl:Restriction ;
 	owl:onProperty :is_host_category_of ;
 	owl:someValuesFrom :Host .
 
-_:genid52 rdf:rest _:genid50 .
+_:genid55 rdf:rest _:genid53 .
 
-_:genid50 a rdf:List ;
-	rdf:first _:genid51 .
+_:genid53 a rdf:List ;
+	rdf:first _:genid54 .
 
-_:genid51 a owl:Restriction ;
+_:genid54 a owl:Restriction ;
 	owl:onProperty :is_host_category_of ;
 	owl:someValuesFrom :isolation_from_host .
 
-_:genid50 rdf:rest _:genid48 .
+_:genid53 rdf:rest _:genid51 .
 
-_:genid48 a rdf:List ;
-	rdf:first _:genid49 .
+_:genid51 a rdf:List ;
+	rdf:first _:genid52 .
 
-_:genid49 a owl:Restriction ;
+_:genid52 a owl:Restriction ;
 	owl:onProperty :is_host_category_of ;
 	owl:someValuesFrom :isolation_from_source .
 
-_:genid48 rdf:rest _:genid46 .
+_:genid51 rdf:rest _:genid49 .
 
-_:genid46 a rdf:List ;
-	rdf:first _:genid47 .
+_:genid49 a rdf:List ;
+	rdf:first _:genid50 .
 
-_:genid47 a owl:Restriction ;
+_:genid50 a owl:Restriction ;
 	owl:onProperty :is_host_category_of ;
 	owl:someValuesFrom :isolation_syndrome .
 
-_:genid46 rdf:rest rdf:nil .
+_:genid49 rdf:rest rdf:nil .
 
-_:genid45 a owl:Class .
+_:genid48 a owl:Class .
 
 :host_category rdfs:subClassOf :Attribute .
 # 
 # https://github.com/superphy#isolation_attribute
 
 :isolation_attribute a owl:Class ;
-	owl:equivalentClass _:genid55 .
+	owl:equivalentClass _:genid58 .
 
-_:genid55 owl:intersectionOf _:genid58 .
+_:genid58 owl:intersectionOf _:genid61 .
 
-_:genid58 a rdf:List ;
+_:genid61 a rdf:List ;
 	rdf:first :Attribute ;
-	rdf:rest _:genid56 .
+	rdf:rest _:genid59 .
 
-_:genid56 a rdf:List ;
-	rdf:first _:genid57 .
+_:genid59 a rdf:List ;
+	rdf:first _:genid60 .
 
-_:genid57 a owl:Restriction ;
+_:genid60 a owl:Restriction ;
 	owl:onProperty :is_isolation_attribute_of ;
 	owl:someValuesFrom <http://www.biointerchange.org/gfvo#Genome> .
 
-_:genid56 rdf:rest rdf:nil .
+_:genid59 rdf:rest rdf:nil .
 
-_:genid55 a owl:Class .
+_:genid58 a owl:Class .
 
 :isolation_attribute rdfs:subClassOf :Attribute .
 # 
 # https://github.com/superphy#isolation_from_host
 
 :isolation_from_host a owl:Class ;
-	owl:equivalentClass _:genid59 .
+	owl:equivalentClass _:genid62 .
 
-_:genid59 owl:intersectionOf _:genid64 .
+_:genid62 owl:intersectionOf _:genid67 .
 
-_:genid64 a rdf:List ;
+_:genid67 a rdf:List ;
 	rdf:first :isolation_attribute ;
-	rdf:rest _:genid62 .
+	rdf:rest _:genid65 .
 
-_:genid62 a rdf:List ;
-	rdf:first _:genid63 .
+_:genid65 a rdf:List ;
+	rdf:first _:genid66 .
 
-_:genid63 a owl:Restriction ;
+_:genid66 a owl:Restriction ;
 	owl:onProperty :has_host_category ;
 	owl:someValuesFrom :host_category .
 
-_:genid62 rdf:rest _:genid60 .
+_:genid65 rdf:rest _:genid63 .
 
-_:genid60 a rdf:List ;
-	rdf:first _:genid61 .
+_:genid63 a rdf:List ;
+	rdf:first _:genid64 .
 
-_:genid61 a owl:Restriction ;
+_:genid64 a owl:Restriction ;
 	owl:onProperty :has_object ;
 	owl:someValuesFrom :Host .
 
-_:genid60 rdf:rest rdf:nil .
+_:genid63 rdf:rest rdf:nil .
 
-_:genid59 a owl:Class .
+_:genid62 a owl:Class .
 
 :isolation_from_host rdfs:subClassOf :isolation_attribute .
 # 
 # https://github.com/superphy#isolation_from_source
 
 :isolation_from_source a owl:Class ;
-	owl:equivalentClass _:genid65 .
+	owl:equivalentClass _:genid68 .
 
-_:genid65 owl:intersectionOf _:genid68 .
+_:genid68 owl:intersectionOf _:genid71 .
 
-_:genid68 a rdf:List ;
+_:genid71 a rdf:List ;
 	rdf:first :isolation_attribute ;
-	rdf:rest _:genid66 .
+	rdf:rest _:genid69 .
 
-_:genid66 a rdf:List ;
-	rdf:first _:genid67 .
+_:genid69 a rdf:List ;
+	rdf:first _:genid70 .
 
-_:genid67 a owl:Restriction ;
+_:genid70 a owl:Restriction ;
 	owl:onProperty :has_host_category ;
 	owl:someValuesFrom :host_category .
 
-_:genid66 rdf:rest rdf:nil .
+_:genid69 rdf:rest rdf:nil .
 
-_:genid65 a owl:Class .
+_:genid68 a owl:Class .
 
 :isolation_from_source rdfs:subClassOf :isolation_attribute .
 # 
 # https://github.com/superphy#isolation_syndrome
 
 :isolation_syndrome a owl:Class ;
-	owl:equivalentClass _:genid69 .
+	owl:equivalentClass _:genid72 .
 
-_:genid69 owl:intersectionOf _:genid72 .
+_:genid72 owl:intersectionOf _:genid75 .
 
-_:genid72 a rdf:List ;
+_:genid75 a rdf:List ;
 	rdf:first :isolation_attribute ;
-	rdf:rest _:genid70 .
+	rdf:rest _:genid73 .
 
-_:genid70 a rdf:List ;
-	rdf:first _:genid71 .
+_:genid73 a rdf:List ;
+	rdf:first _:genid74 .
 
-_:genid71 a owl:Restriction ;
+_:genid74 a owl:Restriction ;
 	owl:onProperty :has_host_category ;
 	owl:someValuesFrom :host_category .
 
-_:genid70 rdf:rest rdf:nil .
+_:genid73 rdf:rest rdf:nil .
 
-_:genid69 a owl:Class .
+_:genid72 a owl:Class .
 
 :isolation_syndrome rdfs:subClassOf :isolation_attribute .
 # 

@@ -132,7 +132,7 @@ def find_duplicate_biosamples():
 
 def find_core_genome(biosample):
     """
-    Finds all Genoems with the specified BioSample id that are core genomes (labelled with CORE)
+    Finds all Genomes with the specified BioSample id that are core genomes (labelled with CORE)
 
     Args:
         biosample: BioSample id of interest
@@ -150,6 +150,57 @@ def find_core_genome(biosample):
     )
 
     return [result["Genome"]["value"].split("#", 1)[1] for result in results["results"]["bindings"]]
+
+
+def find_category(category):
+    """
+    Finds the corresponding category instance in Blazegraph. Returns None if nothing is found.
+
+    Args:
+        category: a term used to identify the category
+
+    Returns: the SPARQL URI for the associated category
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :sub_category}' % category 
+    )
+
+    return results["results"]["bindings"]
+
+
+def find_sub_category(sub_category):
+    """
+    Finds the corresponding sub_category instance in Blazegraph. Returns None if nothing is found.
+
+    Args:
+        sub_category: a term used to identify the sub_category
+
+    Returns: the SPARQL URI for the associated sub_category
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s ?o "%s"^^xsd:string . ?s rdf:type :sub_category}' % sub_category 
+    )
+
+    return results["results"]["bindings"]
+
+
+def find_genome(accession):
+    """
+    Finds the genome instance in Blazegraph. Returns None if nothing is found.
+
+    Args:
+        genome: genome accession number
+
+    Returns: the SPARQL URI for the associated genome instance. Returns None if nothing found.
+    """
+    results = _sparql_query(
+        'PREFIX : <https://github.com/superphy#>\n'
+        'SELECT ?s WHERE {?s :has_accession "%s"^^xsd:string . }' % accession 
+    )
+
+    return results["results"]["bindings"][0]["s"]["value"]
 
 
 def delete_instance(name):
