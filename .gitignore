@@ -13,6 +13,8 @@ venv/lib/python2.7/*
 venv/lib/python2.7/site-packages/*
 !venv/lib/python2.7/site-packages/superphy
 
+config/*
+!config/default.cfg
 
 #######################
 *.py[cod]
