@@ -8,7 +8,7 @@ associated with them, or if they have already been processed and found to have a
 
 Classes:
 	ContigUploader: Class for retrieving and uploading contig metadata of eligible genomes
-	ContigMetadata: Class for storing contig metadata in preparation for validation and uploading
+	ContigsWrapper: A wrapper class that stores information for uploading and verification of contig metadata
 """
 
 from ftplib import FTP
@@ -43,7 +43,7 @@ class ContigUploader(object):
 		for (genome, accession) in find_missing_sequences():
 			contigswrapper = ContigsWrapper(genome, accession)
 			try:
-				self.load_contigs(contigswrapper)
+				self.get_seqdata(contigswrapper)
 				if contigswrapper.dict["is_from"] == "PLASMID":
 					self.upload(contigswrapper, self.plasmid_rdf)
 				else:
@@ -53,28 +53,70 @@ class ContigUploader(object):
 			except TypeError:
 				self.error_logging(contigswrapper)
 
-	def load_contigs(self, contigswrapper):
-		seq_id = strip_non_alphabetic(str(contigswrapper.genome))
-		self.download_file(seq_id, 'fsa_nt.gz')
+	def load_contigs(self, handle, contigswrapper):
+		"""
+		Attempts to load contigs to Blazegraph.
 
-		with open(generate_path('tmp/loading.fasta'), 'rb') as handle:
-			sequencedata = SeqIO.parse(handle, 'fasta')
-			contigs = [] # list of 2-tuples (accession name, seq)
+		Args:
+			contigswrapper: a ContigsWrapper instance for storing contig metadata
+		"""
+		sequencedata = SeqIO.parse(handle, 'fasta')
+		contigs = [] # list of 2-tuples (accession name, seq)
+		print "in load contigs outside for loop"
 
-			for record in sequencedata:
-				accession_name = record.name.split("|")[3].split(".")[0]
+		for record in sequencedata:
+			print "in load contigs"
+			accession_name = record.name.split("|")[3].split(".")[0]
+			if "complete" in record.description.lower():
+				accession_name = accession_name + "_closed"
 
-				if check_NamedIndividual(accession_name):
-					print "%s already in Blazegraph." % accession_name
-					raise TypeError
-				else:
-					contigs.append((accession_name, str(record.seq)))
-					contigswrapper.dict["is_from"] = "WGS"
+			if check_NamedIndividual(accession_name):
+				print "%s already in Blazegraph." % accession_name
+				raise TypeError
+			else:
+				print "Genome complete in load contigs"
+				contigs.append((accession_name, str(record.seq)))
 
-					if "plasmid" in record.description.lower():
-						contigswrapper.dict["is_from"] = 'PLASMID'
+				if "plasmid" in record.description.lower():
+					contigswrapper.dict["is_from"] = 'PLASMID'
 
-					contigswrapper.add_contigs(contigs)
+				contigswrapper.add_contigs(contigs)
+
+
+	def get_seqdata(self, contigswrapper):
+		"""
+		Args:
+			contigswrapper: a ContigsWrapper instance that holds contig metadata for a genome
+
+		Returns: a BLAST record for self.load_contigs to use
+		"""
+		Entrez.email = "superphy.info@gmail.com"
+		handle = None
+		i = 0
+
+		while(i<3):
+			try:
+				handle = Entrez.efetch(db="nuccore", id=contigswrapper.genome, rettype="fasta", retmode="text")
+				for record in SeqIO.parse(handle, 'fasta'):
+					if "complete" in record.description.lower():
+						contigswrapper.dict["is_from"] = "CORE"
+						handle = Entrez.efetch(db="nuccore", id=contigswrapper.genome, rettype="fasta", retmode="text")
+						self.load_contigs(handle, contigswrapper)
+						break
+					else:
+						self.download_file(strip_non_alphabetic(str(contigswrapper.genome)), 'fsa_nt.gz')
+						with open(generate_path('tmp/loading.fasta'), 'rb') as handle:
+							contigswrapper.dict["is_from"] = "WGS"
+							self.load_contigs(handle, contigswrapper)
+			except HTTPError:
+				i += 1
+				print i
+				continue
+			break
+		try:
+			handle is None
+		except NameError:
+			raise TypeError("Could not retrieve file for analysis")
 
 
 	def upload(self, contigswrapper, func):
@@ -220,6 +262,7 @@ class ContigsWrapper(object):
 
 
 if __name__ == "__main__":
+	#import pdb; pdb.set_trace()
 	ContigUploader().upload_missing_contigs()
 
 
