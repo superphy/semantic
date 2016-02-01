@@ -62,10 +62,8 @@ class ContigUploader(object):
 		"""
 		sequencedata = SeqIO.parse(handle, 'fasta')
 		contigs = [] # list of 2-tuples (accession name, seq)
-		print "in load contigs outside for loop"
 
 		for record in sequencedata:
-			print "in load contigs"
 			accession_name = record.name.split("|")[3].split(".")[0]
 			if "complete" in record.description.lower():
 				accession_name = accession_name + "_closed"
@@ -74,7 +72,6 @@ class ContigUploader(object):
 				print "%s already in Blazegraph." % accession_name
 				raise TypeError
 			else:
-				print "Genome complete in load contigs"
 				contigs.append((accession_name, str(record.seq)))
 
 				if "plasmid" in record.description.lower():
@@ -110,7 +107,6 @@ class ContigUploader(object):
 							self.load_contigs(handle, contigswrapper)
 			except HTTPError:
 				i += 1
-				print i
 				continue
 			break
 		try:
