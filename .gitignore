@@ -16,6 +16,8 @@ venv/lib/python2.7/site-packages/*
 config/*
 !config/default.cfg
 
+blast/*
+
 #######################
 *.py[cod]
 

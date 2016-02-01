@@ -1,5 +1,14 @@
 #!bin/bash
 source scripts/config
-kill -9 `lsof -t -i TCP:${PORT} -c java -a`
-
-echo Blazegraph has been terminated!
+result=$(ps ax | grep ${PORT} | grep java | awk '{print $1}')
+if [ ! -z "$result" ]; then
+	{
+		kill -9 $result
+	} || {
+		echo "Sudo killing existing blazegraph..."
+		sudo kill -9 $result
+	}
+	echo "Blazegraph has been terminated!"
+else
+	echo "No Blazeraph running on port $PORT..."
+fi
