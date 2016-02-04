@@ -12,6 +12,7 @@ except:
         sys.path.append(os.getcwd()+"/venv/lib/python2.7/site-packages")
         import superphy
         superphy.config.install()
+        exit()
     else:
         exit()
 
