@@ -8,7 +8,7 @@ import os, sys
 try:
     import superphy
 except:
-    if not os.path.isfile(venv/bin/python):
+    if not os.path.isfile(os.getcwd()+"venv/bin/python"):
         sys.path.append(os.getcwd()+"/venv/lib/python2.7/site-packages")
         import superphy
         superphy.config.install()
@@ -29,11 +29,13 @@ def run():
 def install():
     superphy.config.install()
     superphy.config.start_database()
+    exit()
 
 def upload():
   #superphy.config.import_env()
   #superphy.config.start_database()
     superphy.upload.foo()
+    exit()
 
 def shell():
     import code
@@ -49,7 +51,7 @@ options = {
 if __name__ == '__main__':
     if (len(sys.argv) >= 2):
         if (sys.argv[1] in options):
-            options[sys.argv.pop([1])]()
+            options[sys.argv[1]]()
         else:
             print "Options:"
             for key in options:
