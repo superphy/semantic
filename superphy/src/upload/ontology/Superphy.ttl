@@ -91,7 +91,8 @@ xsd:date a rdfs:Datatype .
 
 :has_gene a owl:ObjectProperty ;
 	owl:inverseOf :is_gene_of ;
-	rdfs:domain <http://www.biointerchange.org/gfvo#Contig> .
+	rdfs:domain <http://www.biointerchange.org/gfvo#Contig> ;
+	rdfs:range <http://purl.obolibrary.org/obo/SO_0000704> .
 # 
 # https://github.com/superphy#has_genome
 
@@ -172,7 +173,9 @@ xsd:date a rdfs:Datatype .
 # 
 # https://github.com/superphy#is_gene_of
 
-:is_gene_of a owl:ObjectProperty .
+:is_gene_of a owl:ObjectProperty ;
+	rdfs:domain <http://purl.obolibrary.org/obo/SO_0000704> ;
+	rdfs:range <http://www.biointerchange.org/gfvo#Contig> .
 # 
 # https://github.com/superphy#is_genome_of
 
