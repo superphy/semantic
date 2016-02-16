@@ -46,6 +46,7 @@ options = {
     "install"   :   install,
     "run"       :   run,
     "upload"    :   upload,
+    "sparql" : superphy.config.start_database,
     "shell"     :   shell
 }
 
