@@ -42,12 +42,16 @@ def shell():
     import code
     code.interact(local=dict(globals(), **locals()))
 
+def test():
+    print "testing..."
+
 options = {
     "install"   :   install,
     "run"       :   run,
     "upload"    :   upload,
-    "sparql" : superphy.config.start_database,
-    "shell"     :   shell
+    "sparql"    :   superphy.config.start_database,
+    "shell"     :   shell,
+    "test"      :   test
 }
 
 if __name__ == '__main__':
