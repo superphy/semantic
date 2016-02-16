@@ -14,6 +14,7 @@ import sys
 import traceback
 import subprocess
 import json
+import re
 
 from rdflib import Graph
 from Bio.Blast import NCBIXML
@@ -79,12 +80,34 @@ class GeneLocationUploader(object):
 			gene_name(str): name of the gene
 			contig(str): accession name of the contig
 		"""
-		print "value of gene name in dict:", gene_name
 		if (gene_name in self.dict) and (contig in self.dict[gene_name]):
 			self.dict[gene_name][contig] += 1
 		else:
 			self.dict[gene_name] = {}
 			self.dict[gene_name][contig] = 0
+
+	def get_gene_name(self, s):
+		"""
+		Returns the gene name from a string.
+		Args:
+			str(s): a string (most likely from a blast query or fasta file)
+		"""
+		try:
+			matchObj = re.match(r'[a-z][a-z][a-z]?([A-Z]|[0-9]+|([A-Z]?_?([a-zA-Z0-9])*)|[A-Z]?[0-9]?)?', s)
+			if matchObj:
+				print "match --> matchObj.group() : ", matchObj.group(0)
+				return matchObj.group(0)
+			else:
+				raise ValueError
+		except(ValueError):
+			searchObj = re.search(r'[a-z][a-z][a-z]?([A-Z]|[0-9]+|([A-Z]?_?([a-zA-Z0-9])*)|[A-Z]?[0-9]?)?', s)
+			if searchObj:
+				print "search --> searchObj.group() : ", searchObj.group(0)
+				return searchObj.group(0)
+			else:
+				print "Nothing found."
+
+
 
 	def ncbixml_parse(self):
 		"""
@@ -103,9 +126,10 @@ class GeneLocationUploader(object):
 			count = 0
 
 			for blast_record in blast_records:
-				gene_name = blast_record.query.split("|")[0]
-				if "/" in gene_name: #if gene has multiple names
-					gene_name = gene_name.split("/")[0]
+				# gene_name = blast_record.query.split("|")[0]
+				# if "/" in gene_name: #if gene has multiple names
+				# 	gene_name = gene_name.split("/")[0]
+				gene_name = self.get_gene_name(blast_record.query)
 
 				max_percentage = -1
 				min_gaps = 1000
@@ -113,55 +137,54 @@ class GeneLocationUploader(object):
 				print gene_name
 				print "count:", count
 
-				location_name, contig_name, begin, end, sequence, ref_gene, uploaded = [None, None, None, None, None, None, None]
+		# 		location_name, contig_name, begin, end, sequence, ref_gene, uploaded = [None, None, None, None, None, None, None]
 
-				for alignment in blast_record.alignments:
-					alignment_descr = alignment.title.split("|")[6]
-					contig_accession = alignment.title.split("|")[5].split(".")[0]
-					contig_name = self.accession_name(contig_accession, alignment_descr)
+		# 		for alignment in blast_record.alignments:
+		# 			alignment_descr = alignment.title.split("|")[6]
+		# 			contig_accession = alignment.title.split("|")[5].split(".")[0]
+		# 			contig_name = self.accession_name(contig_accession, alignment_descr)
 
-					for hsp in alignment.hsps:
-						percentage = hsp.score/hsp.identities * 100
+		# 			for hsp in alignment.hsps:
+		# 				percentage = hsp.score/hsp.identities * 100
 
-						if hsp.expect < E_VALUE_THRESH and hsp.gaps <= min_gaps and percentage >= max_percentage:
-							max_percentage = percentage
-							min_gaps = hsp.gaps
+		# 				if hsp.expect < E_VALUE_THRESH and hsp.gaps <= min_gaps and percentage >= max_percentage:
+		# 					max_percentage = percentage
+		# 					min_gaps = hsp.gaps
 
-							location_name = gene_name + "_" + contig_name + "_" + "0"
-							print "location name:", location_name
+		# 					location_name = gene_name + "_" + contig_name + "_" + "0"
 
-							if (not check_NamedIndividual(contig_name)) and ((contig_accession, contig_accession) not in nonuploaded_genomes):
-								nonuploaded_genomes.append((contig_accession, contig_accession))
+		# 					if (not check_NamedIndividual(contig_name)) and ((contig_accession, contig_accession) not in nonuploaded_genomes):
+		# 						nonuploaded_genomes.append((contig_accession, contig_accession))
 							
-							begin = hsp.sbjct_start
-							end = str(int(hsp.sbjct_start) + int(hsp.score) - 1)
-							ref_gene = False
+		# 					begin = hsp.sbjct_start
+		# 					end = str(int(hsp.sbjct_start) + int(hsp.score) - 1)
+		# 					ref_gene = False
 
-							if not has_ref_gene(gene_name):
-								ref_gene = True
+		# 					if not has_ref_gene(gene_name):
+		# 						ref_gene = True
 
-							if self.is_complete_genome(alignment_descr):
-								self.add_contig(gene_name, contig_name)
-								location_name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
+		# 					if self.is_complete_genome(alignment_descr):
+		# 						self.add_contig(gene_name, contig_name)
+		# 						location_name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
 
-								self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
-								uploaded = True
-								break
+		# 						self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
+		# 						uploaded = True
+		# 						break
 
-					if uploaded:
-						break
+		# 			if uploaded:
+		# 				break
 
-				if not uploaded:
-					if location_name == None:
-						missing_alignments.append(gene_name)
-					self.add_contig(gene_name, contig_name)
-					self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
+		# 		if not uploaded:
+		# 			if location_name == None:
+		# 				missing_alignments.append(gene_name)
+		# 			self.add_contig(gene_name, contig_name)
+		# 			self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 
 				count += 1
 
-		with open("missing_alignments.txt", "w") as f:
-			for n in missing_alignments:
-				f.write("%s\n" % n)
+		# with open("missing_alignments.txt", "w") as f:
+		# 	for n in missing_alignments:
+		# 		f.write("%s\n" % n)
 
 		#ContigUploader().upload_missing_contigs(nonuploaded_genomes)
 
@@ -312,5 +335,5 @@ if __name__ == "__main__":
 	# md.upload()
 
  	# For gene testing
-	gmd = GeneLocationUploader('data/superphy_vf.xml')
+	gmd = GeneLocationUploader('data/superphy_amr.xml')
 	gmd.upload()
