@@ -22,9 +22,3 @@ def query():
 def meta():
     results = (sparql.get_genome_meta_data())
     return jsonify(results)
-
-#"ORDER BY ?Genome_Uri LIMIT 50 OFFSET 50"
-
-#        limit   = request.json.get("limit",10),
-#        offset  = request.json.get("page",0) * request.json.get("limit",10),
-#        order   = request.json.get("order", "?Genome_Uri")
