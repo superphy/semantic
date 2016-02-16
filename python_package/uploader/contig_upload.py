@@ -35,12 +35,19 @@ sys.setdefaultencoding("utf-8")
 class ContigUploader(object):
 	""" Class for retrieving and uploading contig metadata of eligible genomes
 	"""
-	def upload_missing_contigs(self):
+	def upload_missing_contigs(self, genomes=None):
 		""" Compiles a list of genomes with missing and unvalidated sequences and uploads them to Blazegraph.
 		"""
 
+		list_of_genomes = []
+
+		if not genomes:
+			list_of_genomes = find_missing_sequences()
+		else:
+			list_of_genomes = genomes
+
 		# find missing_sequences() returns a list of two-tuples (genome, accession number)
-		for (genome, accession) in find_missing_sequences():
+		for (genome, accession) in list_of_genomes:
 			contigswrapper = ContigsWrapper(genome, accession)
 			try:
 				self.get_seqdata(contigswrapper)
@@ -52,6 +59,7 @@ class ContigUploader(object):
 				gc.collect
 			except TypeError:
 				self.error_logging(contigswrapper)
+
 
 	def load_contigs(self, handle, contigswrapper):
 		"""
@@ -130,7 +138,6 @@ class ContigUploader(object):
 			BlazegraphUploader().upload_data(generate_output(g))
 
 
-	## FIX THESE AFTER LUNCH
 	def plasmid_rdf(self, contigswrapper, contig_rdf):
 		"""Sets up RDF triples for a plasmid sequence and its metadata. Marks genome as possessing a valid sequence if
 		the accession id matches the genome id (i.e. metadata validation has not merged genomes with the same biosample
@@ -198,7 +205,7 @@ class ContigUploader(object):
 
 
 class ContigsWrapper(object):
-	"""A wrapper class that holds metadata for contigs of a certain genome, in addition 
+	"""A wrapper class that holds metadata for contigs of a certain genome
 	"""
 	def __init__(self, genome, accession):
 		"""Initializes the class with the necessary fields. The dict is used to construct the kwargs to pass into
@@ -210,7 +217,7 @@ class ContigsWrapper(object):
 		"""
 		self.name = str(accession) + "_seq"
 		self.accession = str(accession)
-		self.genome = str(genome)
+		self.genome = self.genome_name(str(genome))
 		self.hits = None
 		self.valid = None
 		self.bp = None
@@ -222,6 +229,18 @@ class ContigsWrapper(object):
 		keys = ["name", "genome", "sequence", "is_from"]
 		self.dict = {key: None for key in keys}
 		self.dict["genome"] = self.genome
+
+	def genome_name(self, contig):
+		"""
+		Returns the name of a non-complete genome from its contig name.
+		Args:
+			contig(str): contig's accession name
+		"""
+		if len(contig) == 8:
+			return strip_non_alphabetic(contig) + "00000000"
+		else:
+			return contig
+
 
 	def add_contigs(self, contigs):
 		"""

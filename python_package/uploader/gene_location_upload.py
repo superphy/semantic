@@ -45,11 +45,14 @@ class GeneLocationUploader(object):
 		"""
 		"""
 		self.ncbixml_parse()
+		print "\n BEGIN GET REFERENCES"
 		reference_genes = self.get_reference_genes()
+		print "\n BEGIN CREATE FASTA"
 		self.create_fasta(reference_genes, "tmp/ref_sequences.fasta")
 		self.create_db("samples/sample.fasta")
 		self.blastn_commandline("../../genome_db")
-		#self.parse_result()
+		print "\n BEGIN PARSING LOCAL BLAST RESULTS"
+		self.parse_result()
 
 
 	def accession_name(self, contig, desc):
@@ -76,8 +79,8 @@ class GeneLocationUploader(object):
 			gene_name(str): name of the gene
 			contig(str): accession name of the contig
 		"""
-
-		if gene_name in self.dict and contig in self.dict[gene_name]:
+		print "value of gene name in dict:", gene_name
+		if (gene_name in self.dict) and (contig in self.dict[gene_name]):
 			self.dict[gene_name][contig] += 1
 		else:
 			self.dict[gene_name] = {}
@@ -107,8 +110,8 @@ class GeneLocationUploader(object):
 				max_percentage = -1
 				min_gaps = 1000
 
-				print gene_name, max_percentage
-				# print "count:", count
+				print gene_name
+				print "count:", count
 
 				location_name, contig_name, begin, end, sequence, ref_gene, uploaded = [None, None, None, None, None, None, None]
 
@@ -119,14 +122,10 @@ class GeneLocationUploader(object):
 
 					for hsp in alignment.hsps:
 						percentage = hsp.score/hsp.identities * 100
-						print "percentage: ", percentage
-						print hsp.expect, hsp.gaps
 
 						if hsp.expect < E_VALUE_THRESH and hsp.gaps <= min_gaps and percentage >= max_percentage:
-							print "here"
 							max_percentage = percentage
 							min_gaps = hsp.gaps
-							print "max_percentage:", max_percentage
 
 							location_name = gene_name + "_" + contig_name + "_" + "0"
 							print "location name:", location_name
@@ -145,7 +144,6 @@ class GeneLocationUploader(object):
 								self.add_contig(gene_name, contig_name)
 								location_name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
 
-								print "Found complete genome", location_name
 								self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 								uploaded = True
 								break
@@ -156,20 +154,14 @@ class GeneLocationUploader(object):
 				if not uploaded:
 					if location_name == None:
 						missing_alignments.append(gene_name)
-					print "Not a complete genome", location_name
 					self.add_contig(gene_name, contig_name)
-					#self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
+					self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 
 				count += 1
 
 		with open("missing_alignments.txt", "w") as f:
 			for n in missing_alignments:
 				f.write("%s\n" % n)
-
-		# uploading gene data
-		# for key in self.dict:
-		# 	metadata = GeneMetadata(key)
-		# 	self.create_gene(metadata)
 
 		#ContigUploader().upload_missing_contigs(nonuploaded_genomes)
 
@@ -236,10 +228,10 @@ class GeneLocationUploader(object):
 			'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
 			'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
 			'PREFIX faldo: <http://biohackathon.org/resource/faldo#>\n'
-			'SELECT ?s ?seq WHERE { ?s rdf:type faldo:Region . ?s rdf:type :reference_gene . ?s :has_sequence ?seq .}'
+			'SELECT ?s ?gene ?seq WHERE { ?s rdf:type faldo:Region . ?s rdf:type :reference_gene . ?s :has_sequence ?seq . ?gene :has_copy ?s .}'
 		)
 
-		return ((result["s"]["value"].rsplit("#", 1)[1], result["seq"]["value"])
+		return ((result["s"]["value"].rsplit("#", 1)[1], result["gene"]["value"].split("#")[1], result["seq"]["value"])
 				for result in results["results"]["bindings"])
 
 
@@ -257,8 +249,8 @@ class GeneLocationUploader(object):
 		the sequence data object used to initialize the validator and writes each entry as a separate FASTA object.
 		"""
 		with open(generate_path(out_file), "w") as f:
-			for (name, seq) in genes:
-				f.write(">%s\n%s\n" %(name, seq))
+			for (name, gene_name, seq) in genes:
+				f.write(">%s\n%s\n" %(gene_name, seq))
 
 
 	def blastn_commandline(self, db):
@@ -297,13 +289,10 @@ class GeneLocationUploader(object):
 				for alignment in blast_record.alignments:
 					for hsp in alignment.hsps:
 						if hsp.expect < E_VALUE_THRESH:
-							gene_name = blast_record.query.split("_")[0]
+							gene_name = blast_record.query
 
 							contig_accession = alignment.title.split("|")[5].split(".")[0]
 							contig_name = self.accession_name(contig_accession, alignment.title.split("|")[6])
-							print "desc:", alignment.title
-							print contig_accession
-							print "contig name:", contig_name
 
 							self.add_contig(gene_name, contig_name)
 
@@ -312,7 +301,7 @@ class GeneLocationUploader(object):
 							end = str(int(hsp.sbjct_start) + int(hsp.score) - 1)
 							ref_gene = False
 
-							#self.create_gene_location(name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
+							self.create_gene_location(name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 
 
 ###### For Testing purposes ######
