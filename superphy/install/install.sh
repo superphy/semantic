@@ -12,14 +12,16 @@
 #sudo ln  $INDEX $APACHE -sf
 
 #Install sudo packages
-echo "Install sudo packages"
-for package in "python-virtualenv" "xvfb" "libyajl2" "wget" "MUMmer" "muscle"; do
-	PKG_OK=$(dpkg-query -W --showformat='${Status}' $package|grep "install ok installed")
-	if [ "" == "$PKG_OK" ]; then
-	  echo "No $package Setting up $package"
-	  sudo apt-get --force-yes --yes install $package
-	fi
-done
+if [ "$(whoami)" == "root" ]; then
+	echo "Install sudo packages"
+	for package in "python-virtualenv" "xvfb" "libyajl2" "wget" "MUMmer" "muscle"; do
+		PKG_OK=$(dpkg-query -W --showformat='${Status}' $package|grep "install ok installed")
+		if [ "" == "$PKG_OK" ]; then
+		  echo "No $package Setting up $package"
+		  sudo apt-get --force-yes --yes install $package
+		fi
+	done
+fi
 #Initialize venv
 echo "Initialize venv"
 virtualenv --no-site-packages venv

@@ -5,18 +5,10 @@
 
 import os, sys
 
-try:
-    import superphy
-except:
-    if not os.path.isfile(os.getcwd()+"venv/bin/python"):
-        sys.path.append(os.getcwd()+"/venv/lib/python2.7/site-packages")
-        import superphy
-        superphy.config.install()
-        exit()
-    else:
-        exit()
-
 sys.path.append(os.getcwd()+"/superphy/src/main")
+sys.path.append(os.getcwd()+"/venv/lib/python2.7/site-packages")
+
+import superphy
 
 #Debug allows the execution of arbitrary code. Do not use it with production
 def run():

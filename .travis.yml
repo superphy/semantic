@@ -8,6 +8,12 @@ addons:
   apt:
     packages:
     - libyajl1
+    - python-virtualenv
+    - xvfb
+    - libyajl2
+    - wget
+    - MUMmer
+    - muscle
 
 cache:
   directories:
@@ -17,6 +23,9 @@ cache:
 
 before_cache:
 # - rm -f venv/lib/python2.7/site-packages/superphy
+
+before_install:
+  - 
 
 install:
  - python run.py install
