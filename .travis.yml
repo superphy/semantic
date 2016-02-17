@@ -23,4 +23,5 @@ install:
 
 # command to run tests
 script:
+ - source venv/bin/activate
  - nosetests
