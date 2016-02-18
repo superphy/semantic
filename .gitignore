@@ -25,3 +25,5 @@ blast/*
 python_package/uploader/outputs/errors.txt
 all.min.css
 all.min.js
+
+superphy/src/upload/ontology/setup.ttl

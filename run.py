@@ -3,7 +3,7 @@
   Author: Bryce Drew
 """
 
-import os, sys
+import os, sys, subprocess
 
 sys.path.append(os.getcwd()+"/superphy/src/main")
 sys.path.append(os.getcwd()+"/venv/lib/python2.7/site-packages")
@@ -13,7 +13,7 @@ import superphy
 #Debug allows the execution of arbitrary code. Do not use it with production
 def run():
     superphy.config.import_env()
-    #superphy.config.start_database()
+    superphy.config.start_database()
     os.system("cd superphy/src/main; bash gulp.sh; cd ../../..")
     from app import create_app
     app = create_app(os.getenv('FLASK_CONFIG') or 'default')
@@ -35,7 +35,9 @@ def shell():
     code.interact(local=dict(globals(), **locals()))
 
 def test():
-    print "testing..."
+    superphy.config.import_env()
+    superphy.config.start_database(default="testing")
+    subprocess.call("nosetests", shell=True)
 
 options = {
     "install"   :   install,
