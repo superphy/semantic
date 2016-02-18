@@ -23,6 +23,7 @@ from _sparql import check_NamedIndividual, has_ref_gene, _sparql_query
 from _utils import generate_output, generate_path
 from classes import GeneLocation
 from blazegraph_upload import BlazegraphUploader
+from contig_upload import ContigUploader
 
 __author__ = "Clarice Ng"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -184,6 +185,7 @@ class GeneLocationUploader(object):
 								self.add_contig(gene_name, contig_name)
 								location_name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
 
+								print "Uploading", location_name
 								self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 								uploaded = True
 								break
@@ -204,7 +206,7 @@ class GeneLocationUploader(object):
 			for n in missing_alignments:
 				f.write("%s\n" % n)
 
-		#ContigUploader().upload_missing_contigs(nonuploaded_genomes)
+		ContigUploader().upload_missing_contigs(nonuploaded_genomes)
 
 	def is_complete_genome(self, descr):
 		"""
@@ -319,8 +321,6 @@ class GeneLocationUploader(object):
 
 		"""
 
-		metadata = None
-
 		with open(generate_path("tmp/results.xml")) as result_handle:
 			blast_records = NCBIXML.parse(result_handle)
 
@@ -354,6 +354,5 @@ if __name__ == "__main__":
 
  	# For gene testing
 	gmd1 = GeneLocationUploader()
-	#gmd2 = GeneLocationUploader()
 	gmd1.upload('data/superphy_amr.xml')
-	#gmd2.upload('data/superphy_vf.xml')
+	gmd1.upload('data/superphy_vf.xml')

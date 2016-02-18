@@ -55,7 +55,7 @@ class ContigUploader(object):
 					self.upload(contigswrapper, self.plasmid_rdf)
 				else:
 					SequenceValidator(contigswrapper).validate()
-					self.upload(contigswrapper, self.plasmid_rdf)
+					self.upload(contigswrapper, self.nonplasmid_rdf)
 				gc.collect
 			except TypeError:
 				self.error_logging(contigswrapper)
@@ -164,7 +164,7 @@ class ContigUploader(object):
 
 		if contigswrapper.valid:
 			contig_rdf.rdf()
-			contig_rdf.add_hits(contigswrapper.hits)
+			#contig_rdf.add_hits(contigswrapper.hits)
 
 
 	def error_logging(self, contigswrapper):
@@ -232,11 +232,12 @@ class ContigsWrapper(object):
 
 	def genome_name(self, contig):
 		"""
-		Returns the name of a non-complete genome from its contig name.
+		Returns a string of the name of a non-complete genome from its contig name.
+
 		Args:
 			contig(str): contig's accession name
 		"""
-		if len(contig) == 8:
+		if len(contig) == 12:
 			return strip_non_alphabetic(contig) + "00000000"
 		else:
 			return contig
@@ -244,6 +245,7 @@ class ContigsWrapper(object):
 
 	def add_contigs(self, contigs):
 		"""
+		Adds a list of contigs to this wrapper and counts the total number of contigs and base pairs.
 		Args:
 			contigs: a list of 2-tuples where 2-tuples are in the form (accession_name(str), seq(str))
 		"""
