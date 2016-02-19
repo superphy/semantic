@@ -38,7 +38,7 @@ def test():
     superphy.config.import_env()
     superphy.config.start_database("testing")
     subprocess.call("python venv/lib/python2.7/site-packages/superphy/upload/main.py", shell=True)
-    #subprocess.call("nosetests", shell=True)
+    subprocess.call("nosetests", shell=True)
 
 options = {
     "install"   :   install,
