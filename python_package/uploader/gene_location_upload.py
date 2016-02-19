@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""This module uploads genome metadata that has been prepared by another script and converted into a JSON format.
-ijson is used to parse the JSON file because it reads from file line by line, instead of storing to memory first.
+"""This module uploads gene location information on genomes.
 
 Classes:
-	MetadataUploader: uploads metadata from a stored JSON object
-	GenomeMetadata: stores genome metadata for uploading
+	GeneLocationUploader: parses blast data results and stores info for uploading to Blazegraph.
 """
 
 from collections import defaultdict
@@ -84,7 +82,9 @@ class GeneLocationUploader(object):
 			self.dict[gene_name][contig] += 1
 		else:
 			self.dict[gene_name] = {}
-			self.dict[gene_name][contig] = 0
+			num_copies = self.get_num_gene_copies(gene_name, contig)
+			self.dict[gene_name][contig] = num_copies
+
 
 	def get_gene_name(self, s):
 		"""
@@ -125,6 +125,31 @@ class GeneLocationUploader(object):
 		# 	else:
 		# 		print "Nothing found."
 
+	def get_num_gene_copies(self, gene, contig):
+		"""
+		Queries the database to return the number of occurrences of a gene in a contig there are.
+
+		Args:
+			gene(str): the name of the gene
+			contig(str): the name of the contig
+		"""
+
+		results = _sparql_query(
+			'PREFIX : <https://github.com/superphy#>\n'
+			'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
+			'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
+			'PREFIX faldo: <http://biohackathon.org/resource/faldo#>\n'
+			'SELECT ?GeneLocation \n'
+        	'WHERE { :%s :has_copy ?GeneLocation . '
+        	':%s :has_gene ?GeneLocation . }' % (gene, contig)
+    	)
+		copies = 0
+
+		for result in results["results"]["bindings"]:
+			#copies.append(result["GeneLocation"]["value"])
+			copies += 1
+
+		return copies 
 
 
 	def ncbixml_parse(self, filename):
@@ -206,7 +231,7 @@ class GeneLocationUploader(object):
 			for n in missing_alignments:
 				f.write("%s\n" % n)
 
-		ContigUploader().upload_missing_contigs(nonuploaded_genomes)
+		#ContigUploader().upload_missing_contigs(nonuploaded_genomes)
 
 	def is_complete_genome(self, descr):
 		"""
@@ -349,10 +374,10 @@ class GeneLocationUploader(object):
 
 if __name__ == "__main__":
  	# For genome testing
-	# md = GenomeMetadataUploader("samples/4_genome.json", "Human")
-	# md.upload()
+	md = GenomeMetadataUploader("samples/4_genome.json", "Human")
+	md.upload()
 
  	# For gene testing
-	gmd1 = GeneLocationUploader()
-	gmd1.upload('data/superphy_amr.xml')
-	gmd1.upload('data/superphy_vf.xml')
+	# gmd1 = GeneLocationUploader()
+	# gmd1.upload('data/superphy_amr.xml')
+	#gmd1.upload('data/superphy_vf.xml')
