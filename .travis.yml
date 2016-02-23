@@ -32,4 +32,4 @@ install:
 # command to run tests
 script:
  - source venv/bin/activate
- - nosetests
+ - python run.py test
