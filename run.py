@@ -23,10 +23,6 @@ def run():
 def install():
     superphy.config.start_database()
     superphy.config.install()
-    apache = os.path.join('/var/www/html', 'superphy')
-    index = os.path.join(os.getcwd(), "superphy/src/main/mithril")
-    if os.path.realpath(apache) != index:
-        subprocess.call("sudo rm '%s'; sudo ln -s '%s' '%s'" % (apache, index, apache), shell=True)
     exit()
 
 def upload():
