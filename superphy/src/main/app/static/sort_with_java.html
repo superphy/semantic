@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<script>
+var results = {
+  "head": {
+    "vars": [
+      "Genome_Uri", 
+      "Syndrome", 
+      "Accession", 
+      "Biosample_Id", 
+      "Bioproject_Id", 
+      "Strain", 
+      "Serotype_O", 
+      "Serotype_H", 
+      "Scientific_Name", 
+      "Common_Name", 
+      "Isolation_Date", 
+      "Geographic_Location"
+    ]
+  }, 
+  "results": {
+    "bindings": [
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "human"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Homo sapiens"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "turkey"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Meleagris gallopavo"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "mouse"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Mus musculus"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "sheep"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Ovis aries"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "rabbit"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Oryctolagus cuniculus"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "pig"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Sus scrofa"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "cow"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bos taurus"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "goat"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Capra aegagrus hircus"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "dog"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Canis lupus familiaris"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }, 
+      {
+        "Accession": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "AWAB00000000"
+        }, 
+        "Bioproject_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "186257"
+        }, 
+        "Biosample_Id": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "1885867"
+        }, 
+        "Common_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "horse"
+        }, 
+        "Genome_Uri": {
+          "type": "uri", 
+          "value": "https://github.com/superphy#AWAB00000000"
+        }, 
+        "Geographic_Location": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Denmark"
+        }, 
+        "Isolation_Date": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#date", 
+          "type": "literal", 
+          "value": "2005-01-01"
+        }, 
+        "Scientific_Name": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Equus ferus caballus"
+        }, 
+        "Serotype_H": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Serotype_O": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Unknown"
+        }, 
+        "Strain": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "KOEGE 10 25A"
+        }, 
+        "Syndrome": {
+          "datatype": "http://www.w3.org/2001/XMLSchema#string", 
+          "type": "literal", 
+          "value": "Bacteremia"
+        }
+      }
+    ]
+  }
+};
+
+var text = "";
+var i;
+var j;
+for (j = 0; j < results.results.bindings.length; j++) {
+    text += j + 1 + ") ********************************************" + "<br>";
+    for (i = 0; i < results.head.vars.length; i++) {
+        text += results["results"]["bindings"][j][results["head"]["vars"][i]]["value"] + "<br>";
+    }
+    
+}
+
+document.getElementById("demo").innerHTML = text;
+document.getElementById("demo").innerHTML += text2;
+</script>
+
+</body>
+</html>

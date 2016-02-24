@@ -1,5 +1,4 @@
 language: python
-
 python:
   - "2.7"
 
@@ -8,19 +7,29 @@ addons:
   apt:
     packages:
     - libyajl1
+    - python-virtualenv
+    - xvfb
+    - libyajl2
+    - wget
+    - MUMmer
+    - muscle
 
 cache:
   directories:
   - venv
-  - db
+  - superphy/database
   - blast
 
 before_cache:
- - rm -f venv/lib/python2.7/site-packages/superphy
+# - rm -f venv/lib/python2.7/site-packages/superphy
+
+before_install:
+  - 
 
 install:
- - bash bash/travis_install.sh
+ - python run.py install
 
 # command to run tests
 script:
- - bash bash/test
+ - source venv/bin/activate
+ - python run.py test
