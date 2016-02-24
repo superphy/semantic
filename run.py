@@ -21,8 +21,8 @@ def run():
     app.run(host='0.0.0.0', debug=True, use_reloader=False)
 
 def install():
-    superphy.config.install()
     superphy.config.start_database()
+    superphy.config.install()
     exit()
 
 def upload():
