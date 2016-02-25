@@ -1,21 +1,13 @@
 # semantic   [![Build Status](https://travis-ci.org/superphy/semantic.svg?branch=master)](https://travis-ci.org/superphy/semantic)
 SuperPhy for the semantic web     
 
-# Updated Quick Start
+# Quick Start
 
     * python run.py install - Installs the virtuall environment and nessesary packages
 
-    * ./run.py upload -
+    * source venv/bin/activate
 
     * ./run.py run - Compiles cofeescript & runs the flask web-server
-
-# Quick Start
-
-- Install Packages and download Applications
-	* bash scripts/install.sh
-
-- Compile the Coffeescript, and start the Flask Server
-	* bash scripts/run.sh
 
 ## [Coffeescript](http://coffeescript.org/)
 * Setup coffeelint to ensure we are all following the same coding style
