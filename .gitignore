@@ -27,3 +27,9 @@ all.min.css
 all.min.js
 
 superphy/src/upload/ontology/setup.ttl
+
+venv/lib/python2.7/site-packages/superphy/upload/tmp/validate.fasta
+venv/lib/python2.7/site-packages/superphy/upload/tmp/loading.gz
+venv/lib/python2.7/site-packages/superphy/upload/tmp/loading.fasta
+venv/lib/python2.7/site-packages/superphy/upload/outputs/errors.txt
+
