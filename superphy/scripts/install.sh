@@ -56,13 +56,8 @@ if ! find blast/ncbi*/ | read v; then
 		tar zxvpf *x64-linux.tar.gz
 
 		cd ..;
-		read -r -p "Do you want to backup the NCBI BLAST+ client in ../blast ? [Y/N] " response
-		case $response in
-		    [yY][eE][sS]|[yY])
-			mkdir ../blast
-			cp -r blast/ncbi*/ ../blast/
-			;;*)
-		esac
+		mkdir ../blast
+		cp -r blast/ncbi*/ ../blast/
 	fi
 fi
 
