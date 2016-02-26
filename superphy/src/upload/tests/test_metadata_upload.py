@@ -46,7 +46,7 @@ class GenomeMetadataUploaderTestCase(unittest.TestCase):
 
         mock_add.side_effect = side_effect
 
-        with open(generate_path("../" + self.case.filename), "r") as fd:
+        with open(generate_path("../python/" + self.case.filename), "r") as fd:
             data = ijson.parse(fd)
             self.case.parse_metadata(data)
 

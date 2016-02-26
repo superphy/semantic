@@ -3,9 +3,9 @@
 import os, subprocess
 
 def install():
-    os.system("bash superphy/install/install.sh")
+    os.system("bash superphy/scripts/install.sh")
     apache = os.path.join('/var/www/html', 'superphy')
-    index = os.path.join(os.getcwd(), "superphy/src/main/mithril")
+    index = os.path.join(os.getcwd(), "superphy/src/app/mithril")
     if os.path.realpath(apache) != index:
         subprocess.call("sudo rm '%s'; sudo ln -s '%s' '%s'" % (apache, index, apache), shell=True)
         print "Apache is now deployed!"

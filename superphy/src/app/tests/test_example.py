@@ -6,7 +6,7 @@ class FlaskClientTestCase(unittest.TestCase):
         self.assertTrue("FOO" in "FOOBAR")
 
     def tearDown(self):
-    	self.assertTrue("BING" in "FOOBAR")
+    	self.assertFalse("BING" in "FOOBAR")
 
     def test_home_page(self):
         self.assertTrue("HELLO" in "HELLO WORLD")
