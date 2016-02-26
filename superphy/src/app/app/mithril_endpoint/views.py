@@ -1,7 +1,7 @@
 #views.py
 from flask import render_template, redirect, url_for, abort, flash, request,\
     current_app, make_response, Response, jsonify
-from superphy import sparql
+from superphy.shared import sparql
 
 from . import mithril
 

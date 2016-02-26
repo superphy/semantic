@@ -6,7 +6,6 @@ This module wraps often-used queries to the Blazegraph SPARQL endpoint.
 """
 
 from SPARQLWrapper import JSON, SPARQLWrapper
-from superphy import endpoint
 from superphy.shared.endpoint import query as _sparql_query
 from superphy.shared.endpoint import update as _sparql_update
 
