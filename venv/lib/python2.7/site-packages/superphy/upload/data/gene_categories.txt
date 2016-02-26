@@ -1,0 +1,1 @@
+[["Adherence"], ["Autotransporter"], ["Effector"], ["Invasion"], ["Iron_uptake"], ["LEE-encoded_TTSS_effectors"], ["Non-LEE_encoded_TTSS_effectors"], ["Protease"], ["Secretion_system"], ["Toxin"], ["Unclassified"]]
