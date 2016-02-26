@@ -2,7 +2,7 @@
 
 #Deploy apache
 #echo "Deploy apache"
-#INDEX=${PWD}/superphy/src/main/mithril
+#INDEX=${PWD}/superphy/src/app/mithril
 #APACHE=/var/www/html/superphy
 
 #echo $INDEX
