@@ -5,28 +5,27 @@
 
 import os, sys, subprocess
 
-sys.path.append(os.getcwd()+"/superphy/src/main")
 sys.path.append(os.getcwd()+"/venv/lib/python2.7/site-packages")
 
 import superphy
 
-superphy.config.import_env()
+from superphy.shared import config
+config.import_env()
 
 #Debug allows the execution of arbitrary code. Do not use it with production
 def run():
-    superphy.config.start_database()
-    os.system("cd superphy/src/main; bash gulp.sh; cd ../../..")
-    from app import create_app
+    config.start_database()
+    os.system("cd superphy/src/app; bash gulp.sh; cd ../../..")
+    from superphy.app import create_app
     app = create_app(os.getenv('FLASK_CONFIG') or 'default')
     app.run(host='0.0.0.0', debug=True, use_reloader=False)
 
 def install():
-    superphy.config.start_database()
-    superphy.config.install()
+    config.start_database()
+    config.install()
     exit()
 
 def upload():
-  #superphy.config.start_database()
     superphy.upload.foo()
     exit()
 
@@ -35,16 +34,16 @@ def shell():
     code.interact(local=dict(globals(), **locals()))
 
 def test():
-    superphy.config.start_database("testing")
+    config.start_database("testing")
     from superphy.upload import main as upload
     upload.init()
-    subprocess.call("nosetests", shell=True)
+    subprocess.call("for f in superphy/src/*; do echo $f;  nosetests $f -vv --exe; done ", shell=True)
 
 options = {
     "install"   :   install,
     "run"       :   run,
     "upload"    :   upload,
-    "sparql"    :   superphy.config.start_database,
+    "sparql"    :   superphy.shared.config.start_database,
     "shell"     :   shell,
     "test"      :   test
 }
