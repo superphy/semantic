@@ -337,7 +337,7 @@ class GeneMetadataUploader(MetadataUploader):
 		"""
 		new_s = re.sub(r"\/| |\(", "_", s)
 		new_s = re.sub(r"\.|\,|\)", "", new_s)
-		new_s = re.sub(r"\'|\'\'", "_prime", new_s)
+		new_s = re.sub(r"\'\'|\'", "_prime", new_s)
 		return new_s
 
 
