@@ -45,13 +45,10 @@ class GeneLocationUploader(object):
 		"""
 		"""
 		self.ncbixml_parse(filename)
-		print "\n BEGIN GET REFERENCES"
 		reference_genes = self.get_reference_genes()
-		print "\n BEGIN CREATE FASTA"
 		self.create_fasta(reference_genes, "tmp/ref_sequences.fasta")
 		self.create_db("samples/sample.fasta")
 		self.blastn_commandline("genome_db")
-		print "\n BEGIN PARSING LOCAL BLAST RESULTS"
 		self.parse_result()
 
 
@@ -63,7 +60,6 @@ class GeneLocationUploader(object):
 			contig(str): an accession number for a contig 
 			desc(str): a description of a particular contig/genome.
 		"""
-		name = contig
 
 		if "complete genome" in desc:
 			contig = contig + "_closed"
@@ -82,7 +78,8 @@ class GeneLocationUploader(object):
 		if (gene_name in self.dict) and (contig in self.dict[gene_name]):
 			self.dict[gene_name][contig] += 1
 		else:
-			self.dict[gene_name] = {}
+			if (gene_name not in self.dict):
+				self.dict[gene_name] = {}
 			num_copies = self.get_num_gene_copies(gene_name, contig)
 			self.dict[gene_name][contig] = num_copies
 
@@ -169,9 +166,6 @@ class GeneLocationUploader(object):
 			count = 0
 
 			for blast_record in blast_records:
-				# gene_name = blast_record.query.split("|")[0]
-				# if "/" in gene_name: #if gene has multiple names
-				# 	gene_name = gene_name.split("/")[0]
 				gene_name = self.get_gene_name(blast_record.query)
 
 				max_percentage = -1
