@@ -96,7 +96,6 @@ class GeneLocationUploader(object):
 				gene_name = s.split()[1].split(".")[0]
 			elif "VFO" in s:
 				gene_name = s.split("|")[0]
-				print gene_name
 			else:
 				raise ValueError
 
@@ -185,6 +184,7 @@ class GeneLocationUploader(object):
 
 							## Complete genomes are a priority as a reference gene.
 							if self.is_complete_genome(alignment_descr):
+								print "complete"
 								self.add_contig(gene_name, contig_name)
 								location_name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
 
