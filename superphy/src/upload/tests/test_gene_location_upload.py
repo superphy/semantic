@@ -157,7 +157,7 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         mock_parse.return_value = [self.create_sample_record("bapF", "gnl|BL_ORD_ID|56 gi|606962173|gb|CP002729.1| \
                 complete genome", 0, 1146, 1230, 1230, "CAT")]
         self.case.parse_result()
-        mock_create.assert_called_once_with("bapF_CP002729_0", "bapF", "CP002729_closed", '1146', '2375', "CAT", False)
+        mock_create.assert_called_once_with("bapF_CP002729_closed_0", "bapF", "CP002729_closed", '1146', '2375', "CAT", False)
 
 
     @mock.patch('superphy.upload.gene_location_upload.BlazegraphUploader', autospec=True)
