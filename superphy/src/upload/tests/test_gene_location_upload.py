@@ -29,6 +29,7 @@ rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 gfvo = Namespace("http://www.biointerchange.org/gfvo#")
 faldo = Namespace("http://biohackathon.org/resource/faldo#")
 
+
 class GeneLocationUploaderTestCase(unittest.TestCase):
     def setUp(self):
         self.case = GeneLocationUploader()
@@ -41,6 +42,7 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
     @classmethod
     def setupBlazegraph(cls):
         """
+        Sets up some data for testing methods in this class that queries Blazegraph.
         Assumes that Blazegraph is initially empty when testing.
         """
         g = Graph()
@@ -69,41 +71,45 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         del self.case
 
     def test_accession_name(self):
+        ## Non-complete genome
         contig = "ANVW00000000"
         desc = "a description"
 
         returned_string = self.case.accession_name(contig, desc)
         self.assertEqual(returned_string, "ANVW00000000")
 
+        ## Complete genome
         contig = "CP102000"
         desc = "a complete genome"
         returned_string = self.case.accession_name(contig, desc)
         self.assertEqual(returned_string, "CP102000_closed")
 
+
     @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.get_num_gene_copies')
     def test_add_contig(self, mock_copies):
-        #Adding a location to an existing gene with existing contig
+        ## Adding a location to an existing gene with existing contig
         self.case.dict = {"hlyA":{"ANVW01000001":0}}
         self.case.add_contig("hlyA", "ANVW01000001")
         self.assertEqual(self.case.dict, {"hlyA":{"ANVW01000001":1}})
 
-        #Adding location to an existing gene with non-existing contig
+        ## Adding location to an existing gene with non-existing contig
         mock_copies.return_value = 0
         self.case.add_contig("hlyA", "JPQG01000001")
         self.assertEqual(self.case.dict, {"hlyA":{"ANVW01000001":1, "JPQG01000001": 0}})
 
-        #Adding location w/ non-existing genome and contig
+        ## Adding location w/ non-existing genome and contig
         self.case.add_contig("espF", "JPQG01000002")
         self.assertEqual(self.case.dict, {"hlyA":{"ANVW01000001":1, "JPQG01000001": 0}, 
                                           "espF":{"JPQG01000002": 0}})
 
-        #Adding location w/ exisitng genome and contig in Blazegraph (but not the dict)
+        ## Adding location w/ exisitng genome and contig in Blazegraph (but not the dict)
         mock_copies.reset_mock()
         mock_copies.return_value = 4
         self.case.add_contig("aafA", "JPQG01000001")
         self.assertEqual(self.case.dict, {"hlyA":{"ANVW01000001":1, "JPQG01000001": 0}, 
                                           "espF":{"JPQG01000002": 0},
                                           "aafA":{"JPQG01000001": 4}})
+
 
     def test_get_gene_name(self):
         # AMR
@@ -177,11 +183,13 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         """
         self.assertTrue(self.case.check_gene_copy("agn43", "AP009048", "2073676", "2076795"))
 
+
     def test_get_reference_genes(self):
         """
         Assumes that there is no data uploaded to Blazegraph before executing these tests.
         """
         self.assertEqual(len(list(self.case.get_reference_genes())), 1)
+
 
     @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
     @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse', autospec=True)
@@ -197,6 +205,9 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
 
 
     def create_sample_record(self, query, title, expect, start, score, ident, seq):
+        """
+        Helper function that creates Blast record handles for testing NCBI parse-related methods.
+        """
         record = mock.MagicMock(spec=Record)
         entry = mock.MagicMock(spec=Record.Alignment)
         hsp = mock.MagicMock(spec=Record.HSP)
