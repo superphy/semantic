@@ -13,7 +13,7 @@ import re
 import os
 
 from rdflib import Graph, Namespace, Literal, XSD
-from Bio.Blast import NCBIXML
+from Bio.Blast import NCBIXML, Record
 
 from superphy.upload._sparql import check_NamedIndividual, has_ref_gene, _sparql_query
 from superphy.upload._utils import generate_output, generate_path
@@ -113,7 +113,7 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         gene_name = self.case.get_gene_name(string)
         self.assertEqual(gene_name, "blaTEM-63")
 
-        #VF
+        # VF
         string = "agn43|VFO:3000001| - (b2000) - CP4-44 prophage; antigen 43 (Ag43) phase-variable biofilm \
                   formation autotransporter [Escherichia coli str. MG1655 (K12)]"
         gene_name = self.case.get_gene_name(string)
@@ -123,33 +123,94 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
     def test_get_num_gene_copies(self):
         self.assertEqual(self.case.get_num_gene_copies("agn43", "AP009048"), 1)
         self.assertEqual(self.case.get_num_gene_copies("espF", "ANVW01000001"), 0)
-        
+    
+
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.get_num_gene_copies')
     @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse')
     @mock.patch('superphy.upload.gene_location_upload.open')
-    def test_ncbixml_parse(self, mock_open, mock_parse):
-        mock_open.return_value = mock.MagicMock(spec=file)
+    def test_ncbixml_parse(self, mock_open, mock_parse, mock_copies, mock_check, mock_create):
         mock_handle = mock.MagicMock(spec=file)
+        mock_open.return_value = mock.MagicMock(spec=file)
+        mock_check.return_value = False
+        mock_copies.return_value = 0
+        mock_parse.return_value = [self.create_sample_record("aafA", "gnl|BL_ORD_ID|56 gi|606962173|gb|JHNV01000057.1| \
+                Escherichia coli O119:H4 str. 03-3458 contig57, whole genome shotgun sequence", 
+                                            0, 1146, 123, 123, "ATGC")]
 
-    # @mock.patch('superphy.upload.classes.GeneLocation.rdf')
-    # @mock.patch('superphy.upload.contig_upload.BlazegraphUploader', autospec=True)
-    # @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
-    # def test_create_gene_location(self, mock_check, mock_location, mock_bg):
-    #     mock_check.return_value = False
-    #     self.case.create_gene_location("name", "gene", "contig", "begin", "end", "seq", "ref_gene")
+        self.case.parse_result()
+        mock_create.assert_called_once_with("aafA_JHNV01000057_0", "aafA", "JHNV01000057", '1146', '1268', "ATGC", False)
 
-    #     #self.assertEqual(len(mock_genelocation.mock_calls), 1)
-    #     self.assertEqual(len(mock_check.mock_calls), 1)
-    #     self.assertEqual(len(mock_location.mock_calls), 1)
-    #     mock_bg.assert_called_once_with()
+
+
+
+    
+    @mock.patch('superphy.upload.gene_location_upload.BlazegraphUploader', autospec=True)
+    @mock.patch('superphy.upload.gene_location_upload.Graph')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocation')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
+    def test_create_gene_location(self, mock_check, mock_rdf, mock_graph, mock_bg):
+        mock_check.return_value = False
+        mock_genelocation = mock.MagicMock(spec=GeneLocation, create=True)
+        mock_g = mock.MagicMock(spec=Graph, create=True)
+        mock_graph.return_value = mock_g
+        mock_rdf.return_value = mock_genelocation
+        self.case.create_gene_location("name", "gene", "contig", "begin", "end", "seq", "ref_gene")
+
+        #self.assertEqual(len(mock_genelocation.mock_calls), 1)
+        self.assertEqual(len(mock_check.mock_calls), 1)
+        mock_rdf.assert_called_once_with(mock_g, "name", "gene", "contig", "begin", "end", "seq", "ref_gene")
+        mock_bg.assert_called_once_with()
 
 
     def test_check_gene_copy(self):
+        """
+        Assumes that there is no data uploaded to Blazegraph before executing these tests.
+        """
         self.assertTrue(self.case.check_gene_copy("agn43", "AP009048", "2073676", "2076795"))
 
     def test_get_reference_genes(self):
+        """
+        Assumes that there is no data uploaded to Blazegraph before executing these tests.
+        """
         self.assertEqual(len(list(self.case.get_reference_genes())), 1)
 
-    @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
+    @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse', autospec=True)
     @mock.patch('superphy.upload.gene_location_upload.open')
-    def test_parse_result(self, mock_open, mock_parse):
-        pass
+    def test_parse_result(self, mock_open, mock_parse, mock_create):
+        mock_open.return_value = mock.MagicMock(spec=file)
+        mock_parse.return_value = [self.create_sample_record("aafA", "gnl|BL_ORD_ID|56 gi|606962173|gb|JHNV01000056.1| \
+                Escherichia coli O119:H4 str. 03-3458 contig56, whole genome shotgun sequence", 
+                                            0, 1146, 123, 123, "ATGC")]
+
+        self.case.parse_result()
+        mock_create.assert_called_once_with("aafA_JHNV01000056_1", "aafA", "JHNV01000056", '1146', '1268', "ATGC", False)
+
+
+    def create_sample_record(self, query, title, expect, start, score, ident, seq):
+        record = mock.MagicMock(spec=Record)
+        entry = mock.MagicMock(spec=Record.Alignment)
+        hsp = mock.MagicMock(spec=Record.HSP)
+
+        record.query = query
+
+        entry.title = title
+        entry.hsps = [hsp]
+
+        hsp.expect = expect
+        hsp.sbjct_start = start
+        hsp.score = score
+        hsp.identities = ident
+        hsp.sbjct = seq
+
+        record.alignments = [entry]
+        return record
+
+
+
+
+
+
+

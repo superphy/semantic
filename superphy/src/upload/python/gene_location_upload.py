@@ -96,6 +96,7 @@ class GeneLocationUploader(object):
 				gene_name = s.split()[1].split(".")[0]
 			elif "VFO" in s:
 				gene_name = s.split("|")[0]
+				print gene_name
 			else:
 				raise ValueError
 
@@ -107,7 +108,7 @@ class GeneLocationUploader(object):
 				return gene_name
 		except(ValueError):
 			print "Not a valid AMR or virulence factor file"
-			
+
 
 	def get_num_gene_copies(self, gene, contig):
 		"""
@@ -137,13 +138,12 @@ class GeneLocationUploader(object):
 
 	def ncbixml_parse(self, filename):
 		"""
-		Takes the XML virulence factor blastn result and adds metadata to the GeneMetadata instance. 
+		Takes the XML virulence factor blastn result and adds metadata to the GeneLocation instance. 
 		Also calls method to upload sequence information for genomes matched that are not already in the Blazegraph
 
 		"""
 		metadata = None
 		nonuploaded_genomes = []
-		missing_alignments = []
 
 		with open(generate_path(filename)) as result_handle:
 			blast_records = NCBIXML.parse(result_handle)
@@ -156,9 +156,6 @@ class GeneLocationUploader(object):
 
 				max_percentage = -1
 				min_gaps = 1000
-
-				print gene_name
-				print "count:", count
 
 				location_name, contig_name, begin, end, sequence, ref_gene, uploaded = [None, None, None, None, None, None, None]
 
@@ -186,11 +183,11 @@ class GeneLocationUploader(object):
 							if not has_ref_gene(gene_name):
 								ref_gene = True
 
+							## Complete genomes are a priority as a reference gene.
 							if self.is_complete_genome(alignment_descr):
 								self.add_contig(gene_name, contig_name)
 								location_name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
 
-								print "Uploading", location_name
 								self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 								uploaded = True
 								break
@@ -199,17 +196,11 @@ class GeneLocationUploader(object):
 						break
 
 				if not uploaded:
-					if not location_name:
-						missing_alignments.append(gene_name)
-					else:
+					if location_name:
 						self.add_contig(gene_name, contig_name)
 						self.create_gene_location(location_name, gene_name, contig_name, begin, end, hsp.sbjct, ref_gene)
 
 				count += 1
-
-		with open("missing_alignments.txt", "w") as f:
-			for n in missing_alignments:
-				f.write("%s\n" % n)
 
 		#ContigUploader().upload_missing_contigs(nonuploaded_genomes)
 
@@ -287,7 +278,7 @@ class GeneLocationUploader(object):
 		Creates a nucleotide database from self.filename for comparing against the reference genes in Blazegraph.
 		"""
 
-		db_path = "../../../../../../blast/ncbi-blast*/bin/makeblastdb"
+		db_path = "../../../../blast/ncbi-blast*/bin/makeblastdb"
 
 		subprocess.call("%s -dbtype nucl -title genome_db -out genome_db -in %s" 
 						% (db_path, generate_path(filename)), shell=True)
@@ -310,7 +301,7 @@ class GeneLocationUploader(object):
 		Args:
 			db(str): A file path to a database used for blast comparison.
 		"""
-		blastn_path = generate_path("../../../../../../blast/ncbi-blast*/bin/blastn")
+		blastn_path = generate_path("../../../../blast/ncbi-blast*/bin/blastn")
 
 		command = blastn_path
 		fasta = generate_path("tmp/ref_sequences.fasta")
@@ -325,8 +316,7 @@ class GeneLocationUploader(object):
 
 	def parse_result(self):
 		"""
-		Takes the XML result from the virulence factor blast and adds metadata to the GeneMetadata instance. 
-		Also calls method to upload sequence information for genomes matched that are not already in Blazegraph
+		Takes the XML result from the virulence factor blast and adds metadata to the GeneLocation instance.
 
 		"""
 
@@ -347,7 +337,7 @@ class GeneLocationUploader(object):
 							self.add_contig(gene_name, contig_name)
 
 							name = gene_name + "_" + contig_name + "_" + str(self.dict[gene_name][contig_name])
-							begin = hsp.sbjct_start
+							begin = str(hsp.sbjct_start)
 							end = str(int(hsp.sbjct_start) + int(hsp.score) - 1)
 							ref_gene = False
 
@@ -359,5 +349,5 @@ class GeneLocationUploader(object):
 if __name__ == "__main__":
  	# For gene testing
 	gmd1 = GeneLocationUploader()
-	#gmd1.upload('data/superphy_amr.xml')
-	gmd1.upload('data/superphy_vf.xml')
+	gmd1.upload('data/superphy_amr.xml')
+	#gmd1.upload('data/superphy_vf.xml')
