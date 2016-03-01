@@ -107,21 +107,7 @@ class GeneLocationUploader(object):
 				return gene_name
 		except(ValueError):
 			print "Not a valid AMR or virulence factor file"
-
-		# try:
-		# 	matchObj = re.match(r'(([a-z][a-zA-Z][a-z](_?[a-zA-Z][a-zA-Z]+[0-9]?|[a-zA-Z][0-9]*(_[0-9])?|[0-9]*[A-Z]*)(-[0-9])?)|z[0-9][0-9][0-9][0-9]|eCs[0-9]+)(.|\|)', s)
-		# 	if matchObj:
-		# 		print "match --> matchObj.group() : ", matchObj.group(0)
-		# 		return matchObj.group(0)
-		# 	else:
-		# 		raise ValueError
-		# except(ValueError):
-		# 	searchObj = re.search(r'(([a-z][a-zA-Z][a-z](_?[a-zA-Z][a-zA-Z]+[0-9]?|[a-zA-Z][0-9]*(_[0-9])?|[0-9]*[A-Z]*)(-[0-9])?)|z[0-9][0-9][0-9][0-9]|eCs[0-9]+)(\.|\|)+', s)
-		# 	if searchObj:
-		# 		print "search --> searchObj.group() : ", searchObj.group(0)
-		# 		return searchObj.group(0)
-		# 	else:
-		# 		print "Nothing found."
+			
 
 	def get_num_gene_copies(self, gene, contig):
 		"""
@@ -239,23 +225,6 @@ class GeneLocationUploader(object):
 			return True
 		else:
 			return False
-
-
-	def add_to_graph(self, metadata):
-		"""Attempts to upload data to Blazegraph via conversion to RDF and turtle. Tracks errors made during this process
-		as it likely has to do with either missing curated data, a blocked or inaccessible NCBI site, and issues with
-		formatting and information availability.
-
-		Args:
-			metadata (GeneMetadata): a GeneMetadata object used to store relevant key-value pairs from the parse
-		"""
-		if metadata:
-			try:
-				self.progress += 1
-				print "%d: downloading files" % self.progress
-				self.create_gene(metadata)
-			except Exception as e:
-				self.error_logging(metadata.name)
 
 
 	def create_gene_location(self, name, gene, contig, begin, end, seq, ref_gene):
@@ -390,5 +359,5 @@ class GeneLocationUploader(object):
 if __name__ == "__main__":
  	# For gene testing
 	gmd1 = GeneLocationUploader()
-	gmd1.upload('data/superphy_amr.xml')
-	#gmd1.upload('data/superphy_vf.xml')
+	#gmd1.upload('data/superphy_amr.xml')
+	gmd1.upload('data/superphy_vf.xml')
