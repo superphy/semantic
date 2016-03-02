@@ -27,3 +27,7 @@ all.min.css
 all.min.js
 
 superphy/src/upload/ontology/setup.ttl
+
+superphy/src/upload/python/outputs/*
+superphy/src/upload/python/tmp/*
+superphy/src/upload/python/samples/*

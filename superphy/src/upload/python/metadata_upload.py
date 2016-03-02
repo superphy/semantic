@@ -337,7 +337,7 @@ class GeneMetadataUploader(MetadataUploader):
 		"""
 		new_s = re.sub(r"\/| |\(", "_", s)
 		new_s = re.sub(r"\.|\,|\)", "", new_s)
-		new_s = re.sub(r"\'|\'\'", "_prime", new_s)
+		new_s = re.sub(r"\'\'|\'", "_prime", new_s)
 		return new_s
 
 
@@ -414,8 +414,8 @@ if __name__ == "__main__":
 	md.upload()
 
  # 	# For gene testing
-	gmd1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
-	gmd1.upload_genes()
+	# gmd1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
+	# gmd1.upload_genes()
 
 	gmd2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
 	gmd2.upload_genes()
