@@ -1,61 +1,5 @@
 #Superphy
 
-#Applications
-db
-blast
-!python_package/uploader/data/blast
-
-ontology/setup.ttl
-
-#Debugging email log
-email.log
-
-#######################
-*.py[cod]
-
-# C extensions
-*.so
-
-# Packages
-*.egg
-*.egg-info
-dist
-build
-eggs
-parts
-bin
-var
-sdist
-develop-eggs
-.installed.cfg
-lib
-lib64
-__pycache__
-
-# Installer logs
-/semantic_superphy.iml
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-# SQLite databases
-*.sqlite
-*.sqlite-journal
-
-# Blazegraph databases
-bigdata.jnl
-rules.log
 
 # Virtual environment
 venv/*
@@ -69,10 +13,21 @@ venv/lib/python2.7/*
 venv/lib/python2.7/site-packages/*
 !venv/lib/python2.7/site-packages/superphy
 
+config/*
+!config/default.cfg
+
+blast/*
+
+#######################
+*.py[cod]
+
 #Temporary Files
 python_package/uploader/outputs/errors.txt
-app/static/css/all.min.css
-app/static/js/all.min.js
+all.min.css
+all.min.js
 
-#Pycharm files
-.idea/*
+superphy/src/upload/ontology/setup.ttl
+
+superphy/src/upload/python/outputs/*
+superphy/src/upload/python/tmp/*
+superphy/src/upload/python/samples/*
