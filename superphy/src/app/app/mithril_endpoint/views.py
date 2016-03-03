@@ -15,10 +15,15 @@ def add_header(response):
 @mithril.route('/query', methods = ['GET'])
 def query():
     #General query to test if the requests are working.
-    data = (sparql.get_x_tripples(3))
+    data = (sparql.get_x_triples(3))
     return jsonify(data)
 
 @mithril.route('/meta', methods = ['GET', 'POST'])
 def meta():
+    results = (sparql.get_genome_meta_data())
+    return jsonify(results)
+
+@mithril.route('/genomes', methods = ['GET', 'POST'])
+def genomes():
     results = (sparql.get_genome_meta_data())
     return jsonify(results)

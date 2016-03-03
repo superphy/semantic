@@ -2,7 +2,7 @@ class Header extends Singleton
     #a list to be passed to the link generator function
     model: () => 
         @links = [
-            {title: "Gnome", url: "/Home.get()"}
+            {title: "Genome", url: "/Home.get()"}
             {title: "Group Browse", url: "/gbrowse"}
             {title: "Group Analyses", url: "/groups"}
             {title: "VF and AMR", url: "/factors"}
