@@ -27,7 +27,7 @@ class Gene(NamedIndividual):
 
         """
 
-        searchparam = ["vfo_id", "category", "subcategory", "uniprot", "gene_type", "aro_id", "aro_accession"]
+        searchparam = ["gene", "vfo_id", "category", "subcategory", "uniprot", "gene_type", "aro_id", "aro_accession"]
 
         super(Gene, self).__init__(graph, name)
         self.kwargs = {key: value for key, value in kwargs.items() if key in searchparam}
@@ -47,6 +47,18 @@ class Gene(NamedIndividual):
             getattr(self, key)(value)
 
         self.graph.add((n[self.name], rdf.type, gfvo.gene))
+
+
+    def gene(self, gene):
+        """
+        Converts gene name literal to RDF and adds it to graph
+        """
+
+        gene_literal, = gene
+
+        literal = Literal(gene_literal, datatype=XSD.string)
+        self.graph.add((n[self.name], n.has_name, literal))
+
 
     def vfo_id(self, vfo_id):
         """

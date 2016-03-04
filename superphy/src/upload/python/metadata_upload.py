@@ -297,6 +297,7 @@ class GeneMetadataUploader(MetadataUploader):
 			if "/" in gene_name: #if gene has multiple names
 				gene_name = gene_name.split("/")[0]
 			metadata = GeneMetadata(gene_name)
+			metadata.add_parameter("gene", gene_name))
 			metadata.add_parameter("gene_type", self.kind)
 			for heading in data[key]:
 				if data[key][heading] != "":
@@ -316,6 +317,7 @@ class GeneMetadataUploader(MetadataUploader):
 			if "ARO_name" in data[key]:
 				gene_name = self.remove_bad_chars(str(data[key]["ARO_name"]))
 				metadata = GeneMetadata(gene_name)
+				metadata.add_parameter("gene", str(data[key]["ARO_name"]))
 				metadata.add_parameter("gene_type", self.kind)
 				for key2 in data[key]:
 					if key2 == "ARO_category":
@@ -410,12 +412,12 @@ class GeneMetadata(Metadata):
 
 if __name__ == "__main__":
  # 	# For genome testing
-	md = GenomeMetadataUploader("samples/4_genome.json", "Human")
+	md = GenomeMetadataUploader("samples/meta_pipe_result.json", "Human")
 	md.upload()
 
- # 	# For gene testing
+ # # 	# For gene testing
 	# gmd1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
 	# gmd1.upload_genes()
 
-	gmd2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
-	gmd2.upload_genes()
+	# gmd2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
+	# gmd2.upload_genes()
