@@ -4,6 +4,8 @@ from ..models import Post, Permission, Comment
 from . import api
 from .decorators import permission_required
 
+#This module is from the example tutorial. Nothing here pertains to our application, and is
+#here for example purposes only.
 
 @api.route('/comments/')
 def get_comments():
