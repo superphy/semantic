@@ -38,5 +38,5 @@ def genes():
     """
     General query that returns all genes and their metadata.
     """
-    results = (sparql.virulence_factors())
+    results = (sparql.get_all_genes())
     return jsonify(results)
