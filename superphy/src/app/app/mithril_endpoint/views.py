@@ -15,15 +15,28 @@ def add_header(response):
 @mithril.route('/query', methods = ['GET'])
 def query():
     #General query to test if the requests are working.
-    data = (sparql.get_x_triples(3))
+    data = (sparql.get_x_triples(10))
     return jsonify(data)
 
 @mithril.route('/meta', methods = ['GET', 'POST'])
 def meta():
-    results = (sparql.get_genome_meta_data())
+    results = (sparql.get_all_genome_metadata())
     return jsonify(results)
 
 @mithril.route('/genomes', methods = ['GET', 'POST'])
 def genomes():
-    results = (sparql.get_genome_meta_data())
+    results = (sparql.get_all_genome_metadata())
+    return jsonify(results)
+
+@mithril.route('/genome/<genomeid>', methods = ['GET', 'POST'])
+def genome(genomeid):
+    results = (sparql.get_genome_metadata(genomeid))
+    return jsonify(results)
+
+@mithril.route('/genes', methods = ['GET', 'POST'])
+def genes():
+    """
+    General query that returns all genes and their metadata.
+    """
+    results = (sparql.virulence_factors())
     return jsonify(results)
