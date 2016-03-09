@@ -38,6 +38,10 @@ class Data
     search: (searchterm) =>
         searchterm = searchterm.toLowerCase()
         @rows = []
-        @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1
+        @rows.push(row) for row in @_rows when JSON
+            .stringify(row)
+            .toLowerCase()
+            .search(searchterm) > -1
         console.log(searchterm)
         @headers = @_headers
+        
