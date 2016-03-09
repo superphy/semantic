@@ -40,3 +40,12 @@ def genes():
     """
     results = (sparql.get_all_genes())
     return jsonify(results)
+
+
+@mithril.route('/gene/<geneid>', methods = ['GET', 'POST'])
+def gene(geneid):
+    """
+    Returns the metadata of a particular gene in json format.
+    """
+    results = (sparql.get_gene(geneid))
+    return jsonify(results)
