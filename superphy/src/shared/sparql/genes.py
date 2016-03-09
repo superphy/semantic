@@ -13,10 +13,11 @@ def get_all_genes():
     PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
 
     SELECT  ?Gene
-    (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Sub_Category ; separator=',\\n') AS ?Sub_Category)(GROUP_CONCAT (DISTINCT ?_Category_Id ; separator=',\\n') AS ?Category_Id)(GROUP_CONCAT (DISTINCT ?_ARO_Accession ; separator=',\\n') AS ?ARO_Accession)(GROUP_CONCAT (DISTINCT ?_ARO_Id ; separator=',\\n') AS ?ARO_Id)(GROUP_CONCAT (DISTINCT ?_VFO_Id ; separator=',\\n') AS ?VFO_Id)
+    (GROUP_CONCAT (DISTINCT ?_Gene_Name ; separator=',\\n') AS ?Gene_Name)(GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Sub_Category ; separator=',\\n') AS ?Sub_Category)(GROUP_CONCAT (DISTINCT ?_Category_Id ; separator=',\\n') AS ?Category_Id)(GROUP_CONCAT (DISTINCT ?_ARO_Accession ; separator=',\\n') AS ?ARO_Accession)(GROUP_CONCAT (DISTINCT ?_ARO_Id ; separator=',\\n') AS ?ARO_Id)(GROUP_CONCAT (DISTINCT ?_VFO_Id ; separator=',\\n') AS ?VFO_Id)
     WHERE
       { 
-        { ?Gene rdf:type gfvo:gene }
+        { ?Gene rdf:type gfvo:gene .
+          ?Gene :has_name ?_Gene_Name}
         OPTIONAL
           { ?Gene :has_category ?_Category_Id}
         OPTIONAL
@@ -67,7 +68,6 @@ def amr():
 
 ## Returns a certain gene
 def get_gene(name):
-	def get_all_genes():
     return endpoint.query("""
     PREFIX  :      <https://github.com/superphy#>
     PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
@@ -77,10 +77,12 @@ def get_gene(name):
     PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
 
     SELECT  ?Gene
-    (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Sub_Category ; separator=',\\n') AS ?Sub_Category)(GROUP_CONCAT (DISTINCT ?_Category_Id ; separator=',\\n') AS ?Category_Id)(GROUP_CONCAT (DISTINCT ?_ARO_Accession ; separator=',\\n') AS ?ARO_Accession)(GROUP_CONCAT (DISTINCT ?_ARO_Id ; separator=',\\n') AS ?ARO_Id)(GROUP_CONCAT (DISTINCT ?_VFO_Id ; separator=',\\n') AS ?VFO_Id)
+    (GROUP_CONCAT (DISTINCT ?_Gene_Name ; separator=',\\n') AS ?Gene_Name)(GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Sub_Category ; separator=',\\n') AS ?Sub_Category)(GROUP_CONCAT (DISTINCT ?_Category_Id ; separator=',\\n') AS ?Category_Id)(GROUP_CONCAT (DISTINCT ?_ARO_Accession ; separator=',\\n') AS ?ARO_Accession)(GROUP_CONCAT (DISTINCT ?_ARO_Id ; separator=',\\n') AS ?ARO_Id)(GROUP_CONCAT (DISTINCT ?_VFO_Id ; separator=',\\n') AS ?VFO_Id)
     WHERE
       { 
-        { ?Gene rdf:type gfvo:gene }
+        { ?Gene rdf:type gfvo:gene .
+          ?Gene :has_name "%s"^^xsd:string .
+          ?Gene :has_name ?_Gene_Name}
         OPTIONAL
           { ?Gene :has_category ?_Category_Id}
         OPTIONAL
@@ -94,5 +96,5 @@ def get_gene(name):
       }
     GROUP BY ?Gene
     ORDER BY (?Gene)
-    """ , url = os.getenv('SUPERPHY_RDF_URL'))
+    """ % (name) , url = os.getenv('SUPERPHY_RDF_URL'))
 

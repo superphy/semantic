@@ -301,7 +301,8 @@ class GeneMetadataUploader(MetadataUploader):
 			metadata.add_parameter("gene_type", self.kind)
 			for heading in data[key]:
 				if data[key][heading] != "":
-					value = self.remove_bad_chars(str(data[key][heading]))
+					# value = self.remove_bad_chars(str(data[key][heading])) # Not a literal
+					value = str(data[key][heading])
 					metadata.add_parameter(heading, value)
 
 			self.add_to_graph(metadata)
@@ -322,7 +323,8 @@ class GeneMetadataUploader(MetadataUploader):
 				for key2 in data[key]:
 					if key2 == "ARO_category":
 						for category_key in data[key][key2]:
-							metadata.add_parameter("category", self.remove_bad_chars(data[key][key2][category_key]["category_aro_name"]))
+							metadata.add_parameter("category_uri", self.remove_bad_chars(data[key][key2][category_key]["category_aro_name"]))
+							metadata.add_parameter("category", data[key][key2][category_key]["category_aro_name"])
 					elif ("ARO" in key2) and not ("description" in key2):
 						value = self.remove_bad_chars(str(data[key][key2]))
 						metadata.add_parameter(key2.lower(), value)
@@ -416,8 +418,8 @@ if __name__ == "__main__":
 	# md.upload()
 
  # # 	# For gene testing
-	gmd1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
-	gmd1.upload_genes()
+	# gmd1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
+	# gmd1.upload_genes()
 
 	gmd2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
 	gmd2.upload_genes()
