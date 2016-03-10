@@ -1,6 +1,6 @@
 class GeneSearch
     constructor: () ->
-        initGeneList = (gList, geneType, categories, tableElem, selElem, \countElem, catElem, autocElem, multi_select=true) =>
+        initGeneList = (gList, geneType, categories, tableElem, selElem, countElem, catElem, autocElem, multi_select=true) =>
             for k,o of gList
                 o.visible = true
                 o.selected = false
