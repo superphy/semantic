@@ -31,9 +31,9 @@ class Factors extends Page_Template
                         antimicrobial resistance genes can be retrieved by clicking on the individual genes.')])
             m('div', {class: 'search'}, [
                 m('ul', {id: 'gene-search-tabs', class: 'nav nav-pills nav-justified'}, 
-                    m('li', {class: 'active'}, m("a", {href:"#gene-search-querygenes", id: "select_genes", data-toggle: "tab", config:m.route}, "Select Genes")),
-                    m('li', m("a", {href:"#gene-search-genomes", id: "select_genomes", data-toggle: "tab", config:m.route}, "Select Genomes")),
-                    m('li', m("a", {href:"#gene-search-submit", id: "submit_query", data-toggle: "tab", config:m.route}, "Submit Query"))
+                    m('li', {class: 'active'}, m("a", {href:"#gene-search-querygenes", id: "select_genes", 'data-toggle': "tab", config:m.route}, "Select Genes")),
+                    m('li', m("a", {href:"#gene-search-genomes", id: "select_genomes", 'data-toggle': "tab", config:m.route}, "Select Genomes")),
+                    m('li', m("a", {href:"#gene-search-submit", id: "submit_query", 'data-toggle': "tab", config:m.route}, "Submit Query"))
                 )
             ])
             @search.view(@data)
