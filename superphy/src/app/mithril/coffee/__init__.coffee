@@ -37,4 +37,5 @@ m.route(document.body, "/", {
     "/meta": GroupBrowse.get()
     "/gbrowse": GroupBrowse.get()
     "/groups": GroupBrowse.get()
+    "/factors": Factors.get()
 })

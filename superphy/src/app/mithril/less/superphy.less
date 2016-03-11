@@ -1,10 +1,103 @@
 @spblue: #aaccff;
 @padding_top: 80px;
+@sidebar-width: 300px;
+@collapsed-width: 30px;
+
+/** Body **********************************/
+body {
+  padding-top: @padding_top;
+  padding-bottom: 30px;
+}
+
+#wrapper {
+  padding-left: @sidebar-width;
+  transition: all 0.4s ease 0s;
+}
+
+#sidebar-wrapper {
+  margin-left: -@sidebar-width;
+  left: @sidebar-width;
+  width: @sidebar-width;
+  background: #FFF;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
+
+#wrapper.active {
+  padding-left: @collapsed-width;
+  transition: all 0.4s ease 0s;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: @collapsed-width;
+  transition: all 0.4s ease 0s;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+.content-header {
+    line-height: 65px;
+    padding-bottom: 30px;
+    //height: 65px;
+}
+
+.content-header h1 {
+    display: inline-block;
+    line-height: 65px;
+    margin: 0 0 0 20px;
+}
+
+.inset {
+  padding: 20px;
+}
+
+
+@media (max-width:768px) {
+
+    #wrapper {
+      padding-left: @collapsed-width;
+    }
+
+    #sidebar-wrapper {
+      left: @collapsed-width;
+    }
+
+    #wrapper.active {
+      position: relative;
+      left: @sidebar-width;
+    }
+
+    #wrapper.active #sidebar-wrapper {
+      left: @sidebar-width;
+      width: @sidebar-width;
+      transition: all 0.4s ease 0s;
+    }
+    
+    #sidebar-expand {
+        display: inline-block;
+    }
+    
+    #sidebar-collapse {
+        display: none;
+    }
+    
+    .inset {
+      padding: 15px;
+    }
+    
+    #footer {
+      display: none;
+    }
+
+}
+
 .p {
   color: @spblue;
-}
-body { //The navbar obsures the first bit of the page
-  padding-top: @padding_top;
 }
 
 th, td {

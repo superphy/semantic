@@ -1,5 +1,5 @@
 class GeneForm
-    constructor: (@name) ->
+    constructor: (@name, @type) ->
 
     model: =>
 
@@ -15,7 +15,7 @@ class GeneForm
                 m('div', {class: 'panel-body'}, [
                     m('div', {class: 'row'}, [
                         m('div', {class: 'col-md-6 col-md-offset-3'}, [
-                            m('p', 'Testing Testing')
+                            m('div', {class: 'selected-gene-list-wrapper', id: ''}'Testing Testing')
                         ])
                     ])
                 ])
