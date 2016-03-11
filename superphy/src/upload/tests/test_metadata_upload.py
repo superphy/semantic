@@ -98,7 +98,7 @@ class GenomeMetadataUploaderTestCase(unittest.TestCase):
 
     @mock.patch('superphy.upload.metadata_upload.BlazegraphUploader.upload_data')
     @mock.patch('superphy.upload.metadata_upload.GenomeMetadataUploader.get_ncbi_ids')
-    @mock.patch('superphy.upload.metadata_upload.check_NamedIndividual')
+    @mock.patch('superphy.upload.metadata_upload.check_named_individual')
     def test_create_pending_genome(self, mock_check, mock_ncbi, mock_upload):
         mock_check.side_effect = [False, True]
         mock_ncbi.return_value = {}
@@ -220,7 +220,7 @@ class GeneMetadataUploaderTestCase(unittest.TestCase):
 
 
     @mock.patch('superphy.upload.metadata_upload.BlazegraphUploader.upload_data')
-    @mock.patch('superphy.upload.metadata_upload.check_NamedIndividual')
+    @mock.patch('superphy.upload.metadata_upload.check_named_individual')
     def test_create_gene(self, mock_check, mock_upload):
         mock_check.side_effect = [False, True]
         mock_upload.side_effect = ValueError('End of function')

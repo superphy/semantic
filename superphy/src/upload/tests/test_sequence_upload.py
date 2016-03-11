@@ -83,7 +83,7 @@ class SequenceUploaderTestCase(unittest.TestCase):
         self.assertEqual(len(mock_error.mock_calls), 1)
 
     @mock.patch('superphy.upload.sequence_upload.SequenceUploader.get_seqdata')
-    @mock.patch('superphy.upload.sequence_upload.check_NamedIndividual')
+    @mock.patch('superphy.upload.sequence_upload.check_named_individual')
     def test_load_sequence(self, mock_check, mock_get):
         mock_check.side_effect = [True, False]
         self.mock_seqdata.name = "AAAA_seq"

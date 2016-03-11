@@ -11,10 +11,14 @@ events.sort_table = (list, attribute = 'data-sort-by') ->
             list.sort (a, b) ->
                 if isNaN(parseFloat(a[item] * 1))
                     if isNaN(parseFloat(b[item] * 1))
-                        if a[item] > b[item] then 1 else if b[item] > a[item] then -1 else 0
+                        if a[item] > b[item] then 1
+                        else if b[item] > a[item] then -1
+                        else 0
                     else -1
                 else if isNaN(parseFloat(b[item] * 1)) then 1
-                else if a[item] * 1 < b[item] * 1 then 1 else if b[item] * 1 < a[item] * 1 then -1 else 0
+                else if a[item] * 1 < b[item] * 1 then 1
+                else if b[item] * 1 < a[item] * 1 then -1
+                else 0
             if first == list[0]
                 list.reverse()
         return

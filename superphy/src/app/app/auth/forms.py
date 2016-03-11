@@ -4,6 +4,8 @@ from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
 from ..models import User
 
+#This module is from the example tutorial. Nothing here pertains to our application, and is
+#here for example purposes only.
 
 class LoginForm(Form):
     email = StringField('Email', validators=[Required(), Length(1, 64),

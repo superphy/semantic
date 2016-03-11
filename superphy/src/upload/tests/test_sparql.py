@@ -12,17 +12,20 @@ from superphy.upload.blazegraph_upload import BlazegraphUploader
 from superphy.shared import endpoint as endpoint
 
 __author__ = 'Stephen Kan'
-__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__copyright__ = """
+    © Copyright Government of Canada 2012-2015. Funded by the
+    Government of Canada Genomics Research and Development Initiative
+    """
 __license__ = "ASL"
 __version__ = "2.0"
 __maintainer__ = 'Stephen Kan'
 __email__ = 'stebokan@gmail.com'
 
-n = Namespace("https://github.com/superphy#")
-owl = Namespace("http://www.w3.org/2002/07/owl#")
-rdf = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-rdfs = Namespace("http://www.w3.org/2000/01/rdf-schema#")
-gfvo = Namespace("http://www.biointerchange.org/gfvo#")
+N = Namespace("https://github.com/superphy#")
+OWL = Namespace("http://www.w3.org/2002/07/owl#")
+RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
+GFVO = Namespace("http://www.biointerchange.org/gfvo#")
 
 class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
 
@@ -33,47 +36,47 @@ class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
 
     @classmethod
     def setupBlazegraph(cls):
-        g = Graph()
+        graph = Graph()
 
-        g.add((n.btaurus, rdf.type, owl.NamedIndividual))
-        g.add((n.btaurus, rdfs.label, Literal("Bos taurus (cow)", datatype=XSD.string)))
-        g.add((n.btaurus, n.is_object_of, n.from_btaurus))
-        g.add((n.from_btaurus, rdf.type, n.isolation_from_host))
+        graph.add((N.btaurus, RDF.type, OWL.NamedIndividual))
+        graph.add((N.btaurus, RDFS.label, Literal("Bos taurus (cow)", datatype=XSD.string)))
+        graph.add((N.btaurus, N.is_object_of, N.from_btaurus))
+        graph.add((N.from_btaurus, RDF.type, N.isolation_from_host))
 
-        g.add((n.asymptomatic, rdf.type, n.isolation_syndrome))
-        g.add((n.asymptomatic, rdfs.label, Literal("Asymptomatic", datatype=XSD.string)))
+        graph.add((N.asymptomatic, RDF.type, N.isolation_syndrome))
+        graph.add((N.asymptomatic, RDFS.label, Literal("Asymptomatic", datatype=XSD.string)))
 
-        g.add((n.enteral_feeding_tube, rdf.type, n.isolation_from_source))
-        g.add((n.enteral_feeding_tube, rdfs.label, Literal("Enteral feeding tube", datatype=XSD.string)))
+        graph.add((N.enteral_feeding_tube, RDF.type, N.isolation_from_source))
+        graph.add((N.enteral_feeding_tube, RDFS.label, Literal("Enteral feeding tube", datatype=XSD.string)))
 
-        g.add((n.CP001165, rdf.type, gfvo.Genome))
-        g.add((n.CP001165, n.has_biosample, Literal("2603441", datatype=XSD.string)))
-        g.add((n.CP001165, n.has_accession, Literal("CP001165", datatype=XSD.string)))
+        graph.add((N.CP001165, RDF.type, GFVO.Genome))
+        graph.add((N.CP001165, N.has_biosample, Literal("2603441", datatype=XSD.string)))
+        graph.add((N.CP001165, N.has_accession, Literal("CP001165", datatype=XSD.string)))
 
-        g.add((n.CP001164, rdf.type, gfvo.Genome))
-        g.add((n.CP001164, n.has_valid_sequence, Literal("True", datatype=XSD.string)))
-        g.add((n.CP001164, n.has_biosample, Literal("2603441", datatype=XSD.string)))
-        g.add((n.CP001164, n.has_accession, Literal("CP001164", datatype=XSD.string)))
-        g.add((n.CP001164, n.has_sequence, n.CP001164_seq))
-        g.add((n.CP001164_seq, n.is_from, Literal("CORE", datatype=XSD.string)))
+        graph.add((N.CP001164, RDF.type, GFVO.Genome))
+        graph.add((N.CP001164, N.has_valid_sequence, Literal("True", datatype=XSD.string)))
+        graph.add((N.CP001164, N.has_biosample, Literal("2603441", datatype=XSD.string)))
+        graph.add((N.CP001164, N.has_accession, Literal("CP001164", datatype=XSD.string)))
+        graph.add((N.CP001164, N.has_sequence, N.CP001164_seq))
+        graph.add((N.CP001164_seq, N.is_from, Literal("CORE", datatype=XSD.string)))
 
-        g.add((n.CP001163, rdf.type, gfvo.Genome))
-        g.add((n.CP001163, n.has_biosample, Literal("2603441", datatype=XSD.string)))
-        g.add((n.CP001163, n.has_accession, Literal("CP001163", datatype=XSD.string)))
+        graph.add((N.CP001163, RDF.type, GFVO.Genome))
+        graph.add((N.CP001163, N.has_biosample, Literal("2603441", datatype=XSD.string)))
+        graph.add((N.CP001163, N.has_accession, Literal("CP001163", datatype=XSD.string)))
 
-        g.add((n.fakeGenome, rdf.type, gfvo.Genome))
-        g.add((n.fakeGenome, n.has_valid_sequence, Literal("False", datatype=XSD.string)))
+        graph.add((N.fakeGenome, RDF.type, GFVO.Genome))
+        graph.add((N.fakeGenome, N.has_valid_sequence, Literal("False", datatype=XSD.string)))
 
-        g.add((n.testEntity, rdf.type, owl.NamedIndividual))
+        graph.add((N.testEntity, RDF.type, OWL.NamedIndividual))
 
 
-        g.add((BNode(), rdfs.label, Literal("Test node", datatype=XSD.string)))
+        graph.add((BNode(), RDFS.label, Literal("Test node", datatype=XSD.string)))
 
-        g.add((n.test_object, n.has_checksum, Literal("asdfghjkl", datatype=XSD.string)))
+        graph.add((N.test_object, N.has_checksum, Literal("asdfghjkl", datatype=XSD.string)))
 
-        BlazegraphUploader().upload_data(generate_output(g))
+        BlazegraphUploader().upload_data(generate_output(graph))
 
-        del g
+        del graph
 
     def test_find_from_host(self):
         self.assertEqual(_sparql.find_from_host("Bos taurus (cow)"), "from_btaurus")
@@ -105,9 +108,9 @@ class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
         with self.assertRaises(IndexError):
             self.assertIsNone(_sparql.find_source("foo"))
 
-    def test_check_NamedIndividual(self):
-        self.assertTrue(_sparql.check_NamedIndividual("btaurus"))
-        self.assertFalse(_sparql.check_NamedIndividual("foo"))
+    def test_check_named_individual(self):
+        self.assertTrue(_sparql.check_named_individual("btaurus"))
+        self.assertFalse(_sparql.check_named_individual("foo"))
 
     def test_find_missing_sequences(self):
         self.assertEqual(len(list(_sparql.find_missing_sequences())), 2)
@@ -124,9 +127,9 @@ class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
         self.assertEqual(_sparql.find_core_genome("456123"), [])
 
     def test_delete_instance(self):
-        self.assertTrue(_sparql.check_NamedIndividual("testEntity"))
+        self.assertTrue(_sparql.check_named_individual("testEntity"))
         _sparql.delete_instance("testEntity")
-        self.assertFalse(_sparql.check_NamedIndividual("testEntity"))
+        self.assertFalse(_sparql.check_named_individual("testEntity"))
 
     def test_insert_accession_sequence(self):
         _sparql.insert_accession_sequence("fakeGenome", "fakePlasmid", "fakePlasmidSeq")
