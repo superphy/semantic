@@ -2,22 +2,29 @@
 # -*- coding: UTF-8 -*-
 
 """
-This module converts predefined metadata for Hosts, HostCategory, FromSource, IsolationSyndrome, and Microbe (all
-from classes.py) into RDF triples and exports it as a turtle file ready for converting into Blazegraph.
+This module converts predefined metadata for Hosts, HostCategory, FromSource,
+IsolationSyndrome, and Microbe (all from classes.py) into RDF triples and
+exports it as a turtle file ready for converting into Blazegraph.
 
-TODO: add a way to modify source files by reading the json, check for duplicates, and write a new JSON
-      Would be nice to do this serially
+TODO: add a way to modify source files by reading the json,
+    check for duplicates, and write a new JSON.
+    Would be nice to do this serially
 """
-import json, os
+import json
+import os
 
 from rdflib import Graph
 
-from _utils import generate_file_output, generate_path
-from classes import FromSource, Host, HostCategory, Htype, IsolationSyndrome, Microbe, Otype
+from superphy.upload._utils import generate_file_output, generate_path
+from superphy.upload.classes import FromSource, Host, HostCategory, Htype, \
+    IsolationSyndrome, Microbe, Otype
 
 
 __author__ = "Stephen Kan"
-__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__copyright__ = """
+    © Copyright Government of Canada 2012-2015. Funded by the Government of
+    Canada Genomics Research and Development Initiative
+    """
 __license__ = "ASL"
 __version__ = "2.0"
 __maintainer__ = "Stephen Kan"
@@ -26,7 +33,8 @@ __email__ = "stebokan@gmail.com"
 
 class BlazegraphSetup(object):
     """
-    A class that sets up JSON files containing curated data and exports them into an turtle file.
+    A class that sets up JSON files containing curated data and exports them
+    into an turtle file.
     """
 
     def __init__(self):
@@ -34,7 +42,7 @@ class BlazegraphSetup(object):
         Sets up an instance of the class with a rdflib.Graph() instance
 
         """
-        self.g = Graph()
+        self.graph = Graph()
 
     def convert_host_categories(self):
         """
@@ -45,7 +53,7 @@ class BlazegraphSetup(object):
 
         for host_category in host_categories:
             name, label = host_category
-            HostCategory(self.g, name, label).rdf()
+            HostCategory(self.graph, name, label).rdf()
 
         del host_categories
 
@@ -59,7 +67,9 @@ class BlazegraphSetup(object):
 
         for host in hosts:
             name, label, sci_name, com_name, host_category = host
-            Host(self.g, name, label, sci_name, com_name, host_category).rdf()
+            Host(
+                self.graph, name, label, sci_name, com_name, host_category
+            ).rdf()
 
         del hosts
 
@@ -73,7 +83,7 @@ class BlazegraphSetup(object):
 
         for source in sources:
             name, label, host_category = source
-            FromSource(self.g, name, label, host_category).rdf()
+            FromSource(self.graph, name, label, host_category).rdf()
 
         del sources
 
@@ -87,7 +97,7 @@ class BlazegraphSetup(object):
 
         for syndrome in syndromes:
             name, label, host_category = syndrome
-            IsolationSyndrome(self.g, name, label, host_category).rdf()
+            IsolationSyndrome(self.graph, name, label, host_category).rdf()
 
         del syndromes
 
@@ -101,7 +111,7 @@ class BlazegraphSetup(object):
 
         for microbe in microbes:
             name, label, sci_name, com_name = microbe
-            Microbe(self.g, name, label, sci_name, com_name).rdf()
+            Microbe(self.graph, name, label, sci_name, com_name).rdf()
 
         del microbes
 
@@ -110,16 +120,15 @@ class BlazegraphSetup(object):
         Generates a range of H and O serotypes to add to the rdflib.Graph
 
         """
-        for num in range(1,56):
-            Htype(self.g, str(num)).rdf()
-        Htype(self.g, "NM").rdf()
+        for num in range(1, 56):
+            Htype(self.graph, str(num)).rdf()
+        Htype(self.graph, "NM").rdf()
 
-        for num in range(1,188):
-            Otype(self.g, str(num)).rdf()
-        Otype(self.g, "NT").rdf()
-
-
-    def import_json(self, filename):
+        for num in range(1, 188):
+            Otype(self.graph, str(num)).rdf()
+        Otype(self.graph, "NT").rdf()
+    @classmethod
+    def import_json(cls, filename):
         """
         Imports JSON data from the specified file into Python
 
@@ -129,16 +138,17 @@ class BlazegraphSetup(object):
         Returns: a Python object composed of the data from the JSON data
 
         """
-        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), filename)
-        with open(generate_path(path), "r+") as f:
-            return json.load(f)
-
-
+        path = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            filename
+        )
+        with open(generate_path(path), "r+") as file_:
+            return json.load(file_)
 
     def setup_curated_data(self):
         """
-        Converts all curated data stored in JSON format into a turtle file ready for uploading into Blazegraph
-
+        Converts all curated data stored in JSON format into a turtle file
+        ready for uploading into Blazegraph
         """
         self.convert_host_categories()
         self.convert_hosts()
@@ -146,4 +156,4 @@ class BlazegraphSetup(object):
         self.convert_sources()
         self.convert_syndromes()
         self.generate_serotypes()
-        generate_file_output(self.g, generate_path('ontologies/setup.ttl'))
+        generate_file_output(self.graph, generate_path('ontologies/setup.ttl'))

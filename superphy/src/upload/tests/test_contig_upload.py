@@ -202,7 +202,7 @@ class ContigsWrapperTestCase(unittest.TestCase):
         self.case.add_contigs(contigs)
         self.assertEqual(self.case.contigs, contigs)
         self.assertEqual(self.case.numcontigs, 4)
-        self.assertEqual(self.case.bp, 208)
+        self.assertEqual(self.case.basepairs, 208)
         self.assertIsNotNone(self.case.checksum)
 
     def test_generate_checksum(self):

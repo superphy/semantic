@@ -11,7 +11,9 @@ import os
 import string
 
 __author__ = "Stephen Kan"
-__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
+__copyright__ = """© Copyright Government of Canada 2012-2015. Funded by the
+    Government of Canada Genomics Research and Development Initiative
+    """
 __license__ = "ASL"
 __version__ = "2.0"
 __maintainer__ = "Stephen Kan"
@@ -19,12 +21,14 @@ __email__ = "stebokan@gmail.com"
 
 def generate_path(filename):
     """
-    Generates the absolute filepath based on the location of the caller of this function
+    Generates the absolute filepath based on the location of the caller of this
+    function
 
     Args:
         filename (str): relative location of the caller
 
-    Returns: absolute filepath for the given filename based on the location of the caller
+    Returns: absolute filepath for the given filename based on the location of
+    the caller
 
     """
     frame = inspect.stack()
@@ -32,9 +36,10 @@ def generate_path(filename):
     del frame
     return os.path.join(os.path.dirname(filepath), filename)
 
-def strip_non_alphabetic(str):
+def strip_non_alphabetic(str_):
     """
-    Strips all non-alphabetic characters (not present in string.ascii_letters) from a given string
+    Strips all non-alphabetic characters (not present in string.ascii_letters)
+    from a given string
 
     Args:
         str: any string
@@ -42,13 +47,14 @@ def strip_non_alphabetic(str):
     Returns: a string with only characters from string.ascii_letters
 
     """
-    all = string.maketrans('','')
-    nochars = all.translate(all, string.ascii_letters)
-    return str.translate(all, nochars)
+    all_ = string.maketrans('', '')
+    nochars = all_.translate(all_, string.ascii_letters)
+    return str_.translate(all_, nochars)
 
-def strip_non_numeric(str):
+def strip_non_numeric(str_):
     """
-    Strips all non-numeric characters (not present in string.digits) from a given string
+    Strips all non-numeric characters (not present in string.digits) from a
+    given string
 
     Args:
         str: any string
@@ -56,9 +62,9 @@ def strip_non_numeric(str):
     Returns: a string with only characters from string.digits
 
     """
-    all = string.maketrans('','')
-    nodigs = all.translate(all, string.digits)
-    return str.translate(all, nodigs)
+    all_ = string.maketrans('', '')
+    nodigs = all_.translate(all_, string.digits)
+    return str_.translate(all_, nodigs)
 
 def generate_output(graph):
     """
@@ -69,7 +75,7 @@ def generate_output(graph):
     """
 
     output = graph.serialize(format="turtle")
-    graph.remove( (None, None, None) )
+    graph.remove((None, None, None))
     return output
 
 def generate_file_output(graph, destination):
@@ -78,8 +84,9 @@ def generate_file_output(graph, destination):
 
     Args:
         graph (rdflib.Graph): container object to store RDF triples
-        destination (str): an internal filepath relative to the  __init__.py file this module belongs to
+        destination (str): an internal filepath relative to the  __init__.py
+        file this module belongs to
     """
 
     graph.serialize(destination=destination, format="turtle")
-    graph.remove( (None, None, None) )
+    graph.remove((None, None, None))

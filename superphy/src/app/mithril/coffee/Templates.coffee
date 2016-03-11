@@ -1,5 +1,5 @@
 class Singleton
-    model: () =>
+    model: () ->
     constructor: () ->
         @model()
     @get: ->
@@ -7,9 +7,9 @@ class Singleton
         return @instance
     @getView: () ->
         return @get().view()
-    view: () ->    
+    view: () ->
 
-class Page_Template extends Singleton
+class PageTemplate extends Singleton
     model: () ->
     controller: () ->
     view: () ->
