@@ -463,12 +463,13 @@ class ClassesTestCase(unittest.TestCase):
 
         field = {"http://www.biointerchange.org/gfvo#gene",
                  "3000001",
-                 "https://github.com/superphy#Adherence",
-                 "https://github.com/superphy#AAF_II_fimbriae",
+                 "Adherence",
+                 "AAF_II_fimbriae",
                  "http://www.w3.org/2002/07/owl#NamedIndividual",
                  "https://github.com/superphy#virulence_factor"
         }
         objects = list(self.graph.objects(n["hlyA"]))
+        print objects
         self.check_triples(field, objects)
 
     def test_GeneLocation(self):
