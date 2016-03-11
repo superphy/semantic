@@ -1,4 +1,4 @@
-class Factors extends Page_Template
+class Factors extends PageTemplate
     #a list to be passed to the link generator function
     model: () => 
         @value = m.prop('')
