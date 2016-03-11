@@ -2,6 +2,8 @@ from flask import jsonify, request, current_app, url_for
 from . import api
 from ..models import User, Post
 
+#This module is from the example tutorial. Nothing here pertains to our application, and is
+#here for example purposes only.
 
 @api.route('/users/<int:id>')
 def get_user(id):

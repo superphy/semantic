@@ -5,6 +5,8 @@ from . import api
 from .decorators import permission_required
 from .errors import forbidden
 
+#This module is from the example tutorial. Nothing here pertains to our application, and is
+#here for example purposes only.
 
 @api.route('/posts/')
 def get_posts():

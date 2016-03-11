@@ -15,7 +15,7 @@ import os
 from rdflib import Graph, Namespace, Literal, XSD
 from Bio.Blast import NCBIXML, Record
 
-from superphy.upload._sparql import check_NamedIndividual, has_ref_gene, _sparql_query
+from superphy.upload._sparql import check_named_individual, has_ref_gene, _sparql_query
 from superphy.upload._utils import generate_output, generate_path
 from superphy.upload.classes import GeneLocation
 from superphy.upload.blazegraph_upload import BlazegraphUploader
