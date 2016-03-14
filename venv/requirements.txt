@@ -31,7 +31,6 @@ isodate==0.5.4
 itsdangerous==0.24
 jasmine-core==2.3.4
 jasmine==2.3.0
-Jinja2==2.7.1
 Jinja2==2.8
 Mako==1.0.2
 Markdown==2.6.2
