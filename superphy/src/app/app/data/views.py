@@ -6,9 +6,9 @@ provides the endpoints for this particular blueprint.
 from flask import jsonify
 from superphy.shared import sparql
 
-from . import mithril
+from . import data
 
-@mithril.after_request
+@data.after_request
 def add_header(response):
     """
     Append after request the nessesary headers.
@@ -17,15 +17,15 @@ def add_header(response):
     response.headers['Access-Control-Allow-Headers'] = "accept, content-type"
     return response
 
-@mithril.route('/query', methods=['GET'])
+@data.route('/query', methods=['GET'])
 def query():
     """
     #General query to test if the requests are working.
     """
-    data = (sparql.get_x_triples(10))
-    return jsonify(data)
+    data_ = (sparql.get_x_triples(10))
+    return jsonify(data_)
 
-@mithril.route('/meta', methods=['GET', 'POST'])
+@data.route('/meta', methods=['GET', 'POST'])
 def meta():
     """
     General query that returns all genomes and their metadata.
@@ -33,7 +33,7 @@ def meta():
     results = (sparql.get_all_genome_metadata())
     return jsonify(results)
 
-@mithril.route('/genomes', methods=['GET', 'POST'])
+@data.route('/genomes', methods=['GET', 'POST'])
 def genomes():
     """
     General query that returns all genomes and their metadata.
@@ -41,7 +41,7 @@ def genomes():
     results = (sparql.get_all_genome_metadata())
     return jsonify(results)
 
-@mithril.route('/genome/<genomeid>', methods=['GET', 'POST'])
+@data.route('/genome/<genomeid>', methods=['GET', 'POST'])
 def genome(genomeid):
     """
     Returns the metadata of a particular genome in json format.
@@ -49,7 +49,7 @@ def genome(genomeid):
     results = (sparql.get_genome_metadata(genomeid))
     return jsonify(results)
 
-@mithril.route('/genes', methods=['GET', 'POST'])
+@data.route('/genes', methods=['GET', 'POST'])
 def genes():
     """
     General query that returns all genes and their metadata.
@@ -58,7 +58,7 @@ def genes():
     return jsonify(results)
 
 
-@mithril.route('/gene/<geneid>', methods=['GET', 'POST'])
+@data.route('/gene/<geneid>', methods=['GET', 'POST'])
 def gene(geneid):
     """
     Returns the metadata of a particular gene in json format.
