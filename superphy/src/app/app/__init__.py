@@ -1,49 +1,47 @@
+"""
+__init__.py
+
+app for the flask server
+
+"""
+
+import os
+
 from flask import Flask
-from flask.ext.bootstrap import Bootstrap
-from flask.ext.mail import Mail
-from flask.ext.moment import Moment
+
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
-from flask.ext.pagedown import PageDown
-from config import config
+from flask.ext.httpauth import HTTPBasicAuth
 
-bootstrap = Bootstrap()
-mail = Mail()
-moment = Moment()
+from .config import config
+
+
+
 db = SQLAlchemy()
-pagedown = PageDown()
+auth = HTTPBasicAuth()
 
-login_manager = LoginManager()
-login_manager.session_protection = 'strong'
-login_manager.login_view = 'auth.login'
 
+from .models import User
 
 def create_app(config_name):
+    """
+    creates the application from the aggregation of blueprints
+    """
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
-    bootstrap.init_app(app)
-    mail.init_app(app)
-    moment.init_app(app)
     db.init_app(app)
-    login_manager.init_app(app)
-    pagedown.init_app(app)
 
-    if not app.debug and not app.testing and not app.config['SSL_DISABLE']:
-        from flask.ext.sslify import SSLify
-        sslify = SSLify(app)
+    with app.app_context():
+        db.create_all()
 
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from.example import example as example_blueprint
+    app.register_blueprint(example_blueprint, url_prefix='/example')
 
-    from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+    from .data import data as data_blueprint
+    app.register_blueprint(data_blueprint, url_prefix='/data')
 
-    from .api_1_0 import api as api_1_0_blueprint
-    app.register_blueprint(api_1_0_blueprint, url_prefix='/api/v1.0')
-
-    from .mithril_endpoint import mithril as mithril_blueprint
-    app.register_blueprint(mithril_blueprint, url_prefix='/mithril')
+    from .api import api as api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/api')
 
     return app

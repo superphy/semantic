@@ -25,7 +25,7 @@ class Data
             @search('')
         m.request(
             method: "POST",
-            url: 'http://' + location.hostname + ':5000/mithril/meta',
+            url: 'http://' + location.hostname + ':5000/data/meta',
             data: json
             datatype: 'json'
             type: ID)

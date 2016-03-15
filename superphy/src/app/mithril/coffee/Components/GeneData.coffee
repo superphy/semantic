@@ -25,7 +25,7 @@ class GeneData
             @search('')
         m.request(
             method: "POST",
-            url: 'http://' + location.hostname + ':5000/mithril/genes',
+            url: 'http://' + location.hostname + ':5000/data/genes',
             data: json
             datatype: 'json'
             type: ID)
