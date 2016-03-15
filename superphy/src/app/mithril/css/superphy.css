@@ -1,8 +1,77 @@
-.p {
-  color: #aaccff;
-}
+/** Body **********************************/
 body {
   padding-top: 80px;
+  padding-bottom: 30px;
+}
+#wrapper {
+  padding-left: 300px;
+  transition: all 0.4s ease 0s;
+}
+#sidebar-wrapper {
+  margin-left: -300px;
+  left: 300px;
+  width: 300px;
+  background: #FFF;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
+#wrapper.active {
+  padding-left: 30px;
+  transition: all 0.4s ease 0s;
+}
+#wrapper.active #sidebar-wrapper {
+  left: 30px;
+  transition: all 0.4s ease 0s;
+}
+#page-content-wrapper {
+  width: 100%;
+}
+.content-header {
+  line-height: 65px;
+  padding-bottom: 30px;
+}
+.content-header h1 {
+  display: inline-block;
+  line-height: 65px;
+  margin: 0 0 0 20px;
+}
+.inset {
+  padding: 20px;
+}
+@media (max-width: 768px) {
+  #wrapper {
+    padding-left: 30px;
+  }
+  #sidebar-wrapper {
+    left: 30px;
+  }
+  #wrapper.active {
+    position: relative;
+    left: 300px;
+  }
+  #wrapper.active #sidebar-wrapper {
+    left: 300px;
+    width: 300px;
+    transition: all 0.4s ease 0s;
+  }
+  #sidebar-expand {
+    display: inline-block;
+  }
+  #sidebar-collapse {
+    display: none;
+  }
+  .inset {
+    padding: 15px;
+  }
+  #footer {
+    display: none;
+  }
+}
+.p {
+  color: #aaccff;
 }
 th,
 td {

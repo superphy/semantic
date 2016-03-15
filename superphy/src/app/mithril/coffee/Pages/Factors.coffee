@@ -1,26 +1,74 @@
 class Factors extends PageTemplate
     #a list to be passed to the link generator function
-    model: () => 
+
+    model: () =>
         @value = m.prop('')
+        @activeTab = m.prop('genes')
         
         @table ?= new Table()
-        @search ?= new GeneSearch()
-        @vfform ?= new GeneForm('Virulence Factor')
-        @amrform ?= new GeneForm('Antimicrobial Resistance')
+        @data ?= new GeneData()
+        @vfform = new GeneForm('Virulence Factor', 'vf')
+        @amrform = new GeneForm('Antimicrobial Resistance', 'amr')
         @sidebar ?= new Sidebar()
+
         return
 
     controller: (options) =>
         @model()
-        @data ?= new GeneData()
+        @tabCtrl = new mc.Tabs.controller('genes')
+        
         return
-        # data = @data
-        # return {
-        #     pages: pages,
-        #     rotate: ->
-        #         pages().push(pages().shift)
-        # }
-    view: (ctrl) =>
+
+
+    view: () ->
+        ctrl = @tabCtrl
+        tabOptions = {
+            flavor: 'bs/nav-tabs'
+            tabs: [
+                { name: 'genes', label: 'Select Genes'}
+                { name: 'genomes', label: 'Select Genomes'}
+                { name: 'submit', label: 'Submit Query'}
+            ]
+        }
+        
+
+        renderTabContents = (ctrl) ->
+            @activeTab = ctrl.activeTabName
+            switch (@activeTab())
+                when 'genes' then return renderGeneForm(ctrl)
+                when 'genomes' then return renderGenomeSearch(ctrl)
+                when 'submit' then return renderSubmit(ctrl)
+                else return m('h1', @activeTab())
+
+        renderGeneForm = (ctrl) ->
+            return m('div', {class: 'tab-content'}, [
+                m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
+                    m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
+                        # @vfform.view()
+                        # @amrform.view()
+                        "Testing Testing"
+                    ])
+                ])
+            ])
+
+        renderGenomeSearch = (ctrl) ->
+            return m('div', {class: 'tab-content'}, [
+                m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
+                    m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
+                        "Testing Genome Search"
+                    ])
+                ])
+            ])
+
+        renderSubmit = (ctrl) ->
+            return m('div', {class: 'tab-content'}, [
+                m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
+                    m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
+                        "Testing Submission search"
+                    ])
+                ])
+            ])
+
         return [
             super()
             m('div', {id: 'wrapper'}, [
@@ -36,24 +84,10 @@ class Factors extends PageTemplate
                                                 antimicrobial resistance genes can be retrieved by clicking on the individual genes.')
                                     ])
 
-                                    m('div', {class: 'search'}, [
-                                        m('ul', {id: 'gene-search-tabs', class: 'nav nav-tabs nav-justified'}, [
-                                            m('li', {class: 'active'}, m("a", {href:"#gene-search-querygenes", id: "select_genes", config:m.route}, "Select Genes")),
-                                            m('li', m("a", {href:"#gene-search-genomes", id: "select_genomes", config:m.route}, "Select Genomes")),
-                                            m('li', m("a", {href:"#gene-search-submit", id: "submit_query", config:m.route}, "Submit Query"))
-                                        ])
+                                    m('.container', [
+                                        mc.Tabs.view(ctrl, tabOptions)
+                                        renderTabContents(ctrl)
                                     ])
-
-                                    m('div', {class: 'tab-content'}, [
-                                        m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
-                                            m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
-                                                @vfform.view()
-                                                @amrform.view()
-                                            ])
-                                        ])
-                                    ])
-                                    @search.view(@data)
-                                    # @table.view(@data)
                                 ])
                             ])
                         ])
