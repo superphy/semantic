@@ -3,9 +3,17 @@ models.py
 """
 #pylint: disable=C0103, W0406
 
-from passlib.apps import custom_app_context as pwd_context
 
-from .. import db
+from flask import Flask, abort, request, jsonify, g, url_for, current_app
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.httpauth import HTTPBasicAuth
+from passlib.apps import custom_app_context as pwd_context
+from itsdangerous import (TimedJSONWebSignatureSerializer
+                          as Serializer, BadSignature, SignatureExpired)
+
+# initialization
+
+from . import db
 
 class User(db.Model):
     """
@@ -36,7 +44,7 @@ class User(db.Model):
         the user. The token will also have an expiration time embedded in it,
         which by default will be of ten minutes (600 seconds).
         """
-        s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+        s = Serializer(current_app.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'id': self.id})
 
     @staticmethod
@@ -45,7 +53,7 @@ class User(db.Model):
         If the token can be decoded then the id encoded in it is used to load
         the user, and that user is returned.
         """
-        s = Serializer(app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
         except SignatureExpired:
