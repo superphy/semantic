@@ -1,61 +1,61 @@
 class GeneSearch
     constructor: () ->
-        initGeneList = (gList, geneType, categories, tableElem, selElem, countElem, catElem, autocElem, multi_select=true) =>
+        # initGeneList = (gList, geneType, categories, tableElem, selElem, countElem, catElem, autocElem, multi_select=true) =>
 
-            for k,o of gList
-                o.visible = true
-                o.selected = false
+        #     for k,o of gList
+        #         o.visible = true
+        #         o.selected = false
 
-            dObj = {
-                type: geneType
-                genes: gList
-                categories: categories
-                num_selected: 0
-                sortField: 'name'
-                sortAsc: true
-                element: {
-                    table: tableElem
-                    select: selElem
-                    count: countElem
-                    category: catElem
-                    autocomplete: autocElem
-                }
-                multi_select: multi_select
-            }
+        #     dObj = {
+        #         type: geneType
+        #         genes: gList
+        #         categories: categories
+        #         num_selected: 0
+        #         sortField: 'name'
+        #         sortAsc: true
+        #         element: {
+        #             table: tableElem
+        #             select: selElem
+        #             count: countElem
+        #             category: catElem
+        #             autocomplete: autocElem
+        #         }
+        #         multi_select: multi_select
+        #     }
 
-        # FUNC appendGeneTable
-        # Appends genes to form. Only attaches
-        # genes where object.visible = true
-        #
-        # USAGE appendGeneList data_object
-        #
-        # RETURNS
-        # boolean
-        #  
-        appendGeneTable = (d) =>
-            table = d.element.table
-            name = "#{d.type}-gene"
-            tableElem = jQuery("<table />").appendTo(table)
+        # # FUNC appendGeneTable
+        # # Appends genes to form. Only attaches
+        # # genes where object.visible = true
+        # #
+        # # USAGE appendGeneList data_object
+        # #
+        # # RETURNS
+        # # boolean
+        # #  
+        # appendGeneTable = (d) =>
+        #     table = d.element.table
+        #     name = "#{d.type}-gene"
+        #     tableElem = jQuery("<table />").appendTo(table)
 
-            tableHtml = ''
-            tableHtml += appendHeader(d)
-            tableHtml += '<tbody>'
-            tableHtml += appendGenes(d, sort(d.genes, d.sortField, d.sortAsc), d.genes, d.type, 'select')
-            tableHtml += '</tbody>'
+        #     tableHtml = ''
+        #     tableHtml += appendHeader(d)
+        #     tableHtml += '<tbody>'
+        #     tableHtml += appendGenes(d, sort(d.genes, d.sortField, d.sortAsc), d.genes, d.type, 'select')
+        #     tableHtml += '</tbody>'
 
-            tableElem.append(tableHtml)
+        #     tableElem.append(tableHtml)
 
-            cboxes = table.find("input[name='#{name}']")
-            cboxes.change( ->
-                obj = $(@)
-                geneId = obj.val()
-                checked = obj.prop('checked')
-                selectGene([geneId], checked, d)
-            )
+        #     cboxes = table.find("input[name='#{name}']")
+        #     cboxes.change( ->
+        #         obj = $(@)
+        #         geneId = obj.val()
+        #         checked = obj.prop('checked')
+        #         selectGene([geneId], checked, d)
+        #     )
   
-            updateCount(d)
+        #     updateCount(d)
   
-            true
+        #     true
 
         @state = {pageY: 0, pageHeight: window.innerHeight}
         window.addEventListener("scroll", (e) =>
@@ -69,7 +69,7 @@ class GeneSearch
             m.redraw()
         )
 
-    controller: () =>
+    controller: () ->
 
 
     view: (data) =>
