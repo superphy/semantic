@@ -7,8 +7,8 @@ class Factors extends PageTemplate
         
         @table ?= new Table()
         @data ?= new GeneData()
-        @vfform = new GeneForm('Virulence Factor', 'vf')
-        @amrform = new GeneForm('Antimicrobial Resistance', 'amr')
+        @vfform ?= new GeneForm('Virulence Factor', 'vf')
+        @amrform ?= new GeneForm('Antimicrobial Resistance', 'amr')
         @sidebar ?= new Sidebar()
 
         return
@@ -21,7 +21,8 @@ class Factors extends PageTemplate
 
 
     view: () ->
-        ctrl = @tabCtrl
+        console.log("type of vfform:", typeof @vfform)
+        ctrl = @tabCtrl # Need to fix this so that it goes back within the controller or model @___@
         tabOptions = {
             flavor: 'bs/nav-tabs'
             tabs: [
@@ -40,18 +41,17 @@ class Factors extends PageTemplate
                 when 'submit' then return renderSubmit(ctrl)
                 else return m('h1', @activeTab())
 
-        renderGeneForm = (ctrl) ->
+        renderGeneForm = (ctrl) =>
             return m('div', {class: 'tab-content'}, [
                 m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
-                        # @vfform.view()
-                        # @amrform.view()
-                        "Testing Testing"
+                        @vfform.view()
+                        @amrform.view()
                     ])
                 ])
             ])
 
-        renderGenomeSearch = (ctrl) ->
+        renderGenomeSearch = (ctrl) =>
             return m('div', {class: 'tab-content'}, [
                 m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
@@ -60,7 +60,7 @@ class Factors extends PageTemplate
                 ])
             ])
 
-        renderSubmit = (ctrl) ->
+        renderSubmit = (ctrl) =>
             return m('div', {class: 'tab-content'}, [
                 m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
