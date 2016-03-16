@@ -3,14 +3,14 @@ class GeneForm
         @model()
 
     model: =>
-        @table ?= new Table()
         @data ?= if @type is 'vf' then new GeneData('vf') else new GeneData('amr')
         @genelist ?= new GeneList()
 
+        ## Array for selected genes for this form
+        @selected = []
+
 
     controller: =>
-        @model()
-        return
 
     
     view: () =>
@@ -25,6 +25,9 @@ class GeneForm
                             m('div', {class: 'selected-gene-list-wrapper', id: 'vf-selected-list'}, [
                                 m('fieldset', [
                                     m('span', ['Selected factors:'])
+                                    m('ul', {id: 'vf-selected'}, [
+                                        "Testing something"
+                                    ])
                                 ])
                             ])
                         ])
