@@ -1,9 +1,9 @@
 VF gene	VFO ID	Function	Uniprot	Categor(y/ies)	Sub Categor(y/ies)	Reference(s)	Ref Genome	Sequence
 agn43	3000001			Autotransporter	Antigen 43			
 aida	3000002			Autotransporter	Adhesin involved in diffuse adherence			
-cdtA	3000003			Toxins	Cytolethal distending toxin			
-cdtB	3000004			Toxins	Cytolethal distending toxin			
-cdtC	3000005			Toxins	Cytolethal distending toxin			
+cdtA	3000003			Toxin	Cytolethal distending toxin			
+cdtB	3000004			Toxin	Cytolethal distending toxin			
+cdtC	3000005			Toxin	Cytolethal distending toxin			
 cesD	3000006			Secretion system	LEE locus encoded TTSS			
 cesD2	3000007			Secretion system	LEE locus encoded TTSS			
 cesF	3000008			Secretion system	LEE locus encoded TTSS			
@@ -16,7 +16,7 @@ chuW	3000014			Iron uptake	Hemin uptake
 chuX	3000015			Iron uptake	Hemin uptake			
 chuY	3000016			Iron uptake	Hemin uptake			
 cif	3000017			Non-LEE encoded TTSS effectors	Cell-cycle-inhibitory factor Cif			
-cnf1	3000018			Toxins	Cytotoxic necrotizing factor			
+cnf1	3000018			Toxin	Cytotoxic necrotizing factor			
 eae	3000019	intimin adherence protein		Adherence	Intimin		Escherichia coli O157:H7 EDL933 (EHEC)	
 ecpA	3000020	hypothetical protein		Adherence	E. coli common pilus (ECP)		Escherichia coli O157:H7 EDL933 (EHEC)	
 ecpB	3000021	hypothetical protein		Adherence	E. coli common pilus (ECP)		Escherichia coli O157:H7 EDL933 (EHEC) 	
@@ -63,10 +63,10 @@ focI	3000061	Putative minor F1C fimbrial subunit precursor		Adherence	F1C fimbri
 fyuA	3000062			Iron uptake	Yersiniabactin siderophore			
 glrA	3000063			Secretion system	LEE locus encoded TTSS			
 glrR	3000064			Secretion system	LEE locus encoded TTSS			
-hlyA	3000065	hemolysin toxin protein		Toxins	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC) 	
-hlyB	3000066	hemolysin transport protein		Toxins	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC)	
-hlyC	3000067	hemolysin transport protein		Toxins	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC) 	
-hlyD	3000068	hemolysin transport protein		Toxins	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC)	
+hlyA	3000065	hemolysin toxin protein		Toxin	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC) 	
+hlyB	3000066	hemolysin transport protein		Toxin	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC)	
+hlyC	3000067	hemolysin transport protein		Toxin	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC) 	
+hlyD	3000068	hemolysin transport protein		Toxin	Alpha-hemolysin		Escherichia coli O157:H7 EDL933 (EHEC)	
 ibeA	3000069			Invasion	Invasion of brain endothelial cells			
 ireA	3000070			Iron uptake	Iron-regulated element			
 iroB	3000071			Iron uptake	Salmochelin siderophore			
@@ -117,10 +117,10 @@ sitA	3000115			Iron uptake	Iron/managanease transport
 sitB	3000116			Iron uptake	Iron/managanease transport			
 sitC	3000117			Iron uptake	Iron/managanease transport			
 sitD	3000118			Iron uptake	Iron/managanease transport			
-stx1A	3000119	shiga-like toxin 1 subunit A encoded within prophage CP-933V		Toxins	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC)	
-stx1B	3000120	shiga-like toxin 1 subunit B encoded within prophage CP-933V		Toxins	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC) 	
-stx2A	3000121	shiga-like toxin II A subunit encoded by bacteriophage BP-933W		Toxins	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC) 	
-stx2B	3000122	shiga-like toxin II B subunit encoded by bacteriophage BP-933W		Toxins	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC) 	
+stx1A	3000119	shiga-like toxin 1 subunit A encoded within prophage CP-933V		Toxin	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC)	
+stx1B	3000120	shiga-like toxin 1 subunit B encoded within prophage CP-933V		Toxin	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC) 	
+stx2A	3000121	shiga-like toxin II A subunit encoded by bacteriophage BP-933W		Toxin	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC) 	
+stx2B	3000122	shiga-like toxin II B subunit encoded by bacteriophage BP-933W		Toxin	Shiga-like toxin		Escherichia coli O157:H7 EDL933 (EHEC) 	
 tia	3000123			Invasion	Tia/Hek			
 tir	3000124	putative translocated intimin receptor protein		LEE-encoded TTSS effectors	Tir		Escherichia coli O157:H7 EDL933 (EHEC) 	
 toxB	3000125	ToxB		Adherence	ToxB		Escherichia coli O157:H7 EDL933 (EHEC)	
@@ -277,29 +277,29 @@ afr2G	3000368	Adhesin		Adherence	Fimbrial adhesin
 afrA	3000361	Adhesin		Adherence	Fimbrial adhesin			
 artJ	3000277	ABC transporter arginine-binding protein 1		Autotransporter	unclassified			
 bmaE	3000327	M-agglutinin		Iron uptake	Hemagglutinin			
-caa	3000412	Colicin-A		Toxins	Channel-forming colicin			
+caa	3000412	Colicin-A		Toxin	Channel-forming colicin			
 cadA	3000376	Lysine decarboxylase 1		Substrate utilization	unclassified			
-cna	3000471	Colicin-N		Toxins	Channel-forming colicin			
-cba	3000456	Colicin-B		Toxins	Channel-forming colicin			
-ccdB	3000268	Ccd toxin		Toxins	Type II Toxin-antitoxin system			
-cda	3000296	Colicin-D		Toxins	Protein synthesis inhibition			
-cdtB-1	3000480	Cytolethal distending toxin B-1		Toxins	Cytolethal distending toxin			
+cna	3000471	Colicin-N		Toxin	Channel-forming colicin			
+cba	3000456	Colicin-B		Toxin	Channel-forming colicin			
+ccdB	3000268	Ccd toxin		Toxin	Type II Toxin-antitoxin system			
+cda	3000296	Colicin-D		Toxin	Protein synthesis inhibition			
+cdtB-1	3000480	Cytolethal distending toxin B-1		Toxin	Cytolethal distending toxin			
 ce1a	3000409	6-phospho-beta-glucosidase		Substrate utilization	Glycosyl hydrolase 1 family			
-cei	3000394	Colicin-E9		Toxins	Endonuclease			
-cia	3000347	Colicin-Ia		Toxins	Channel-forming colicin			
-cib	3000276	Colicin-Ib		Toxins	Cytolysis			
-cka	3000473	Colicin-K	Q47502	Toxins	Channel-forming colicin			
+cei	3000394	Colicin-E9		Toxin	Endonuclease			
+cia	3000347	Colicin-Ia		Toxin	Channel-forming colicin			
+cib	3000276	Colicin-Ib		Toxin	Cytolysis			
+cka	3000473	Colicin-K	Q47502	Toxin	Channel-forming colicin			
 clpG	3000422	Surface antigen		Adherence	Surface antigen			
-cma	3000387	Colicin-M	P05820	Toxins	Calcium-requiring inhibitor for murein biosynthesis			
+cma	3000387	Colicin-M	P05820	Toxin	Calcium-requiring inhibitor for murein biosynthesis			
 cofA	3000364	CofA	A0A0F7TB61	Adherence	Type IVb pilin			
-col5	3000479	Colicin-5	Q47500	Toxins	Channel-forming colicin			
-colY	3000462	Colicin-Y	Q9KJ98	Toxins	Channel-forming colicin			
+col5	3000479	Colicin-5	Q47500	Toxin	Channel-forming colicin			
+colY	3000462	Colicin-Y	Q9KJ98	Toxin	Channel-forming colicin			
 cooA	3000378	CS1 fimbrial subunit A	Q6JAY9	Adherence	Fimbrial adhesin			
 cotA	3000367	CotA	Q47117	Adherence	Fimbrial adhesin			
 cS15	3000407	CS15 (nfaA)	P46739	Adherence	Afimbrial adhesin			
 cS3	3000405	CS3 fimbrial subunit A	P15488	Adherence	Fimbrial adhesin			
 cS5	3000271	CS5 fimbrial subunit	P33781	Adherence	Fimbrial adhesin			
-csa	3000483	Colicin-S4	Q9XB47	Toxins	Cytolysis			
+csa	3000483	Colicin-S4	Q9XB47	Toxin	Cytolysis			
 csbA	3000299	CsbA protein	Q47120	Adherence	Fimbrial adhesin			
 csdA	3000466	Cysteine desulfurase	Q46925	Iron uptake	Iron-sulfur cluster assembly			
 cseA	3000333	CS22 adhesin protein	Q9X6U1	Adherence	Afimbrial adhesin			
@@ -310,7 +310,7 @@ cssA	3000472	CS6 fimbrial subunit A	P53508	Adherence	Fimbrial adhesin
 csuA	3000446	CS14 major fimbrial subunit	A0A0H5SCE9	Adherence	Fimbrial adhesin			
 csvA	3000316	CS7 fimbria major subunit CsvA	Q9ALL6	Adherence	Fimbrial adhesin			
 cswA	3000303	CS12 fimbria major subunit protein	Q9ALL1	Adherence	Fimbrial adhesin			
-cvaC	3000305	Colicin-V	P22522	Toxins	Cytolysis			
+cvaC	3000305	Colicin-V	P22522	Toxin	Cytolysis			
 daaE	3000379	F1845 fimbrial protein	P13719	Adherence	Fimbrial adhesin			
 drbE_121	3000342	Dr-family adhesin DrbE-121	P94779	Adherence	Dr adhesin			
 drbE_122	3000427	Dr-family adhesin DrbE-122	P94780	Adherence	Dr adhesin			
