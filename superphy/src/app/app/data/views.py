@@ -57,6 +57,21 @@ def genes():
     results = (sparql.get_all_genes())
     return jsonify(results)
 
+@data.route('/vf', methods=['GET', 'POST'])
+def vfs():
+    """
+    General query that returns all virulence factors.
+    """
+    results = (sparql.get_all_genes('vf'))
+    return jsonify(results)
+
+@data.route('/amr', methods=['GET', 'POST'])
+def amrs():
+    """
+    General query that returns all antimicrobial resistance genes.
+    """
+    results = (sparql.get_all_genes('amr'))
+    return jsonify(results)
 
 @data.route('/gene/<geneid>', methods=['GET', 'POST'])
 def gene(geneid):

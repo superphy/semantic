@@ -25,14 +25,14 @@ class GeneData
             @search('')
         m.request(
             method: "POST",
-            url: 'http://' + location.hostname + ':5000/data/genes',
+            url: 'http://' + location.hostname + if @type is 'vf' then ':5000/data/vf' else ':5000/data/amr',
             data: json
             datatype: 'json'
             type: ID)
     #controller
     request: (json = {}) =>
         @model(json)
-    constructor: (json = {}) ->
+    constructor: (@type, json = {}) ->
         @model(json)
     #view
     search: (searchterm) =>

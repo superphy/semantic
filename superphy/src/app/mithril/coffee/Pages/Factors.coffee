@@ -5,8 +5,7 @@ class Factors extends PageTemplate
         @value = m.prop('')
         @activeTab = m.prop('genes')
         
-        @table ?= new Table()
-        @data ?= new GeneData()
+        
         @vfform ?= new GeneForm('Virulence Factor', 'vf')
         @amrform ?= new GeneForm('Antimicrobial Resistance', 'amr')
         @sidebar ?= new Sidebar()
@@ -20,8 +19,7 @@ class Factors extends PageTemplate
         return
 
 
-    view: () ->
-        console.log("type of vfform:", typeof @vfform)
+    view: () =>
         ctrl = @tabCtrl # Need to fix this so that it goes back within the controller or model @___@
         tabOptions = {
             flavor: 'bs/nav-tabs'
@@ -62,9 +60,15 @@ class Factors extends PageTemplate
 
         renderSubmit = (ctrl) =>
             return m('div', {class: 'tab-content'}, [
-                m('div', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
-                    m('div', {class: 'panel-group genes-search', id: 'accordian'}, [
-                        "Testing Submission search"
+                m('div', {class: 'tab-pane active', id: 'gene-search-submit'}, [
+                    m('div', {class: 'row'}, [
+                        m('div', {class: 'col-md-4 col-md-offset-1'}, [
+                            m('div', {class: 'panel panel-default'}, [
+                                m('div', {id: 'vf-selected-count', class: 'panel-body'}, [
+                                    "Selected number of genomes go here"
+                                ])
+                            ])
+                        ])
                     ])
                 ])
             ])

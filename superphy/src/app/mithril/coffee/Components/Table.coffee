@@ -6,11 +6,7 @@ class Table
             @state.pageHeight = window.innerHeight
             m.redraw()
         )
-        window.addEventListener("scroll", (e) =>
-            @state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
-            @state.pageHeight = window.innerHeight
-            m.redraw()
-        )
+        
     view: (data) =>
         rows = data.rows
         headers = data.headers
