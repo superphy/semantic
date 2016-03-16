@@ -58,18 +58,24 @@ class GeneList
         m(".Occlusion", {style: {height: rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
             m("table", {style: {top: @state.pageY + "px"}}, [
                 m("tr", [
-                    for header in headers
+                    for header in headers.slice(1)
                         m('th[data-sort-by=' + header + ']',events.sort_table(list = rows) ,[header])
                 ])
                 for row, x in rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
-                        for header in headers
+                        for header in headers.slice(1,2)
                             m('td', {class: 'gene_table_item'}, [
                                 m('div', class: {'checkbox'}, [
                                     m('label', [
                                         m('input', {class: 'checkbox gene-table-checkbox gene-search-select', type: 'checkbox'})
                                         [row[header]]
                                     ])
+                                ])
+                            ])
+                        for header in headers.slice(2)
+                            m('td', {class: 'gene_table_item'}, [
+                                m('label', [
+                                    [row[header]]
                                 ])
                             ])
                     ])
