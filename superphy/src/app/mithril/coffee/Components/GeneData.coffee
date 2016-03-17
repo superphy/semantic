@@ -25,7 +25,7 @@ class GeneData
             @search('')
         m.request(
             method: "POST",
-            url: 'http://' + location.hostname + if @type is 'vf' then ':5000/data/vf' else ':5000/data/amr',
+            url: 'http://' + location.hostname + ':5000/data/' + @type,
             data: json
             datatype: 'json'
             type: ID)

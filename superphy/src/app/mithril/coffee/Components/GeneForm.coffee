@@ -3,7 +3,7 @@ class GeneForm
         @model()
 
     model: =>
-        @data ?= if @type is 'vf' then new GeneData('vf') else new GeneData('amr')
+        @data ?= new GeneData(@type)
         @genelist ?= new GeneList()
 
         ## Array for selected genes for this form
