@@ -62,7 +62,7 @@ class ExampleTestCase(AppTester):
         @example.route('/bing')
         @api.route('/users', methods=['POST'])
         """
-        test_result = {"YOU DID":"IT"}
+        
         resp = self.client.post(
             url_for('api.new_user', _external=False),
             headers=self.get_headers(),
@@ -70,6 +70,7 @@ class ExampleTestCase(AppTester):
         )
         self.assertEqual(201, resp.status_code)
 
+        test_result = {"YOU DID":"IT"}
         resp = self.client.get(
             url_for('example.test_for_login', _external=False),
             headers=self.get_api_headers('foo', 'bar'),
@@ -77,6 +78,13 @@ class ExampleTestCase(AppTester):
         )
         self.assertEqual(200, resp.status_code)
         self.assertEqual(test_result, json.loads(resp.data))
+
+        #test accessing non-protected data with a username
+        resp = self.client.get(
+            url_for('example.bar', _external=False),
+            headers=self.get_api_headers('foo', 'bar'),
+            data=None
+        )
 
 if __name__ == '__main__':
     unittest.main()
