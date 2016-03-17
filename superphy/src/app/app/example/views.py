@@ -12,6 +12,10 @@ def foo():
 def bar():
     return jsonify({'bar':'bar'})
 
+@example.route('/alpha')
+def beta():
+    return jsonify({'route':'/alpha', 'function':'beta'})
+
 @example.route('/bing')
 @auth.login_required
 def test_for_login():
