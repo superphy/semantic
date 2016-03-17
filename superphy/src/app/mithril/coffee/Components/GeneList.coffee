@@ -64,20 +64,24 @@ class GeneList
                 for row, x in rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
                         for header in headers.slice(0,1)
-                            m('td', {class: 'gene_table_item'}, [
-                                m('div', class: {'checkbox'}, [
+                            if row.visible() then \
+                                m('td', {class: 'gene_table_item'}, [
+                                    m('div', class: {'checkbox'}, [
+                                        m('label', [
+                                            m('input[type=checkbox]', {class: 'checkbox gene-table-checkbox gene-search-select', \
+                                                                       checked: row.selected(), \
+                                                                       onclick: m.withAttr("checked", row.selected)})
+                                            [row[header]]
+                                        ])
+                                    ])
+                                ])
+                        for header in headers.slice(1)
+                            if row.visible() then \
+                                m('td', {class: 'gene_table_item'}, [
                                     m('label', [
-                                        m('input[type=checkbox]', {class: 'checkbox gene-table-checkbox gene-search-select', checked: row.selected(), onclick: m.withAttr("checked", row.selected)})
                                         [row[header]]
                                     ])
                                 ])
-                            ])
-                        for header in headers.slice(1)
-                            m('td', {class: 'gene_table_item'}, [
-                                m('label', [
-                                    [row[header]]
-                                ])
-                            ])
                     ])
             ])
         ])

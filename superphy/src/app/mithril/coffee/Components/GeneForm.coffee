@@ -11,12 +11,32 @@ class GeneForm
 
     controller: =>
 
+    match: (searchTerm) ->
+        regex = new RegExp @escapeRegExp(searchterm), "i"
+
+        for row in @data.rows
+            gene = row["Gene_Name"]
+
+            if regex.test gene
+                row.visible(true)
+            else
+                row.visible(false)
+
+        return true
+
     
     view: () =>
         ## Need to find a way to move this to the controller...
+        searchterm = m.prop('')
+
         select = (all) =>
+            console.log(all)
             for row in @data.rows
                 row.selected(all)
+
+        deselect = (hi) =>
+            for row in @data.rows
+                row.selected(false)
 
         m('div', {class: 'panel panel-default'}, [
             m('div', {class: 'panel-heading', id: 'vf-panel-header'}, [
@@ -43,12 +63,13 @@ class GeneForm
                     m('div', {class: 'row'}, [
                         m('div', {class: 'gene-search-control-row'}, [
                             m('div', {class: 'col-md-3'}, [
-                                m('input', {class: 'form-control', id:'vf-autocomplete', placeholder: "Search #{@name} gene in list"})
+                                m('input', {class: 'form-control', placeholder: "Search #{@name} gene in list", \
+                                            onkeyup: m.withAttr("value", searchterm), value: searchterm()})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('div', {class: 'btn-group'}, [
-                                    m('button', {class: 'btn btn-link', select: true, onclick: m.withAttr("select", select)}, ["Select All"])
-                                    m('button', {class: 'btn btn-link', select: false, onclick: m.withAttr("select", select)}, ["Deselect All"])
+                                    m('button', {class: 'btn btn-link'}, "Select All")
+                                    m('button', {class: 'btn btn-link'}, "Deselect All")
                                 ])
                             ])
                         ])
