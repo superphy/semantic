@@ -9,7 +9,6 @@ class GeneForm
         ## Array for selected genes for this form
         @selected = []
 
-
     controller: =>
 
     
@@ -26,7 +25,10 @@ class GeneForm
                                 m('fieldset', [
                                     m('span', ['Selected factors:'])
                                     m('ul', {id: 'vf-selected'}, [
-                                        "Testing something"
+                                        for row in @data.rows
+                                            if row["selected"]()
+                                                m('li', {class: 'selected-gene-item'}, [
+                                                    row["Gene_Name"]])
                                     ])
                                 ])
                             ])
@@ -36,7 +38,7 @@ class GeneForm
                     m('div', {class: 'row'}, [
                         m('div', {class: 'gene-search-control-row'}, [
                             m('div', {class: 'col-md-3'}, [
-                                m('input', {class: 'form-control', id:'vf-autocomplete', placeholder: 'Search #{@name} gene in list'})
+                                m('input', {class: 'form-control', id:'vf-autocomplete', placeholder: "Search #{@name} gene in list"})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('input', {class: 'btn-group'}, [
@@ -51,7 +53,7 @@ class GeneForm
                         m('div', {class: 'cold-md-6'}, [
                             m('div', {class: 'gene-list-wrapper'}, [
                                 m('fieldset', [
-                                    m('span', {class: 'col-md-12'}, ['Select one or more #{@type} factors'])
+                                    m('span', {class: 'col-md-12'}, ["Select one or more #{@type} factors"])
                                     m('div', {class: 'col-md-12'}, [
                                         m('div', {class: 'superphy-table', id: 'vf-table'}, [
                                             @genelist.view(@data)

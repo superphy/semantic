@@ -1,10 +1,15 @@
 class GeneData
     model: (json = {}) =>
+        @rows = []
+        @_rows = []
+        
         noID=(response)=>
             @_headers = response.head.vars
             @_rows = []
             for binding, x in response.results.bindings
                 @_rows[x] = {}
+                @_rows[x]["selected"] = m.prop(false)
+                @_rows[x]["visible"] = m.prop(true)
                 for item in response.head.vars
                     try
                         @_rows[x][item] = binding[item]['value']
@@ -28,7 +33,7 @@ class GeneData
             url: 'http://' + location.hostname + ':5000/data/' + @type,
             data: json
             datatype: 'json'
-            type: ID)
+            type: noID)
     #controller
     request: (json = {}) =>
         @model(json)
@@ -40,4 +45,5 @@ class GeneData
         @rows = []
         @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1
         console.log(searchterm)
+        console.log(@rows)
         @headers = @_headers
