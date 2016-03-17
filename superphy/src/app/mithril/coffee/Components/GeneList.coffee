@@ -67,7 +67,7 @@ class GeneList
                             m('td', {class: 'gene_table_item'}, [
                                 m('div', class: {'checkbox'}, [
                                     m('label', [
-                                        m('input[type=checkbox]', {class: 'checkbox gene-table-checkbox gene-search-select', checked: row["selected"](), onclick: m.withAttr("checked", row["selected"])})
+                                        m('input[type=checkbox]', {class: 'checkbox gene-table-checkbox gene-search-select', checked: row.selected(), onclick: m.withAttr("checked", row.selected)})
                                         [row[header]]
                                     ])
                                 ])

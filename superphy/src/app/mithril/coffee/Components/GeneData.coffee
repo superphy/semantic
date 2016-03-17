@@ -45,5 +45,4 @@ class GeneData
         @rows = []
         @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1
         console.log(searchterm)
-        console.log(@rows)
         @headers = @_headers

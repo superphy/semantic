@@ -13,6 +13,11 @@ class GeneForm
 
     
     view: () =>
+        ## Need to find a way to move this to the controller...
+        select = (all) =>
+            for row in @data.rows
+                row.selected(all)
+
         m('div', {class: 'panel panel-default'}, [
             m('div', {class: 'panel-heading', id: 'vf-panel-header'}, [
                 m('h4', {class: 'panel-title'}, m('a', {href: '#vf-form', config:m.route}, "#{@name} Form"))
@@ -26,7 +31,7 @@ class GeneForm
                                     m('span', ['Selected factors:'])
                                     m('ul', {id: 'vf-selected'}, [
                                         for row in @data.rows
-                                            if row["selected"]()
+                                            if row.selected()
                                                 m('li', {class: 'selected-gene-item'}, [
                                                     row["Gene_Name"]])
                                     ])
@@ -41,9 +46,9 @@ class GeneForm
                                 m('input', {class: 'form-control', id:'vf-autocomplete', placeholder: "Search #{@name} gene in list"})
                             ])
                             m('div', {class: 'col-md-3'}, [
-                                m('input', {class: 'btn-group'}, [
-                                    m('button', {class: 'btn btn-link', id: 'vf-select-all'}, ["Select All"])
-                                    m('button', {class: 'btn btn-link', id: 'vf-deselect-all'}, ["Deselect All"])
+                                m('div', {class: 'btn-group'}, [
+                                    m('button', {class: 'btn btn-link', select: true, onclick: m.withAttr("select", select)}, ["Select All"])
+                                    m('button', {class: 'btn btn-link', select: false, onclick: m.withAttr("select", select)}, ["Deselect All"])
                                 ])
                             ])
                         ])
