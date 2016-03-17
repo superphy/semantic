@@ -15,11 +15,9 @@ class BasicTestCase(AppTester):
         """
         test_result = json.loads('{"username": "foo"}')
 
-        url = '/api/users'
-
         #add a user to fresh database
         resp = self.client.post(
-            url,
+            url_for('api.new_user', _external=False),
             headers=self.get_headers(),
             data='{"username":"foo", "password":"bar"}'
         )
@@ -28,7 +26,7 @@ class BasicTestCase(AppTester):
 
         #add a user that already exists
         resp = self.client.post(
-            url,
+            url_for('api.new_user', _external=False),
             headers=self.get_headers(),
             data='{"username":"foo", "password":"bar"}'
         )
@@ -36,26 +34,15 @@ class BasicTestCase(AppTester):
 
         #add another user to database
         resp = self.client.post(
-            url,
+            url_for('api.new_user', _external=False),
             headers=self.get_headers(),
             data='{"username":"bing", "password":"bang"}'
         )
         self.assertEqual(201, resp.status_code)
 
-    def test_user(self):
-        """
-        @api.route('/resource')
-        """
-        #add a user to fresh database
-        resp = self.client.post(
-            '/api/users',
-            headers=self.get_headers(),
-            data='{"username":"foo", "password":"bar"}'
-        )
-        self.assertEqual(201, resp.status_code)
-
+        #test if we can get data from behind protected endpoint
         resp = self.client.get(
-            '/api/resource',
+            url_for('api.get_resource', _external=False),
             headers=self.get_api_headers('foo', 'bar')
         )
         self.assertEqual(200, resp.status_code)
