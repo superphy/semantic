@@ -8,31 +8,38 @@ class GeneForm
 
         ## Array for selected genes for this form
         @selected = []
+        @searchterm = m.prop('')
 
     controller: =>
 
-    match: (searchTerm) ->
-        regex = new RegExp @escapeRegExp(searchterm), "i"
-
-        for row in @data.rows
-            gene = row["Gene_Name"]
-
-            if regex.test(gene)
-                row.visible(true)
-            else
-                row.visible(false)
-
-        return true
-
     
+
     view: () =>
-        ## Need to find a way to move this to the controller...
-        searchterm = m.prop('')
+        gene_name = @name.toLowerCase()
+
+        ## Need to find a way to move the helper functions to the controller
+
+        escapeRegExp= (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+
+        search = (term) =>
+            @searchterm = m.prop(term)
+            regex = new RegExp(escapeRegExp(term), "i")
+
+            for row in @data.rows
+                gene = row.Gene_Name
+
+                if regex.test(gene)
+                    row.visible(true)
+                else
+                    row.visible(false)
+
+            return true
 
         select = (all) =>
-            console.log(typeof all)
             for row in @data.rows
                 if all is "true" then row.selected(true) else row.selected(false)
+
+        ## Need to move above functions into controller...
 
         m('div', {class: 'panel panel-default'}, [
             m('div', {class: 'panel-heading', id: 'vf-panel-header'}, [
@@ -47,9 +54,6 @@ class GeneForm
                                     m('span', ['Selected factors:'])
                                     m('ul', {id: 'vf-selected'}, [
                                         for row in @data.rows
-                                            ##console.log(row.selected())
-
-                                            ## Need to get the checked attribute of the checked boxes to change somehow
                                             if row.selected()
                                                 m('li', {class: 'selected-gene-item'}, [
                                                     row["Gene_Name"]])
@@ -62,8 +66,8 @@ class GeneForm
                     m('div', {class: 'row'}, [
                         m('div', {class: 'gene-search-control-row'}, [
                             m('div', {class: 'col-md-3'}, [
-                                m('input[type=text]', {id: 'vf-autocomplete', class: 'form-control', placeholder: "Search #{@name} gene in list", \
-                                            onkeyup: m.withAttr("value", searchterm), value: searchterm()})
+                                m('input[type=text]', {id: 'vf-autocomplete', class: 'form-control', placeholder: "Search #{gene_name} gene in list", \
+                                            value: @searchterm(), onkeyup: m.withAttr("value", search)})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('div', {class: 'btn-group'}, [
