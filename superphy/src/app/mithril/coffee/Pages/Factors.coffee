@@ -5,10 +5,15 @@ class Factors extends PageTemplate
         @value = m.prop('')
         @activeTab = m.prop('genes')
         
-        
+        ## Components of the page
         @vfform ?= new GeneForm('Virulence Factor', 'vf')
         @amrform ?= new GeneForm('Antimicrobial Resistance', 'amr')
         @sidebar ?= new Sidebar()
+
+        ## Lists of selected elements for querying for results
+        @selectedVF = []
+        @selectedAMR = []
+        @selectedGenomes = []
 
         return
 

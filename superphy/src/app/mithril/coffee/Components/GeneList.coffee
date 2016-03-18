@@ -2,9 +2,14 @@
 
 class GeneList
     model: () =>
-        @num_selected = 0
+        ## Dictionaries of kv pairs where key is (sub)category name
+        ## and value is list of genes that belong to them
+        @categories = {}
+        @subcategories = {}
+
 
     constructor: () ->
+        @model()
 
         ## Things for the view (?)
         @state = {pageY: 0, pageHeight: window.innerHeight}
@@ -13,6 +18,8 @@ class GeneList
             @state.pageHeight = window.innerHeight
             m.redraw()
         )
+
+    controller: () =>
 
 
     view: (data) =>
@@ -49,6 +56,19 @@ class GeneList
                                 m('td', {class: 'gene_table_item'}, [
                                     m('label', [
                                         [row[header]]
+                                    ])
+                                ])
+
+                        for header in headers
+                            if row.visible()
+                                m('td', {class: 'gene_table_item'}, [
+                                    m('label', [
+                                        if header is "Category"
+                                            ## Perhaps add this to the controller?
+                                            if row.Category of @categories
+                                                @categories[row.Category].push(row.Gene_Name)
+                                            else
+                                                @categories[row.Category] = [row.Gene_name]
                                     ])
                                 ])
                     ])
