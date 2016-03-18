@@ -17,7 +17,7 @@ class GeneForm
         for row in @data.rows
             gene = row["Gene_Name"]
 
-            if regex.test gene
+            if regex.test(gene)
                 row.visible(true)
             else
                 row.visible(false)
@@ -30,13 +30,9 @@ class GeneForm
         searchterm = m.prop('')
 
         select = (all) =>
-            console.log(all)
+            console.log(typeof all)
             for row in @data.rows
-                row.selected(all)
-
-        deselect = (hi) =>
-            for row in @data.rows
-                row.selected(false)
+                if all is "true" then row.selected(true) else row.selected(false)
 
         m('div', {class: 'panel panel-default'}, [
             m('div', {class: 'panel-heading', id: 'vf-panel-header'}, [
@@ -51,6 +47,9 @@ class GeneForm
                                     m('span', ['Selected factors:'])
                                     m('ul', {id: 'vf-selected'}, [
                                         for row in @data.rows
+                                            ##console.log(row.selected())
+
+                                            ## Need to get the checked attribute of the checked boxes to change somehow
                                             if row.selected()
                                                 m('li', {class: 'selected-gene-item'}, [
                                                     row["Gene_Name"]])
@@ -63,13 +62,13 @@ class GeneForm
                     m('div', {class: 'row'}, [
                         m('div', {class: 'gene-search-control-row'}, [
                             m('div', {class: 'col-md-3'}, [
-                                m('input', {class: 'form-control', placeholder: "Search #{@name} gene in list", \
+                                m('input[type=text]', {id: 'vf-autocomplete', class: 'form-control', placeholder: "Search #{@name} gene in list", \
                                             onkeyup: m.withAttr("value", searchterm), value: searchterm()})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('div', {class: 'btn-group'}, [
-                                    m('button', {class: 'btn btn-link'}, "Select All")
-                                    m('button', {class: 'btn btn-link'}, "Deselect All")
+                                    m('button', {class: 'btn btn-link', checked: true, onclick: m.withAttr("checked", select)}, "Select All")
+                                    m('button', {class: 'btn btn-link', checked: false, onclick: m.withAttr("checked", select)}, "Deselect All")
                                 ])
                             ])
                         ])

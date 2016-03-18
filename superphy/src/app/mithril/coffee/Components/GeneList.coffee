@@ -14,37 +14,6 @@ class GeneList
             m.redraw()
         )
 
-    # contructor: (@geneList, @geneType, @categories, @tableElem, @categoriesElem, @mTypes, @multi_select=false) ->
-    #     throw new Error("Invalid gene type parameter: #{@geneType}.") unless @geneType is 'vf' or @geneType is 'amr'
-
-    #     @sortField = 'name'
-    #     @sortAsc = 'true'
-    #     @sortField = 'alleles' if 'alleles' in @mTypes
-    #     @sortAsc = false if 'alleles' in @mTypes
-
-    #     @filtered_category = null
-    #     @filtered_subcategory = null
-
-    #     @metaMap = {
-    #       'name' : 'Gene Name'
-    #       'uniquename': 'Unique Name'
-    #       'alleles': 'Number of Alleles'
-    #       'category': 'Category'
-    #       'subcategory' : 'Sub Category'
-    #     }
-
-    #     for k,o of @geneList
-    #         o.visible = true
-    #         o.selected = false
-    #         # setting up categories
-    #         cats = []
-    #         subcats = []
-    #         catCount = 0
-    #         for cat, subs of o.cats
-    #             catCount++
-
-    #     @filtered_geneList = @geneList
-
 
     view: (data) =>
         rows = data.rows
