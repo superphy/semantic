@@ -44,15 +44,11 @@ def new_user():
     return (jsonify({'username': user.username}), 201,
             {'Location': url_for('api.get_user', id=user.id, _external=True)})
 
-@api.route('/foo')
-def foo():
-    return jsonify({'true':'true'})
-
 @api.route('/users/<int:id>')
 def get_user(id):
     user = User.query.get(id)
-    #if not user:
-    #    abort(400)
+    if not user:
+        abort(400)
     return jsonify({'username': user.username})
 
 @api.route('/token')
