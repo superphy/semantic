@@ -15,8 +15,12 @@ def get_all_syndromes():
             ?_Syndrome_Uri rdf:type :isolation_syndrome .
             ?_Syndrome_Uri rdfs:label ?syndromes
      }
-    GROUP BY ?syndromes"""
-    return endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
+     group by ?syndromes"""
+    syndrome_query = endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
+    syndromes = []
+    for item in syndrome_query['results']['bindings']:
+        syndromes.append(item[syndrome_query['head']['vars'][0]]['value'])
+    return syndromes
 
 def get_all_genome_metadata():
     string = """
