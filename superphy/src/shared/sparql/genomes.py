@@ -3,6 +3,10 @@ import os
 import superphy.shared.endpoint as endpoint
 
 def get_all_syndromes():
+    """
+    input  - None
+    output - list of all the unique syndromes
+    """
     string = """
     PREFIX  :     <https://github.com/superphy#>
     PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
