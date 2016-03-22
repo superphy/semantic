@@ -2,6 +2,30 @@
 import os
 import superphy.shared.endpoint as endpoint
 
+def get_all_syndromes():
+    """
+    input  - None
+    output - list of all the unique syndromes
+    """
+    string = """
+    PREFIX  :     <https://github.com/superphy#>
+    PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX  owl:  <http://www.w3.org/2002/07/owl#>
+    PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX  gfvo: <http://www.biointerchange.org/gfvo#>
+    SELECT ?syndromes
+    WHERE
+     { 
+            ?_Syndrome_Uri rdf:type :isolation_syndrome .
+            ?_Syndrome_Uri rdfs:label ?syndromes
+     }
+     group by ?syndromes"""
+    syndrome_query = endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
+    syndromes = []
+    for item in syndrome_query['results']['bindings']:
+        syndromes.append(item[syndrome_query['head']['vars'][0]]['value'])
+    return syndromes
+
 def get_all_genome_metadata():
     string = """
     PREFIX  :     <https://github.com/superphy#>
@@ -50,7 +74,7 @@ def get_all_genome_metadata():
     GROUP BY ?Genome_Uri
     ORDER BY (?Genome_Uri)
     """
-    return endpoint.query(string, url = os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
 
 
 def get_genome_metadata(accession):
@@ -100,4 +124,4 @@ def get_genome_metadata(accession):
       }
     GROUP BY ?Genome_Uri
     ORDER BY (?Genome_Uri)
-    """ % (accession), url = os.getenv('SUPERPHY_RDF_URL'))
+    """ % (accession), url=os.getenv('SUPERPHY_RDF_URL'))
