@@ -1,18 +1,20 @@
 class GeneForm
     constructor: (@name, @type) ->
         @model()
+        @controller()
+
 
     model: =>
         @data ?= new GeneData(@type)
         @genelist ?= new GeneList()
 
-        ## Array for selected genes for this form
         @searchterm = m.prop('')
 
+
     controller: =>
-        escapeRegExp= (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+        escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 
-        search = (term) =>
+        @search = (term) =>
             @searchterm = m.prop(term)
             regex = new RegExp(escapeRegExp(term), "i")
 
@@ -26,41 +28,17 @@ class GeneForm
 
             return true
 
-        select = (all) =>
-            for row in @data.rows
-                if all is "true" then row.selected(true) else row.selected(false)
-    
-
-    view: (ctrl) =>
-        gene_name = @name.toLowerCase()
-
-        ## Need to find a way to move the helper functions to the controller
-
-        escapeRegExp= (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
-
-        search = (term) =>
-            @searchterm = m.prop(term)
-            regex = new RegExp(escapeRegExp(term), "i")
-
-            for row in @data.rows
-                gene = row.Gene_Name
-
-                if regex.test(gene)
-                    row.visible(true)
-                else
-                    row.visible(false)
-
-            return true
-
-        select = (all) =>
+        @select = (all) =>
             for row in @data.rows
                 if all is "true" then row.selected(true) else row.selected(false)
 
-        toggle = (checked) =>
+        @toggle = (checked) =>
             console.log(checked)
             if checked is "true" then row.selected(false) else row.selected(true)
+    
 
-        ## Need to move above functions into controller...
+    view: () =>
+        gene_name = @name.toLowerCase()
 
         m('div', {class: 'panel panel-default'}, [
             m('div', {class: 'panel-heading', id: 'vf-panel-header'}, [
@@ -95,12 +73,14 @@ class GeneForm
                                                        class: 'form-control', \
                                                        placeholder: "Search #{gene_name} gene in list", \
                                                        value: @searchterm(), \
-                                                       onkeyup: m.withAttr("value", search)})
+                                                       onkeyup: m.withAttr("value", @search)})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('div', {class: 'btn-group'}, [
-                                    m('button', {class: 'btn btn-link', checked: true, onclick: m.withAttr("checked", select)}, "Select All")
-                                    m('button', {class: 'btn btn-link', checked: false, onclick: m.withAttr("checked", select)}, "Deselect All")
+                                    m('button', {class: 'btn btn-link', checked: true, \
+                                                 onclick: m.withAttr("checked", @select)}, "Select All")
+                                    m('button', {class: 'btn btn-link', checked: false, \
+                                                 onclick: m.withAttr("checked", @select)}, "Deselect All")
                                 ])
                             ])
                         ])
@@ -126,6 +106,12 @@ class GeneForm
                             m('div', {class: 'gene-category-wrapper'}, [
                                 m('div', {class: 'gene-category-intro'}, [
                                     m('span', "Select category to refine list of genes:")
+                                    for category in @data.categories
+                                        m('div', {class: "row"}, [
+                                            m('div', {class: "col-xs-12"}, [
+                                                m('hello')
+                                            ])
+                                        ])
                                 ])
                             ])
                         ])

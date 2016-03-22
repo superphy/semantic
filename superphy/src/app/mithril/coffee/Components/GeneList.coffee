@@ -70,19 +70,6 @@ class GeneList
                                         row[header]
                                     ])
                                 ])
-
-                        # for header in headers
-                        #     if row.visible()
-                        #         m('td', {class: 'gene_table_item'}, [
-                        #             m('label', [
-                        #                 if header is "Category"
-                        #                     ## Perhaps add this to the controller?
-                        #                     if row.Category of @categories
-                        #                         @categories[row.Category].push(row.Gene_Name)
-                        #                     else
-                        #                         @categories[row.Category] = [row.Gene_name]
-                        #             ])
-                        #         ])
                     ])
             ])
         ])

@@ -61,7 +61,6 @@ class GeneData
 
     #view
     search: (searchterm) =>
-        console.log(@_rows)
         searchterm = searchterm.toLowerCase()
         @rows = []
         @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1
