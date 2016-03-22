@@ -61,5 +61,9 @@ if ! find blast/ncbi*/ | read v; then
 	fi
 fi
 
+#install bower components
+
+git clone https://github.com/eddyystop/mithril-components.git superphy/app/mithril/bower_components
+
 echo ""
 echo "Install complete!"
