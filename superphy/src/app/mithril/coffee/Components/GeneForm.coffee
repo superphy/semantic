@@ -9,10 +9,10 @@ class GeneForm
         @genelist ?= new GeneList()
 
         @searchterm = m.prop('')
-        @Select2Ctrl = new mc.select2.config('genes')
 
 
     controller: =>
+        @Select2Ctrl = new select2.config('genes')
         escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 
         @search = (term) =>
@@ -104,19 +104,18 @@ class GeneForm
                             m('div', {class: 'gene-category-wrapper'}, [
                                 m('div', {class: 'gene-category-intro'}, [
                                     m('span', "Select category to refine list of genes:")
-                                    for category of @data.categories
-                                        m('div', {class: "row"}, [
-                                            m('div', {class: "category-header col-xs-12"}, [
-                                                category
-                                            ])
-                                        ])
-                                        # m('div', {class: "row"}, [
-                                        #     m('div', {class: "col-xs-12"}, [
-                                        #         m('select', {class: "form-control selectized", \
-                                        #                      placeholder: "--Select a category--"})
-                                        #     ])
-                                        # ])
                                 ])
+                                for category of @data.categories
+                                    [m('div', {class: "row"}, [
+                                        m('div', {class: "category-header col-xs-12"}, [
+                                            category
+                                        ])
+                                    ])
+                                    m('div', {class: "selectize-control form-control single"}, [
+                                        m('div', {class: "selectize-input items not-full has-options"}, [
+                                            m('input', {type: "text", autocomplete: "off", placeholder: "--Select a category--", style: "width: 134px"})
+                                        ])
+                                    ])]
                             ])
                         ])
                     ])
