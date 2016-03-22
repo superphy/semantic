@@ -87,17 +87,26 @@ class Factors extends PageTemplate
                         m('div', {class: 'container-fluid'}, [
                             m('div', {class: 'row'}, [
                                 m('div', {class: 'col-xs-8'}, [
-                                    m('div', {class: 'intro'}, [
-                                        m('p', 'BSearch for the presence or absence of virulence factor genes or antimicrobial resistance 
-                                                genes in genomes of interest. Detailed information on individual virulence factor or 
-                                                antimicrobial resistance genes can be retrieved by clicking on the individual genes.')
-                                    ])
-
-                                    m('.container', [
-                                        mc.Tabs.view(ctrl, tabOptions)
-                                        renderTabContents(ctrl)
+                                    m('div', {class: 'content-header'}, [
+                                        m('h1', [
+                                            m('span', {class: "title_part1"}, 'VIRULENCE & AMR')
+                                        ])
                                     ])
                                 ])
+                                m('div', {class: 'col-xs-4'}, [
+                                    m('button', {id: "intro-button", class: "btn btn-danger btn-lg", type:"button"}, [
+                                        "INTRODUCTION"
+                                    ])
+                                ])
+                            ])
+                            m('div', {class: 'intro'}, [
+                                m('p', 'BSearch for the presence or absence of virulence factor genes or antimicrobial resistance 
+                                        genes in genomes of interest. Detailed information on individual virulence factor or 
+                                        antimicrobial resistance genes can be retrieved by clicking on the individual genes.')
+                            ])
+                            m('.container', [
+                                mc.Tabs.view(ctrl, tabOptions)
+                                renderTabContents(ctrl)
                             ])
                         ])
                     ])

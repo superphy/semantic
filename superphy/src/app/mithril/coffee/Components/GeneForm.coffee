@@ -9,6 +9,7 @@ class GeneForm
         @genelist ?= new GeneList()
 
         @searchterm = m.prop('')
+        @Select2Ctrl = new mc.select2.config('genes')
 
 
     controller: =>
@@ -87,7 +88,7 @@ class GeneForm
                     ])
 
                     m('div', {class: 'row'}, [
-                        m('div', {class: 'cold-md-6'}, [
+                        m('div', {class: 'col-md-6'}, [
                             m('div', {class: 'gene-list-wrapper'}, [
                                 m('fieldset', [
                                     m('span', {class: 'col-md-12'}, ["Select one or more #{@type} factors"])
@@ -99,19 +100,22 @@ class GeneForm
                                 ])
                             ])
                         ])
-                    ])
-
-                    m('div', {class: 'row'}, [
-                        m('div', {class: 'cold-md-6'}, [
+                        m('div', {class: 'col-md-6'}, [
                             m('div', {class: 'gene-category-wrapper'}, [
                                 m('div', {class: 'gene-category-intro'}, [
                                     m('span', "Select category to refine list of genes:")
-                                    for category in @data.categories
+                                    for category of @data.categories
                                         m('div', {class: "row"}, [
-                                            m('div', {class: "col-xs-12"}, [
-                                                m('hello')
+                                            m('div', {class: "category-header col-xs-12"}, [
+                                                category
                                             ])
                                         ])
+                                        # m('div', {class: "row"}, [
+                                        #     m('div', {class: "col-xs-12"}, [
+                                        #         m('select', {class: "form-control selectized", \
+                                        #                      placeholder: "--Select a category--"})
+                                        #     ])
+                                        # ])
                                 ])
                             ])
                         ])
