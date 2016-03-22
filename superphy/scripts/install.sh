@@ -63,7 +63,9 @@ fi
 
 #install bower components
 
-git clone https://github.com/eddyystop/mithril-components.git superphy/app/mithril/bower_components
+if ! find superphy/app/src/mithril/bower_components/mithril-components | read v; then
+	git clone --depth=1 https://github.com/eddyystop/mithril-components.git superphy/src/app/mithril/bower_components/mithril-components;
+fi
 
 echo ""
 echo "Install complete!"
