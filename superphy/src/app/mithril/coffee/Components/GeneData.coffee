@@ -1,7 +1,6 @@
 class GeneData
     model: (json = {}) =>
-        @rows = []
-        @_rows = []
+        @categories = {}
         
         noID=(response)=>
             @_headers = response.head.vars
@@ -13,8 +12,12 @@ class GeneData
                 for item in response.head.vars
                     try
                         @_rows[x][item] = binding[item]['value']
+                        gene_name = binding["Gene_Name"]['value']
+                        category = binding["Category"]['value']
+                        subcategory = binding["Sub_Category"]['value']
+                        @add_gene(gene_name, category, subcategory)
                     catch
-                        @_rows[x][item] = ''
+                        if item is not "Gene" then @_rows[x][item] = ''
             @search('')
         ID=(response)=>
             @_headers = ["id"].concat(response.head.vars)
@@ -34,13 +37,31 @@ class GeneData
             data: json
             datatype: 'json'
             type: noID)
+
     #controller
     request: (json = {}) =>
         @model(json)
+
     constructor: (@type, json = {}) ->
         @model(json)
+
+    add_gene: (gene, cats, subcat) =>
+        catlist = cats.split(",")
+        for cat in catlist
+            cat.trim()
+            if cat of @categories
+                if subcat of @categories[cat]
+                    if gene not in @categories[cat][subcat]
+                        @categories[cat][subcat].push(gene)
+                else
+                    @categories[cat][subcat] = [gene]
+            else
+                @categories[cat] = {}
+                @categories[cat][subcat].push(gene)
+
     #view
     search: (searchterm) =>
+        console.log(@_rows)
         searchterm = searchterm.toLowerCase()
         @rows = []
         @rows.push(row) for row in @_rows when JSON.stringify(row).toLowerCase().search(searchterm) > -1

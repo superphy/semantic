@@ -7,7 +7,6 @@ class GeneForm
         @genelist ?= new GeneList()
 
         ## Array for selected genes for this form
-        @selected = []
         @searchterm = m.prop('')
 
     controller: =>
@@ -92,8 +91,11 @@ class GeneForm
                     m('div', {class: 'row'}, [
                         m('div', {class: 'gene-search-control-row'}, [
                             m('div', {class: 'col-md-3'}, [
-                                m('input[type=text]', {id: 'vf-autocomplete', class: 'form-control', placeholder: "Search #{gene_name} gene in list", \
-                                            value: @searchterm(), onkeyup: m.withAttr("value", search)})
+                                m('input[type=text]', {id: 'vf-autocomplete', \
+                                                       class: 'form-control', \
+                                                       placeholder: "Search #{gene_name} gene in list", \
+                                                       value: @searchterm(), \
+                                                       onkeyup: m.withAttr("value", search)})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('div', {class: 'btn-group'}, [

@@ -20,6 +20,18 @@ class GeneList
         )
 
     controller: () =>
+        add_category= (cat, gene) ->
+            if cat of @categories
+                @categories[cat].push(gene)
+            else
+                @categories[cat] = [gene]
+
+        add_subcategory= (subcat, gene) ->
+            if subcat of @subcategories
+                @subcategories[subcat].push(gene)
+            else
+                @subcategories[subcat] = [gene]
+
 
 
     view: (data) =>
@@ -55,22 +67,22 @@ class GeneList
                             if row.visible() then \
                                 m('td', {class: 'gene_table_item'}, [
                                     m('label', [
-                                        [row[header]]
+                                        row[header]
                                     ])
                                 ])
 
-                        for header in headers
-                            if row.visible()
-                                m('td', {class: 'gene_table_item'}, [
-                                    m('label', [
-                                        if header is "Category"
-                                            ## Perhaps add this to the controller?
-                                            if row.Category of @categories
-                                                @categories[row.Category].push(row.Gene_Name)
-                                            else
-                                                @categories[row.Category] = [row.Gene_name]
-                                    ])
-                                ])
+                        # for header in headers
+                        #     if row.visible()
+                        #         m('td', {class: 'gene_table_item'}, [
+                        #             m('label', [
+                        #                 if header is "Category"
+                        #                     ## Perhaps add this to the controller?
+                        #                     if row.Category of @categories
+                        #                         @categories[row.Category].push(row.Gene_Name)
+                        #                     else
+                        #                         @categories[row.Category] = [row.Gene_name]
+                        #             ])
+                        #         ])
                     ])
             ])
         ])
