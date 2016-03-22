@@ -40,6 +40,6 @@ m.route(document.body, "/", {
     "/home": GroupBrowse.get()
     "/meta": GroupBrowse.get()
     "/gbrowse": GroupBrowse.get()
-    "/groups": GroupBrowse.get()
+    "/groups": UploadGenome.get()
     "/factors": Factors.get()
 })
