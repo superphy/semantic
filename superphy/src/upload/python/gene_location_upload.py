@@ -200,7 +200,6 @@ class GeneLocationUploader(object):
 
                             ## Complete genomes are a priority as a reference gene.
                             if self.is_complete_genome(alignment_descr):
-                                print "complete"
                                 self.add_contig(gene_name, contig_name)
                                 location_name = ("%s_%s_%s" % (
                                     gene_name,

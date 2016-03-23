@@ -477,10 +477,10 @@ class GeneMetadata(Metadata):
 
 if __name__ == "__main__":
  #  # For genome testing
-    # MD = GenomeMetadataUploader("samples/meta_pipe_result.json", "Human")
-    # MD.upload()
+    MD = GenomeMetadataUploader("samples/meta_pipe_result.json", "Human")
+    MD.upload()
 
- # #    # For gene testing
+ #    # For gene testing
     # GMD1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
     # GMD1.upload_genes()
 

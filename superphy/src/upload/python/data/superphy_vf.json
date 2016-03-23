@@ -177,7 +177,7 @@
   "aatA": { "vfo_id":3000482, "function":"ABC transporter", "uniprot":"", "category":"Autotransporter", "subcategory":"AatA, AIDA-I type", "reference":""},
   "artJ": { "vfo_id":3000277, "function":"ABC transporter arginine-binding protein 1", "uniprot":"", "category":"Autotransporter", "subcategory":"unclassified", "reference":""},
   "epeA": { "vfo_id":3000293, "function":"Autotransporter protease", "uniprot":"Q79JW1", "category":"Autotransporter", "subcategory":"Serine-type endopeptidase", "reference":""},
-  "aidaI": { "vfo_id":3000436, "function":"", "uniprot":"", "category":"Autotransporter", "subcategory":"AIDA-I ", "reference":""},
+  "aidaI": { "vfo_id":3000436, "function":"", "uniprot":"", "category":"Autotransporter", "subcategory":"AIDA-I", "reference":""},
   "cdiA": { "vfo_id":3000280, "function":"", "uniprot":"", "category":"Autotransporter", "subcategory":"Contact-dependent inhibition CDI system", "reference":""},
   "espC": { "vfo_id":3000360, "function":"", "uniprot":"", "category":"Autotransporter", "subcategory":"EspC, SPATE", "reference":""},
   "pet": { "vfo_id":3000448, "function":"", "uniprot":"", "category":"Autotransporter", "subcategory":"Pet, SPATE", "reference":""},

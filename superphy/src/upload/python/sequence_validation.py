@@ -41,8 +41,8 @@ class SequenceValidator(object):
             seqdata: SequenceMetadata object containing relevant data for analysis
         """
 
-        self.min_bp = 3500000
-        self.max_bp = 7500000
+        self.min_basepairs = 3500000
+        self.max_basepairs = 7500000
         self.max_contigs = 10000
 
         self.seqdata = seqdata
@@ -101,7 +101,7 @@ class SequenceValidator(object):
 
         Returns: a boolean indicating if a sequence passes this check
         """
-        return self.min_bp <= self.seqdata.bp <= self.max_bp
+        return self.min_basepairs <= self.seqdata.basepairs <= self.max_basepairs
 
     def check_contigs(self):
         """
