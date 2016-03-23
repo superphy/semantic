@@ -6,13 +6,13 @@ from prefixes import prefixes
 
 ## Returns all genes
 def get_all_genes(type="all"):
-    query = ""
+    gene_type = ""
     if type == "vf":
         gene_type = "?Gene rdf:type :virulence_factor ."
     elif type == "amr":
         gene_type = "?Gene rdf:type :antimicrobial_resistance ."
 
-    string = prefixes + """
+    query = prefixes + """
     SELECT  ?Gene
     (GROUP_CONCAT (DISTINCT ?_Gene_Name ; separator=',\\n') AS ?Gene_Name)
     (GROUP_CONCAT (DISTINCT ?_Category ; separator=',\\n') AS ?Category)
@@ -69,9 +69,17 @@ def get_gene(name):
 
 ## Returns the instances of a particular gene in a genome
 def find_regions(gene, genome):
-    query = string + """
-    """
-    return endpoint.query(
-    )
+    query = prefixes + """
+    SELECT  ?Region ?Gene ?Genome
+    WHERE
+      { 
+        { ?Region rdf:type faldo:Region .
+          ?Gene :has_copy ?Region .
+          ?Genome :has_gene ?Region} .
+          ?Gene :has_name "%s"^^xsd:string . 
+          ?Genome :has_accession "%s"^^xsd:string .
+      }
+    """ % (gene, genome)
+    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
 
 
