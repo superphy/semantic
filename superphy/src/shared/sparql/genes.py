@@ -67,16 +67,33 @@ def get_gene(name):
 
     return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
 
-## Returns the instances of a particular gene in a genome
-def find_regions(gene, genome):
+## Returns all the genes in a genome
+def find_alleles(genome):
     query = prefixes + """
-    SELECT  ?Region ?Gene ?Genome
+    SELECT ?Region ?Gene
     WHERE
       { 
         { ?Region rdf:type faldo:Region .
           ?Gene :has_copy ?Region .
           ?Contig :has_gene ?Region .
-          #?Contig :is_contig_of ?Genome .
+          ?Contig :is_contig_of ?Genome .
+          ?Genome :has_accession "%s"^^xsd:string . 
+          }
+      }
+    """ % (genome)
+    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
+
+
+## Returns the instances of a particular gene in a genome
+def find_regions(gene, genome):
+    query = prefixes + """
+    SELECT  ?Region 
+    WHERE
+      { 
+        { ?Region rdf:type faldo:Region .
+          ?Gene :has_copy ?Region .
+          ?Contig :has_gene ?Region .
+          ?Contig :is_contig_of ?Genome .
           ?Gene :has_name "%s"^^xsd:string . 
           #?Genome :has_accession "%s"^^xsd:string . 
           }

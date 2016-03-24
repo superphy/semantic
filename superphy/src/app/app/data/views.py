@@ -83,6 +83,14 @@ def gene(geneid):
     results = (sparql.get_gene(geneid))
     return jsonify(results)
 
+@data.route('/regions/<genomeid>', methods=['GET', 'POST'])
+def regions(genomeid):
+    """
+    Returns all the genes inside a particular genome
+    """
+    results = (sparql.find_alleles(genomeid))
+    return jsonify(results)
+
 
 @data.route('/region/<geneid>/<genomeid>', methods=['GET', 'POST'])
 def region(geneid, genomeid):
