@@ -5,7 +5,6 @@ class GeneList
         ## Dictionaries of kv pairs where key is (sub)category name
         ## and value is list of genes that belong to them
         @categories = {}
-        @subcategories = {}
 
 
     constructor: () ->

@@ -1,0 +1,2 @@
+class GeneResults extends  PageTemplate
+    

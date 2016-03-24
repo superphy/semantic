@@ -75,9 +75,11 @@ def find_regions(gene, genome):
       { 
         { ?Region rdf:type faldo:Region .
           ?Gene :has_copy ?Region .
-          ?Genome :has_gene ?Region} .
+          ?Contig :has_gene ?Region .
+          #?Contig :is_contig_of ?Genome .
           ?Gene :has_name "%s"^^xsd:string . 
-          ?Genome :has_accession "%s"^^xsd:string .
+          #?Genome :has_accession "%s"^^xsd:string . 
+          }
       }
     """ % (gene, genome)
     return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))

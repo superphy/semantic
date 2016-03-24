@@ -63,7 +63,7 @@ def vfs():
     """
     General query that returns all virulence factors.
     """
-    results = (sparql.virulence_factors())
+    results = (sparql.get_all_genes('vf'))
     return jsonify(results)
 
 @data.route('/amr', methods=['GET', 'POST'])
@@ -71,7 +71,7 @@ def amrs():
     """
     General query that returns all antimicrobial resistance genes.
     """
-    results = (sparql.amr())
+    results = (sparql.get_all_genes('amr'))
     return jsonify(results)
 
 

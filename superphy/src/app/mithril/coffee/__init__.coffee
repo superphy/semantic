@@ -42,4 +42,5 @@ m.route(document.body, "/", {
     "/gbrowse": GroupBrowse.get()
     "/groups": UploadGenome.get()
     "/factors": Factors.get()
+    "/results": GeneResults.get()
 })

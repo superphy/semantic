@@ -1,6 +1,10 @@
 class GeneData
     model: (json = {}) =>
         @categories = {}
+
+        ## List of objects in the format of
+        ## {id: , value: , title: , name: , parent: }
+        @subcategories = []
         
         noID=(response)=>
             @_headers = response.head.vars

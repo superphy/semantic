@@ -36,8 +36,35 @@ class GeneForm
         @toggle = (checked) =>
             console.log(checked)
             if checked is "true" then row.selected(false) else row.selected(true)
-    
 
+        @changeGene = (gene) =>
+            console.log(gene)
+
+    ## Returns an array the selected gene names for form submission
+    returnSelected: () =>
+        selected_genes = []
+        for row in @data.rows when row.selected()
+            selected_genes.push(row.Gene_Name)
+        return selected_genes
+
+    selectedGenesView: () =>
+        selected = @returnSelected()
+        return \
+        m('div', {class: 'row'}, [
+            m('div', {class: 'col-md-4 col-md-offset-1'}, [
+                m('div', {class: 'panel panel-default'}, [
+                    m('div', {id: 'vf-selected-count', class: 'panel-body'}, [
+                        selected.length
+                        " "
+                        @name.toLowerCase()
+                        if selected.length isnt 1 then "s"
+                        " selected"
+                    ])
+                ])
+            ])
+        ])
+
+    ## Main view of the form
     view: () =>
         gene_name = @name.toLowerCase()
 
@@ -53,14 +80,13 @@ class GeneForm
                                 m('fieldset', [
                                     m('span', ['Selected factors:'])
                                     m('ul', {id: 'vf-selected'}, [
-                                        for row in @data.rows
-                                            if row.selected()
-                                                m('li', {class: 'selected-gene-item'}, [
-                                                    row["Gene_Name"]
-                                                    # m('a', {href: "#", checked: row.selected(), onclick: m.withAttr("checked", toggle)}, [
-                                                    #     m('i', {class: 'fa fa-times'})
-                                                    # ])
-                                                ])
+                                        for row in @data.rows when row.selected()
+                                            m('li', {class: 'selected-gene-item'}, [
+                                                row["Gene_Name"]
+                                                # m('a', {href: "#", checked: row.selected(), onclick: m.withAttr("checked", toggle)}, [
+                                                #     m('i', {class: 'fa fa-times'})
+                                                # ])
+                                            ])
                                     ])
                                 ])
                             ])
@@ -106,16 +132,28 @@ class GeneForm
                                     m('span', "Select category to refine list of genes:")
                                 ])
                                 for category of @data.categories
+                                    #console.log(@data.categories[category])
                                     [m('div', {class: "row"}, [
                                         m('div', {class: "category-header col-xs-12"}, [
                                             category
                                         ])
                                     ])
+
+                                    # Non select2
                                     m('div', {class: "selectize-control form-control single"}, [
                                         m('div', {class: "selectize-input items not-full has-options"}, [
                                             m('input', {type: "text", autocomplete: "off", placeholder: "--Select a category--", style: "width: 134px"})
                                         ])
-                                    ])]
+                                    ])
+
+                                    # m('div', {class: "selectize-control form-control single"}, [
+                                    #     m.component(select2, {
+                                    #         data: @data.categories[category]
+                                    #         value: m.prop('hi')
+                                    #         onchange: @changeUser
+                                    #     })
+                                    # ])
+                                    ]
                             ])
                         ])
                     ])
