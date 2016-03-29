@@ -1,8 +1,21 @@
+
+import os
+
 from flask import request, jsonify, url_for
+from werkzeug import secure_filename
 
 from . import example
 
 from .. import auth
+
+@example.after_request
+def add_header(response):
+    """
+    Append after request the nessesary headers.
+    """
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = "accept, content-type"
+    return response
 
 @example.route('/foo')
 def foo():
@@ -24,3 +37,17 @@ def test_for_login():
     it here.
     """
     return jsonify({"YOU DID":"IT"})
+
+
+@example.route('/echo', methods=['POST'])
+def echo():
+    return jsonify(request.json)
+
+@example.route('/file', methods=['POST'])
+def file():
+    file_ = request.files['file']
+    if file_:
+
+        filename = secure_filename(file_.filename)
+        file.save(os.path.join(os.path.dirname(os.path.realpath(__file__)), filename))
+

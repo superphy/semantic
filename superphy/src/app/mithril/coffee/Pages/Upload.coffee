@@ -1,6 +1,6 @@
 class UploadGenome extends PageTemplate
     model: () =>
-        @form ?= new GenomeForm()
+        @form = new UploadForm()
         return
     controller: (options) =>
         @model()

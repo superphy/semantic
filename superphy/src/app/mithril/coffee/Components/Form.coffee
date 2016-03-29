@@ -1,52 +1,81 @@
-class Form
-    model: () =>
-        @fields ?= []
-    constructor: () ->
-        @model()
+dragdrop = (element, options) ->
+    activate = (e) ->
+        e.preventDefault()
         return
-    add_field: (title) =>
-        @fields.push new InputGroup(title)
-    submit: ->
-        if @fields.length > 0
-            console.log(input.get_json() for input in @fields)
-                
-    view: () =>
-        return [
-            m('form', [
-                [input.view(); m('br')] for input in @fields
-                m('button[type=button]', {onclick: => @submit()}, 'Submit')
-            ])
-        ]
 
-class GenomeForm extends Form
+    deactivate = ->
+
+    update = (e) ->
+        e.preventDefault()
+        if typeof options.onchange == 'function'
+            options.onchange (e.dataTransfer or e.target).files
+        return
+
+    options = options or {}
+    element.addEventListener 'dragover', activate
+    element.addEventListener 'dragleave', deactivate
+    element.addEventListener 'dragend', deactivate
+    element.addEventListener 'drop', deactivate
+    element.addEventListener 'drop', update
+    return
+
+
+class UploadForm
     model: () =>
-        super()
+        @genome_name = {'value': m.prop(''), 'label':'Genome Name'}
+        @serotype = {'value': m.prop(''), 'label':'Serotype'}
+        @isolation_host = {'value': m.prop(''), 'label':'Isolation Host'}
+        @isolation_source = {'value': m.prop(''), 'label':'Isolation Source'}
+
     constructor:()->
         @model()
-        @add_field('Genome Name')
-        @add_field('Strain')
-        @add_field('Serotype')
-        @add_field('Isolation Host')
-        @add_field('Isolation Source')
-        @add_field('')
-    view: ()=>
-        #make this one enter parameters for style.
-        super()
 
-class InputGroup
-    model: (label, initial_value) =>
-        @label ?= label
-        @value ?= m.prop(initial_value)
-    constructor: (
-        label='give me a title', initial_value='') ->
-        @model(label, initial_value)
-    get_json: () =>
-        json = {}
-        json[@label] = @value()
-        return json
-
+    send: () =>
+        m.request(
+            method: "POST",
+            url: "http://#{location.hostname}:5000/example/echo"
+            data: {
+                genomes: [
+                    'genome_name': @genome_name.value()
+                    'serotype': @serotype.value()
+                    'isolation_host': @isolation_host.value()
+                    'isolation_source': @isolation_source.value()
+                ]
+            }
+            datatype: 'json',
+            type: (response)=>
+                console.log(response)
+        )
+        console.log([
+            @genome_name.value()
+            @serotype.value()
+            @isolation_host.value()
+            @isolation_source.value()
+        ])
     view: () =>
         return [
-            m('label', @label)
-            m('input', {oninput: m.withAttr('value', @value), value: @value()})
+
+
+            m('div', @genome_name.label
+                m('input[type=text]', {
+                    oninput: m.withAttr('value', @genome_name.value)
+                    value: @genome_name.value()
+                }))
+            m('div', @serotype.label
+                m('input[type=text]', {
+                    oninput: m.withAttr('value', @serotype.value)
+                    value: @serotype.value()
+                }))
+            m('div', @isolation_host.label
+                m('input[type=text]', {
+                    oninput: m.withAttr('value', @isolation_host.value)
+                    value: @isolation_host.value()
+                }))
+            m('div', @isolation_source.label
+                m('input[type=text]', {
+                    oninput: m.withAttr('value', @isolation_source.value)
+                    value: @isolation_source.value()
+                }))
+
+            m("button[type=button]", {onclick: @send}, "Done")
         ]

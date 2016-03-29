@@ -33,6 +33,24 @@ def meta():
     results = (sparql.get_all_genome_metadata())
     return jsonify(results)
 
+@data.route('/meta2', methods=['GET'])
+def meta2():
+    """
+    General query that returns all genomes and metadata in a nicer format.
+    """
+    results = (sparql.get_all_genome_metadata())
+    bindings = results['results']['bindings'][:5]
+    rows = []
+    for binding in bindings:
+        row = {}
+        for item in results['head']['vars']:
+            try:
+                row[item] = binding[item]['value']
+            except KeyError:
+                row[item] = ''
+        rows.append(row)
+    return jsonify({'data':rows})
+
 @data.route('/genomes', methods=['GET', 'POST'])
 def genomes():
     """
