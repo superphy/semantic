@@ -497,8 +497,6 @@ class AMRLocationUploader(GeneLocationUploader):
             print "File Report.json not found."
             
 
-
-
 ###### For Testing purposes ######
 
 # if __name__ == "__main__":
