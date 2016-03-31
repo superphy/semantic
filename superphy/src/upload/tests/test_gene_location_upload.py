@@ -20,7 +20,7 @@ from superphy.upload._utils import generate_output, generate_path
 from superphy.upload.classes import GeneLocation
 from superphy.upload.blazegraph_upload import BlazegraphUploader
 from superphy.upload.contig_upload import ContigUploader
-from superphy.upload.gene_location_upload import GeneLocationUploader
+from superphy.upload.gene_location_upload import GeneLocationUploader, VFLocationUploader, AMRLocationUploader
 
 n = Namespace("https://github.com/superphy#")
 owl = Namespace("http://www.w3.org/2002/07/owl#")
@@ -70,18 +70,18 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
     def tearDown(self):
         del self.case
 
-    def test_accession_name(self):
+    def test_get_accession_name(self):
         ## Non-complete genome
         contig = "ANVW00000000"
         desc = "a description"
 
-        returned_string = self.case.accession_name(contig, desc)
+        returned_string = self.case.get_accession_name(contig, desc)
         self.assertEqual(returned_string, "ANVW00000000")
 
         ## Complete genome
         contig = "CP102000"
         desc = "a complete genome"
-        returned_string = self.case.accession_name(contig, desc)
+        returned_string = self.case.get_accession_name(contig, desc)
         self.assertEqual(returned_string, "CP102000_closed")
 
 
@@ -110,26 +110,50 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
                                           "espF":{"JPQG01000002": 0},
                                           "aafA":{"JPQG01000001": 4}})
 
-
-    def test_get_gene_name(self):
-        # AMR
-        string = "AF332513.1.gene1 blaTEM-63. blaTEM-63 encodes extended spectrum beta-lactamase TEM-63. \
-                  ARO:1000001 process or component of antibiotic biology or chemistry. ARO:3000931 TEM-63. \
-                  ARO:3000873 TEM-1. [Escherichia coli]"
-        gene_name = self.case.get_gene_name(string)
-        self.assertEqual(gene_name, "blaTEM-63")
-
-        # VF
-        string = "agn43|VFO:3000001| - (b2000) - CP4-44 prophage; antigen 43 (Ag43) phase-variable biofilm \
-                  formation autotransporter [Escherichia coli str. MG1655 (K12)]"
-        gene_name = self.case.get_gene_name(string)
-        self.assertEqual(gene_name, "agn43")
-
     
     def test_get_num_gene_copies(self):
         self.assertEqual(self.case.get_num_gene_copies("agn43", "AP009048"), 1)
         self.assertEqual(self.case.get_num_gene_copies("espF", "ANVW01000001"), 0)
-    
+
+
+    @mock.patch('superphy.upload.gene_location_upload.BlazegraphUploader', autospec=True)
+    @mock.patch('superphy.upload.gene_location_upload.Graph')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocation')
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
+    def test_create_gene_location(self, mock_check, mock_rdf, mock_graph, mock_bg):
+        mock_check.return_value = False
+        mock_genelocation = mock.MagicMock(spec=GeneLocation, create=True)
+        mock_g = mock.MagicMock(spec=Graph, create=True)
+        mock_graph.return_value = mock_g
+        mock_rdf.return_value = mock_genelocation
+        self.case.create_gene_location("name", "gene", "contig", "begin", "end", "seq", "ref_gene", None)
+
+        self.assertEqual(len(mock_check.mock_calls), 1)
+        mock_rdf.assert_called_once_with(mock_g, "name", "gene", "contig", "begin", "end", "seq", "ref_gene", None)
+        mock_bg.assert_called_once_with()
+
+
+    def test_check_gene_copy(self):
+        """
+        Assumes that there is no data uploaded to Blazegraph before executing these tests.
+        """
+        self.assertTrue(self.case.check_gene_copy("agn43", "AP009048", "2073676", "2076795"))
+
+
+
+class VFLocationUploaderTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.case = VFLocationUploader()
+
+    def tearDown(self):
+        del self.case
+
+    def test_get_gene_name(self):
+        string = "agn43|VFO:3000001| - (b2000) - CP4-44 prophage; antigen 43 (Ag43) phase-variable biofilm \
+                  formation autotransporter [Escherichia coli str. MG1655 (K12)]"
+        gene_name = self.case.get_gene_name(string)
+        self.assertEqual(gene_name, "agn43")
 
     @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
     @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
@@ -160,36 +184,11 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         mock_create.assert_called_once_with("bapF_CP002729_closed_0", "bapF", "CP002729_closed", '1146', '2375', "CAT", False)
 
 
-    @mock.patch('superphy.upload.gene_location_upload.BlazegraphUploader', autospec=True)
-    @mock.patch('superphy.upload.gene_location_upload.Graph')
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocation')
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
-    def test_create_gene_location(self, mock_check, mock_rdf, mock_graph, mock_bg):
-        mock_check.return_value = False
-        mock_genelocation = mock.MagicMock(spec=GeneLocation, create=True)
-        mock_g = mock.MagicMock(spec=Graph, create=True)
-        mock_graph.return_value = mock_g
-        mock_rdf.return_value = mock_genelocation
-        self.case.create_gene_location("name", "gene", "contig", "begin", "end", "seq", "ref_gene")
-
-        self.assertEqual(len(mock_check.mock_calls), 1)
-        mock_rdf.assert_called_once_with(mock_g, "name", "gene", "contig", "begin", "end", "seq", "ref_gene")
-        mock_bg.assert_called_once_with()
-
-
-    def test_check_gene_copy(self):
-        """
-        Assumes that there is no data uploaded to Blazegraph before executing these tests.
-        """
-        self.assertTrue(self.case.check_gene_copy("agn43", "AP009048", "2073676", "2076795"))
-
-
     def test_get_reference_genes(self):
         """
         Assumes that there is no data uploaded to Blazegraph before executing these tests.
         """
         self.assertEqual(len(list(self.case.get_reference_genes())), 1)
-
 
     @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
     @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse', autospec=True)
@@ -225,10 +224,6 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
 
         record.alignments = [entry]
         return record
-
-
-
-
 
 
 

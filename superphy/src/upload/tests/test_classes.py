@@ -463,29 +463,32 @@ class ClassesTestCase(unittest.TestCase):
 
         field = {"http://www.biointerchange.org/gfvo#gene",
                  "3000001",
-                 "https://github.com/superphy#Adherence",
-                 "https://github.com/superphy#AAF_II_fimbriae",
+                 "Adherence",
+                 "AAF_II_fimbriae",
                  "http://www.w3.org/2002/07/owl#NamedIndividual",
                  "https://github.com/superphy#virulence_factor"
         }
         objects = list(self.graph.objects(n["hlyA"]))
+        print objects
         self.check_triples(field, objects)
 
     def test_GeneLocation(self):
         # Testing a reference gene
         genelocation = classes.GeneLocation(self.graph, "senB_ADUP01000050_0", "senB", "ADUP01000050", "146606", "147859",
-                                            "ATGGATATTTGGCGGGGACATTCGTTTCTGATGACAATTTCCGCT", True)
+                                            "ATGGATATTTGGCGGGGACATTCGTTTCTGATGACAATTTCCGCT", True, None)
         genelocation.rdf()
 
-        field = {"http://www.w3.org/2002/07/owl#NamedIndividual",
+        field = ["http://www.w3.org/2002/07/owl#NamedIndividual",
                  "http://biohackathon.org/resource/faldo#Region",
+                 "https://github.com/superphy#ADUP01000050",
                  "https://github.com/superphy#ADUP01000050",
                  "https://github.com/superphy#reference_gene",
                  "https://github.com/superphy#senB_ADUP01000050_0_begin",
                  "https://github.com/superphy#senB_ADUP01000050_0_end",
                  "ATGGATATTTGGCGGGGACATTCGTTTCTGATGACAATTTCCGCT"
-        }
+        ]
         objects = list(self.graph.objects(n["senB_ADUP01000050_0"]))
+        print objects
         self.check_triples(field, objects)
 
         field = ["https://github.com/superphy#senB_ADUP01000050_0",
