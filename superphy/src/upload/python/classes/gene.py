@@ -32,8 +32,7 @@ class Gene(NamedIndividual):
                        "subcategory",
                        "vfo_id",
                        "uniprot",
-                       "gene_type", 
-                       "cutoff",
+                       "gene_type",
                        "aro_id", 
                        "aro_accession"]
 
@@ -129,15 +128,6 @@ class Gene(NamedIndividual):
 
         self.graph.add((n[self.name], rdf.type, n[g_type]))
 
-    def cutoff(self, cutoff):
-        """
-        Adds the cutoff type (loose, perfect, strict) for AMR genes
-
-        Args:
-            cutoff(string): cutoff type for gene in reference to resistance gene identifier
-        """
-        self.graph.add((n[self.name], n.has_cutoff, n[cutoff]))
-
     def aro_accession(self, aro_accession):
 
         accession, = aro_accession
@@ -183,6 +173,7 @@ class GeneLocation(NamedIndividual):
         self.seq = seq
         self.is_ref_gene = is_ref_gene
         self.cutoff = cutoff
+
 
     def rdf(self):
         """

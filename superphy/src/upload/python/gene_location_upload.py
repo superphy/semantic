@@ -262,8 +262,6 @@ class VFLocationUploader(GeneLocationUploader):
 
                 for alignment in blast_record.alignments:
                     algnm_descr = alignment.title.split("|")[6]
-                    contig_accession = alignment.title.split("|")[5].split(".")[0]
-                    contig_name = self.get_accession_name(contig_accession, algnm_descr)
 
                     for hsp in alignment.hsps:
                         percentage = hsp.score/hsp.identities * 100
@@ -273,6 +271,9 @@ class VFLocationUploader(GeneLocationUploader):
                                 hsp.gaps <= min_gaps and
                                 percentage >= max_percentage
                         ):
+                            contig_accession = alignment.title.split("|")[5].split(".")[0]
+                            contig_name = self.get_accession_name(contig_accession, algnm_descr)
+
                             max_percentage = percentage
                             min_gaps = hsp.gaps
 
@@ -501,5 +502,5 @@ class AMRLocationUploader(GeneLocationUploader):
 
 # if __name__ == "__main__":
     # For gene testing
-    # VFLocationUploader().upload('data/superphy_vf.xml')
+    VFLocationUploader().upload('data/superphy_vf.xml')
     # AMRLocationUploader().upload("samples/sample2.fasta")

@@ -101,7 +101,7 @@ class SequenceValidator(object):
 
         Returns: a boolean indicating if a sequence passes this check
         """
-        return self.min_bp <= self.seqdata.bp <= self.max_bp
+        return self.min_bp <= self.seqdata.basepairs <= self.max_bp
 
     def check_contigs(self):
         """
