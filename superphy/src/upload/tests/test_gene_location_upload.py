@@ -226,4 +226,74 @@ class VFLocationUploaderTestCase(unittest.TestCase):
         return record
 
 
+class AMRLocationUploaderTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.case = AMRLocationUploader()
+
+    def tearDown(self):
+        del self.case
+
+    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
+    @mock.patch('superphy.upload.metadata_upload.json.load')
+    @mock.patch('superphy.upload.gene_location_upload.open')
+    def test_parse_result(self, mock_open, mock_load, mock_create):
+        mock_open.return_value = mock.MagicMock(spec=file)
+        mock_load.return_value = {
+              "gene_10|GeneMark.hmm|356_aa|+|5964|7034|gi|606959961|gb|JHNV01000083.1|\
+                Escherichia coli O119:H4 str. 03-3458 contig83, whole genome shotgun sequence": {},
+              "gene_12|GeneMark.hmm|304_aa|-|7759|8673|gi|606959961|gb|JHNV01000083.1|\
+                Escherichia coli O119:H4 str. 03-3458 contig83, whole genome shotgun sequence": {
+                "gnl|BL_ORD_ID|796|hsp_num:0": {
+                  "SequenceFromBroadStreet": "MRKSTTLLIGFVKAAYRILQALDNKQ",
+                  "orf_start": 7759,
+                  "ARO_name": "OCH-3",
+                  "type_match": "Loose",
+                  "query": "TKQPLENILRVGSQGIASYVDGNTSFLGNGIESRILFDQQRPDNIIE",
+                  "evalue": 4.07141,
+                  "max-identities": 13,
+                  "orf_strand": "-",
+                  "bit-score": 25.0238,
+                  "cvterm_id": "37077",
+                  "sequenceFromDB": "TVRPLMAEQKIPGMAVAITIDGKSHFFGYGVASKESGQKVTEDTIFE",
+                  "match": "T +PL    ++    +A  +DG + F G G+ S+    +   D I E",
+                  "model_id": "201",
+                  "orf_From": "gi|606959961|gb|JHNV01000083.1|\
+                     Escherichia coli O119:H4 str. 03-3458 contig83, whole genome shotgun sequence",
+                  "pass_evalue": 1E-100,
+                  "query_end": 8628,
+                  "ARO_category": {
+                    "36696": {
+                      "category_aro_name": "antibiotic inactivation enzyme",
+                      "category_aro_cvterm_id": "36696",
+                      "category_aro_accession": "3000557",
+                      "category_aro_description": "Enzyme."
+                    },
+                    "36268": {
+                      "category_aro_name": "beta-lactam resistance gene",
+                      "category_aro_cvterm_id": "36268",
+                      "category_aro_accession": "3000129",
+                      "category_aro_description": "Genes conferring resistance to beta-lactams."
+                    }
+                  },
+                  "ARO_accession": "3002516",
+                  "query_start": 8488,
+                  "model_name": "OCH-3",
+                  "model_type": "model-blastP",
+                  "orf_end": 8673
+                }
+            }
+        }
+
+        self.case.parse_result()
+        mock_load.assert_called_with(mock.ANY)
+        mock_create.assert_called_with("OCH-3_JHNV01000083_0",
+                                       "OCH-3",
+                                       "JHNV01000083",
+                                       8673,
+                                       7759,
+                                       "",
+                                       False,
+                                       "Loose")
+
 

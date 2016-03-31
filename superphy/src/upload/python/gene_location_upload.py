@@ -445,6 +445,7 @@ class AMRLocationUploader(GeneLocationUploader):
             filename(str): name of a fasta file (with complete genome or WGS sequences)
         """
         self.filename = filename
+        self.rgi()
         self.parse_result()
 
     def rgi(self):
