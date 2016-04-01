@@ -1,0 +1,1710 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY obo "http://purl.obolibrary.org/obo/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF
+     xml:base="http://purl.obolibrary.org/obo/IRIDA.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="&obo;IRIDA.owl">
+        <owl:imports rdf:resource="http://purl.obolibrary.org/obo/iao/2015-02-23/iao.owl"/>
+
+        <owl:imports rdf:resource="&obo;IRIDA/imports/CHEBI_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/CHMO_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/EFO_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/ENVO_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/FIX_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/IDO_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/NCBITaxon_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/OBI_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/PATO_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/STATO_import.owl"/>
+        <owl:imports rdf:resource="&obo;IRIDA/imports/external-by-hand.owl"/>
+            <!-- <owl:imports rdf:resource="&obo;iao/ontology-metadata.owl"/> -->
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000111 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000111"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000112 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000112"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000114 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000114"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000115 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000115"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000116 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000116"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000117 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000117"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000118 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000118"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000119 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IAO_0000119"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000001 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000001">
+        <rdfs:label xml:lang="en">metadata section</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000003 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000003">
+        <rdfs:label xml:lang="en">term use</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000004 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000004">
+        <rdfs:label xml:lang="en">term as in existing standard</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000005 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000005">
+        <rdfs:label xml:lang="en">term source</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000006 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000006">
+        <rdfs:label xml:lang="en">IRIDA preferred label</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000007 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000007">
+        <rdfs:label xml:lang="en">source of values</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000008 -->
+
+    <owl:AnnotationProperty rdf:about="&obo;IRIDA_0000008">
+        <rdfs:label xml:lang="en">in subset</rdfs:label>
+    </owl:AnnotationProperty>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#comment -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#label -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;label"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#seeAlso -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;seeAlso"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral -->
+
+    <rdfs:Datatype rdf:about="&rdf;PlainLiteral"/>
+    
+
+
+    <!-- http://www.w3.org/2000/01/rdf-schema#Literal -->
+
+    <rdfs:Datatype rdf:about="&rdfs;Literal"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#float -->
+
+    <rdfs:Datatype rdf:about="&xsd;float"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#integer -->
+
+    <rdfs:Datatype rdf:about="&xsd;integer"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#nonNegativeInteger -->
+
+    <rdfs:Datatype rdf:about="&xsd;nonNegativeInteger"/>
+    
+
+
+    <!-- http://www.w3.org/2001/XMLSchema#string -->
+
+    <rdfs:Datatype rdf:about="&xsd;string"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000002 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000002">
+        <rdfs:label xml:lang="en">_IRIDA_temporary</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000020 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000020">
+        <rdfs:label>isolation date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>date the strain was isolated</obo:IAO_0000115>
+        <obo:IAO_0000112>month/day/year</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Isolation date</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>Collection</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000021 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000021">
+        <rdfs:label>culture isolation date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Collection</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Morag)</obo:IAO_0000119>
+        <obo:IAO_0000115>date the sample isolated as a single colony or non-mixture culture</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000112>month/day/year</obo:IAO_0000112>
+        <obo:IRIDA_0000005>suggested in metadata feedback</obo:IRIDA_0000005>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Culture isolation date</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000022 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000022">
+        <rdfs:label>frozen date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>month/day/year</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Collection</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000115>date the isolate was frozen</obo:IAO_0000115>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Frozen date</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000023 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000023">
+        <rdfs:label>received date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000119>NML LIMS</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Collection</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>date lab received isolate</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Received date</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>month/day/year</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000024 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000024">
+        <rdfs:label>upload date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000112>month/day/year</obo:IAO_0000112>
+        <obo:IAO_0000115>date the isolate was entered into the database</obo:IAO_0000115>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000119>NML LIMS</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000001>Collection</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Upload date</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000025 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000025">
+        <rdfs:label>host body site</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Host body site</obo:IRIDA_0000004>
+        <obo:IAO_0000115>name of body site where the sample was obtained from, such as a specific organ or tissue (tongue, lung etc...). For Foundational Model of Anatomy Ontology (FMA) (v 3.1) terms, please see http://purl.bioontology.org/ontology/FMA</obo:IAO_0000115>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Pathogen Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000112>gut, spine</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000026 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000026">
+        <rdfs:label>health  status of specific host at time of collection</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Pathogen Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000115>Health or disease status of specific host at time of collection. This field accepts PATO (v 2013-10-28) terms, for a browser please see http://purl.bioontology.org/ontology/PATO</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>diseased</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Healthdiseasestat</obo:IRIDA_0000004>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>BioSample</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000027 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000027">
+        <rdfs:label>sample source</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Describes the physical, environmental and/or local geographical source of the biological sample from which the sample was derived.</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>BioSample</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Isolation source</obo:IRIDA_0000004>
+        <obo:IAO_0000112>sediment, chicken feces, cheese</obo:IAO_0000112>
+        <obo:IAO_0000119>Biosample</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000028 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000028">
+        <rdfs:label>host body product</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000112>feces, cerebral spinal fluid (CSF)</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Pathogen Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Host body product</obo:IRIDA_0000004>
+        <obo:IAO_0000115>substance produced by the body, e.g. stool, mucus, where the sample was obtained from. For Foundational Model of Anatomy Ontology (FMA) (v 3.1) terms, please see http://purl.bioontology.org/ontology/FMA</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000029 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000029">
+        <rdfs:label>collection depth</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Please refer to the definitions of depth in the environmental packages</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Geographic location depth</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000112>value (5m)</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000030 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000030">
+        <rdfs:label>environmental source material</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IAO_0000115>The environmental material level refers to the material that was displaced by the sample, or material in which a sample was embedded, prior to the sampling event. Environmental material terms are generally mass nouns. Examples include: air, soil, or water. EnvO (v 2013-06-14) terms can be found via the link: www.environmentontology.org/Browse-EnvO</obo:IAO_0000115>
+        <obo:IRIDA_0000004>environment material</obo:IRIDA_0000004>
+        <obo:IAO_0000112>air, soil, water</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000031 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000031">
+        <rdfs:label>land use</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000004>land use</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000032 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000032">
+        <rdfs:label>collection site land use</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Land_use</obo:IAO_0000119>
+        <obo:IAO_0000112>descriptive; type of human use (park, farm, urban)</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>Human use of land involving the management and modification of natural environment or wilderness into built environment.</obo:IAO_0000115>
+        <obo:IRIDA_0000005>Environment Canada Metadata</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Land use where sample was taken</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000033 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000033">
+        <rdfs:label>fecal indicator bacteria number</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>Environment Canada Metadata</obo:IRIDA_0000005>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>cfu/ml</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>URI: http://www.who.int/water_sanitation_health/dwq/iwachap13.pdf</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Fecal Indicator Bacteria Number</obo:IRIDA_0000004>
+        <obo:IAO_0000115>Number of indicator micro-organisms present in a sample that have been used to suggest the presence of pathogens</obo:IAO_0000115>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000034 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000034">
+        <rdfs:label>conductivity measurement datum</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>electrical conductivity of water</obo:IAO_0000115>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Conductivity</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000112>milliSiemens per centimeter</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000035 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000035">
+        <rdfs:label>dissolved oxygen concentration</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000112>micromole per kilogram</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>concentration of dissolved oxygen</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Dissolved oxygen</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000036 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000036">
+        <rdfs:label>redox potential measurement datum</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>redox potential, measured relative to a hydrogen cell, indicating oxidation or reduction potential</obo:IAO_0000115>
+        <obo:IAO_0000112>millivolt</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000004>Redox potential</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000037 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000037">
+        <rdfs:label>solule inorganic material</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000004>Soluble inorganic material</obo:IRIDA_0000004>
+        <obo:IAO_0000115>concentration of substances such as ammonia, road-salt, sea-salt, cyanide, hydrogen sulfide, thiocyanates, thiosulfates, etc.</obo:IAO_0000115>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>soluble organic material name;measurement value</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000038 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000038">
+        <rdfs:label>solule inorganic material concentration</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000004>Soluble inorganic material</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000039 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000039">
+        <rdfs:label>nitrite concentration</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>concentration of nitrite</obo:IAO_0000115>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>micromole per liter</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Nitrite</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000040 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000040">
+        <rdfs:label>nitrate concentration</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000112>micromole per liter</obo:IAO_0000112>
+        <obo:IAO_0000115>concentration of nitrate</obo:IAO_0000115>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Nitrate</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000041 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000041">
+        <rdfs:label>total phosphorous concentration</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000119>GROUP: MIxS enviro package</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000004>Total phosphorous</obo:IRIDA_0000004>
+        <obo:IAO_0000115>total phosphorus concentration, calculated by: total phosphorus = total dissolved phosphorus + particulate phosphorus. Can also be measured without filtering, reported as phosphorus</obo:IAO_0000115>
+        <obo:IAO_0000112>micromole per liter</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000042 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000042">
+        <rdfs:label>stream order categorical measurement datum</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000005>Environment Canada Metadata</obo:IRIDA_0000005>
+        <obo:IAO_0000115>Stream order is a measure of the relative size of streams (The smallest tributaries are referred to as first-order streams, while the largest river in the world, the Amazon, is a twelfth-order waterway).</obo:IAO_0000115>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: Environment Canada Metadata</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Stream order</obo:IRIDA_0000004>
+        <obo:IAO_0000112>value, 1-12</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000043 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000043">
+        <rdfs:label>bacteria density</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000001>Environmental Isolate</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: Environment Canada Metadata</obo:IAO_0000119>
+        <obo:IAO_0000115>number of bacteria in sample</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>Environment Canada Metadata</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000112>OD reading or cfu&apos;s or cells per millilitre</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Density of bacteria in sample</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000044 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000044">
+        <rdfs:label>host primary enzyme</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>pick list (XbaI, BlnI)</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>PulseNet Data Capture</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Host Primary Enzyme</obo:IRIDA_0000004>
+        <obo:IAO_0000115>Restriction enzyme for first characterization</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000045 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000045">
+        <rdfs:label>PFGE pattern</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000046 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000046">
+        <rdfs:label>host primary PFGE pattern</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>pick list</obo:IAO_0000112>
+        <obo:IRIDA_0000007>User Input or Extract from Bionumerics?</obo:IRIDA_0000007>
+        <obo:IAO_0000115>First PFGE pattern from given diagnostic restriction enzyme</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Host Primary PFGE Pattern</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>NML LIMS</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000047 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000047">
+        <rdfs:label>host secondary enzyme</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>PulseNet Data Capture</obo:IRIDA_0000005>
+        <obo:IAO_0000112>pick list (XbaI, BlnI)</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Host Secondary Enzyme</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>Restriction enzyme for second characterization</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000048 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000048">
+        <rdfs:label>host secondary PFGE pattern</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Second PFGE pattern from given diagnostic restriction enzyme</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>pick list</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Host Secondary PFGE Pattern</obo:IRIDA_0000004>
+        <obo:IRIDA_0000007>User Input or Extract from Bionumerics?</obo:IRIDA_0000007>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000005>NML LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000049 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000049">
+        <rdfs:label>MLST clonal complex</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>MLST  Clonal Complex</obo:IRIDA_0000004>
+        <obo:IAO_0000112>pick list?</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Multilocus_sequence_typing ; http://eburst.mlst.net/3.asp</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>Multilocus sequence typing (MLST) is a technique in molecular biology for the typing of multiple loci. The procedure characterizes isolates of microbial species using the DNA sequences of internal fragments of multiple housekeeping genes. Sequence types are grouped into clonal complexes by their similarity to a central allelic profile (genotype). As such, clonal complexes represent sequence types that share a number of identical alleles e.g. 5/7</obo:IAO_0000115>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews and Bionumerics</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000050 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000050">
+        <rdfs:label>MLST sequence type</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews and Bionumerics</obo:IRIDA_0000005>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>Multilocus sequence typing (MLST) is a technique in molecular biology for the typing of multiple loci. The procedure characterizes isolates of microbial species using the DNA sequences of internal fragments of multiple housekeeping genes. For each housekeeping gene, the different sequences present within a bacterial species are assigned as distinct alleles and, for each isolate, the alleles at each of the loci define the allelic profile or sequence type (ST).</obo:IAO_0000115>
+        <obo:IRIDA_0000004>MLST Sequence Type</obo:IRIDA_0000004>
+        <obo:IAO_0000112>pick list?</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Multilocus_sequence_typing</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000051 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000051">
+        <rdfs:label>core genome fingerprinting</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000052 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000052">
+        <rdfs:label>CGF type</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>output of CGF</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>pick list</obo:IAO_0000112>
+        <obo:IRIDA_0000004>CGF type</obo:IRIDA_0000004>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000053 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000053">
+        <rdfs:label>16S rRNA sequencing</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IAO_0000119>URI: http://www.illumina.com/applications/microbiology/microbial-sequencing-methods/16S-rrna-sequencing.html</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>16S rRNA sequencing</obo:IRIDA_0000004>
+        <obo:IAO_0000115 xml:lang="en">16S ribosomal RNA sequencing is a sequencing method used to identify and compare bacteria present within a given sample. 16S rRNA gene sequencing is a well-established method for studying phylogeny and taxonomy of samples from complex microbiomes or environments that are difficult or impossible to study.
+</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000054 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000054">
+        <rdfs:label>Stx toxin type</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Stx toxin type</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>metadata feedback</obo:IRIDA_0000005>
+        <obo:IAO_0000112>Stx1 or Stx2</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000007>dropdown</obo:IRIDA_0000007>
+        <obo:IAO_0000115>pathogenic shiga toxin produced by STEC E. coli</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000055 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000055">
+        <rdfs:label>Stx toxin subtype</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>shiga toxin variant</obo:IAO_0000115>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000007>dropdown</obo:IRIDA_0000007>
+        <obo:IAO_0000112>stx1a, stx1c</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Stx toxin subtype</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>metadata feedback</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000056 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000056">
+        <rdfs:label>Stx1 Toxin PCR result</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000112>CT value?</obo:IAO_0000112>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Stx1 Toxin PCR result</obo:IRIDA_0000004>
+        <obo:IAO_0000115>qPCR result of STX1 gene amplification</obo:IAO_0000115>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000057 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000057">
+        <rdfs:label>Stx1 cell culture level</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Stx1 Cell Culture</obo:IRIDA_0000004>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>level of stx toxin derived tissue culture toxicity</obo:IAO_0000115>
+        <obo:IAO_0000112>value?</obo:IAO_0000112>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000058 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000058">
+        <rdfs:label>Stx2 Toxin PCR result</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000115>qPCR result of STX2 gene amplification</obo:IAO_0000115>
+        <obo:IAO_0000112>CT value?</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Stx2 Toxin PCR result</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000059 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000059">
+        <rdfs:label>Stx2 cell culture level</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Stx2 Cell Culture</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000112>value?</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>level of stx toxin derived tissue culture toxicity</obo:IAO_0000115>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000060 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000060">
+        <rdfs:label>AccuProbe test</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000061 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000061">
+        <rdfs:label>Accuprobe Listeria monocytogenes Culture Identification Reagent Kit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Nucleic acid hybridization tests are based on the ability of complementary nucleic acid strands to specifically align and associate to form stable double-stranded complexes (6). The ACCUPROBE method uses a single-stranded DNA probe with a chemiluminescent label that is complementary to the ribosomal RNA of the target organism. After the ribosomal RNA is released from the target organism, the labeled DNA probe combines with the target organism’s ribosomal RNA to form a stable DNA:RNA hybrid. The Selection Reagent allows for the differentiation of non-hybridized and hybridized probes.The light signal emitted by the DNA:RNA hybrids is measured by a GEN-PROBE luminometer. A positive result is a luminometer reading equal to or greater than the cut-off. A value below this cut-off is the negative result.</obo:IAO_0000115>
+        <obo:IAO_0000119>URI: http://www.hologic.com/sites/default/files/package%20inserts/103051F-EN-RevC.pdf</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000062 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000062">
+        <rdfs:label>AccuProbe test results</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>AccuProbe Test</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IAO_0000119>NML LIMS</obo:IAO_0000119>
+        <obo:IAO_0000112>positive, negative, not done</obo:IAO_0000112>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000115>AccuProbe results</obo:IAO_0000115>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000063 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000063">
+        <rdfs:label>ribotyping</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Ribotyping involves the fingerprinting of genomic DNA restriction fragments that contain all or part of the genes coding for the 16S and 23S rRNA. By digesting the genes with a specific restriction enzyme, fragments of different lengths are generated. By performing a Gel electrophoresis with the digested samples, the fragments can be visualised as lines on the gel, where larger fragments are close to the start of the gel, and smaller fragments further down. After blotting onto a matrix and probing, these lines form a unique pattern for each species and can be used to identify the origin of the DNA, almost like a barcode can identify a product.</obo:IAO_0000115>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Ribotyping</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000064 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000064">
+        <rdfs:label>riboprinting</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>This method is based on restriction endonuclease digestion of bacterial chromosomal DNA, followed by Southern hybridization to probes for sequences in the regions of bacterial DNA coding for the 5S-16S-23S (the Escherichia coli rrnB rRNA operon) rRNA operon. The probes have been developed that are directed to highly conserved regions of the rRNA operon present in all eubacteria and can therefore be used for ribotyping most bacteria</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>URI:http://www.ncbi.nlm.nih.gov/pmc/articles/PMC92620/</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000065 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000065">
+        <rdfs:label>Qualicon (DuPont) RiboPrinter Microbial Characterization System</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>an automated system that takes a purified bacterial suspension, lyses the cells, extracts the DNA, restriction endonuclease digests the DNA, separates the digest on a gel, transfers the DNA bands to a membrane, probes the bands with non-radioisotope-labeled, 5S-16S-23S rRNA-specific probes (Southern hybridization), photographs the membrane, and finally compares the bar code-like pattern to databases in order to identify the genus and species.</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>URI: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC92620/</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000066 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000066">
+        <rdfs:label>DuPont identification pattern library</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>a library of RiboPrinter recognised patterns</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000067 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000067">
+        <rdfs:label>RiboPrinter DUP Number</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>DuPont identification number from the DuPont identification library</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Riboprinter DUP Number</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000112>DUP-PST1-1211</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>NML LIMS</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000068 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000068">
+        <rdfs:label>RiboPrinter DUP similarity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000119>URI: http://www.tandfonline.com/doi/pdf/10.1080/09603120903254041</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Riboprinter DUP similarity</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Lab Analytic</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>The identification of an isolate was determined when the corresponding patterns matched one of the patterns of the DuPont Identification library of the RiboPrinter1 with a similarity of &gt;0.85. The similarity threshold for an isolate joining a ribogroup is an adaptive value between 0.90 and 0.96, depending on the size of the ribogroup.</obo:IAO_0000112>
+        <obo:IRIDA_0000005>NML Labware LIMS</obo:IRIDA_0000005>
+        <obo:IAO_0000115>Similarity of pattern to one of the patterns of the DuPont Identification library of the RiboPrinter</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000069 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000069">
+        <rdfs:label>sequencing run date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Sequencing Run Date</obo:IRIDA_0000004>
+        <obo:IAO_0000112>month/day/year</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>Extracted from XML file</obo:IRIDA_0000007>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000115>date the sequencing run was performed</obo:IAO_0000115>
+        <obo:IRIDA_0000005>NML NGS Archive</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000070 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000070">
+        <rdfs:label>sequencing location</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Sequencing Location</obo:IRIDA_0000004>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000115>location the sequencing run was performed</obo:IAO_0000115>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000071 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000071">
+        <rdfs:label>sequencing platform</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Defined by sequencing method and instrumentation.</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000004>Platform</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000005>Standard Term</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000112>Illumina (MiSeq, HiSeq), PacBio, Ion Torrent, (Roche 454), SOLiD ABI</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000072 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000072">
+        <rdfs:label>sequencing workflow</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>the workflow is the pre-defined sequence of steps to run the automated sequencing pipeline.</obo:IAO_0000115>
+        <obo:IRIDA_0000005>Derived from Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000112>Resequencing, FastQ only</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Workflow</obo:IRIDA_0000004>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000073 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000073">
+        <rdfs:label>Application</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Application</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000115>the sequencing application is the use or purpose of the sequencing</obo:IAO_0000115>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000112>amplicon sequencing, WGS</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000074 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000074">
+        <rdfs:label>Assay</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>the sequencing conditions and the analyte being measured</obo:IAO_0000115>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Assay</obo:IRIDA_0000004>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000112>Nextera XT, TruSeq</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000075 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000075">
+        <rdfs:label>chemistry</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>lab method to determine the order of nucleotides in a DNA molecule</obo:IAO_0000115>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Chemistry</obo:IRIDA_0000004>
+        <obo:IAO_0000112>amplicon, resequencing (WGS)</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000076 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000076">
+        <rdfs:label>read length</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000115>number of base pairs per read</obo:IAO_0000115>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000112>151, 251</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Read Length</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000077 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000077">
+        <rdfs:label>sample ID</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Sample ID</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000112>1,2,3 etc</obo:IAO_0000112>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>numerical identifier for sample</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000078 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000078">
+        <rdfs:label>multiplex identifiers</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Multiplex identifiers</obo:IRIDA_0000004>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000112>S017</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>Molecular barcodes, called Multiplex Identifiers (MIDs), that are used to specifically tag unique samples in a sequencing run. Sequence should be reported in uppercase letters</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000079 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000079">
+        <rdfs:label>sample name</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000112>Control1, Tank1, Froglet1</obo:IAO_0000112>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Sample Name</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000115>descriptive identifier for sample</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000080 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000080">
+        <rdfs:label>number of cycles</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000112>500</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000115>number of sequencing  chemistry cycles</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Number of cycles</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000081 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000081">
+        <rdfs:label>sequencing kit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000112>MiSeq reagent kit</obo:IAO_0000112>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>Pre-filled, ready-to-use reagent cartridges. Used to produce improved chemistry, cluster density and read length as well as improve quality (Q) scores. Reagent components are encoded to interact with the sequencing system to validate compatibility with user-defined applications.</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Sequencing Kit</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000082 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000082">
+        <rdfs:label>sequencing kit version</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>The version is the configuration of the reagent cartidge.</obo:IAO_0000115>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Sequencing Kit version</obo:IRIDA_0000004>
+        <obo:IAO_0000112>v2, v3</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000083 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000083">
+        <rdfs:label>adpater sequence</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Adapters</obo:IRIDA_0000004>
+        <obo:IAO_0000112>adapter A and B sequence</obo:IAO_0000112>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000115>Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters</obo:IAO_0000115>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000084 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000084">
+        <rdfs:label>adapter trimming</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000007>Extracted from Sample Sheet</obo:IRIDA_0000007>
+        <obo:IAO_0000115>the removal of adapter sequences from demultiplexed data reads</obo:IAO_0000115>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IRIDA_0000005>Derived from Illumina Sample Sheet</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Adapter Trimming</obo:IRIDA_0000004>
+        <obo:IAO_0000112>Y</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000085 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000085">
+        <rdfs:label>liibrary preparation kit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>Illumina metagenomic protocol (part 15044223), with Nextera</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000115>Packaged kits (containing adapters, indexes, enzymes, buffers etc), tailored for specific sequencing workflows, which allow the simplified preparation of sequencing-ready libraries for small genomes, amplicons, and plasmids.</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Library Preparation Kit</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma) and  http://applications.illumina.com/applications/sequencing/ngs-library-prep.html</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000086 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000086">
+        <rdfs:label>number of expected base pairs per genome</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>The estimated size of the genome prior to sequencing. Of particular importance in the sequencing of (eukaryotic) genome which could remain in draft form for a long or unspecified period.</obo:IAO_0000115>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Number of base pairs</obo:IRIDA_0000004>
+        <obo:IRIDA_0000007>Extracted from XML file?</obo:IRIDA_0000007>
+        <obo:IRIDA_0000001>Sequencing</obo:IRIDA_0000001>
+        <obo:IAO_0000112>300 000</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000087 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000087">
+        <rdfs:label>number of reads passing filter</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>Output from MiSeq</obo:IRIDA_0000005>
+        <obo:IAO_0000115>Raw data are filtered to remove any reads that do not meet the overall quality as measured by a chastity filter. The chastity of a base call is calculated as the ratio of the brightest intensity divided by the sum of the brightest and second brightest intensities.
+Clusters passing filter are represented by PF in analysis reports. Clusters pass filter if no more than one base call in the first 25 cycles has a chastity of &lt; 0.6.</obo:IAO_0000115>
+        <obo:IRIDA_0000004>Number of Reads Passing Filter</obo:IRIDA_0000004>
+        <obo:IAO_0000119>URI: http://support.illumina.com/sequencing/sequencing_instruments/miseq/questions.html</obo:IAO_0000119>
+        <obo:IAO_0000112>0.92</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Run QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>Extracted from XML file</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000088 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000088">
+        <rdfs:label>cluster density</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>Run QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000007>Extracted from XML file</obo:IRIDA_0000007>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>URI: https://www.broadinstitute.org/files/shared/illuminavids/clusterGenSlides.pdf</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Output from MiSeq</obo:IRIDA_0000005>
+        <obo:IAO_0000112>800 k/mm^2</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Cluster density</obo:IRIDA_0000004>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>Cluster Generation is a process by which libraries amplified into clonal clusters on a flow cell. The density of those clusters in the lane, is the cluster density.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000089 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000089">
+        <rdfs:label>phred quality score</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000005>Output from MiSeq</obo:IRIDA_0000005>
+        <obo:IAO_0000112>&gt;75%</obo:IAO_0000112>
+        <obo:IRIDA_0000004>above 30 Qscore</obo:IRIDA_0000004>
+        <obo:IAO_0000115>percentage of reads with a Phred quality score over 30, which indicates less than a 1/1000 chance that the base was called incorrectly</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Run QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Phred_quality_score</obo:IAO_0000119>
+        <obo:IRIDA_0000007>Extracted from XML file</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000090 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000090">
+        <rdfs:label>assembly method</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>Assembly method refers to how the reads were assembled into contigs for which either a de novo or mapping (reference based) strategy is used.</obo:IAO_0000115>
+        <obo:IAO_0000112>the GROUP: MIxS term encompasses assembly method; estimated error rate; method of calculation</obo:IAO_0000112>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IRIDA_0000004>Assembly</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>Standard Term</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000091 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000091">
+        <rdfs:label>Assembly status</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115>Attempting to convey the relative integrity and reliability of the data, six levels or terms have been proposed and applied to describe genome sequences ().   Recommend adopting their following terms:                                 1. “Standard draft”,  describing the minimum information needed for submission to a public database.  2. “High quality draft”, describing sequences with little to no manual review.  3. “Improved high quality draft&quot;, in which data is either reviewed by people or machines to some extent to indicate that most of the genetic data is assembled correctly, but some errors may still be present.  4. “Annotation-directed improvement”, in which genetic information in various gene regions is represented as accurately as possible.  5. “Non-contiguous finished”, which includes sequences that have been reviewed by both people and machines and would be considered complete except for “recalcitrant regions” that are proving problematic for genome closure.  6. “Finished”, which describes un-gapped complete sequences that have minimal errors, if any. The biology of the microbe will determine whether this finished genome consists of more than one chromosome.</obo:IAO_0000115>
+        <obo:IRIDA_0000007>Drop down with 6 options: standard draft, high quality draft, improved high quality draft, annotation-directed improvement, non-contiguous finished, complete</obo:IRIDA_0000007>
+        <obo:IAO_0000112>standard draft or complete</obo:IAO_0000112>
+        <obo:IAO_0000119>CITATION: Chain, P.S., Grafham, D.V., Fulton, R.S., Fitzgerald, M.G., Hostetler, J., Muzny, D., Ali, J., Birren, B., Bruce, D.C., Buhay, C., et al. (2009). Genomics. Genome project standards in a new era of sequencing. Science 326, 236-237.</obo:IAO_0000119>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000005>from within &quot;Finishing strategy&quot; in GROUP: MIxS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>Assembly status</obo:IRIDA_0000004>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000092 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000092">
+        <rdfs:label>coverage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Coverage</obo:IRIDA_0000004>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Shotgun_sequencing</obo:IAO_0000119>
+        <obo:IAO_0000112>2x, 12x</obo:IAO_0000112>
+        <obo:IAO_0000115>Coverage (read depth or depth) is the average number of reads representing a given nucleotide in the reconstructed sequence.</obo:IAO_0000115>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>from within &quot;Finishing strategy&quot; in GROUP: MIxS</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000093 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000093">
+        <rdfs:label>number of contigs</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000112>8, 20</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+        <obo:IAO_0000115>A contig refers to any contiguous stretch of sequence data created by read overlap.</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000004>Number of Contigs</obo:IRIDA_0000004>
+        <obo:IAO_0000119>URI: http://en.wikipedia.org/wiki/Contig</obo:IAO_0000119>
+        <obo:IRIDA_0000005>Standard Term</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000094 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000094">
+        <rdfs:label>Assembly name</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>Assembly name</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>Standard Term</obo:IRIDA_0000005>
+        <obo:IAO_0000115>Name/version of the assembly provided by the submitter that is used in the genome browsers and in the community</obo:IAO_0000115>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>name and version of assemby</obo:IAO_0000112>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000095 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000095">
+        <rdfs:label>genome annotation algorithm</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000112>Prokka</obo:IAO_0000112>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>Annotation Algorithm</obo:IRIDA_0000004>
+        <obo:IAO_0000115>Program used for annotation</obo:IAO_0000115>
+        <obo:IRIDA_0000005>Standard Term</obo:IRIDA_0000005>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000096 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000096">
+        <rdfs:label>genome annotation source</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000119>GROUP: MIxS</obo:IAO_0000119>
+        <obo:IAO_0000115>For cases where annotation was provided by a community jamboree or model organism database rather than by a specific submitter</obo:IAO_0000115>
+        <obo:IAO_0000112>annotation source description</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Annotation Source</obo:IRIDA_0000004>
+        <obo:IRIDA_0000005>Standard Term</obo:IRIDA_0000005>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000001>Assembly QC</obo:IRIDA_0000001>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000097 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000097">
+        <rdfs:label>physician city</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000115>City where attending physician is located</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000001>Patient</obo:IRIDA_0000001>
+        <obo:IRIDA_0000004>Physician City</obo:IRIDA_0000004>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>Vancouver</obo:IAO_0000112>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000098 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000098">
+        <rdfs:label>PHN number</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>ID Tracker</obo:IRIDA_0000001>
+        <obo:IAO_0000115>Patient Health Number</obo:IAO_0000115>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IRIDA_0000004>PHN Number</obo:IRIDA_0000004>
+        <obo:IAO_0000112>9 digit number</obo:IAO_0000112>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000099 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000099">
+        <rdfs:label>CDC ID</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>number</obo:IAO_0000112>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000004>CDC ID</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>ID Tracker</obo:IRIDA_0000001>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000115>in-house tracking ID number</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000100 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000100">
+        <rdfs:label>NML ID</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000001>ID Tracker</obo:IRIDA_0000001>
+        <obo:IAO_0000115>in-house tracking ID number</obo:IAO_0000115>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000005>inferred from BCCDC interviews</obo:IRIDA_0000005>
+        <obo:IRIDA_0000004>PHN Number</obo:IRIDA_0000004>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IAO_0000112>number</obo:IAO_0000112>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000101 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000101">
+        <rdfs:label>federal lab strain ID</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000005>GRDI FWS</obo:IRIDA_0000005>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+        <obo:IAO_0000112>number</obo:IAO_0000112>
+        <obo:IRIDA_0000004>Federal Lab Strain ID</obo:IRIDA_0000004>
+        <obo:IRIDA_0000001>ID Tracker</obo:IRIDA_0000001>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>in-house tracking ID number</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000102 -->
+
+    <owl:Class rdf:about="&obo;IRIDA_0000102">
+        <rdfs:label>IRIDA ID</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IRIDA_0000004>IRIDA ID</obo:IRIDA_0000004>
+        <obo:IAO_0000112>number</obo:IAO_0000112>
+        <obo:IRIDA_0000001>ID Tracker</obo:IRIDA_0000001>
+        <obo:IRIDA_0000005>ontology group</obo:IRIDA_0000005>
+        <obo:IRIDA_0000003>Interface</obo:IRIDA_0000003>
+        <obo:IAO_0000115>IRIDA tracking number to cross-reference anonymized IDs</obo:IAO_0000115>
+        <obo:IRIDA_0000008>IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119>GROUP: IRIDA Ontology (Emma)</obo:IAO_0000119>
+        <obo:IRIDA_0000007>User Input</obo:IRIDA_0000007>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000100 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IRIDA_0000100">
+        <rdfs:label xml:lang="en">16S rDNA</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&obo;IRIDA_0000002"/>
+        <obo:IAO_0000115 xml:lang="en">16S ribosomal RNA (or 16S rRNA) is a component of the 30S small subunit of prokaryotic ribosomes. The genes coding for it are referred to as 16S rDNA . In addition to highly conserved regions against which universal primers have been designed, 16S rRNA gene sequences contain hypervariable regions that can provide species-specific signature sequences useful for bacterial identification.</obo:IAO_0000115>
+        <obo:IRIDA_0000008 xml:lang="en">IRIDA</obo:IRIDA_0000008>
+        <obo:IAO_0000119 xml:lang="en">URI: http://en.wikipedia.org/wiki/16S_ribosomal_RNA</obo:IAO_0000119>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IRIDA_0000101 -->
+
+    <owl:NamedIndividual rdf:about="http://purl.obolibrary.org/obo/IRIDA_0000101">
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/obo/owl/OBO_REL#has_role"/>
+                <owl:someValuesFrom rdf:resource="&obo;OBI_0000571"/>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/obo/owl/OBO_REL#has_role"/>
+                <owl:someValuesFrom rdf:resource="&obo;OBI_0000018"/>
+            </owl:Restriction>
+        </rdf:type>
+        <rdfs:label xml:lang="en">Hologic</rdfs:label>
+        <obo:IAO_0000115 xml:lang="en">Hologic corporation is a developer, manufacturer and supplier of diagnostic and medical imaging systems. On April 30, 2012, Hologic announced a merger with Gen-Probe for about $3.72 billion by cash.</obo:IAO_0000115>
+        <obo:IAO_0000119 xml:lang="en">URI: http://en.wikipedia.org/wiki/Hologic</obo:IAO_0000119>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->

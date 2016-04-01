@@ -27,7 +27,14 @@ class Gene(NamedIndividual):
 
         """
 
-        searchparam = ["vfo_id", "category", "subcategory", "uniprot", "gene_type", "aro_id", "aro_accession"]
+        searchparam = ["gene",
+                       "category", 
+                       "subcategory",
+                       "vfo_id",
+                       "uniprot",
+                       "gene_type",
+                       "aro_id", 
+                       "aro_accession"]
 
         super(Gene, self).__init__(graph, name)
         self.kwargs = {key: value for key, value in kwargs.items() if key in searchparam}
@@ -47,6 +54,18 @@ class Gene(NamedIndividual):
             getattr(self, key)(value)
 
         self.graph.add((n[self.name], rdf.type, gfvo.gene))
+
+
+    def gene(self, gene):
+        """
+        Converts gene name literal to RDF and adds it to graph
+        """
+
+        gene_literal, = gene
+
+        literal = Literal(gene_literal, datatype=XSD.string)
+        self.graph.add((n[self.name], n.has_name, literal))
+
 
     def vfo_id(self, vfo_id):
         """
@@ -69,7 +88,8 @@ class Gene(NamedIndividual):
         """
 
         for item in categories:
-            self.graph.add((n[self.name], n.has_category, n[item]))
+            literal = Literal(item, datatype=XSD.string)
+            self.graph.add((n[self.name], n.has_category, literal))
 
     def subcategory(self, subcategories):
         """
@@ -80,7 +100,8 @@ class Gene(NamedIndividual):
         """
 
         for item in subcategories:
-            self.graph.add((n[self.name], n.has_sub_category, n[item]))
+            literal = Literal(item, datatype=XSD.string)
+            self.graph.add((n[self.name], n.has_sub_category, literal))
 
     def uniprot(self, uniprot):
         """
@@ -127,7 +148,7 @@ class GeneLocation(NamedIndividual):
     A class for information about a gene and its location on a contig.
     """
 
-    def __init__(self, graph, name, gene, contig, begin, end, seq, is_ref_gene):
+    def __init__(self, graph, name, gene, contig, begin, end, seq, is_ref_gene, cutoff):
         """
         Creates a GeneLocation with beginning and end positions using the faldo ontology
 
@@ -140,6 +161,7 @@ class GeneLocation(NamedIndividual):
             end (str): the end position of the gene in contig
             seq (str): the sequence of the gene on the contig
             is_ref_gene (boolean): signifies whether this is the reference gene location for a particular gene
+            cutoff(str): from RGI analysis for AMR, one of Loose, Perfect or Strict
 
         """
 
@@ -150,6 +172,8 @@ class GeneLocation(NamedIndividual):
         self.end = end
         self.seq = seq
         self.is_ref_gene = is_ref_gene
+        self.cutoff = cutoff
+
 
     def rdf(self):
         """
@@ -162,6 +186,9 @@ class GeneLocation(NamedIndividual):
         self.graph.add((n[self.gene], rdf.type, gfvo.gene))
         self.graph.add((n[self.name], n.references, n[self.contig]))
         self.graph.add((n[self.contig], n.has_gene, n[self.name]))
+        self.graph.add((n[self.name], n.is_gene_of, n[self.contig]))
+        if self.cutoff:
+            self.graph.add((n[self.name], n.type_match, n[self.cutoff]))
 
         if self.is_ref_gene:
             self.graph.add((n[self.name], rdf.type, n.reference_gene))
@@ -190,6 +217,3 @@ class GeneLocation(NamedIndividual):
         # sequence
         literal = Literal(self.seq, datatype=XSD.string)
         self.graph.add((n[self.name], n.has_sequence, literal))
-
-
-
