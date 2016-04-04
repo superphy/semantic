@@ -1,10 +1,29 @@
+class Singleton
+    model: () ->
+    constructor: () ->
+        @model()
+    @get: ->
+        @instance ?= new @()
+        return @instance
+    @getView: () ->
+        return @get().view()
+    view: () ->
+
+class PageTemplate extends Singleton
+    model: () ->
+    controller: () ->
+    view: () ->
+        return [
+            Header.getView()
+        ]
+
+
 class ComponentTemplate
     @controller: (args) ->
         view: () ->
-            console.log("This is a dummy function")
-            return m('a')
+            alert("Why are you calling a template view?")
     @view: (ctrl) ->
-        return ctrl.view()
+        return ctrl.view() #Should it pass in ctrl?
 
 class Navbar extends ComponentTemplate
     @controller: (args) ->

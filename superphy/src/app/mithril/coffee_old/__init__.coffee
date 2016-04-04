@@ -38,28 +38,26 @@ events.delete_item = (list) ->
 m.route(document.body, "/", {
     "/": {view: -> [
         m.component(Navbar)
-        m.component(Home)
+        m.component(Page)
     ]}
     "/home": {view: -> [
         m.component(Navbar)
-        m.component(ComponentTemplate)
+        m.component(Page)
     ]}
     "/meta": {view: -> [
         m.component(Navbar)
-        m.component(ComponentTemplate)
+        m.component(Page)
     ]}
     "/gbrowse": {view: -> [
         m.component(Navbar)
-        m.component(GroupBrowse)
+        m.component(Page)
     ]}
     "/groups": {view: -> [
         m.component(Navbar)
-        m.component(ComponentTemplate)
+        m.component(Page)
     ]}
     "/factors": {view: -> [
         m.component(Navbar)
-        m.component(FooFoo, {id: 1})
-        m.component(FooFoo, {id: 2})
-        m.component(FooFoo, {id: 3})
+        m.component(Page)
     ]}
 })

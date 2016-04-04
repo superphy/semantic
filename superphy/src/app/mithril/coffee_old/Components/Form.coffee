@@ -1,25 +1,3 @@
-dragdrop = (element, options) ->
-    activate = (e) ->
-        e.preventDefault()
-        return
-
-    deactivate = ->
-
-    update = (e) ->
-        e.preventDefault()
-        if typeof options.onchange == 'function'
-            options.onchange (e.dataTransfer or e.target).files
-        return
-
-    options = options or {}
-    element.addEventListener 'dragover', activate
-    element.addEventListener 'dragleave', deactivate
-    element.addEventListener 'dragend', deactivate
-    element.addEventListener 'drop', deactivate
-    element.addEventListener 'drop', update
-    return
-
-
 class UploadForm
     model: () =>
         @genome_name = {'value': m.prop(''), 'label':'Genome Name'}
@@ -79,3 +57,63 @@ class UploadForm
 
             m("button[type=button]", {onclick: @send}, "Done")
         ]
+
+
+
+
+class Uploader
+    constructor: ()->
+        @controller()
+    upload: (options) ->
+        formData = new formData
+        for key in options.data
+            for i in [0 .. options.data[key].length]
+                formData.append(key, options.data[key][i])
+        options.serialize (value) ->
+            return value
+
+        options.data = formData
+
+        return m.request(options)
+    serialize: (files) ->
+        promises = files.map((file) ->
+            deferred = m.deferred()
+            reader = new FileReader
+            reader.readAsDataURL()
+            reader.onloadend = (e) ->
+                deffered.resolve(e.result)
+            reader.onerror = deffered.reject
+            return deferered.promises
+        )
+        return m.sync(promises)
+    controller: (args) ->
+        @noop = (e) ->
+            e.preventDefault()
+        @update = (e) ->
+            e.preventDefault()
+            if (typeof args.onchange == "function")
+                args.onchange([].slice.call((e.dataTransfer || e.target).files))
+    view: ()=>
+        return m(".uploader", {
+            ondragover: @controller.noop
+            ondrop: @controller.update
+            })
+
+"""
+class Foo
+    @controller: (args) ->
+        @bang = (e) ->
+            console.log("Bang")
+        return
+    @view: (ctrl) ->
+        return m("button", {onclick: ctrl.bang}, "Bang")
+
+Test = {
+    controller: (args) ->
+        @bing = (e) ->
+            console.log("bing")
+        return
+    view: (ctrl) =>
+        return m("button", {onclick: ctrl.bing}, "Bing")
+}
+"""
