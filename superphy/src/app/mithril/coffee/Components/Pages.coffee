@@ -101,26 +101,30 @@ class FooBar
         m(".", ctrl.data().data)
 """
 
-class FooBar
+MetaData = () ->
+    @data ?= m.request(
+        method: "POST",
+        url: "http://#{location.hostname}:5000/data/meta"
+        data: {}
+        datatype: 'json',
+        type: (response) ->
+            data = {}
+            data.headers = response.head.vars
+            data.rows = []
+            for binding, x in response.results.bindings
+                data.rows[x] = {}
+                for item in response.head.vars
+                    try
+                        data.rows[x][item] = binding[item]['value']
+                    catch
+                        data.rows[x][item] = ''
+            return data
+    )
+    return @data
+
+class GroupBrowseFirst10
     @controller: (args) ->
-        @data = m.request(
-            method: "POST",
-            url: "http://#{location.hostname}:5000/data/meta"
-            data: {}
-            datatype: 'json',
-            type: (response) ->
-                data = {}
-                data.headers = response.head.vars
-                data.rows = []
-                for binding, x in response.results.bindings
-                    data.rows[x] = {}
-                    for item in response.head.vars
-                        try
-                            data.rows[x][item] = binding[item]['value']
-                        catch
-                            data.rows[x][item] = ''
-                return data
-        )
+        @data = MetaData()
         return @
     sort_table = (list, attribute = 'data-sort-by') ->
         { onclick: (e) ->
@@ -149,7 +153,7 @@ class FooBar
                     for header in ctrl.data().headers
                         m('th[data-sort-by=' + header + ']', sort_table(list = ctrl.data().rows) ,[header])
                 ])
-                for row, x in ctrl.data().rows[1 .. 10]
+                for row, x in ctrl.data().rows[0 .. 9]
                     m('tr', [
                         for header in ctrl.data().headers
                             m('td', [row[header]])
@@ -158,9 +162,29 @@ class FooBar
         ])
 
 
-class GroupBrowseWithLameScrolling extends ComponentTemplate
+class GroupBrowse
     @controller: (args) ->
-        sort_table = (list, attribute = 'data-sort-by') ->
+        @data = MetaData()
+        """m.request(
+            method: "POST",
+            url: "http://#{location.hostname}:5000/data/meta"
+            data: {}
+            datatype: 'json',
+            type: (response) ->
+                data = {}
+                data.headers = response.head.vars
+                data.rows = []
+                for binding, x in response.results.bindings
+                    data.rows[x] = {}
+                    for item in response.head.vars
+                        try
+                            data.rows[x][item] = binding[item]['value']
+                        catch
+                            data.rows[x][item] = ''
+                #A typecast request still returns a prop object. @data being assigned in the controller means we access it wil ctrl.data()
+                return data
+        )"""
+        @sort_table = (list, attribute = 'data-sort-by') ->
             { onclick: (e) ->
                 item = e.target.getAttribute(attribute)
                 if item
@@ -180,46 +204,28 @@ class GroupBrowseWithLameScrolling extends ComponentTemplate
                         list.reverse()
                 return
             }
-        data = m.prop({})
-        m.request(
-            method: "POST",
-            url: "http://#{location.hostname}:5000/data/meta"
-            data: {}
-            datatype: 'json',
-            type: (response) ->
-                m.startComputation()
-                data.headers = response.head.vars
-                data.rows = []
-                for binding, x in response.results.bindings
-                    data.rows[x] = {}
-                    for item in response.head.vars
-                        try
-                            data.rows[x][item] = binding[item]['value']
-                        catch
-                            data.rows[x][item] = ''
-                m.endComputation()
-        )
-        state = {pageY: 0, pageHeight: window.innerHeight}
-        window.addEventListener("scroll", (e) ->
-            state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
-            state.pageHeight = window.innerHeight
-            m.redraw()
-        )
-        view: () ->
-            pageY = state.pageY
-            begin = pageY / 46 | 0
-            end = begin + (state.pageHeight /46 | 0 + 10)
-            offset = pageY % 46
-            m(".Occlusion", {style: {height: data.rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
-                m("table", {style: {top: state.pageY + "px"}}, [
-                    m("tr", [
-                        for header in data.headers
-                            m('th[data-sort-by=' + header + ']', sort_table(list = data.rows) ,[header])
-                    ])
-                    for row, x in data.rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
-                        m('tr', [
-                            for header in data.headers
-                                m('td', [row[header]])
-                        ])
+        return @
+    state = {pageY: 0, pageHeight: window.innerHeight}
+    window.addEventListener("scroll", (e) ->
+        state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
+        state.pageHeight = window.innerHeight
+        m.redraw()
+    )
+    @view: (ctrl) ->
+        pageY = state.pageY
+        begin = pageY / 46 | 0
+        end = begin + (state.pageHeight /46 | 0 + 10)
+        offset = pageY % 46
+        m(".Occlusion", {style: {height: ctrl.data().rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
+            m("table", {style: {top: state.pageY + "px"}}, [
+                m("tr", [
+                    for header in ctrl.data().headers
+                        m('th[data-sort-by=' + header + ']', ctrl.sort_table(list = ctrl.data().rows) ,[header])
                 ])
+                for row, x in ctrl.data().rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
+                    m('tr', [
+                        for header in ctrl.data().headers
+                            m('td', [row[header]])
+                    ])
             ])
+        ])

@@ -42,15 +42,14 @@ m.route(document.body, "/", {
     ]}
     "/home": {view: -> [
         m.component(Navbar)
-        m.component(ComponentTemplate)
     ]}
     "/meta": {view: -> [
         m.component(Navbar)
-        m.component(ComponentTemplate)
+        m.component(GroupBrowseFirst10)
     ]}
     "/gbrowse": {view: -> [
         m.component(Navbar)
-        m.component(FooBar)
+        m.component(GroupBrowse)
     ]}
     "/groups": {view: -> [
         m.component(Navbar)
