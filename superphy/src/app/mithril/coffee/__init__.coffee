@@ -50,7 +50,7 @@ m.route(document.body, "/", {
     ]}
     "/gbrowse": {view: -> [
         m.component(Navbar)
-        m.component(GroupBrowse)
+        m.component(FooBar)
     ]}
     "/groups": {view: -> [
         m.component(Navbar)
