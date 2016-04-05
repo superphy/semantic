@@ -42,10 +42,10 @@ m.route(document.body, "/", {
     ]}
     "/home": {view: -> [
         m.component(Navbar)
+        m.component(Home)
     ]}
     "/meta": {view: -> [
         m.component(Navbar)
-        m.component(GroupBrowseFirst10)
     ]}
     "/gbrowse": {view: -> [
         m.component(Navbar)
@@ -53,12 +53,8 @@ m.route(document.body, "/", {
     ]}
     "/groups": {view: -> [
         m.component(Navbar)
-        m.component(ComponentTemplate)
     ]}
     "/factors": {view: -> [
         m.component(Navbar)
-        m.component(FooFoo, {id: 1})
-        m.component(FooFoo, {id: 2})
-        m.component(FooFoo, {id: 3})
     ]}
 })

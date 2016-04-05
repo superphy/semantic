@@ -55,47 +55,6 @@ class FooFoo
                 value: ctrl.not_saved()
             })
         )
-"""
-Bar = (response) ->
-    console.log(response)
-    return {'data': response.bar}
-
-
-
-class FooBar
-    @controller: (args) ->
-        @data = m.request(
-            method: "GET",
-            url: "http://#{location.hostname}:5000/example/bar"
-            data: null
-            datatype: 'json'
-            type: Bar
-        )
-        return @
-    @view: (ctrl) ->
-        console.log(ctrl.data())
-        m(".", ctrl.data().foo)
-"""
-"""
-Data = () ->
-    return m.request(
-        method: "GET",
-        url: "http://#{location.hostname}:5000/example/bar"
-        data: null
-        datatype: 'json'
-        type: (response) ->
-            console.log(response)
-            return {'data': response.bar}
-    )
-
-class FooBar
-    @controller: (args) ->
-        @data = Data()
-        return @
-    @view: (ctrl) ->
-        console.log(ctrl.data())
-        m(".", ctrl.data().data)
-"""
 
 MetaData = (args) ->
     args = args || {}
@@ -125,73 +84,13 @@ MetaData = (args) ->
                 data.date = new Date()
                 return data
         )
+    window.onbeforeunload = ->
         localStorage.setItem("MetaData", JSON.stringify(@data()))
     return @data
-
-class GroupBrowseFirst10
-    @controller: (args) ->
-        @data = MetaData({reset: true})
-        return @
-    sort_table = (list, attribute = 'data-sort-by') ->
-        { onclick: (e) ->
-            item = e.target.getAttribute(attribute)
-            if item
-                first = list[0]
-                list.sort (a, b) ->
-                    if isNaN(parseFloat(a[item] * 1))
-                        if isNaN(parseFloat(b[item] * 1))
-                            if a[item] > b[item] then 1
-                            else if b[item] > a[item] then -1
-                            else 0
-                        else -1
-                    else if isNaN(parseFloat(b[item] * 1)) then 1
-                    else if a[item] * 1 < b[item] * 1 then 1
-                    else if b[item] * 1 < a[item] * 1 then -1
-                    else 0
-                if first == list[0]
-                    list.reverse()
-            return
-        }
-
-
-    @view: (ctrl) ->
-        m(".Occlusion", [
-            m("table", [
-                m("tr", [
-                    for header in ctrl.data().headers
-                        m('th[data-sort-by=' + header + ']', sort_table(list = ctrl.data().rows) ,[header])
-                ])
-                for row, x in ctrl.data().rows[0 .. 9]
-                    m('tr', [
-                        for header in ctrl.data().headers
-                            m('td', [row[header]])
-                    ])
-            ])
-        ])
-
 
 class GroupBrowse
     @controller: (args) ->
         @data = MetaData()
-        """m.request(
-            method: "POST",
-            url: "http://#{location.hostname}:5000/data/meta"
-            data: {}
-            datatype: 'json',
-            type: (response) ->
-                data = {}
-                data.headers = response.head.vars
-                data.rows = []
-                for binding, x in response.results.bindings
-                    data.rows[x] = {}
-                    for item in response.head.vars
-                        try
-                            data.rows[x][item] = binding[item]['value']
-                        catch
-                            data.rows[x][item] = ''
-                #A typecast request still returns a prop object. @data being assigned in the controller means we access it wil ctrl.data()
-                return data
-        )"""
         @sort_table = (list, attribute = 'data-sort-by') ->
             { onclick: (e) ->
                 item = e.target.getAttribute(attribute)
