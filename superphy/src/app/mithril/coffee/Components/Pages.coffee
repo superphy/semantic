@@ -101,30 +101,37 @@ class FooBar
         m(".", ctrl.data().data)
 """
 
-MetaData = () ->
-    @data ?= m.request(
-        method: "POST",
-        url: "http://#{location.hostname}:5000/data/meta"
-        data: {}
-        datatype: 'json',
-        type: (response) ->
-            data = {}
-            data.headers = response.head.vars
-            data.rows = []
-            for binding, x in response.results.bindings
-                data.rows[x] = {}
-                for item in response.head.vars
-                    try
-                        data.rows[x][item] = binding[item]['value']
-                    catch
-                        data.rows[x][item] = ''
-            return data
-    )
+MetaData = (args) ->
+    args = args || {}
+    #at this point the data is static. At a later date we can add in
+    #expire times, or a query to the server to ask if it should be updated.
+    @data ?= m.prop(JSON.parse(localStorage.getItem("MetaData")))
+    if @data() is null or args.reset is true
+        @data = m.request(
+            method: "POST",
+            url: "http://#{location.hostname}:5000/data/meta"
+            data: {}
+            datatype: 'json',
+            type: (response) ->
+                data = {}
+                data.headers = response.head.vars
+                data.rows = []
+                for binding, x in response.results.bindings
+                    data.rows[x] = {}
+                    for item in response.head.vars
+                        try
+                            data.rows[x][item] = binding[item]['value']
+                        catch
+                            data.rows[x][item] = ''
+                data.date = new Date()
+                return data
+        )
+        localStorage.setItem("MetaData", JSON.stringify(@data()))
     return @data
 
 class GroupBrowseFirst10
     @controller: (args) ->
-        @data = MetaData()
+        @data = MetaData({reset: true})
         return @
     sort_table = (list, attribute = 'data-sort-by') ->
         { onclick: (e) ->
@@ -146,6 +153,8 @@ class GroupBrowseFirst10
                     list.reverse()
             return
         }
+
+
     @view: (ctrl) ->
         m(".Occlusion", [
             m("table", [
