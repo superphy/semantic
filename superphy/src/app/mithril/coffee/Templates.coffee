@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 class ComponentTemplate
     @controller: (args) ->
         view: () ->
@@ -8,36 +10,32 @@ class ComponentTemplate
 
 class Navbar extends ComponentTemplate
     @controller: (args) ->
-        links = [
+        @links = [
             {title: "Genome", url: "/Home.get()"}
             {title: "Group Browse", url: "/gbrowse"}
             {title: "Group Analyses", url: "/groups"}
             {title: "VF and AMR", url: "/factors"}
             {title: "Meta", url: "/meta"}
         ]
-        view: () ->
-            m("div", {class:'container-fluid'}, [
-                m("nav", {class:'navbar navbar-default navbar-fixed-top',
-                role:'navigation'}, [
-                    m("div", {class:'navbar-header'}, [
-                        m("a", {class:"", href:"/home", config:m.route},
-                        "SuperPhy")
-                    ])
-                    m("ul", {class:'nav navbar-nav'}, [
-                        m("li", m("a", {href: link.url, config:m.route},
-                        link.title)) for link in links
-                        m("li", {class:"dropdown"}, [
-                            m("a", {
-                                href:""
-                                role:"button"
-                                class:"dropdown-toggle"
-                                'data-toggle':"dropdown"
-                                }
-                                "My Data", [
-                                    m("b", {class:"caret"})
-                                ]
-                            )
-                        ])
-                    ])
-                ])
-            ])
+        return @
+    @view: (ctrl) ->
+        m(".container-fluid"
+            m("nav.navbar navbar-default navbar-fixed-top"
+                role:'navigation',
+                m(".navbar-header"
+                    m("a.navbar-brand", {href:"/home", config:m.route}, "SuperPhy")
+                )
+                m("ul.nav navbar-nav"
+                    m("li"
+                        m("a", {href: link.url, config:m.route}, link.title)
+                    ) for link in ctrl.links
+                    m("li.dropdown"
+                        m("a.dropdown-toggle"
+                            {href:"", role:"button", 'data-toggle':"dropdown"}
+                            "My Data"
+                            m("b.caret")
+                        )
+                    )
+                )
+            )
+        )

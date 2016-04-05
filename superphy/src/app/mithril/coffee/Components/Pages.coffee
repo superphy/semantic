@@ -1,39 +1,35 @@
 # coffeelint: disable=max_line_length
 
-class Home extends ComponentTemplate
+class Home
     @controller: (args) ->
-        view: () ->
-            m ".container", {id:'Home.get()-beta'},
-                m(".row"
-                    m(".well center-block"
-                        m("p.text-center"
-                            m("span.text-info beta-release", "Beta Release")
-                            " Some features are still under development and may not be fully functional."
-                        )
-                     )
+    @view: (ctrl) ->
+        m ".container", {id:'Home.get()-beta'},
+            m(".row", m(".well center-block", m("p.text-center"
+                m("span.text-info beta-release", "Beta Release")
+                " Some features are still under development and may not be fully functional."
+            )))
+            m(".row superphy-image"
+                m("img", {src:'images/superphy_logo_with_title.png'}),
+                m("p.superphy-image"
+                    'NEXT-LEVEL PHYLOGENETIC AND
+                    EPIDEMIOLOGICAL ANALYSIS OF PATHOGENS'
                 )
-                m(".row superphy-image"
-                    m("img", {src:'images/superphy_logo_with_title.png'}),
-                    m("p.superphy-image"
-                        'NEXT-LEVEL PHYLOGENETIC AND
-                        EPIDEMIOLOGICAL ANALYSIS OF PATHOGENS'
-                    )
+            )
+            m(".row well"
+                m("p",'A user-friendly, integrated platform for the predictive genomic analyses of '
+                    m("em", 'Escherichia coli')
                 )
-                m(".row well"
-                    m("p",'A user-friendly, integrated platform for the predictive genomic analyses of '
-                        m("em", 'Escherichia coli')
-                    )
-                    m("p", 'Provides near real-time analyses of thousands of genomes using novel computational approaches.')
-                    m("p", 'Generates results that are understandable and useful to a wide community of users.')
+                m("p", 'Provides near real-time analyses of thousands of genomes using novel computational approaches.')
+                m("p", 'Generates results that are understandable and useful to a wide community of users.')
+            )
+            m(".row"
+                m("button.btn btn-danger btn-lg center-block", "INTRODUCTION")
+            )
+            m(".row text-center"
+                m("p", 'For more information or to discuss possible collaboration, please contact:'
+                    m("p", m("ul", m("li", 'Dr. Vic Gannon: vic.gannon@phac-aspc.gc.ca')))
                 )
-                m(".row"
-                    m("button.btn btn-danger btn-lg center-block", "INTRODUCTION")
-                )
-                m(".row text-center"
-                    m("p", 'For more information or to discuss possible collaboration, please contact:'
-                        m("p", m("ul", m("li", 'Dr. Vic Gannon: vic.gannon@phac-aspc.gc.ca')))
-                    )
-                )
+            )
 
 class FooFoo
     @controller: (args) ->
@@ -105,7 +101,10 @@ MetaData = (args) ->
     args = args || {}
     #at this point the data is static. At a later date we can add in
     #expire times, or a query to the server to ask if it should be updated.
-    @data ?= m.prop(JSON.parse(localStorage.getItem("MetaData")))
+    try
+        @data ?= m.prop(JSON.parse(localStorage.getItem("MetaData")))
+    catch
+        @data = m.prop(null)
     if @data() is null or args.reset is true
         @data = m.request(
             method: "POST",
