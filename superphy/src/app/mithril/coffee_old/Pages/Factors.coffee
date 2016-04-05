@@ -10,22 +10,25 @@ class Factors extends PageTemplate
         @amrform ?= new GeneForm('Antimicrobial Resistance', 'amr')
         @sidebar ?= new Sidebar()
 
-        ## Lists of selected elements for querying for results
-        @selectedVF = []
-        @selectedAMR = []
-        @selectedGenomes = []
+        @selected_vf = m.prop([])
+        @selected_amr = m.prop([])
+        @selected_genomes = m.prop([])
 
         return
 
     controller: (options) =>
         @model()
         @tabCtrl = new mc.Tabs.controller('genes')
+
+        
+
         
         return
 
 
     view: () =>
-        ctrl = @tabCtrl # Need to fix this so that it goes back within the controller or model @___@
+        ctrl = @tabCtrl 
+
         tabOptions = {
             flavor: 'bs/nav-tabs'
             tabs: [
@@ -34,8 +37,7 @@ class Factors extends PageTemplate
                 { name: 'submit', label: 'Submit Query'}
             ]
         }
-        
-
+ 
         renderTabContents = (ctrl) ->
             @activeTab = ctrl.activeTabName
             switch (@activeTab())
@@ -64,8 +66,15 @@ class Factors extends PageTemplate
             ])
 
         renderSubmit = (ctrl) =>
+            ## Setting selected genes/genomes from form
+            @selected_vf(@vfform.returnSelected())
+            @selected_amr(@amrform.returnSelected())
+            @selected_genomes([])
+
             return m('div', {class: 'tab-content'}, [
                 m('div', {class: 'tab-pane active', id: 'gene-search-submit'}, [
+                    @vfform.selectedGenesView()
+                    @amrform.selectedGenesView()
                     m('div', {class: 'row'}, [
                         m('div', {class: 'col-md-4 col-md-offset-1'}, [
                             m('div', {class: 'panel panel-default'}, [
@@ -73,6 +82,12 @@ class Factors extends PageTemplate
                                     "Selected number of genomes go here"
                                 ])
                             ])
+                        ])
+                    ])
+                    m('div', {class: 'row'}, [
+                        m('div', {class: 'gene-search-next-wrapper', id: 'query-gene-form'}, [
+                            m('button', {class: 'btn btn-success', type: 'submit', value: 'Submit'}, "Submit")
+                            m('button', {class: 'btn btn-danger', type: 'reset', value: 'Reset'}, "Reset")
                         ])
                     ])
                 ])
@@ -87,17 +102,26 @@ class Factors extends PageTemplate
                         m('div', {class: 'container-fluid'}, [
                             m('div', {class: 'row'}, [
                                 m('div', {class: 'col-xs-8'}, [
-                                    m('div', {class: 'intro'}, [
-                                        m('p', 'BSearch for the presence or absence of virulence factor genes or antimicrobial resistance 
-                                                genes in genomes of interest. Detailed information on individual virulence factor or 
-                                                antimicrobial resistance genes can be retrieved by clicking on the individual genes.')
-                                    ])
-
-                                    m('.container', [
-                                        mc.Tabs.view(ctrl, tabOptions)
-                                        renderTabContents(ctrl)
+                                    m('div', {class: 'content-header'}, [
+                                        m('h1', [
+                                            m('span', {class: "title_part1"}, 'VIRULENCE & AMR')
+                                        ])
                                     ])
                                 ])
+                                m('div', {class: 'col-xs-4'}, [
+                                    m('button', {id: "intro-button", class: "btn btn-danger btn-lg", type:"button"}, [
+                                        "INTRODUCTION"
+                                    ])
+                                ])
+                            ])
+                            m('div', {class: 'intro'}, [
+                                m('p', 'BSearch for the presence or absence of virulence factor genes or antimicrobial resistance 
+                                        genes in genomes of interest. Detailed information on individual virulence factor or 
+                                        antimicrobial resistance genes can be retrieved by clicking on the individual genes.')
+                            ])
+                            m('.container', [
+                                mc.Tabs.view(ctrl, tabOptions)
+                                renderTabContents(ctrl)
                             ])
                         ])
                     ])

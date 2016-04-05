@@ -8,6 +8,7 @@ from superphy.shared import sparql
 
 from . import data
 
+
 @data.after_request
 def add_header(response):
     """
@@ -22,8 +23,8 @@ def query():
     """
     #General query to test if the requests are working.
     """
-    data_ = (sparql.get_x_triples(10))
-    return jsonify(data_)
+    data = (sparql.get_x_triples(10))
+    return jsonify(data)
 
 @data.route('/meta', methods=['GET', 'POST'])
 def meta():
@@ -91,6 +92,7 @@ def amrs():
     results = (sparql.get_all_genes('amr'))
     return jsonify(results)
 
+
 @data.route('/gene/<geneid>', methods=['GET', 'POST'])
 def gene(geneid):
     """
@@ -98,3 +100,21 @@ def gene(geneid):
     """
     results = (sparql.get_gene(geneid))
     return jsonify(results)
+
+@data.route('/regions/<genomeid>', methods=['GET', 'POST'])
+def regions(genomeid):
+    """
+    Returns all the genes inside a particular genome
+    """
+    results = (sparql.find_alleles(genomeid))
+    return jsonify(results)
+
+
+@data.route('/region/<geneid>/<genomeid>', methods=['GET', 'POST'])
+def region(geneid, genomeid):
+    """
+    Queries for the instances of geneid in genomeid.
+    """
+    results = (sparql.find_regions(geneid, genomeid))
+    return jsonify(results)
+

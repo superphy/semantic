@@ -1,19 +1,21 @@
 class GeneForm
     constructor: (@name, @type) ->
         @model()
+        @controller()
+
 
     model: =>
         @data ?= new GeneData(@type)
         @genelist ?= new GeneList()
 
-        ## Array for selected genes for this form
-        @selected = []
         @searchterm = m.prop('')
 
+
     controller: =>
-        escapeRegExp= (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+        @Select2Ctrl = new select2.config('genes')
+        escapeRegExp = (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 
-        search = (term) =>
+        @search = (term) =>
             @searchterm = m.prop(term)
             regex = new RegExp(escapeRegExp(term), "i")
 
@@ -27,41 +29,44 @@ class GeneForm
 
             return true
 
-        select = (all) =>
-            for row in @data.rows
-                if all is "true" then row.selected(true) else row.selected(false)
-    
-
-    view: (ctrl) =>
-        gene_name = @name.toLowerCase()
-
-        ## Need to find a way to move the helper functions to the controller
-
-        escapeRegExp= (str) -> str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
-
-        search = (term) =>
-            @searchterm = m.prop(term)
-            regex = new RegExp(escapeRegExp(term), "i")
-
-            for row in @data.rows
-                gene = row.Gene_Name
-
-                if regex.test(gene)
-                    row.visible(true)
-                else
-                    row.visible(false)
-
-            return true
-
-        select = (all) =>
+        @select = (all) =>
             for row in @data.rows
                 if all is "true" then row.selected(true) else row.selected(false)
 
-        toggle = (checked) =>
+        @toggle = (checked) =>
             console.log(checked)
             if checked is "true" then row.selected(false) else row.selected(true)
 
-        ## Need to move above functions into controller...
+        @changeGene = (gene) =>
+            console.log(gene)
+
+    ## Returns an array the selected gene names for form submission
+    returnSelected: () =>
+        selected_genes = []
+        for row in @data.rows when row.selected()
+            selected_genes.push(row.Gene_Name)
+        return selected_genes
+
+    selectedGenesView: () =>
+        selected = @returnSelected()
+        return \
+        m('div', {class: 'row'}, [
+            m('div', {class: 'col-md-4 col-md-offset-1'}, [
+                m('div', {class: 'panel panel-default'}, [
+                    m('div', {id: 'vf-selected-count', class: 'panel-body'}, [
+                        selected.length
+                        " "
+                        @name.toLowerCase()
+                        if selected.length isnt 1 then "s"
+                        " selected"
+                    ])
+                ])
+            ])
+        ])
+
+    ## Main view of the form
+    view: () =>
+        gene_name = @name.toLowerCase()
 
         m('div', {class: 'panel panel-default'}, [
             m('div', {class: 'panel-heading', id: 'vf-panel-header'}, [
@@ -75,14 +80,13 @@ class GeneForm
                                 m('fieldset', [
                                     m('span', ['Selected factors:'])
                                     m('ul', {id: 'vf-selected'}, [
-                                        for row in @data.rows
-                                            if row.selected()
-                                                m('li', {class: 'selected-gene-item'}, [
-                                                    row["Gene_Name"]
-                                                    # m('a', {href: "#", checked: row.selected(), onclick: m.withAttr("checked", toggle)}, [
-                                                    #     m('i', {class: 'fa fa-times'})
-                                                    # ])
-                                                ])
+                                        for row in @data.rows when row.selected()
+                                            m('li', {class: 'selected-gene-item'}, [
+                                                row["Gene_Name"]
+                                                # m('a', {href: "#", checked: row.selected(), onclick: m.withAttr("checked", toggle)}, [
+                                                #     m('i', {class: 'fa fa-times'})
+                                                # ])
+                                            ])
                                     ])
                                 ])
                             ])
@@ -92,20 +96,25 @@ class GeneForm
                     m('div', {class: 'row'}, [
                         m('div', {class: 'gene-search-control-row'}, [
                             m('div', {class: 'col-md-3'}, [
-                                m('input[type=text]', {id: 'vf-autocomplete', class: 'form-control', placeholder: "Search #{gene_name} gene in list", \
-                                            value: @searchterm(), onkeyup: m.withAttr("value", search)})
+                                m('input[type=text]', {id: 'vf-autocomplete', \
+                                                       class: 'form-control', \
+                                                       placeholder: "Search #{gene_name} gene in list", \
+                                                       value: @searchterm(), \
+                                                       onkeyup: m.withAttr("value", @search)})
                             ])
                             m('div', {class: 'col-md-3'}, [
                                 m('div', {class: 'btn-group'}, [
-                                    m('button', {class: 'btn btn-link', checked: true, onclick: m.withAttr("checked", select)}, "Select All")
-                                    m('button', {class: 'btn btn-link', checked: false, onclick: m.withAttr("checked", select)}, "Deselect All")
+                                    m('button', {class: 'btn btn-link', checked: true, \
+                                                 onclick: m.withAttr("checked", @select)}, "Select All")
+                                    m('button', {class: 'btn btn-link', checked: false, \
+                                                 onclick: m.withAttr("checked", @select)}, "Deselect All")
                                 ])
                             ])
                         ])
                     ])
 
                     m('div', {class: 'row'}, [
-                        m('div', {class: 'cold-md-6'}, [
+                        m('div', {class: 'col-md-6'}, [
                             m('div', {class: 'gene-list-wrapper'}, [
                                 m('fieldset', [
                                     m('span', {class: 'col-md-12'}, ["Select one or more #{@type} factors"])
@@ -117,14 +126,34 @@ class GeneForm
                                 ])
                             ])
                         ])
-                    ])
-
-                    m('div', {class: 'row'}, [
-                        m('div', {class: 'cold-md-6'}, [
+                        m('div', {class: 'col-md-6'}, [
                             m('div', {class: 'gene-category-wrapper'}, [
                                 m('div', {class: 'gene-category-intro'}, [
                                     m('span', "Select category to refine list of genes:")
                                 ])
+                                for category of @data.categories
+                                    #console.log(@data.categories[category])
+                                    [m('div', {class: "row"}, [
+                                        m('div', {class: "category-header col-xs-12"}, [
+                                            category
+                                        ])
+                                    ])
+
+                                    # Non select2
+                                    m('div', {class: "selectize-control form-control single"}, [
+                                        m('div', {class: "selectize-input items not-full has-options"}, [
+                                            m('input', {type: "text", autocomplete: "off", placeholder: "--Select a category--", style: "width: 134px"})
+                                        ])
+                                    ])
+
+                                    # m('div', {class: "selectize-control form-control single"}, [
+                                    #     m.component(select2, {
+                                    #         data: @data.categories[category]
+                                    #         value: m.prop('hi')
+                                    #         onchange: @changeUser
+                                    #     })
+                                    # ])
+                                    ]
                             ])
                         ])
                     ])
