@@ -46,6 +46,7 @@ m.route(document.body, "/", {
     ]}
     "/meta": {view: -> [
         m.component(Navbar)
+        m.component(Cont, {url: "data/amr"})
     ]}
     "/gbrowse": {view: -> [
         m.component(Navbar)
@@ -53,9 +54,15 @@ m.route(document.body, "/", {
     ]}
     "/groups": {view: -> [
         m.component(Navbar)
+        m.component(Cont, {url: "data/vf"})
     ]}
     "/factors": {view: -> [
         m.component(Navbar)
+        m.component(Cont, {url: "data/meta"})
+    ]}
+    "/results": {view: ->[
+        m.component(Navbar)
+        m.component(GeneResults)
     ]}
 #    "/": Home.get()
 #    "/home": GroupBrowse.get()

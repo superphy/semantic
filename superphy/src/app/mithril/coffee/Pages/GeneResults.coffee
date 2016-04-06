@@ -1,20 +1,19 @@
-class GeneResults extends PageTemplate
-    constructor: () ->
-        @model()
-        @controller()
+# coffeelint: disable=max_line_length
 
-    model: () =>
+class GeneResults
+    @model: () ->
         @title = "Virulence Factor and AMR Results"
+        return @
 
-    controller: () =>
-
-    view: () =>
-        return [
-            super()
+    @controller: (args) ->
+        @title = GeneResults.model()
+        return @
+    @view: (ctrl) ->
+        return m('.'
             m('div', {class: 'toc'}, [
                 m('div', {class: 'well toc-well'}, [
                     m('div', {id: 'vf_result_legend', class: 'legend', display: 'none'}, [
-                        @title
+                        ctrl.title
                     ])
                 ])
             ])
@@ -24,5 +23,5 @@ class GeneResults extends PageTemplate
                     m('h4', "Detected Virulence Factor Alleles")
                 ])
             ])
-        ]
+        )
 

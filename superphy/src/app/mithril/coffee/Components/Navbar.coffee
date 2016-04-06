@@ -1,14 +1,7 @@
+
 # coffeelint: disable=max_line_length
 
-class ComponentTemplate
-    @controller: (args) ->
-        view: () ->
-            console.log("This is a dummy function")
-            return m('a')
-    @view: (ctrl) ->
-        return ctrl.view()
-
-class Navbar extends ComponentTemplate
+class Navbar
     @controller: (args) ->
         @links = [
             {title: "Genome", url: "/Home.get()"}

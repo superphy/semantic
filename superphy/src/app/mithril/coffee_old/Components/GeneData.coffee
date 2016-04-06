@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 class GeneData
     model: (json = {}) =>
         @categories = {}
