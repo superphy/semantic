@@ -3,11 +3,12 @@
 views.py
 provides the endpoints for this particular blueprint.
 """
+import datetime
 from flask import jsonify
+
 from superphy.shared import sparql
 
 from . import data
-
 
 @data.after_request
 def add_header(response):
@@ -23,8 +24,8 @@ def query():
     """
     #General query to test if the requests are working.
     """
-    data = (sparql.get_x_triples(10))
-    return jsonify(data)
+    results = (sparql.get_x_triples(10))
+    return jsonify(results)
 
 @data.route('/meta', methods=['GET', 'POST'])
 def meta():
@@ -32,6 +33,7 @@ def meta():
     General query that returns all genomes and their metadata.
     """
     results = (sparql.get_all_genome_metadata())
+    results['date'] = (datetime.datetime.now() + datetime.timedelta(minutes=30)).isoformat()
     return jsonify(results)
 
 @data.route('/meta2', methods=['GET'])

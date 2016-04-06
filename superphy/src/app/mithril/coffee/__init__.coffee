@@ -46,7 +46,7 @@ m.route(document.body, "/", {
     ]}
     "/meta": {view: -> [
         m.component(Navbar)
-        m.component(Cont, {url: "data/amr"})
+        m.component(RawEndpoint, {url: "data/amr"})
     ]}
     "/gbrowse": {view: -> [
         m.component(Navbar)
@@ -54,11 +54,11 @@ m.route(document.body, "/", {
     ]}
     "/groups": {view: -> [
         m.component(Navbar)
-        m.component(Cont, {url: "data/vf"})
+        m.component(RawEndpoint, {url: "data/vf"})
     ]}
     "/factors": {view: -> [
         m.component(Navbar)
-        m.component(Cont, {url: "data/meta"})
+        m.component(RawEndpoint, {url: "data/meta"})
     ]}
     "/results": {view: ->[
         m.component(Navbar)
