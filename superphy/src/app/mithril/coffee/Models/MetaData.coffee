@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 MetaData = (args) ->
     args = args || {}
     #at this point the data is static. At a later date we can add in

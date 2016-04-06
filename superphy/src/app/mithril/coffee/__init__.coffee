@@ -44,6 +44,10 @@ m.route(document.body, "/", {
         m.component(Navbar)
         m.component(Home)
     ]}
+    "/SignUp": {view: -> [
+        m.component(Navbar)
+        m.component(CreateAccount)
+    ]}
     "/meta": {view: -> [
         m.component(Navbar)
         m.component(RawEndpoint, {url: "data/amr"})
