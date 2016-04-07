@@ -20,6 +20,7 @@ gulp.task('coffee_to_js',  function() {
     gulp.src(['./coffee/Components/*.coffee']),
     //Pages are used in routes. Routes are found in root folder
     gulp.src(['./coffee/Pages/*.coffee']),
+    gulp.src(['./coffee/Pages/*/*.coffee']),
     //All other subfolders are imported before the root
     gulp.src(['./coffee/*/*.coffee']),
     //All other root files are imported before __init__

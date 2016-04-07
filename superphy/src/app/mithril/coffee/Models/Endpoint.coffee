@@ -34,6 +34,7 @@ getEndpoint = (url) ->
     return response
 
 class RawEndpoint
+    #Testing assistant class
     @controller: (args) ->
         url = args.url
         @data = getEndpoint(args.url)

@@ -5,6 +5,7 @@ class LoginForm
         @user = new User()
         @submit = () ->
             User.log_in(@user)
+            console.log(m.route('/'))
         return @
     @view: (ctrl) ->
         m('.container'
