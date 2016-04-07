@@ -37,11 +37,9 @@ events.delete_item = (list) ->
 
 m.route(document.body, "/", {
     "/": {view: -> [
-        m.component(Navbar)
         m.component(Home)
     ]}
     "/home": {view: -> [
-        m.component(Navbar)
         m.component(Home)
     ]}
     "/SignUp": {view: -> [
