@@ -2,11 +2,8 @@ class Factors extends Page
     @controller: (args) ->
         @active = m.prop("genes")
         @tabCtrl = new mc.Tabs.controller('genes')
-        @data = {
-            vf: m.prop([])
-            amr: m.prop([])
-            genomes: m.prop([])
-        }
+        @genedata = "somedata" ## This will be the gene data from a request
+        @genomedata = "somedata2"
         return @
 
     @view: (ctrl) ->
@@ -31,7 +28,16 @@ class Factors extends Page
             m('.', {class: 'tab-content'}, [
                 m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
-                        "vf and amr forms here"
+                        m.component(GeneSearchPanel, {
+                            title: "Virulence Factor"
+                            type: "vf"
+                            data: ctrl.genedata
+                        })
+                        m.component(GeneSearchPanel, {
+                            title: "Antimicrobial Resistance"
+                            type: "amr"
+                            data: ctrl.genedata
+                        })
                     ])
                 ])
             ])
@@ -61,25 +67,7 @@ class Factors extends Page
                 m('.', {id: 'page-content-wrapper'}, [
                     m('.', {id: 'page-content -inset'}, [
                         m('.container-fluid', [
-                            m('.', {class: 'row'}, [
-                                m('.col-xs-8', [
-                                    m('.content-header', [
-                                        m('h1', [
-                                            m('span', {class: "title_part1"}, 'VIRULENCE & AMR')
-                                        ])
-                                    ])
-                                ])
-                                m('.', {class: 'col-xs-4'}, [
-                                    m('button', {id: "intro-button", class: "btn btn-danger btn-lg", type:"button"}, [
-                                        "INTRODUCTION"
-                                    ])
-                                ])
-                            ])
-                            m('.', {class: 'intro'}, [
-                                m('p', 'BSearch for the presence or absence of virulence factor genes or antimicrobial resistance 
-                                        genes in genomes of interest. Detailed information on individual virulence factor or 
-                                        antimicrobial resistance genes can be retrieved by clicking on the individual genes.')
-                            ])
+                            m.component(FactorsIntro)
                             m('.container', [
                                 mc.Tabs.view(ctrl.tabCtrl, tabOptions)
                                 renderTabContents(ctrl)
@@ -89,3 +77,33 @@ class Factors extends Page
                 ])
             ])
         )
+
+FactorsIntro =
+    view: (ctrl, args) ->
+        m(".intro", [
+            m('.', {class: 'row'}, [
+                m('.col-xs-8', [
+                    m('.content-header', [
+                        m('h1', [
+                            m('span', {class: "title_part1"}, 'VIRULENCE & AMR '),
+                            m('span', {class: "title_part2"}, 'GENES')
+                        ])
+                    ])
+                ])
+                m('.', {class: 'col-xs-4'}, [
+                    m('button', {id: "intro-button", \
+                                 class: "btn btn-danger btn-lg", \
+                                 type:"button"}, [
+                        "INTRODUCTION"
+                    ])
+                ])
+            ])
+            m("p", "Search for the presence or absence of 
+                    virulence factor genes or antimicrobial 
+                    resistance genes in genomes of interest. 
+                    Detailed information on individual virulence 
+                    factor or antimicrobial resistance genes 
+                    can be retrieved by clicking on the 
+                    individual genes.")
+        ])
+
