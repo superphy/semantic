@@ -39,5 +39,5 @@ superphy/src/upload/python/samples/*
 superphy/src/upload/python/*.nhr
 superphy/src/upload/python/*.nin
 superphy/src/upload/python/*.nsq
-
+superphy/src/app/mithril/css/*
 superphy/src/app/mithril/js/mithril.js
