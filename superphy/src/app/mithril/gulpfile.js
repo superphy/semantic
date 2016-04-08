@@ -15,7 +15,7 @@ var streamqueue = require('streamqueue');
 gulp.task('coffee_to_js',  function() {
 	return streamqueue ({ objectMode: true},
 		//Templates are inherited by both Components and Pages
-    gulp.src(['./coffee/Templates.coffee']),
+    gulp.src(['./coffee/Pages/Page.coffee']),
     //Components are used in Pages
     gulp.src(['./coffee/Components/*.coffee']),
     //Pages are used in routes. Routes are found in root folder
