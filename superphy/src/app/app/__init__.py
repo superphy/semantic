@@ -11,6 +11,7 @@ from flask import Flask
 
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.httpauth import HTTPBasicAuth
+from flask.ext.cors import CORS
 
 from .config import config
 
@@ -18,7 +19,7 @@ from .config import config
 
 db = SQLAlchemy()
 auth = HTTPBasicAuth()
-
+cors = CORS
 
 from .models import User
 
@@ -29,7 +30,7 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
-
+    cors(app)
     db.init_app(app)
 
     with app.app_context():
