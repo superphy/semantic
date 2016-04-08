@@ -63,8 +63,7 @@ m.route(document.body, "/", {
         m.component(RawEndpoint, {url: "data/vf"})
     ]}
     "/factors": {view: -> [
-        m.component(Navbar)
-        m.component(RawEndpoint, {url: "data/meta"})
+        m.component(Factors)
     ]}
     "/results": {view: ->[
         m.component(Navbar)
