@@ -1,11 +1,5 @@
 # coffeelint: disable=max_line_length
 
-
-class Page
-    @view: (args) ->
-        args = args or ""
-        m('.',        m.component(Navbar), args)
-
 class Home extends Page
     @controller: (args) ->
         args = args || {}
