@@ -87,7 +87,7 @@ SearchSelect =
             ])
         ])
 
-GeneTable = 
+GeneTable =
     controller: (args) ->
     view: (ctrl, args) ->
         m(".col-md-6", [

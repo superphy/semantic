@@ -98,12 +98,23 @@ FactorsIntro =
                     ])
                 ])
             ])
-            m("p", "Search for the presence or absence of 
-                    virulence factor genes or antimicrobial 
-                    resistance genes in genomes of interest. 
-                    Detailed information on individual virulence 
-                    factor or antimicrobial resistance genes 
-                    can be retrieved by clicking on the 
+            m("p", "Search for the presence or absence of
+                    virulence factor genes or antimicrobial
+                    resistance genes in genomes of interest.
+                    Detailed information on individual virulence
+                    factor or antimicrobial resistance genes
+                    can be retrieved by clicking on the
                     individual genes.")
         ])
+
+## Model that holds the gene and genome data
+##  and the selected factors/genomes.
+DataModel =
+    vfList: []
+    amrList: []
+    genomeslist: []
+    selectedVF: []
+    selectedAMR: []
+    selectedGenomes: []
+
 
