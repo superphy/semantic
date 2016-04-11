@@ -28,31 +28,28 @@ gulp.task('coffee_to_js',  function() {
     //By including __init__ last, every other class is before this in the single page aplication.
     gulp.src(['./coffee/__init__.coffee'])
 	)
-  	   	.pipe(flatten())
-		.pipe(concat('all.coffee'))
-		.pipe(coffee())
-      	//.pipe(uglify())
-        .pipe(rename({
-        	extname: '.min.js'
-        }))
-        .pipe(gulp.dest('./js')
-    );
+  	.pipe(flatten())
+  	.pipe(concat('all.coffee'))
+  	.pipe(coffee())
+    //.pipe(uglify())
+    .pipe( rename( { extname: '.min.js'} ) )
+    .pipe(gulp.dest('./js'));
 });
 
 gulp.task('less_to_css', function() {
   return gulp.src(['./less/*.less'])
-      .pipe(less())
-      .pipe(gulp.dest('./css/'));
+    .pipe(less())
+    .pipe(gulp.dest('./css/'));
 });
 
 gulp.task('minify_css', function() {
   return gulp.src('./css/*.css')
-      .pipe(concat('all.css'))
-      .pipe(minifyCSS())
-       .pipe(rename({
-         extname: '.min.css'
-       }))
-       .pipe(gulp.dest('./css/'))
+    .pipe(concat('all.css'))
+    .pipe(minifyCSS())
+    .pipe(rename({
+      extname: '.min.css'
+    }))
+    .pipe(gulp.dest('./css/'))
 });
 
 gulp.task('default', ['less_to_css'], function() {
