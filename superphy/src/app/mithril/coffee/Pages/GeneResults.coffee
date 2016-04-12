@@ -1,6 +1,6 @@
 # coffeelint: disable=max_line_length
 
-class GeneResults
+class GeneResults extends Page
     @model: () ->
         @title = "Virulence Factor and AMR Results"
         return @
@@ -9,7 +9,7 @@ class GeneResults
         @title = GeneResults.model()
         return @
     @view: (ctrl) ->
-        return m('.'
+        super m('.'
             m('div', {class: 'toc'}, [
                 m('div', {class: 'well toc-well'}, [
                     m('div', {id: 'vf_result_legend', class: 'legend', display: 'none'}, [

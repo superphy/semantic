@@ -1,6 +1,6 @@
 # coffeelint: disable=max_line_length
 
-class GroupBrowse
+class GroupBrowse extends Page
     @controller: (args) ->
         @data = getEndpoint(url="data/meta")
         @sort_table = (list, attribute = 'data-sort-by') ->
@@ -35,7 +35,7 @@ class GroupBrowse
         begin = pageY / 60 | 0
         end = begin + (state.pageHeight /60 | 0 + 10)
         offset = pageY % 60
-        m(".Occlusion", {style: {height: ctrl.data().rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
+        super m(".Occlusion", {style: {height: ctrl.data().rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
             m("table", {style: {top: state.pageY + "px"}}, [
                 m("tr", [
                     for header in ctrl.data().headers

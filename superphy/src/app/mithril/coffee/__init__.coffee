@@ -36,39 +36,15 @@ events.delete_item = (list) ->
     }
 
 m.route(document.body, "/", {
-    "/": {view: -> [
-        m.component(Home)
-    ]}
-    "/home": {view: -> [
-        m.component(Home)
-    ]}
-    "/SignUp": {view: -> [
-        m.component(Navbar)
-        m.component(CreateAccount)
-    ]}
-    "/Login": {view: -> [
-        m.component(Navbar)
-        m.component(LoginForm)
-    ]}
-    "/meta": {view: -> [
-        m.component(Navbar)
-        m.component(RawEndpoint, {url: "data/amr"})
-    ]}
-    "/gbrowse": {view: -> [
-        m.component(Navbar)
-        m.component(GroupBrowse)
-    ]}
-    "/groups": {view: -> [
-        m.component(Navbar)
-        m.component(RawEndpoint, {url: "data/vf"})
-    ]}
-    "/factors": {view: -> [
-        m.component(Factors)
-    ]}
-    "/results": {view: ->[
-        m.component(Navbar)
-        m.component(GeneResults)
-    ]}
+    "/": view: -> m.component(Home)
+    "/home": view: -> m.component(Home)
+    "/SignUp": view: -> m.component(CreateAccount)
+    "/Login": view: -> m.component(LoginForm)
+    "/meta": view: ->  m.component(RawEndpoint, {url: "data/amr"})
+    "/gbrowse": view: -> m.component(GroupBrowse)
+    "/groups": view: -> m.component(RawEndpoint, {url: "data/vf"})
+    "/factors": view: -> m.component(Factors)
+    "/results": view: -> mm.component(GeneResults)
 #    "/": Home.get()
 #    "/home": GroupBrowse.get()
 #    "/meta": GroupBrowse.get()

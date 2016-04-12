@@ -1,13 +1,13 @@
 # coffeelint: disable=max_line_length
 
-class LoginForm
+class LoginForm extends Page
     @controller: (args) ->
         @user = new User()
         @submit = () ->
             User.log_in(@user)
         return @
     @view: (ctrl) ->
-        m('.container'
+        super m('.container'
             m('.panel panel-default', m('panel-body', m('form.form-horizontal'
                 m('h3', "Log in")
                 m('input[type=text]', {
