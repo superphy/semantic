@@ -26,8 +26,14 @@ class Gene(NamedIndividual):
                            spurious entries
 
         """
-
-        searchparam = ["gene", "vfo_id", "category", "subcategory", "uniprot", "gene_type", "aro_id", "aro_accession"]
+        searchparam = ["gene",
+                       "category", 
+                       "subcategory",
+                       "vfo_id",
+                       "uniprot",
+                       "gene_type",
+                       "aro_id", 
+                       "aro_accession"]
 
         super(Gene, self).__init__(graph, name)
         self.kwargs = {key: value for key, value in kwargs.items() if key in searchparam}
@@ -141,7 +147,7 @@ class GeneLocation(NamedIndividual):
     A class for information about a gene and its location on a contig.
     """
 
-    def __init__(self, graph, name, gene, contig, begin, end, seq, is_ref_gene):
+    def __init__(self, graph, name, gene, contig, begin, end, seq, is_ref_gene, cutoff):
         """
         Creates a GeneLocation with beginning and end positions using the faldo ontology
 
@@ -154,6 +160,7 @@ class GeneLocation(NamedIndividual):
             end (str): the end position of the gene in contig
             seq (str): the sequence of the gene on the contig
             is_ref_gene (boolean): signifies whether this is the reference gene location for a particular gene
+            cutoff(str): from RGI analysis for AMR, one of Loose, Perfect or Strict
 
         """
 
@@ -164,6 +171,8 @@ class GeneLocation(NamedIndividual):
         self.end = end
         self.seq = seq
         self.is_ref_gene = is_ref_gene
+        self.cutoff = cutoff
+
 
     def rdf(self):
         """
@@ -176,6 +185,9 @@ class GeneLocation(NamedIndividual):
         self.graph.add((n[self.gene], rdf.type, gfvo.gene))
         self.graph.add((n[self.name], n.references, n[self.contig]))
         self.graph.add((n[self.contig], n.has_gene, n[self.name]))
+        self.graph.add((n[self.name], n.is_gene_of, n[self.contig]))
+        if self.cutoff:
+            self.graph.add((n[self.name], n.type_match, n[self.cutoff]))
 
         if self.is_ref_gene:
             self.graph.add((n[self.name], rdf.type, n.reference_gene))
@@ -204,6 +216,3 @@ class GeneLocation(NamedIndividual):
         # sequence
         literal = Literal(self.seq, datatype=XSD.string)
         self.graph.add((n[self.name], n.has_sequence, literal))
-
-
-

@@ -370,10 +370,12 @@ class GeneMetadataUploader(MetadataUploader):
                     if key2 == "ARO_category":
                         for category_key in data[key][key2]:
                             metadata.add_parameter(
-                                "category_uri",
-                                self.remove_bad_chars(
-                                    data[key][key2][category_key]["category_aro_name"]
-                                )
+                                # "category_uri",
+                                # self.remove_bad_chars(
+                                #     data[key][key2][category_key]["category_aro_name"]
+                                # )
+                                "category",
+                                data[key][key2][category_key]["category_aro_name"]
                             )
                             metadata.add_parameter(
                                 "category", data[key][key2][category_key]["category_aro_name"])
@@ -480,7 +482,7 @@ if __name__ == "__main__":
     # MD = GenomeMetadataUploader("samples/meta_pipe_result.json", "Human")
     # MD.upload()
 
- #    # For gene testing
+ #  # For gene testing
     # GMD1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
     # GMD1.upload_genes()
 
