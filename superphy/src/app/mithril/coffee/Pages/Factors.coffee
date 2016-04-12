@@ -2,8 +2,9 @@ class Factors extends Page
     @controller: (args) ->
         @active = m.prop("genes")
         @tabCtrl = new mc.Tabs.controller('genes')
-        @genedata = "somedata" ## This will be the gene data from a request
-        @genomedata = "somedata2"
+        @vfdata = getEndpoint(url="data/vf")
+        @amrdata = getEndpoint(url="data/amr")
+        @genomedata = getEndpoint(url="data/meta")
         return @
 
     @view: (ctrl) ->
