@@ -21,7 +21,7 @@ class Navbar
                 m("ul.nav navbar-nav"
                     m("li"
                         m("a", {href: link.url, config:m.route}, link.title)
-                    ) for link in ctrl.links
+                    ) for link in @links
                     m("li.dropdown"
                         m("a.dropdown-toggle"
                             {href:"", role:"button", 'data-toggle':"dropdown"}
