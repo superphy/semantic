@@ -2,7 +2,7 @@
 
 class GroupBrowse
     @controller: (args) ->
-        @data = getEndpoint(url="data/meta")
+        @data = getEndpoint(url="data/meta")()
         return @
 
     @view: (ctrl) ->

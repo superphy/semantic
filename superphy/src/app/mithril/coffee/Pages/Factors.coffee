@@ -2,9 +2,7 @@ class Factors extends Page
     @controller: (args) ->
         @active = m.prop("genes")
         @tabCtrl = new mc.Tabs.controller('genes')
-        @vfdata = getEndpoint(url="data/vf")
-        @amrdata = getEndpoint(url="data/amr")
-        @genomedata = getEndpoint(url="data/meta")
+        @model = GeneSearchModel
         return @
 
     @view: (ctrl) ->
@@ -32,12 +30,12 @@ class Factors extends Page
                         m.component(GeneSearchPanel, {
                             title: "Virulence Factor"
                             type: "vf"
-                            data: ctrl.genedata
+                            data: ctrl.model.vfList
                         })
                         m.component(GeneSearchPanel, {
                             title: "Antimicrobial Resistance"
                             type: "amr"
-                            data: ctrl.genedata
+                            data: ctrl.model.amrList
                         })
                     ])
                 ])
@@ -108,14 +106,6 @@ FactorsIntro =
                     individual genes.")
         ])
 
-## Model that holds the gene and genome data
-##  and the selected factors/genomes.
-DataModel =
-    vfList: []
-    amrList: []
-    genomeslist: []
-    selectedVF: []
-    selectedAMR: []
-    selectedGenomes: []
+
 
 

@@ -1,6 +1,14 @@
 class TableView
+    state = {pageY: 0, pageHeight: window.innerHeight}
+    window.addEventListener("scroll", (e) ->
+        state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
+        state.pageHeight = window.innerHeight
+        m.redraw()
+    )
     @controller: (args) ->
-        @data = args.data
+        console.log(args)
+        #@data = args.data
+        #@checkbox = args.checkbox
         @sort_table = (list, attribute = 'data-sort-by') ->
             { onclick: (e) ->
                 item = e.target.getAttribute(attribute)
@@ -22,27 +30,45 @@ class TableView
                 return
             }
         return @
-    state = {pageY: 0, pageHeight: window.innerHeight}
-    window.addEventListener("scroll", (e) ->
-        state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
-        state.pageHeight = window.innerHeight
-        m.redraw()
-    )
-    @view: (ctrl) ->
+    
+    @view: (ctrl, args) ->
+        rows = args.data.rows
+        headers = args.data.headers
         pageY = state.pageY
         begin = pageY / 60 | 0
         end = begin + (state.pageHeight /60 | 0 + 10)
         offset = pageY % 60
-        m(".Occlusion", {style: {height: ctrl.data().rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
+        m(".Occlusion", {style: {height: args.data.rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
             m("table", {style: {top: state.pageY + "px"}}, [
                 m("tr", [
-                    for header in ctrl.data().headers
-                        m('th[data-sort-by=' + header + ']', ctrl.sort_table(list = ctrl.data().rows) ,[header])
+                    for header in args.data.headers
+                        m('th[data-sort-by=' + header + ']', ctrl.sort_table(list = args.data.rows) ,[header])
                 ])
-                for row, x in ctrl.data().rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
+                for row, x in args.data.rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
-                        for header in ctrl.data().headers
-                            m('td', [row[header]])
+                        if args.checkbox
+                            for header in headers.slice(0,1)
+                                if row.visible() then \
+                                    m('td', {class: 'gene_table_item'}, [
+                                        m('div', class: {'checkbox'}, [
+                                            m('label', [
+                                                m('input[type=checkbox]', {class: 'checkbox gene-table-checkbox gene-search-select', \
+                                                                           checked: row.selected(), \
+                                                                           onclick: m.withAttr("checked", row.selected)})
+                                                [row[header]]
+                                            ])
+                                        ])
+                                    ])
+                            for header in headers.slice(1)
+                                if row.visible() then \
+                                    m('td', {class: 'gene_table_item'}, [
+                                        m('label', [
+                                            row[header]
+                                        ])
+                                    ])
+                        else
+                            for header in args.data.headers
+                                m('td', [row[header]])
                     ])
             ])
         ])

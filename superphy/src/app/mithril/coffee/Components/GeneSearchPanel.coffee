@@ -1,37 +1,34 @@
 class GeneSearchPanel
     @controller: (args) ->
-        self = @
-        @args = args || {}
-
-        @select = (all) ->
-
         @toggle = (checked) ->
 
         return @
 
-    @view: (ctrl) ->
+    @view: (args, ctrl) ->
         m(".panel panel-default", [
-            m(".panel-heading", {id: "#{ctrl.args.type}-panel-header"}, [
+            m(".panel-heading", {id: "#{ctrl.type}-panel-header"}, [
                 m("h4", {class: "panel-title"},
-                    m("a", {href: "#vf-form", config:m.route}, "#{ctrl.args.title} Form"))
+                    m("a", {href: "#vf-form", config:m.route}, "#{ctrl.title} Form"))
             ])
             m(".panel", {id: "#{ctrl.type}-panel"}, [
                 m(".panel-body", [
                     m(".row", [
                         m.component(SelectedGenes, {
-                            data: "data goes here eventually"
-                            type: ctrl.args.type
+                            data: ctrl.data
+                            type: ctrl.type
                         })
                     ])
                     m(".row", [
                         m.component(SearchSelect, {
-                            title: ctrl.args.title
-                            type: ctrl.args.type
+                            title: ctrl.title
+                            type: ctrl.type
+                            data: ctrl.data
                         })
                     ])
                     m(".row", [
                         m.component(GeneTable, {
-                            type: ctrl.args.type
+                            data: ctrl.data
+                            type: ctrl.type
                         })
                         m.component(CategorySelection)
                     ])
@@ -42,12 +39,16 @@ class GeneSearchPanel
 
 SelectedGenes =
     view: (ctrl, args) ->
+        console.log("selectedgenes", args.data)
         m(".", {class: "col-md-6 col-md-offset-3"}, [
             m(".", {class: "selected-gene-list-wrapper", id: "#{args.type}-selected-list"}, [
                 m("fieldset", [
                     m("span", ["Selected factors:"])
                     m("ul", {id: "#{args.type}-selected"}, [
-                        args.data
+                        for row in args.data.rows when row.selected()
+                            m('li', {class: 'selected-gene-item'}, [
+                                row["Gene_Name"]
+                            ])
                     ])
                 ])
             ])
@@ -65,7 +66,10 @@ SearchSelect =
 
             console.log("Searching.....")
 
-            ## stuff about data
+        @select = (all) ->
+            for row in args.data.rows
+                if all is "true" then row.selected(true) else row.selected(false)
+
         return
 
     view: (ctrl, args) ->
@@ -80,9 +84,9 @@ SearchSelect =
             m('.col-md-3', [
                 m('.btn-group', [
                     m('button', {class: 'btn btn-link', checked: true, \
-                                 onclick: m.withAttr("checked", @select)}, "Select All")
+                                 onclick: m.withAttr("checked", ctrl.select)}, "Select All")
                     m('button', {class: 'btn btn-link', checked: false, \
-                                 onclick: m.withAttr("checked", @select)}, "Deselect All")
+                                 onclick: m.withAttr("checked", ctrl.select)}, "Deselect All")
                 ])
             ])
         ])
@@ -95,6 +99,12 @@ GeneTable =
                 m("fieldset", [
                     m("span", {class: "col-md-12"}, [
                         "Select one or more #{args.type} factors"
+                        m(".",
+                            m.component(TableView, {
+                                data: args.data
+                                checkbox: true
+                            })
+                        )
                     ])
                 ])
             ])
