@@ -6,7 +6,8 @@ from flask import abort, request, jsonify, g, url_for
 
 from . import api
 from ..models import User
-from .. import auth, db
+from .. import auth, db, cors
+
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -23,6 +24,15 @@ def verify_password(username_or_token, password):
             return False
     g.user = user
     return True
+
+@api.after_request
+def add_header(response):
+    """
+    Append after request the nessesary headers.
+    """
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = "accept, content-type, authorization"
+    return response
 
 @api.route('/users', methods=['POST'])
 def new_user():
