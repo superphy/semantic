@@ -34,14 +34,20 @@ class GeneSearchPanel
                     ])
                 ])
             ])
-        ])
+        ]) 
 
 
 SelectedGenes =
+    controller: (args) ->
+        returnSelected: () =>
+            selected_genes = []
+            for row in args.rows when row.selected()
+                selected_genes.push(row.Gene_Name)
+            return selected_genes
     view: (ctrl, args) ->
-        console.log("selectedgenes", args.data)
         m(".", {class: "col-md-6 col-md-offset-3"}, [
-            m(".", {class: "selected-gene-list-wrapper", id: "#{args.type}-selected-list"}, [
+            m(".", {class: "selected-gene-list-wrapper", \
+                    id: "#{args.type}-selected-list"}, [
                 m("fieldset", [
                     m("span", ["Selected factors:"])
                     m("ul", {id: "#{args.type}-selected"}, [
@@ -56,6 +62,7 @@ SelectedGenes =
 
 SearchSelect =
     controller: (args) ->
+        self = @
         @searchterm = m.prop("")
         escapeRegExp = (str) ->
             str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
@@ -65,6 +72,14 @@ SearchSelect =
             regex = new RegExp(escapeRegExp(term), "i")
 
             console.log("Searching.....")
+
+            for row in args.data.rows
+                gene = row.Gene_Name
+                if regex.test(gene)
+                    row.visible(true)
+                else
+                    row.visible(false)
+            return true
 
         @select = (all) ->
             for row in args.data.rows
@@ -84,9 +99,11 @@ SearchSelect =
             m('.col-md-3', [
                 m('.btn-group', [
                     m('button', {class: 'btn btn-link', checked: true, \
-                                 onclick: m.withAttr("checked", ctrl.select)}, "Select All")
+                                 onclick: m.withAttr("checked", ctrl.select)}, \
+                                 "Select All")
                     m('button', {class: 'btn btn-link', checked: false, \
-                                 onclick: m.withAttr("checked", ctrl.select)}, "Deselect All")
+                                 onclick: m.withAttr("checked", ctrl.select)}, \
+                                 "Deselect All")
                 ])
             ])
         ])

@@ -6,9 +6,6 @@ class TableView
         m.redraw()
     )
     @controller: (args) ->
-        console.log(args)
-        #@data = args.data
-        #@checkbox = args.checkbox
         @sort_table = (list, attribute = 'data-sort-by') ->
             { onclick: (e) ->
                 item = e.target.getAttribute(attribute)
@@ -46,21 +43,21 @@ class TableView
                 ])
                 for row, x in args.data.rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
-                        if args.checkbox
-                            for header in headers.slice(0,1)
-                                if row.visible() then \
+                        if args.checkbox and row.visible() then \
+                            for header in headers
+                                if header is "Gene"
                                     m('td', {class: 'gene_table_item'}, [
-                                        m('div', class: {'checkbox'}, [
+                                        m('.checkbox', [
                                             m('label', [
-                                                m('input[type=checkbox]', {class: 'checkbox gene-table-checkbox gene-search-select', \
-                                                                           checked: row.selected(), \
-                                                                           onclick: m.withAttr("checked", row.selected)})
-                                                [row[header]]
+                                                m('input[type=checkbox]', 
+                                                  {class: 'checkbox gene-table-checkbox gene-search-select', \
+                                                   checked: row.selected(), \
+                                                   onclick: m.withAttr("checked", row.selected)})
+                                                row[header]
                                             ])
                                         ])
                                     ])
-                            for header in headers.slice(1)
-                                if row.visible() then \
+                                else
                                     m('td', {class: 'gene_table_item'}, [
                                         m('label', [
                                             row[header]

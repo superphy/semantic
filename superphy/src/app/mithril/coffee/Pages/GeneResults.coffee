@@ -56,7 +56,7 @@ Matrix =
     controller: (args) ->
         @genomeDict = {}
         for genome in args.genomes
-            @genomeDict[genome] {}
+            @genomeDict[genome] = {}
             for gene in args.genes
                 @genomeDict[genome][gene] = 0
 
@@ -67,23 +67,25 @@ Matrix =
                     @genomeDict[selectedGenome][gene_name] += 1
                 console.log("Response:", response)
 
-            m.request(
-                method: "POST",
-                url: "http://#{location.hostname}:5000/data/genesearchresults",
-                data: {
-                    genome: selectedGenome
-                    genes: ["saa"] ## temp for testing
-                }
-                datatype: "json",
-                type: parseResponse
-            )
+            ep = getEndpoint("data/genesearchresults")
+
+            # m.request(
+            #     method: "POST",
+            #     url: "http://#{location.hostname}:5000/data/genesearchresults",
+            #     data: {
+            #         genome: selectedGenome
+            #         genes: ["saa"] ## temp for testing
+            #     }
+            #     datatype: "json",
+            #     type: parseResponse
+            # )
 
         for g in args.genomes
             request(g)
 
     view: (ctrl, args) ->
-        m 'div', {id: 'vf_result_matrix'},
-            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.genomeDict)}
+        # m 'div', {id: 'vf_result_matrix'},
+        #     m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.genomeDict)}
 
 
 Histogram =

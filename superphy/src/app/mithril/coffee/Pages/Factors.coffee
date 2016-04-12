@@ -54,7 +54,11 @@ class Factors extends Page
             m('.', {class: 'tab-content'}, [
                 m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
-                        "Testing Submit"
+                        m.component(SubmitView, {
+                            selectedVF: ctrl.model.selectedVF
+                            selectedAMR: ctrl.model.selectedAMR
+                            selectedGenomes: ctrl.model.selectedGenomes
+                        })
                     ])
                 ])
             ])
@@ -106,6 +110,17 @@ FactorsIntro =
                     individual genes.")
         ])
 
-
+SubmitView =
+    view: (ctrl, args) ->
+        m('.tab-content', [
+            m('.tab-pane active', {id: 'gene-search-submit'}, [
+                m('.row', [
+                    m('.gene-search-next-wrapper', {id: 'query-gene-form'}, [
+                        m('button', {class: 'btn btn-success', type: 'submit', value: 'Submit'}, "Submit")
+                        m('button', {class: 'btn btn-danger', type: 'reset', value: 'Reset'}, "Reset")
+                    ])
+                ])
+            ])
+        ])
 
 
