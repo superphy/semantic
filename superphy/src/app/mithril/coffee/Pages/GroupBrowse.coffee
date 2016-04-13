@@ -1,6 +1,8 @@
 # coffeelint: disable=max_line_length
 
 class GroupBrowse extends Page
+    Routes.add('/gbrowse', @)
+
     @controller: (args) ->
         @data = getEndpoint(url="data/meta")
         @sort_table = (list, attribute = 'data-sort-by') ->
@@ -30,6 +32,7 @@ class GroupBrowse extends Page
         state.pageHeight = window.innerHeight
         m.redraw()
     )
+    
     @view: (ctrl) ->
         pageY = state.pageY
         begin = pageY / 60 | 0
@@ -48,3 +51,4 @@ class GroupBrowse extends Page
                     ])
             ])
         ])
+

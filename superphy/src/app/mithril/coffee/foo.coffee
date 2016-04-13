@@ -24,6 +24,3 @@ class FooFoo
                 value: ctrl.not_saved()
             })
         )
-
-
-

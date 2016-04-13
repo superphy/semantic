@@ -1,6 +1,7 @@
 # coffeelint: disable=max_line_length
 
 class GeneResults extends Page
+    Routes.add('/results', @)
     @model: () ->
         @title = "Virulence Factor and AMR Results"
         return @

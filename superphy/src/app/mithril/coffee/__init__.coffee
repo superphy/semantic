@@ -35,25 +35,12 @@ events.delete_item = (list) ->
         console.log("list: " + list)
     }
 
-ROUTES = {
-    "/": view: -> m.component(Home)
-    "/home": view: -> m.component(Home)
-    "/SignUp": view: -> m.component(CreateAccount)
-    "/Login": view: -> m.component(LoginForm)
-    "/meta": view: ->  m.component(RawEndpoint, {url: "data/amr"})
-    "/gbrowse": view: -> m.component(GroupBrowse)
-    "/groups": view: -> m.component(RawEndpoint, {url: "data/vf"})
-    "/factors": view: -> m.component(Factors)
-    "/results": view: -> mm.component(GeneResults)
-}
-
-add_route =  (func, route) ->
-    ROUTES["/#{route}"] = view: -> m.component(func)
-
-document.body.onload = ->
-    for k, v of ROUTES
-        console.log(k)
-    m.route(document.body, "/", ROUTES)
+Routes = {}
+Routes.add = (route, class_) ->
+    Routes.routes ?= {}
+    if route.substring(0,1) is '/'
+        route = route.substring(1)
+    Routes.routes["/#{route}"] = view: -> m.component(class_)
 
 #    "/": Home.get()
 #    "/home": GroupBrowse.get()

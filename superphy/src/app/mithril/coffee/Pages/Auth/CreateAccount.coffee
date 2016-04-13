@@ -1,7 +1,7 @@
 # coffeelint: disable=max_line_length
 
 class CreateAccount extends Page
-
+    Routes.add('/SignUp', @)
     class FormGroup
         @controller: (args) ->
             args = args or {}

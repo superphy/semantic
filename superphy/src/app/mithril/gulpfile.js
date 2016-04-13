@@ -14,11 +14,14 @@ var order = require('gulp-order');
 var print = require('gulp-print');
 
 var ordering = [
-  "**/Pages/Page.coffee",
-  "**/Components/*.coffee",
-  "**/Pages/**/*.coffee",
-  "**/!(__init__)**/*.coffee",
-  "**/__init__.coffee"
+  "__init__.coffee",
+  "Pages/Page.coffee",
+  "Components/**/*.coffee",
+  "Pages/**/*.coffee",
+  "Models/**/*.coffee",
+  "!route.coffee",
+  "**/*.coffee",
+  "route.coffee"
 ]
 
 gulp.task('coffee_to_js',  function() {
@@ -26,7 +29,7 @@ gulp.task('coffee_to_js',  function() {
     .src("coffee/**/*.coffee")
     .pipe(order(ordering))
     .pipe(print(function(filepath) {
-      return "built: " + filepath;
+      return "build: " + filepath;
     }))
   	.pipe(flatten())
   	.pipe(concat('all.coffee'))

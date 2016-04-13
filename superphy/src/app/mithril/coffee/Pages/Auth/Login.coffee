@@ -1,6 +1,7 @@
 # coffeelint: disable=max_line_length
 
 class LoginForm extends Page
+    Routes.add('/Login', @)
     @controller: (args) ->
         @user = new User()
         @submit = () ->
