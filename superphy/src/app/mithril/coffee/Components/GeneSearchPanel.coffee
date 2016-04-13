@@ -39,11 +39,6 @@ class GeneSearchPanel
 
 SelectedGenes =
     controller: (args) ->
-        returnSelected: () =>
-            selected_genes = []
-            for row in args.rows when row.selected()
-                selected_genes.push(row.Gene_Name)
-            return selected_genes
     view: (ctrl, args) ->
         m(".", {class: "col-md-6 col-md-offset-3"}, [
             m(".", {class: "selected-gene-list-wrapper", \

@@ -66,7 +66,6 @@ m.route(document.body, "/", {
         m.component(Factors)
     ]}
     "/results": {view: ->[
-        m.component(Navbar)
         m.component(GeneResults)
     ]}
 #    "/": Home.get()

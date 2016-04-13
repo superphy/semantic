@@ -55,9 +55,7 @@ class Factors extends Page
                 m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
                         m.component(SubmitView, {
-                            selectedVF: ctrl.model.selectedVF
-                            selectedAMR: ctrl.model.selectedAMR
-                            selectedGenomes: ctrl.model.selectedGenomes
+                            data: ctrl.model
                         })
                     ])
                 ])
@@ -111,16 +109,59 @@ FactorsIntro =
         ])
 
 SubmitView =
+    controller: (args) ->
+
     view: (ctrl, args) ->
+        args.data.getSelectedVF()
+        args.data.getSelectedAMR()
         m('.tab-content', [
             m('.tab-pane active', {id: 'gene-search-submit'}, [
+                m.component(SubmitSelectedView, {
+                    selected: args.data.selectedVF
+                    title: "Virulence Factor"
+                })
+                m.component(SubmitSelectedView, {
+                    selected: args.data.selectedAMR
+                    title: "Antimicrobial Resistance"
+                })
+                m.component(SubmitSelectedView, {
+                    selected: args.data.selectedGenomes
+                    title: "Genome"
+                })
                 m('.row', [
                     m('.gene-search-next-wrapper', {id: 'query-gene-form'}, [
-                        m('button', {class: 'btn btn-success', type: 'submit', value: 'Submit'}, "Submit")
-                        m('button', {class: 'btn btn-danger', type: 'reset', value: 'Reset'}, "Reset")
+                        m('button', {class: 'btn btn-success', \
+                                     type: 'submit', \
+                                     value: 'Submit',
+                                     onclick: args.data.submit},
+                           "Submit")
+                        m('button', {class: 'btn btn-danger', \
+                                     type: 'reset', \
+                                     value: 'Reset', \
+                                     onclick: args.data.reset}, 
+                           "Reset")
                     ])
                 ])
             ])
         ])
+
+SubmitSelectedView =
+    view: (ctrl, args) ->
+        m('.row', [
+            m('.col-md-4 col-md-offset-1', [
+                m('.panel panel-default', [
+                    m('.panel-body', {id: 'vf-selected-count'}, [
+                        args.selected.length
+                        " "
+                        args.title.toLowerCase()
+                        if args.selected.length isnt 1 then "s"
+                        " selected"
+                    ])
+                ])
+            ])
+        ])
+
+
+
 
 
