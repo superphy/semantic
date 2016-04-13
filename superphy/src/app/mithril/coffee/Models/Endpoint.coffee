@@ -34,6 +34,7 @@ getEndpoint = (url) ->
     return response
 
 class RawEndpoint
+    Routes.add("test", @, {url:'data/amr'})
     #Testing assistant class
     @controller: (args) ->
         url = args.url

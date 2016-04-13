@@ -36,11 +36,12 @@ events.delete_item = (list) ->
     }
 
 Routes = {}
-Routes.add = (route, class_) ->
+Routes.add = (route, class_, args) ->
+    args = args || {}
     Routes.routes ?= {}
     if route.substring(0,1) is '/'
         route = route.substring(1)
-    Routes.routes["/#{route}"] = view: -> m.component(class_)
+    Routes.routes["/#{route}"] = view: -> m.component(class_, args)
 
 #    "/": Home.get()
 #    "/home": GroupBrowse.get()
