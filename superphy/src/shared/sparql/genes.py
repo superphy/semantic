@@ -101,4 +101,29 @@ def find_regions(gene, genome):
     """ % (gene, genome)
     return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
 
+def get_regions(genome, geneList):
+
+    query = prefixes + """
+    SELECT ?Region ?Gene_Name
+    WHERE
+      { 
+        ?Region rdf:type faldo:Region .
+        ?Gene :has_copy ?Region .
+        ?Contig :has_gene ?Region .
+        ?Contig :is_contig_of ?Genome .
+        ?Genome :has_accession "%s"^^xsd:string . 
+        ?Gene :has_name ?Gene_Name .
+    """ % (genome)
+
+    if len(geneList) > 0:
+        query += """{ ?Gene :has_name "%s"^^xsd:string } """ % geneList[0]
+
+    for gene in geneList[1:]:
+        string = """UNION { ?Gene :has_name "%s"^^xsd:string } """ % gene
+        query += string
+
+    query += ". }"
+    
+    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
+
 

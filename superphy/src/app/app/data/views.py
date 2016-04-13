@@ -120,3 +120,14 @@ def region(geneid, genomeid):
     results = (sparql.find_regions(geneid, genomeid))
     return jsonify(results)
 
+@data.route('/genesearchresults', methods=['POST'])
+def genesearchresults():
+    """
+    Endpoint for returning gene search results
+    """
+    data = request.get_json()
+    genome = data["genome"]
+    genes = data["genes"]
+    results = sparql.get_regions(genome, genes)
+    return jsonify(results)
+
