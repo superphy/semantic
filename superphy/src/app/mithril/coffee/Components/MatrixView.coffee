@@ -4,7 +4,6 @@ class MatrixView
 
     init: (searchResults) =>
     ## search results is an object
-
         genomes = Object.keys(searchResults)
         genes = Object.keys(searchResults[genomes[0]])
 
@@ -16,6 +15,7 @@ class MatrixView
 
 
     _create_matrix: (genomes, genes, searchResults) =>
+        console.log("Creating matrix...")
         self = @
 
         @cellWidth = 20
@@ -158,7 +158,6 @@ class MatrixView
         @_sync(genomes)
 
         @height = @cellWidth * @lengenomes
-        console.log(@height)
 
         @y = d3.scale.ordinal().rangeBands([0, @height])
         @y.domain(@genomeOrders[@orderType])

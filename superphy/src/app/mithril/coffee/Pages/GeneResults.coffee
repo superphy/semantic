@@ -19,9 +19,10 @@ class GeneResults extends Page
                     matrixview: new MatrixView()
                     genomes: data.genomes
                     genes: data.genes
+                    elID: "genome_matrix1"
                 })
                 histogram: m.component(Histogram, {
-
+                    title: "Hello World"
                 })
             })
 
@@ -54,6 +55,7 @@ ContentHeader =
 
 Matrix =
     controller: (args) ->
+        self = @
         @genomeDict = {}
         for genome in args.genomes
             @genomeDict[genome] = {}
@@ -64,28 +66,30 @@ Matrix =
             parseResponse=(response)->
                 for binding in response.results.bindings
                     gene_name = binding["Gene_Name"]['value']
-                    @genomeDict[selectedGenome][gene_name] += 1
+                    self.genomeDict[selectedGenome][gene_name] += 1
                 console.log("Response:", response)
 
-            ep = getEndpoint("data/genesearchresults")
+            #ep = getEndpoint("data/genesearchresults")
 
-            # m.request(
-            #     method: "POST",
-            #     url: "http://#{location.hostname}:5000/data/genesearchresults",
-            #     data: {
-            #         genome: selectedGenome
-            #         genes: ["saa"] ## temp for testing
-            #     }
-            #     datatype: "json",
-            #     type: parseResponse
-            # )
+            m.request(
+                method: "POST",
+                url: "http://#{location.hostname}:5000/data/genesearchresults",
+                data: {
+                    genome: selectedGenome
+                    genes: ["saa"] ## temp for testing
+                }
+                datatype: "json",
+                type: parseResponse
+            )
 
         for g in args.genomes
             request(g)
 
+        return @
+
     view: (ctrl, args) ->
-        # m 'div', {id: 'vf_result_matrix'},
-        #     m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.genomeDict)}
+        m 'div', {id: 'vf_result_matrix'},
+            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.genomeDict)}
 
 
 Histogram =

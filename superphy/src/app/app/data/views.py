@@ -4,7 +4,7 @@ views.py
 provides the endpoints for this particular blueprint.
 """
 import datetime
-from flask import jsonify
+from flask import jsonify, request
 
 from superphy.shared import sparql
 
@@ -126,6 +126,7 @@ def genesearchresults():
     Endpoint for returning gene search results
     """
     data = request.get_json()
+    print data
     genome = data["genome"]
     genes = data["genes"]
     results = sparql.get_regions(genome, genes)

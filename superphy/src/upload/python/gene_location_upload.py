@@ -454,7 +454,8 @@ class AMRLocationUploader(GeneLocationUploader):
         Calls the RGI, which produces a file called Report.json in the 
         release-rgi directory.
         """
-        subprocess.call("python release-rgi-v3.0.1/rgi.py contig %s"
+        print self.filename
+        subprocess.call("python release-rgi-v3.0.1/rgi.py contig %s hi"
                         % (generate_path(self.filename)), shell=True)
 
     def parse_result(self):
@@ -500,7 +501,7 @@ class AMRLocationUploader(GeneLocationUploader):
 
 ###### For Testing purposes ######
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
     # For gene testing
-    VFLocationUploader().upload('data/superphy_vf.xml')
-    # AMRLocationUploader().upload("samples/sample2.fasta")
+    # VFLocationUploader().upload('data/superphy_vf.xml')
+    AMRLocationUploader().upload("")

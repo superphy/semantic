@@ -36,6 +36,7 @@ superphy/src/upload/python/tmp/
 superphy/src/upload/python/tmp/*
 superphy/src/upload/python/samples/*
 
+superphy/src/upload/python/release-rgi-v3.0.1/*
 superphy/src/upload/python/*.nhr
 superphy/src/upload/python/*.nin
 superphy/src/upload/python/*.nsq
