@@ -10,8 +10,10 @@ class MatrixView
         view = @
 
         (el, isInitialized, ctx) ->
+            console.log(ctx)
             if not isInitialized
                 view._create_matrix(genomes, genes, searchResults)
+            # if isInitialized and el is "div "
 
 
     _create_matrix: (genomes, genes, searchResults) =>

@@ -36,9 +36,12 @@ superphy/src/upload/python/tmp/
 superphy/src/upload/python/tmp/*
 superphy/src/upload/python/samples/*
 
+## Gene and genome analysis (database files)
 superphy/src/upload/python/release-rgi-v3.0.1/*
-superphy/src/upload/python/*.nhr
-superphy/src/upload/python/*.nin
-superphy/src/upload/python/*.nsq
+superphy/src/upload/python/*.[np]hr
+superphy/src/upload/python/*.[np]in
+superphy/src/upload/python/*.[np]sq
+superphy/src/upload/python/*.fsa
+
 superphy/src/app/mithril/css/*
 superphy/src/app/mithril/js/mithril.js

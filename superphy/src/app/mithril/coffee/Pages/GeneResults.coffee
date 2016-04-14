@@ -8,18 +8,33 @@ class GeneResults extends Page
         ## Temp data
         data = {
             genomes: ["JHNV00000000", "ANVW00000000"]
-            genes: ["saa", "papC", "ompA", "hylA"]
+            vfs: ["saa", "papC", "ompA", "hylA"]
+            amrs: ["QnrS7"]
         }
         return super(
             m.component(GeneResultsPanel, {
                 header: m.component(ContentHeader, {
-                    title: "Virulence & AMR Results"
+                    title: "Virulence Factor Results"
                 })
                 matrix: m.component(Matrix, {
                     matrixview: new MatrixView()
                     genomes: data.genomes
-                    genes: data.genes
+                    genes: data.vfs
                     elID: "genome_matrix1"
+                })
+                histogram: m.component(Histogram, {
+                    title: "Hello World"
+                })
+            })
+            m.component(GeneResultsPanel, {
+                header: m.component(ContentHeader, {
+                    title: "AMR Results"
+                })
+                matrix: m.component(Matrix, {
+                    matrixview: new MatrixView()
+                    genomes: data.genomes
+                    genes: data.amrs
+                    elID: "genome_matrix2"
                 })
                 histogram: m.component(Histogram, {
                     title: "Hello World"
@@ -69,14 +84,12 @@ Matrix =
                     self.genomeDict[selectedGenome][gene_name] += 1
                 console.log("Response:", response)
 
-            #ep = getEndpoint("data/genesearchresults")
-
             m.request(
                 method: "POST",
                 url: "http://#{location.hostname}:5000/data/genesearchresults",
                 data: {
                     genome: selectedGenome
-                    genes: ["saa"] ## temp for testing
+                    genes: args.genes ## temp for testing
                 }
                 datatype: "json",
                 type: parseResponse

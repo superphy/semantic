@@ -68,11 +68,4 @@ m.route(document.body, "/", {
     "/results": {view: ->[
         m.component(GeneResults)
     ]}
-#    "/": Home.get()
-#    "/home": GroupBrowse.get()
-#    "/meta": GroupBrowse.get()
-#    "/gbrowse": GroupBrowse.get()
-#    "/groups": UploadGenome.get()
-#    "/factors": Factors.get()
-#    "/results": GeneResults.get()
 })
