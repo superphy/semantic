@@ -111,6 +111,11 @@ FactorsIntro =
 
 SubmitView =
     controller: (args) ->
+        @submit = () ->
+            args.data.submit()
+        @reset = () ->
+            args.data.reset()
+        return @
 
     view: (ctrl, args) ->
         args.data.getSelectedVF()
@@ -134,12 +139,12 @@ SubmitView =
                         m('button', {class: 'btn btn-success', \
                                      type: 'submit', \
                                      value: 'Submit',
-                                     onclick: args.data.submit},
+                                     onclick: ctrl.submit},
                            "Submit")
                         m('button', {class: 'btn btn-danger', \
                                      type: 'reset', \
                                      value: 'Reset', \
-                                     onclick: args.data.reset}, 
+                                     onclick: ctrl.reset}, 
                            "Reset")
                     ])
                 ])

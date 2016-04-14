@@ -11,57 +11,95 @@ GeneSearchModel =
     genomeList: []
     selectedVF: []
     selectedAMR: []
-    selectedGenomes: []
+    selectedGenomes: ["JHNV00000000", "ANVW00000000", "CP002729"] ## test
+    vfresults: {}
+    amrresults: {}
 
     setLists: ->
-        vfdata = GeneSearchModel.vfs()
-        amrdata = GeneSearchModel.amrs()
-        GeneSearchModel.vfList["headers"] = vfdata.headers
-        GeneSearchModel.amrList["headers"] = amrdata.headers
+        vfdata = @vfs()
+        amrdata = @amrs()
+        @vfList["headers"] = vfdata.headers
+        @amrList["headers"] = amrdata.headers
         for gene in vfdata.rows
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
-            GeneSearchModel.vfList["rows"] = vfdata.rows
+            @vfList["rows"] = vfdata.rows
         for gene in amrdata.rows
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
-            GeneSearchModel.amrList["rows"] = amrdata.rows
+            @amrList["rows"] = amrdata.rows
 
     getSelectedVF: ->
-        GeneSearchModel.selectedVF = []
-        for row in GeneSearchModel.vfList.rows when row.selected()
-            GeneSearchModel.selectedVF.push(row.Gene_Name)
+        @selectedVF = []
+        for row in @vfList.rows when row.selected()
+            @selectedVF.push(row.Gene_Name)
 
 
     getSelectedAMR: ->
-        GeneSearchModel.selectedAMR = []
-        for row in GeneSearchModel.amrList.rows when row.selected()
-            GeneSearchModel.selectedAMR.push(row.Gene_Name)
+        @selectedAMR = []
+        for row in @amrList.rows when row.selected()
+            @selectedAMR.push(row.Gene_Name)
 
     reset: ->
         console.log("Resetting...")
-        GeneSearchModel.selectedVF = []
-        GeneSearchModel.selectedAMR = []
-        for gene in GeneSearchModel.vfList.rows 
+        @selectedVF = []
+        @selectedAMR = []
+        for gene in @vfList.rows 
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
-        for gene in GeneSearchModel.amrList.rows 
+        for gene in @amrList.rows 
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
 
     submit: ->
         console.log("Submitting...")
         ## Checks
-        if GeneSearchModel.selectedVF.length == 0 and \
-           GeneSearchModel.selectedAMR.length == 0 and \
-           GeneSearchModel.selectedGenomes.length == 0
+        if @selectedVF.length == 0 and \
+           @selectedAMR.length == 0 and \
+           @selectedGenomes.length == 0
             alert("You haven't selected any genes or genomes.")
-        else if GeneSearchModel.selectedGenomes.length == 0
+        else if @selectedGenomes.length == 0
             alert("You haven't selected any genomes.")
-        else if GeneSearchModel.selectedVF.length == 0 and \
-                GeneSearchModel.selectedAMR.length == 0
+        else if @selectedVF.length == 0 and \
+                @selectedAMR.length == 0
             alert("You haven't selected any genes.")
+        else
+            @vfresults = @getResults(@selectedVF)
+            @amrresults = @getResults(@selectedAMR)
+            #m.route("/results")
+            return
 
+    getResults: (geneList) ->
+        console.log("in getResults")
+        genomeDict = {}
+        for genome in @selectedGenomes
+            genomeDict[genome] = {}
+            for gene in geneList
+                genomeDict[genome][gene] = 0
+
+        request = (selectedGenome, json={}) ->
+            parseResponse=(response)->
+                for binding in response.results.bindings
+                    gene_name = binding["Gene_Name"]['value']
+                    self.genomeDict[selectedGenome][gene_name] += 1
+                console.log("Response:", response)
+
+            m.request(
+                method: "POST",
+                url: "http://#{location.hostname}:5000/data/genesearchresults",
+                data: {
+                    genome: selectedGenome
+                    genes: geneList ## temp for testing
+                }
+                datatype: "json",
+                type: parseResponse
+            )
+
+        for g in @selectedGenomes
+            console.log("the gene", g)
+            request(g)
+
+        return genomeDict
 
 
 GeneSearchModel.setLists()

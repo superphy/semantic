@@ -5,14 +5,19 @@ class GeneResults extends Page
     Routes.add('/results', @)
 
     @controller: (args) ->
+        @results = GeneSearchModel
         return @
 
     @view: (ctrl, args) ->
         ## Temp data
-        data = {
+        testdata = {
             genomes: ["JHNV00000000", "ANVW00000000"]
             vfs: ["saa", "papC", "ompA", "hylA"]
             amrs: ["QnrS7"]
+        }
+        data = {
+            vfresults: GeneSearchModel.vfresults
+            amrresults: GeneSearchModel.amrresults
         }
         return super(
             m.component(GeneResultsPanel, {
@@ -21,8 +26,7 @@ class GeneResults extends Page
                 })
                 matrix: m.component(Matrix, {
                     matrixview: new MatrixView()
-                    genomes: data.genomes
-                    genes: data.vfs
+                    results: data.vfresults
                     elID: "genome_matrix1"
                 })
                 histogram: m.component(Histogram, {
@@ -35,8 +39,7 @@ class GeneResults extends Page
                 })
                 matrix: m.component(Matrix, {
                     matrixview: new MatrixView()
-                    genomes: data.genomes
-                    genes: data.amrs
+                    results: data.amrresults
                     elID: "genome_matrix2"
                 })
                 histogram: m.component(Histogram, {
@@ -72,39 +75,41 @@ ContentHeader =
 
 Matrix =
     controller: (args) ->
-        self = @
-        @genomeDict = {}
-        for genome in args.genomes
-            @genomeDict[genome] = {}
-            for gene in args.genes
-                @genomeDict[genome][gene] = 0
 
-        request = (selectedGenome, json={}) ->
-            parseResponse=(response)->
-                for binding in response.results.bindings
-                    gene_name = binding["Gene_Name"]['value']
-                    self.genomeDict[selectedGenome][gene_name] += 1
-                console.log("Response:", response)
+        # self = @
+        # @genomeDict = {}
+        # for genome in args.genomes
+        #     @genomeDict[genome] = {}
+        #     for gene in args.genes
+        #         @genomeDict[genome][gene] = 0
 
-            m.request(
-                method: "POST",
-                url: "http://#{location.hostname}:5000/data/genesearchresults",
-                data: {
-                    genome: selectedGenome
-                    genes: args.genes ## temp for testing
-                }
-                datatype: "json",
-                type: parseResponse
-            )
+        # request = (selectedGenome, json={}) ->
+        #     parseResponse=(response)->
+        #         for binding in response.results.bindings
+        #             gene_name = binding["Gene_Name"]['value']
+        #             self.genomeDict[selectedGenome][gene_name] += 1
+        #         console.log("Response:", response)
 
-        for g in args.genomes
-            request(g)
+        #     m.request(
+        #         method: "POST",
+        #         url: "http://#{location.hostname}:5000/data/genesearchresults",
+        #         data: {
+        #             genome: selectedGenome
+        #             genes: args.genes ## temp for testing
+        #         }
+        #         datatype: "json",
+        #         type: parseResponse
+        #     )
+
+        # for g in args.genomes
+        #     request(g)
 
         return @
 
     view: (ctrl, args) ->
+        console.log("hellooooo", args.results)
         m 'div', {id: 'vf_result_matrix'},
-            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.genomeDict)}
+            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(args.results)}
 
 
 Histogram =

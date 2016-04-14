@@ -130,5 +130,6 @@ def genesearchresults():
     genome = data["genome"]
     genes = data["genes"]
     results = sparql.get_regions(genome, genes)
+    print "results here:", results
     return jsonify(results)
 

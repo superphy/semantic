@@ -4,16 +4,17 @@ class MatrixView
 
     init: (searchResults) =>
     ## search results is an object
-        genomes = Object.keys(searchResults)
-        genes = Object.keys(searchResults[genomes[0]])
+        console.log("object keys", Object.keysObject.keys(searchResults[genomes[0]]))
+        # genomes = Object.keys(searchResults)
+        # genes = Object.keys(searchResults[genomes[0]])
 
-        view = @
+        # view = @
 
-        (el, isInitialized, ctx) ->
-            console.log(ctx)
-            if not isInitialized
-                view._create_matrix(genomes, genes, searchResults)
-            # if isInitialized and el is "div "
+        # (el, isInitialized, ctx) ->
+        #     #console.log(ctx)
+        #     if not isInitialized
+        #         view._create_matrix(genomes, genes, searchResults)
+        #     # if isInitialized and el is "div "
 
 
     _create_matrix: (genomes, genes, searchResults) =>
@@ -99,6 +100,7 @@ class MatrixView
         self.viewAction(num, ['matrix-sort', 'name'])
 
      _compute_matrix: (genomes, genes, results) =>
+        console.log("in matrix")
         @lengenomes = genomes.length
         @lengenes = genes.length
 

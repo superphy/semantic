@@ -122,7 +122,8 @@ def get_regions(genome, geneList):
         string = """UNION { ?Gene :has_name "%s"^^xsd:string } """ % gene
         query += string
 
-    query += ". }"
+    query += " }"
+    print query
     
     return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
 
