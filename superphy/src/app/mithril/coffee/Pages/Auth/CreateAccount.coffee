@@ -1,7 +1,7 @@
 # coffeelint: disable=max_line_length
 
-class CreateAccount
-
+class CreateAccount extends Page
+    Routes.add('/SignUp', @)
     class FormGroup
         @controller: (args) ->
             args = args or {}
@@ -32,7 +32,7 @@ class CreateAccount
             
         return @
     @view: (ctrl) ->
-        m('.container'
+        super m('.container'
             m('.content-header', m('h1'
                 m('span.title_part1', "CREATE"),
                 m('span.title_part2', "ACCOUNT")

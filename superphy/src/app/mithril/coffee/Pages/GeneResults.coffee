@@ -1,6 +1,9 @@
 # coffeelint: disable=max_line_length
 
 class GeneResults extends Page
+
+    Routes.add('/results', @)
+
     @controller: (args) ->
         return @
 
@@ -40,7 +43,6 @@ class GeneResults extends Page
                     title: "Hello World"
                 })
             })
-
         )
 
 GeneResultsPanel =

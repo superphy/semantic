@@ -1,4 +1,5 @@
 class Factors extends Page
+    Routes.add('/factors', @)
     @controller: (args) ->
         @active = m.prop("genes")
         @tabCtrl = new mc.Tabs.controller('genes')

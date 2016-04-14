@@ -1,6 +1,8 @@
 # coffeelint: disable=max_line_length
 
 class Home extends Page
+    Routes.add('/', @)
+    Routes.add('/home', @)
     @controller: (args) ->
         args = args || {}
         @debug = args.debugging || true
