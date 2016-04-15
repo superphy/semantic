@@ -35,42 +35,6 @@ events.delete_item = (list) ->
         console.log("list: " + list)
     }
 
-<<<<<<< HEAD
-m.route(document.body, "/", {
-    "/": {view: -> [
-        m.component(Home)
-    ]}
-    "/home": {view: -> [
-        m.component(Home)
-    ]}
-    "/SignUp": {view: -> [
-        m.component(Navbar)
-        m.component(CreateAccount)
-    ]}
-    "/Login": {view: -> [
-        m.component(Navbar)
-        m.component(LoginForm)
-    ]}
-    "/meta": {view: -> [
-        m.component(Navbar)
-        m.component(RawEndpoint, {url: "data/amr"})
-    ]}
-    "/gbrowse": {view: -> [
-        m.component(Navbar)
-        m.component(GroupBrowse)
-    ]}
-    "/groups": {view: -> [
-        m.component(Navbar)
-        m.component(RawEndpoint, {url: "data/vf"})
-    ]}
-    "/factors": {view: -> [
-        m.component(Factors)
-    ]}
-    "/results": {view: ->[
-        m.component(GeneResults)
-    ]}
-})
-=======
 Routes = {}
 Routes.add = (route, class_, args) ->
     args = args || {}
@@ -86,4 +50,3 @@ Routes.add = (route, class_, args) ->
 #    "/groups": UploadGenome.get()
 #    "/factors": Factors.get()
 #    "/results": GeneResults.get()
->>>>>>> ea7c726b6cb2c6f75eac31b2f6ef94485d043965
