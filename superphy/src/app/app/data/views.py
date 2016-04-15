@@ -125,10 +125,9 @@ def genesearchresults():
     """
     Endpoint for returning gene search results
     """
-    data = request.get_json()
-    print data
-    genome = data["genome"]
-    genes = data["genes"]
-    results = sparql.get_regions(genome, genes)
+    data_ = request.get_json()
+    print data_
+    genomes_ = data_["genome"]
+    genes_ = data_["genes"]
+    results = sparql.get_regions(genomes_, genes_)
     return jsonify(results)
-

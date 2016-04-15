@@ -90,7 +90,7 @@ Matrix =
                 method: "POST",
                 url: "http://#{location.hostname}:5000/data/genesearchresults",
                 data: {
-                    genome: selectedGenome
+                    genome: selectedGenome #["JHNV00000000", "ANVW00000000"]
                     genes: args.genes ## temp for testing
                 }
                 datatype: "json",
