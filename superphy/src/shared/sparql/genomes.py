@@ -28,7 +28,7 @@ def get_all_genome_metadata():
     SELECT  ?Genome_Uri 
     (GROUP_CONCAT (DISTINCT ?_Syndrome ; separator=',\\n') AS ?Syndromes)(GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Biosample_Id ; separator=',\\n') AS ?Biosample_Id)(GROUP_CONCAT (DISTINCT ?_Bioproject_Id ; separator=',\\n') AS ?Bioproject_Id)(GROUP_CONCAT (DISTINCT ?_Strain ; separator=',\\n') AS ?Strain)(GROUP_CONCAT (DISTINCT ?_Serotype_O ; separator=',\\n') AS ?Serotype_O)(GROUP_CONCAT (DISTINCT ?_Serotype_H ; separator=',\\n') AS ?Serotype_H)(GROUP_CONCAT (DISTINCT ?_Scientific_Name ; separator=',\\n') AS ?Scientific_Name)(GROUP_CONCAT (DISTINCT ?_Common_Name ; separator=',\\n') AS ?Common_Name)(GROUP_CONCAT (DISTINCT ?_Isolation_Date ; separator=',\\n') AS ?Isolation_Date)(GROUP_CONCAT (DISTINCT ?_Geographic_Location ; separator=',\\n') AS ?Geographic_Location)
     WHERE
-      { { ?Genome_Uri rdf:type gfvo:Genome}
+      { { ?Genome_Uri a gfvo:Genome }
         OPTIONAL
           { ?Genome_Uri :has_bioproject ?_Bioproject_Id}
         OPTIONAL
@@ -80,7 +80,7 @@ def get_genome_metadata(accession):
     (GROUP_CONCAT (DISTINCT ?_Syndrome ; separator=',\\n') AS ?Syndromes)(GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Biosample_Id ; separator=',\\n') AS ?Biosample_Id)(GROUP_CONCAT (DISTINCT ?_Bioproject_Id ; separator=',\\n') AS ?Bioproject_Id)(GROUP_CONCAT (DISTINCT ?_Strain ; separator=',\\n') AS ?Strain)(GROUP_CONCAT (DISTINCT ?_Serotype_O ; separator=',\\n') AS ?Serotype_O)(GROUP_CONCAT (DISTINCT ?_Serotype_H ; separator=',\\n') AS ?Serotype_H)(GROUP_CONCAT (DISTINCT ?_Scientific_Name ; separator=',\\n') AS ?Scientific_Name)(GROUP_CONCAT (DISTINCT ?_Common_Name ; separator=',\\n') AS ?Common_Name)(GROUP_CONCAT (DISTINCT ?_Isolation_Date ; separator=',\\n') AS ?Isolation_Date)(GROUP_CONCAT (DISTINCT ?_Geographic_Location ; separator=',\\n') AS ?Geographic_Location)
     WHERE
       { 
-        { ?Genome_Uri rdf:type gfvo:Genome .
+        { ?Genome_Uri a gfvo:Genome .
           ?Genome_Uri :has_accession "%s"^^xsd:string}
         OPTIONAL
           { ?Genome_Uri :has_bioproject ?_Bioproject_Id}

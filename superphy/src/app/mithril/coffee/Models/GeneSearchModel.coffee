@@ -71,35 +71,23 @@ GeneSearchModel =
 
     getResults: (geneList) ->
         console.log("in getResults")
-        genomeDict = {}
-        for genome in @selectedGenomes
-            genomeDict[genome] = {}
-            for gene in geneList
-                genomeDict[genome][gene] = 0
+        response = m.prop(null)
+        if response() is null
+            response =
+                m.request(
+                    method: "POST",
+                    url: "http://#{location.hostname}:5000/data/genesearchresults",
+                    data: {
+                        genome: @selectedGenomes #["JHNV00000000", "ANVW00000000"]
+                        genes: geneList ## temp for testing
+                    }
+                    datatype: "json",
+                    type: (response) ->
+                        console.log("Response:", response)
+                        return response
+                )
 
-        request = (selectedGenome, json={}) ->
-            parseResponse=(response)->
-                for binding in response.results.bindings
-                    gene_name = binding["Gene_Name"]['value']
-                    self.genomeDict[selectedGenome][gene_name] += 1
-                console.log("Response:", response)
-
-            m.request(
-                method: "POST",
-                url: "http://#{location.hostname}:5000/data/genesearchresults",
-                data: {
-                    genome: selectedGenome
-                    genes: geneList ## temp for testing
-                }
-                datatype: "json",
-                type: parseResponse
-            )
-
-        for g in @selectedGenomes
-            console.log("the gene", g)
-            request(g)
-
-        return genomeDict
+        return response
 
 
 GeneSearchModel.setLists()

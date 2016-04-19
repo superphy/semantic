@@ -12,7 +12,7 @@ class GeneResults extends Page
         ## Temp data
         testdata = {
             genomes: ["JHNV00000000", "ANVW00000000"]
-            vfs: ["saa", "papC", "ompA", "hylA"]
+            vfs: ["saa", "papC", "ompA", "hylA", "QnrS7"]
             amrs: ["QnrS7"]
         }
         data = {
@@ -26,7 +26,8 @@ class GeneResults extends Page
                 })
                 matrix: m.component(Matrix, {
                     matrixview: new MatrixView()
-                    results: data.vfresults
+                    genomes: testdata.genomes
+                    genes: testdata.vfs
                     elID: "genome_matrix1"
                 })
                 histogram: m.component(Histogram, {
@@ -75,41 +76,31 @@ ContentHeader =
 
 Matrix =
     controller: (args) ->
+        @getResults= () ->
+            response = m.prop(null)
+            if response() is null
+                response =
+                    m.request(
+                        method: "POST",
+                        url: "http://#{location.hostname}:5000/data/genesearchresults",
+                        data: {
+                            genome: args.genomes #["JHNV00000000", "ANVW00000000"]
+                            genes: args.genes ## temp for testing
+                        }
+                        datatype: "json",
+                        type: (response) ->
+                            console.log("Responsee:", response)
+                            return response
+                    )
 
-        # self = @
-        # @genomeDict = {}
-        # for genome in args.genomes
-        #     @genomeDict[genome] = {}
-        #     for gene in args.genes
-        #         @genomeDict[genome][gene] = 0
+            return response
 
-        # request = (selectedGenome, json={}) ->
-        #     parseResponse=(response)->
-        #         for binding in response.results.bindings
-        #             gene_name = binding["Gene_Name"]['value']
-        #             self.genomeDict[selectedGenome][gene_name] += 1
-        #         console.log("Response:", response)
-
-        #     m.request(
-        #         method: "POST",
-        #         url: "http://#{location.hostname}:5000/data/genesearchresults",
-        #         data: {
-        #             genome: selectedGenome
-        #             genes: args.genes ## temp for testing
-        #         }
-        #         datatype: "json",
-        #         type: parseResponse
-        #     )
-
-        # for g in args.genomes
-        #     request(g)
-
+        @results = @getResults()
         return @
 
     view: (ctrl, args) ->
-        console.log("hellooooo", args.results)
         m 'div', {id: 'vf_result_matrix'},
-            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(args.results)}
+            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results())}
 
 
 Histogram =

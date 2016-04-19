@@ -5,11 +5,11 @@ import superphy.shared.endpoint as endpoint
 from prefixes import prefixes
 
 ## Returns all genes
-def get_all_genes(type="all"):
+def get_all_genes(type_="all"):
     gene_type = ""
-    if type == "vf":
+    if type_ == "vf":
         gene_type = "?Gene rdf:type :virulence_factor ."
-    elif type == "amr":
+    elif type_ == "amr":
         gene_type = "?Gene rdf:type :antimicrobial_resistance ."
 
     query = prefixes + """
@@ -31,7 +31,7 @@ def get_all_genes(type="all"):
     ORDER BY (?Gene)
     """ % (gene_type)
 
-    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
 
 
 ## Returns a certain gene
@@ -65,7 +65,7 @@ def get_gene(name):
     ORDER BY (?Gene)
     """ % (name)
 
-    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
 
 ## Returns all the genes in a genome
 def find_alleles(genome):
@@ -81,7 +81,7 @@ def find_alleles(genome):
           }
       }
     """ % (genome)
-    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
 
 
 ## Returns the instances of a particular gene in a genome
@@ -99,32 +99,30 @@ def find_regions(gene, genome):
           }
       }
     """ % (gene, genome)
-    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
 
-def get_regions(genome, geneList):
-
+def get_regions(genome_list, gene_list):
+    genes = ""
+    genomes = ""
+    for gene in gene_list:
+        genes = genes + ' "%s" ' % gene
+    for genome in genome_list:
+        genomes = genomes + ' :%s ' % genome
     query = prefixes + """
-    SELECT ?Region ?Gene_Name
+    SELECT ?Region ?Gene_Name ?Genome
     WHERE
-      { 
-        ?Region rdf:type faldo:Region .
-        ?Gene :has_copy ?Region .
-        ?Contig :has_gene ?Region .
-        ?Contig :is_contig_of ?Genome .
-        ?Genome :has_accession "%s"^^xsd:string . 
-        ?Gene :has_name ?Gene_Name .
-    """ % (genome)
+      {
+        VALUES ?Genome { %s }
+        VALUES ?Gene_Names { %s }
+        ?Region a faldo:Region .
+        ?Gene :has_copy ?Region ;
+              :has_name ?Gene_Name .
+        ?Contig :has_gene ?Region ;
+                :is_contig_of ?Genome .
+        FILTER (?Gene_Name = ?Gene_Names)
+    }
+    """ % (genomes, genes)
 
-    if len(geneList) > 0:
-        query += """{ ?Gene :has_name "%s"^^xsd:string } """ % geneList[0]
+    print "query is:", query
 
-    for gene in geneList[1:]:
-        string = """UNION { ?Gene :has_name "%s"^^xsd:string } """ % gene
-        query += string
-
-    query += " }"
-    print query
-    
-    return endpoint.query(query, url = os.getenv('SUPERPHY_RDF_URL'))
-
-
+    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))

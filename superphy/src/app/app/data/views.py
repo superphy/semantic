@@ -125,11 +125,40 @@ def genesearchresults():
     """
     Endpoint for returning gene search results
     """
-    data = request.get_json()
-    print data
-    genome = data["genome"]
-    genes = data["genes"]
-    results = sparql.get_regions(genome, genes)
-    print "results here:", results
-    return jsonify(results)
+    data_ = request.get_json()
+    print "data", data_
+    genomes_ = data_["genome"]
+    genes_ = ["saa", "papC", "ompA", "hylA", "QnrS7"] #data_["genes"]
 
+    ## Prepping dictionary to be returned
+    genomeDict = {}
+    for genome in genomes_:
+        genomeDict[genome] = {}
+        for gene in genes_:
+            genomeDict[genome][gene] = 0
+    
+    results = sparql.get_regions(genomes_, genes_)
+    bindings = results['results']['bindings']
+    for binding in bindings:
+        accession = binding['Genome']['value'].split("#")[1]
+        gene_name = binding['Gene_Name']['value']
+        try:
+            genomeDict[accession][gene_name] += 1
+        except KeyError:
+            "Genome or gene doesn't exist in dictionary"
+
+    return jsonify(genomeDict)
+
+
+# results = (sparql.get_all_genome_metadata())
+#     bindings = results['results']['bindings'][:5]
+#     rows = []
+#     for binding in bindings:
+#         row = {}
+#         for item in results['head']['vars']:
+#             try:
+#                 row[item] = binding[item]['value']
+#             except KeyError:
+#                 row[item] = ''
+#         rows.append(row)
+#     return jsonify({'data':rows})
