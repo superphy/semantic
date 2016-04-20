@@ -31,6 +31,8 @@ class GeneResults extends Page
                     elID: "genome_matrix1"
                 })
                 histogram: m.component(Histogram, {
+                    histview: new HistogramView()
+                    results: data.vfresults
                     parentEl: "vf_result_histogram"
                     elID: "matrix_ticker1"
                 })
@@ -46,7 +48,9 @@ class GeneResults extends Page
                     elID: "genome_matrix2"
                 })
                 histogram: m.component(Histogram, {
-                    parentEl: "vf_result_histogram"
+                    histview: new HistogramView()
+                    results: data.amrresults
+                    parentEl: "amr_result_histogram"
                     elID: "matrix_ticker2"
                 })
             })]
@@ -83,10 +87,15 @@ Matrix =
         return @
 
     view: (ctrl, args) ->
-        m 'div', {id: 'args.parentEl'},
+        m 'div', {id: args.parentEl},
             m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results, args.parentEl, args.elID)}
 
 
 Histogram =
+    controller: (args) ->
+        @results = args.results()
+        return @
     view: (ctrl, args) ->
-        m("h1", "Hello World")
+        #m 'h1', "HELLO"
+        m 'div', {id: args.parentEl},
+            m '.superphy-histogram', {id: args.elID, config: args.histview.init(ctrl.results, args.parentEl, args.elID)}
