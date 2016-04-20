@@ -28,6 +28,7 @@ class GeneResults extends Page
                     matrixview: new MatrixView()
                     genomes: testdata.genomes
                     genes: testdata.vfs
+                    results: data.vfresults
                     elID: "genome_matrix1"
                 })
                 histogram: m.component(Histogram, {
@@ -76,31 +77,31 @@ ContentHeader =
 
 Matrix =
     controller: (args) ->
-        @getResults= () ->
-            response = m.prop(null)
-            if response() is null
-                response =
-                    m.request(
-                        method: "POST",
-                        url: "http://#{location.hostname}:5000/data/genesearchresults",
-                        data: {
-                            genome: args.genomes #["JHNV00000000", "ANVW00000000"]
-                            genes: args.genes ## temp for testing
-                        }
-                        datatype: "json",
-                        type: (response) ->
-                            console.log("Responsee:", response)
-                            return response
-                    )
+        # @getResults= () ->
+        #     response = m.prop(null)
+        #     if response() is null
+        #         response =
+        #             m.request(
+        #                 method: "POST",
+        #                 url: "http://#{location.hostname}:5000/data/genesearchresults",
+        #                 data: {
+        #                     genome: args.genomes #["JHNV00000000", "ANVW00000000"]
+        #                     genes: args.genes ## temp for testing
+        #                 }
+        #                 datatype: "json",
+        #                 type: (response) ->
+        #                     console.log("Responsee:", response)
+        #                     return response
+        #             )
 
-            return response
-
-        @results = @getResults()
+        #     return response
+        console.log("args", args.results())
+        @results = args.results()
         return @
 
     view: (ctrl, args) ->
         m 'div', {id: 'vf_result_matrix'},
-            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results())}
+            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results)}
 
 
 Histogram =

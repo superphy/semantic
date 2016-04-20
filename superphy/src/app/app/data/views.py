@@ -128,7 +128,7 @@ def genesearchresults():
     data_ = request.get_json()
     print "data", data_
     genomes_ = data_["genome"]
-    genes_ = ["saa", "papC", "ompA", "hylA", "QnrS7"] #data_["genes"]
+    genes_ = data_["genes"]
 
     ## Prepping dictionary to be returned
     genomeDict = {}

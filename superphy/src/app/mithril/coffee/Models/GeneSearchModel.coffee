@@ -11,9 +11,10 @@ GeneSearchModel =
     genomeList: []
     selectedVF: []
     selectedAMR: []
-    selectedGenomes: ["JHNV00000000", "ANVW00000000", "CP002729"] ## test
-    vfresults: {}
-    amrresults: {}
+    ## selectedGenomes is a static list until genomes are implemented
+    selectedGenomes: ["JHNV00000000", "ANVW00000000", "CP002729", "AMVC00000000"] 
+    vfresults: m.prop({})
+    amrresults: m.prop({})
 
     setLists: ->
         vfdata = @vfs()
@@ -66,7 +67,7 @@ GeneSearchModel =
         else
             @vfresults = @getResults(@selectedVF)
             @amrresults = @getResults(@selectedAMR)
-            #m.route("/results")
+            m.route("/results")
             return
 
     getResults: (geneList) ->
@@ -78,7 +79,7 @@ GeneSearchModel =
                     method: "POST",
                     url: "http://#{location.hostname}:5000/data/genesearchresults",
                     data: {
-                        genome: @selectedGenomes #["JHNV00000000", "ANVW00000000"]
+                        genome: @selectedGenomes 
                         genes: geneList ## temp for testing
                     }
                     datatype: "json",
