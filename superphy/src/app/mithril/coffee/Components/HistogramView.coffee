@@ -2,10 +2,8 @@ class HistogramView
     constructor: () ->
         return @
 
-    init: (searchResults) =>
-    ## search results is an object
-        # console.log("object", searchResults)
-        # console.log("object keys", Object.keys(searchResults))
+    init: (searchResults, parentElem, elID) =>
+        ## search results is an object
         genomes = Object.keys(searchResults)
         genes = Object.keys(searchResults[genomes[0]])
 
@@ -14,14 +12,19 @@ class HistogramView
         (el, isInitialized, ctx) ->
             #console.log(ctx)
             if not isInitialized
-                view._create_histrogram(genomes, genes, searchResults, parentElem, elID)
+                view._create_histogram(searchResults, parentElem, elID)
 
 
-    create_histogram: () =>
-        # Create empty histogram
+    _create_histogram: (searchResults, parentElem, elID) =>
+        ## Create empty histogram
         margin = {top: 40, right: 30, bottom: 40, left: 30}
         @width = 300 - margin.left - margin.right
         @height = 250 - margin.top - margin.bottom
+
+        ## parent elements
+        @parentElem = parentElem
+        @elID = elID
+        @cssClass = "matrix_histogram"
 
         bins = [
             {'val': 0, 'key': '0'}
@@ -47,7 +50,6 @@ class HistogramView
         @histogram = d3.layout.histogram()
             .bins([0,1,2,3,4,5,6])
 
-        @parentElem.append("<div id='#{@elID}' class='#{@cssClass}'></div>")
       
         @canvas = d3.select("##{@elID}").append("svg")
             .attr("width", @width + margin.left + margin.right)
@@ -68,4 +70,81 @@ class HistogramView
             .attr("text-anchor", "middle")
             .text( 'Number of Alleles')
 
+        @_getCounts(searchResults)
+
+    _getCounts: (searchResults) ->
+        values = []
+        for genome in Object.keys(searchResults)
+            for gene in Object.keys(searchResults[genome])
+                values.push(searchResults[genome][gene])
+
+        console.log("values", values)
+        @updateHistogram(values)
+
+
+    updateHistogram: (values) ->
+        histData = @histogram(values)
+
+        # Max y values are increased in discrete steps so that
+        # scale is more consistent between updates
+        steps = [10,50,100,200,500,800,1000,1200,1500,2000,5000,8000,10000,20000,50000,80000,100000]
+        maxSteps = steps.length
+        maxY = d3.max(histData, (d) -> d.y)
+        yTop = NaN
+        for i in [0..maxSteps] by 1
+            if maxY < steps[i]
+                yTop = steps[i]
+                break
+
+        @y = d3.scale.linear()
+            .domain([0, yTop])
+            .range([@height, 0])
+
+        svgBars = @canvas.selectAll("g.histobar")
+            .data(histData)
+
+        # Update existing
+        svgBars.attr("transform", (d) => "translate(" + @x(d.x) + "," + @y(d.y) + ")" )
+
+        svgBars.select("rect")
+            .attr("x", 0)
+            .attr("width", @x.rangeBand())
+            .attr("height", (d) => @height - @y(d.y) )
+          
+        svgBars.select("text")
+            .attr("dy", ".75em")
+            .attr("y", -14)
+            .attr("x", @x.rangeBand() / 2)
+            .attr("text-anchor", "middle")
+            .text( (d) =>
+                if d.y > 0
+                    @formatCount(d.y)
+                else
+                    '' )
+            
+        # Remove old
+        svgBars.exit().remove()
+        
+        # Insert new
+        newBars = svgBars.enter().append("g")
+            .attr("class", "histobar")
+            .attr("transform", (d) => "translate(" + @x(d.x) + "," + @y(d.y) + ")" )
+        
+        newBars.append("rect")
+            .attr("x", 0)
+            .attr("width", @x.rangeBand())
+            .attr("height", (d) => @height - @y(d.y) )
+            
+        newBars.append("text")
+            .attr("dy", ".75em")
+            .attr("y", -14)
+            .attr("x", @x.rangeBand() / 2)
+            .attr("text-anchor", "middle")
+            .text( (d) =>
+                if d.y > 0
+                    @formatCount(d.y)
+                else
+                    '' )
+              
+        true
 

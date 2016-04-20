@@ -3,7 +3,7 @@ class MatrixView
         return @
 
     init: (searchResults, parentElem, elID) =>
-    ## search results is an object
+        ## search results is an object
         # console.log("object", searchResults)
         # console.log("object keys", Object.keys(searchResults))
         genomes = Object.keys(searchResults)
@@ -15,7 +15,7 @@ class MatrixView
             if not isInitialized
                 view._create_matrix(genomes, genes, searchResults, parentElem, elID)
 
-    _create_matrix: (genomes, genes, searchResults) =>
+    _create_matrix: (genomes, genes, searchResults, parentElem, elID) =>
         console.log("Creating matrix...")
         self = @
 
