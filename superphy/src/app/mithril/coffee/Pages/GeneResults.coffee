@@ -9,7 +9,7 @@ class GeneResults extends Page
         return @
 
     @view: (ctrl, args) ->
-        ## Temp data
+        ## Temp data for testing
         testdata = {
             genomes: ["JHNV00000000", "ANVW00000000"]
             vfs: ["saa", "papC", "ompA", "hylA", "QnrS7"]
@@ -20,21 +20,21 @@ class GeneResults extends Page
             amrresults: GeneSearchModel.amrresults
         }
         return super(
-            m.component(GeneResultsPanel, {
+            [m.component(GeneResultsPanel, {
                 header: m.component(ContentHeader, {
                     title: "Virulence Factor Results"
                 })
                 matrix: m.component(Matrix, {
                     matrixview: new MatrixView()
-                    genomes: testdata.genomes
-                    genes: testdata.vfs
                     results: data.vfresults
+                    parentEl: "vf_result_matrix"
                     elID: "genome_matrix1"
                 })
                 histogram: m.component(Histogram, {
-                    title: "Hello World"
+                    parentEl: "vf_result_histogram"
+                    elID: "matrix_ticker1"
                 })
-            })
+            }),
             m.component(GeneResultsPanel, {
                 header: m.component(ContentHeader, {
                     title: "AMR Results"
@@ -42,12 +42,14 @@ class GeneResults extends Page
                 matrix: m.component(Matrix, {
                     matrixview: new MatrixView()
                     results: data.amrresults
+                    parentEl: "amr_result_matrix"
                     elID: "genome_matrix2"
                 })
                 histogram: m.component(Histogram, {
-                    title: "Hello World"
+                    parentEl: "vf_result_histogram"
+                    elID: "matrix_ticker2"
                 })
-            })
+            })]
         )
 
 GeneResultsPanel =
@@ -59,7 +61,7 @@ GeneResultsPanel =
                     m 'div', {id: 'results'},
                         m 'div', {id: 'vf_results'},
                             m('hr'),
-                            m('h4', "Detected Virulence Factor Alleles"),
+                            m('h4', "Detected Alleles"),
                             args.matrix,
                             args.histogram
 
@@ -77,31 +79,12 @@ ContentHeader =
 
 Matrix =
     controller: (args) ->
-        # @getResults= () ->
-        #     response = m.prop(null)
-        #     if response() is null
-        #         response =
-        #             m.request(
-        #                 method: "POST",
-        #                 url: "http://#{location.hostname}:5000/data/genesearchresults",
-        #                 data: {
-        #                     genome: args.genomes #["JHNV00000000", "ANVW00000000"]
-        #                     genes: args.genes ## temp for testing
-        #                 }
-        #                 datatype: "json",
-        #                 type: (response) ->
-        #                     console.log("Responsee:", response)
-        #                     return response
-        #             )
-
-        #     return response
-        console.log("args", args.results())
         @results = args.results()
         return @
 
     view: (ctrl, args) ->
-        m 'div', {id: 'vf_result_matrix'},
-            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results)}
+        m 'div', {id: 'args.parentEl'},
+            m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results, args.parentEl, args.elID)}
 
 
 Histogram =

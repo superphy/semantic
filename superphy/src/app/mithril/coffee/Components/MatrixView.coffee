@@ -2,7 +2,7 @@ class MatrixView
     constructor: () ->
         return @
 
-    init: (searchResults) =>
+    init: (searchResults, parentElem, elID) =>
     ## search results is an object
         # console.log("object", searchResults)
         # console.log("object keys", Object.keys(searchResults))
@@ -12,11 +12,8 @@ class MatrixView
         view = @
 
         (el, isInitialized, ctx) ->
-            #console.log(ctx)
             if not isInitialized
-                view._create_matrix(genomes, genes, searchResults)
-            # if isInitialized and el is "div "
-
+                view._create_matrix(genomes, genes, searchResults, parentElem, elID)
 
     _create_matrix: (genomes, genes, searchResults) =>
         console.log("Creating matrix...")
@@ -31,9 +28,9 @@ class MatrixView
             h: @height + @margin.top + @margin.bottom
         }
 
-        ## parent elements (currently temp)
-        @parentElem = "vf_result_matrix"
-        @elID = "genome_matrix1"
+        ## parent elements
+        @parentElem = parentElem
+        @elID = elID
 
         # sets @genomeNodes, @geneNodes, @matrix, @lengenomes, @lengenes
         @_compute_matrix(genomes, genes, searchResults)
