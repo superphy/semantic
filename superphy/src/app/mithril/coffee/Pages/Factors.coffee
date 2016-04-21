@@ -46,7 +46,7 @@ class Factors extends Page
             m('.', {class: 'tab-content'}, [
                 m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
                     m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
-                        "Testing Genome Search"
+                        "Testing Genome Search (you can change the genomes manually in the GeneSearchModel)"
                     ])
                 ])
             ])

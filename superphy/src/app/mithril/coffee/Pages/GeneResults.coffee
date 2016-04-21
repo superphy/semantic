@@ -72,10 +72,10 @@ GeneResultsPanel =
 ContentHeader =
     view: (ctrl, args) ->
         m '.row',
-            m 'col-xs-8',
+            m '.col-xs-8',
                 m '.content-header',
                     m 'h1', args.title
-            m 'col-xs-4'
+            m '.col-xs-4'
                 m 'button', {id: "intro-button", \
                              class: "btn btn-danger-lg", \
                              type: "button"},
@@ -96,6 +96,5 @@ Histogram =
         @results = args.results()
         return @
     view: (ctrl, args) ->
-        #m 'h1', "HELLO"
         m 'div', {id: args.parentEl},
             m '.superphy-histogram', {id: args.elID, config: args.histview.init(ctrl.results, args.parentEl, args.elID)}

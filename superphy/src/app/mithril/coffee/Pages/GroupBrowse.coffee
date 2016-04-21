@@ -8,8 +8,10 @@ class GroupBrowse extends Page
         return @
         
     @view: (ctrl) ->
-        m(".",
-            m.component(TableView, {
-                data: ctrl.data
-            })
+        return super(
+            m(".",
+                m.component(TableView, {
+                    data: ctrl.data
+                })
+            )
         )
