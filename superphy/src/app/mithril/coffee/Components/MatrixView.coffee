@@ -32,8 +32,10 @@ class MatrixView
         @parentElem = parentElem
         @elID = elID
 
+
         # sets @genomeNodes, @geneNodes, @matrix, @lengenomes, @lengenes
         @_compute_matrix(genomes, genes, searchResults)
+
 
         # Precompute ordering for genes which are stable
         # genomes can be removed through filtering
@@ -98,7 +100,6 @@ class MatrixView
         self.viewAction(num, ['matrix-sort', 'name'])
 
      _compute_matrix: (genomes, genes, results) =>
-        console.log("in matrix")
         @lengenomes = genomes.length
         @lengenes = genes.length
 

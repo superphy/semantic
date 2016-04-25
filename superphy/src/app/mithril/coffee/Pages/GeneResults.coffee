@@ -20,54 +20,57 @@ class GeneResults extends Page
             amrresults: GeneSearchModel.amrresults
         }
         return super(
-            [m.component(GeneResultsPanel, {
-                header: m.component(ContentHeader, {
-                    title: "Virulence Factor Results"
-                })
-                matrix: m.component(Matrix, {
-                    matrixview: new MatrixView()
-                    results: data.vfresults
-                    parentEl: "vf_result_matrix"
-                    elID: "genome_matrix1"
-                })
-                histogram: m.component(Histogram, {
-                    histview: new HistogramView()
-                    results: data.vfresults
-                    parentEl: "vf_result_histogram"
-                    elID: "matrix_ticker1"
-                })
-            }),
-            m.component(GeneResultsPanel, {
-                header: m.component(ContentHeader, {
-                    title: "AMR Results"
-                })
-                matrix: m.component(Matrix, {
-                    matrixview: new MatrixView()
-                    results: data.amrresults
-                    parentEl: "amr_result_matrix"
-                    elID: "genome_matrix2"
-                })
-                histogram: m.component(Histogram, {
-                    histview: new HistogramView()
-                    results: data.amrresults
-                    parentEl: "amr_result_histogram"
-                    elID: "matrix_ticker2"
-                })
-            })]
+            m 'div', {id: "page-content-wrapper"},
+                m '.page-content inset',
+                    m '.container-fluid',
+                        m.component(ContentHeader, {
+                            title: "Virulence Factor and AMR Results"
+                        }),
+                        m 'div', {id: 'results'},
+                            [m.component(GeneResultsPanel, {
+                                id: "vf_results"
+                                matrix: m.component(Matrix, {
+                                    matrixview: new MatrixView()
+                                    results: data.vfresults
+                                    parentEl: "vf_result_matrix"
+                                    elID: "genome_matrix1"
+                                })
+                                histogram: m.component(Histogram, {
+                                    histview: new HistogramView()
+                                    results: data.vfresults
+                                    parentEl: "vf_result_histogram"
+                                    elID: "matrix_ticker1"
+                                })
+                            }),
+                            m.component(GeneResultsPanel, {
+                                id: "amr_results"
+                                matrix: m.component(Matrix, {
+                                    matrixview: new MatrixView()
+                                    results: data.amrresults
+                                    parentEl: "amr_result_matrix"
+                                    elID: "genome_matrix2"
+                                })
+                                histogram: m.component(Histogram, {
+                                    histview: new HistogramView()
+                                    results: data.amrresults
+                                    parentEl: "amr_result_histogram"
+                                    elID: "matrix_ticker2"
+                                })
+                            })]
         )
 
 GeneResultsPanel =
     view: (ctrl, args) ->
-        m 'div', {id: "page-content-wrapper"},
-            m '.page-content inset',
-                m '.container-fluid',
-                    args.header,
-                    m 'div', {id: 'results'},
-                        m 'div', {id: 'vf_results'},
-                            m('hr'),
-                            m('h4', "Detected Alleles"),
-                            args.matrix,
-                            args.histogram
+        # m 'div', {id: "page-content-wrapper"},
+        #     m '.page-content inset',
+        #         m '.container-fluid',
+        #             args.header,
+        #             m 'div', {id: 'results'},
+        m 'div', {id: args.id},
+            m('hr'),
+            m('h4', "Detected Alleles"),
+            args.matrix,
+            args.histogram
 
 ContentHeader =
     view: (ctrl, args) ->
@@ -75,7 +78,7 @@ ContentHeader =
             m '.col-xs-8',
                 m '.content-header',
                     m 'h1', args.title
-            m '.col-xs-4'
+            m '.col-xs-4',
                 m 'button', {id: "intro-button", \
                              class: "btn btn-danger-lg", \
                              type: "button"},
@@ -96,5 +99,8 @@ Histogram =
         @results = args.results()
         return @
     view: (ctrl, args) ->
-        m 'div', {id: args.parentEl},
-            m '.superphy-histogram', {id: args.elID, config: args.histview.init(ctrl.results, args.parentEl, args.elID)}
+        m 'div', {class: "row histogram-row"},
+            m '.col-md-4 histogram-description'
+                m 'span', "Blurb goes here"
+            m 'div', {class: "col-md-8 histogram-container", id: args.parentEl},
+                m '.superphy-histogram', {id: args.elID, config: args.histview.init(ctrl.results, args.parentEl, args.elID)}
