@@ -57,6 +57,7 @@ class GeneResults extends Page
                                     elID: "matrix_ticker2"
                                 })
                             })]
+
         )
 
 GeneResultsPanel =
