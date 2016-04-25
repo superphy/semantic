@@ -99,7 +99,7 @@ class MatrixView
         ## initial load
         self.viewAction(num, ['matrix-sort', 'name'])
 
-     _compute_matrix: (genomes, genes, results) =>
+    _compute_matrix: (genomes, genes, results) =>
         @lengenomes = genomes.length
         @lengenes = genes.length
 
@@ -167,7 +167,7 @@ class MatrixView
         @x.domain(@geneOrders[@orderType])
 
         @canvas.selectAll(".matrixBackground")
-            .attr("height", @height);
+            .attr("height", @height)
 
         # Attach genome rows
         svgGenomes = @canvas.selectAll("g.matrixrow")

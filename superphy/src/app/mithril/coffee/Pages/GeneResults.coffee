@@ -29,6 +29,8 @@ class GeneResults extends Page
                         m 'div', {id: 'results'},
                             [m.component(GeneResultsPanel, {
                                 id: "vf_results"
+                                type: "Virulence Factor"
+                                numSelected: GeneSearchModel.selectedVF.length
                                 matrix: m.component(Matrix, {
                                     matrixview: new MatrixView()
                                     results: data.vfresults
@@ -44,6 +46,8 @@ class GeneResults extends Page
                             }),
                             m.component(GeneResultsPanel, {
                                 id: "amr_results"
+                                type: "Antimicrobrial Resistance"
+                                numSelected: GeneSearchModel.selectedAMR.length
                                 matrix: m.component(Matrix, {
                                     matrixview: new MatrixView()
                                     results: data.amrresults
@@ -62,16 +66,15 @@ class GeneResults extends Page
 
 GeneResultsPanel =
     view: (ctrl, args) ->
-        # m 'div', {id: "page-content-wrapper"},
-        #     m '.page-content inset',
-        #         m '.container-fluid',
-        #             args.header,
-        #             m 'div', {id: 'results'},
-        m 'div', {id: args.id},
-            m('hr'),
-            m('h4', "Detected Alleles"),
-            args.matrix,
-            args.histogram
+        if args.numSelected > 0 \
+            then m('div', {id: args.id}, [
+                    m('hr'),
+                    m('h4', "Detected " + args.type + " Alleles")
+                    args.matrix
+                    args.histogram
+                 ])
+        else
+            m('div', '')
 
 ContentHeader =
     view: (ctrl, args) ->
