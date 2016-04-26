@@ -64,7 +64,7 @@ class Factors extends Page
 
 
         super(
-            m('#wrapper', [
+            m('.', {id: "wrapper"}, [
                 m.component(Sidebar)
                 m('.', {id: 'page-content-wrapper'}, [
                     m('.', {id: 'page-content -inset'}, [

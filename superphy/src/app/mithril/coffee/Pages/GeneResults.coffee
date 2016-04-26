@@ -20,47 +20,49 @@ class GeneResults extends Page
             amrresults: GeneSearchModel.amrresults
         }
         return super(
-            m 'div', {id: "page-content-wrapper"},
-                m '.page-content inset',
-                    m '.container-fluid',
-                        m.component(ContentHeader, {
-                            title: "Virulence Factor and AMR Results"
-                        }),
-                        m 'div', {id: 'results'},
-                            [m.component(GeneResultsPanel, {
-                                id: "vf_results"
-                                type: "Virulence Factor"
-                                numSelected: GeneSearchModel.selectedVF.length
-                                matrix: m.component(Matrix, {
-                                    matrixview: new MatrixView()
-                                    results: data.vfresults
-                                    parentEl: "vf_result_matrix"
-                                    elID: "genome_matrix1"
-                                })
-                                histogram: m.component(Histogram, {
-                                    histview: new HistogramView()
-                                    results: data.vfresults
-                                    parentEl: "vf_result_histogram"
-                                    elID: "matrix_ticker1"
-                                })
+            m '.', {id: 'wrapper'},
+                m.component(Sidebar)
+                m 'div', {id: "page-content-wrapper"},
+                    m '.page-content inset',
+                        m '.container-fluid',
+                            m.component(ContentHeader, {
+                                title: "Virulence Factor and AMR Results"
                             }),
-                            m.component(GeneResultsPanel, {
-                                id: "amr_results"
-                                type: "Antimicrobrial Resistance"
-                                numSelected: GeneSearchModel.selectedAMR.length
-                                matrix: m.component(Matrix, {
-                                    matrixview: new MatrixView()
-                                    results: data.amrresults
-                                    parentEl: "amr_result_matrix"
-                                    elID: "genome_matrix2"
-                                })
-                                histogram: m.component(Histogram, {
-                                    histview: new HistogramView()
-                                    results: data.amrresults
-                                    parentEl: "amr_result_histogram"
-                                    elID: "matrix_ticker2"
-                                })
-                            })]
+                            m 'div', {id: 'results'},
+                                [m.component(GeneResultsPanel, {
+                                    id: "vf_results"
+                                    type: "Virulence Factor"
+                                    numSelected: GeneSearchModel.selectedVF.length
+                                    matrix: m.component(Matrix, {
+                                        matrixview: new MatrixView()
+                                        results: data.vfresults
+                                        parentEl: "vf_result_matrix"
+                                        elID: "genome_matrix1"
+                                    })
+                                    histogram: m.component(Histogram, {
+                                        histview: new HistogramView()
+                                        results: data.vfresults
+                                        parentEl: "vf_result_histogram"
+                                        elID: "matrix_ticker1"
+                                    })
+                                }),
+                                m.component(GeneResultsPanel, {
+                                    id: "amr_results"
+                                    type: "Antimicrobrial Resistance"
+                                    numSelected: GeneSearchModel.selectedAMR.length
+                                    matrix: m.component(Matrix, {
+                                        matrixview: new MatrixView()
+                                        results: data.amrresults
+                                        parentEl: "amr_result_matrix"
+                                        elID: "genome_matrix2"
+                                    })
+                                    histogram: m.component(Histogram, {
+                                        histview: new HistogramView()
+                                        results: data.amrresults
+                                        parentEl: "amr_result_histogram"
+                                        elID: "matrix_ticker2"
+                                    })
+                                })]
 
         )
 

@@ -1,5 +1,4 @@
-## Model that holds the gene and genome data
-##  for the gene search
+## Model that holds the gene and genome data for the gene search
 
 GeneSearchModel =
     vfs: getEndpoint(url="data/vf")
@@ -12,7 +11,8 @@ GeneSearchModel =
     selectedVF: []
     selectedAMR: []
     ## selectedGenomes is a static list until genomes are implemented
-    selectedGenomes: ["JHNV00000000", "ANVW00000000", "CP002729", "AMVC00000000"] 
+    selectedGenomes: ["JHNV00000000", "ANVW00000000", "CP002729", "AMVC00000000"]
+    ## These are setter/getters
     vfresults: m.prop({})
     amrresults: m.prop({})
 
@@ -71,7 +71,6 @@ GeneSearchModel =
             return
 
     getResults: (geneList) ->
-        console.log("in getResults")
         response = m.prop(null)
         if response() is null
             response =

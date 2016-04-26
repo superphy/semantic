@@ -2,7 +2,7 @@ class Sidebar
     @controller: (args) ->
         return @
     @view: (ctrl) ->
-        m('#wrapper', [
+        # m('#wrapper', [
             m('.', {id: 'sidebar-wrapper'}, [
                 m('.sidebar', [
                     m('#sidebar-expand-collapse', [
@@ -11,4 +11,4 @@ class Sidebar
                     ])
                 ])
             ])
-        ])
+        # ])

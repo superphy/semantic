@@ -149,16 +149,3 @@ def genesearchresults():
 
     return jsonify(genomeDict)
 
-
-# results = (sparql.get_all_genome_metadata())
-#     bindings = results['results']['bindings'][:5]
-#     rows = []
-#     for binding in bindings:
-#         row = {}
-#         for item in results['head']['vars']:
-#             try:
-#                 row[item] = binding[item]['value']
-#             except KeyError:
-#                 row[item] = ''
-#         rows.append(row)
-#     return jsonify({'data':rows})
