@@ -87,8 +87,7 @@ class Gene(NamedIndividual):
         """
 
         for item in categories:
-            literal = Literal(item, datatype=XSD.string)
-            self.graph.add((n[self.name], n.has_category, literal))
+            self.graph.add((n[self.name], n.has_category, item))
 
     def subcategory(self, subcategories):
         """
@@ -99,8 +98,7 @@ class Gene(NamedIndividual):
         """
 
         for item in subcategories:
-            literal = Literal(item, datatype=XSD.string)
-            self.graph.add((n[self.name], n.has_sub_category, literal))
+            self.graph.add((n[self.name], n.has_sub_category, item))
 
     def uniprot(self, uniprot):
         """
@@ -140,6 +138,7 @@ class Gene(NamedIndividual):
 
         literal = Literal(aroid, datatype=XSD.string)
         self.graph.add((n[self.name], n.has_aro_id, literal))
+
 
 
 class GeneLocation(NamedIndividual):

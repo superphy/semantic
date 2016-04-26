@@ -6,7 +6,7 @@
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-    <owl:Ontology rdf:about="https://github.com/superphy/semantic"/>
+    <owl:Ontology rdf:about="https://github.com/superphy/vfo"/>
     
 
 
@@ -21,11 +21,10 @@
     
 
 
-    <!-- https://github.com/superphy/semantic#has_category -->
+    <!-- https://github.com/superphy/vfo#has_category -->
 
-    <owl:ObjectProperty rdf:about="https://github.com/superphy/semantic#has_category">
-        <rdfs:domain rdf:resource="https://github.com/superphy/semantic/vf#gene"/>
-        <rdfs:range rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:ObjectProperty rdf:about="https://github.com/superphy/vfo#has_category">
+        <rdfs:range rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:ObjectProperty>
     
 
@@ -41,740 +40,727 @@
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#AAF_III_fimbraie -->
+    <!-- https://github.com/superphy/vfo/vf#AAF_III_fimbraie -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#AAF_III_fimbraie">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#AAF_III_fimbraie">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>AAF/III fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#AAF_II_fimbriae -->
+    <!-- https://github.com/superphy/vfo/vf#AAF_II_fimbriae -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#AAF_II_fimbriae">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#AAF_II_fimbriae">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>AAF/II fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#AIDA-I -->
+    <!-- https://github.com/superphy/vfo/vf#AIDA-I -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#AIDA-I">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#AIDA-I">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#AIDA-I_type -->
+    <!-- https://github.com/superphy/vfo/vf#AIDA-I_type -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#AIDA-I_type">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#AIDA-I_type">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#AatA -->
+    <!-- https://github.com/superphy/vfo/vf#AatA -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#AatA">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#AatA">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
+        <rdfs:label>aatA</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#CFA_I_fimbriae -->
+    <!-- https://github.com/superphy/vfo/vf#CFA_I_fimbriae -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#CFA_I_fimbriae">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#CFA_I_fimbriae">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>CFA/I fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#E.coli_common_pilus -->
+    <!-- https://github.com/superphy/vfo/vf#E.coli_common_pilus -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#E.coli_common_pilus">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#E.coli_common_pilus">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>E. coli common pilus</rdfs:label>
+        <rdfs:label>E. coli common pilus (ECP)</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#E.coli_type_three_secretion_system_2 -->
+    <!-- https://github.com/superphy/vfo/vf#E.coli_type_three_secretion_system_2 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#E.coli_type_three_secretion_system_2">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#secretion_system"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#E.coli_type_three_secretion_system_2">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#secretion_system"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Efa1 -->
+    <!-- https://github.com/superphy/vfo/vf#Efa1 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Efa1">
-        <owl:equivalentClass rdf:resource="https://github.com/superphy/semantic/vf#LifA"/>
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Efa1">
+        <owl:equivalentClass rdf:resource="https://github.com/superphy/vfo/vf#LifA"/>
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspC -->
+    <!-- https://github.com/superphy/vfo/vf#EspC -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspC">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspC">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspF -->
+    <!-- https://github.com/superphy/vfo/vf#EspF -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspF">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspF">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspFu -->
+    <!-- https://github.com/superphy/vfo/vf#EspFu -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspFu">
-        <owl:equivalentClass rdf:resource="https://github.com/superphy/semantic/vf#TccP"/>
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspFu">
+        <owl:equivalentClass rdf:resource="https://github.com/superphy/vfo/vf#TccP"/>
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspG -->
+    <!-- https://github.com/superphy/vfo/vf#EspG -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspG">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspG">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspG2 -->
+    <!-- https://github.com/superphy/vfo/vf#EspG2 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspG2">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspG2">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspH -->
+    <!-- https://github.com/superphy/vfo/vf#EspH -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspH">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspH">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspJ -->
+    <!-- https://github.com/superphy/vfo/vf#EspJ -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspJ">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspJ">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspM2 -->
+    <!-- https://github.com/superphy/vfo/vf#EspM2 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspM2">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspM2">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EspP -->
+    <!-- https://github.com/superphy/vfo/vf#EspP -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EspP">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EspP">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Espl -->
+    <!-- https://github.com/superphy/vfo/vf#Espl -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Espl">
-        <owl:equivalentClass rdf:resource="https://github.com/superphy/semantic/vf#NleA"/>
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Espl">
+        <owl:equivalentClass rdf:resource="https://github.com/superphy/vfo/vf#NleA"/>
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#EtpA -->
+    <!-- https://github.com/superphy/vfo/vf#EtpA -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#EtpA">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#EtpA">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>EtpA</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#F1C_fimbraie -->
+    <!-- https://github.com/superphy/vfo/vf#F1C_fimbraie -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#F1C_fimbraie">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#F1C_fimbraie">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>F1C fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Hek -->
+    <!-- https://github.com/superphy/vfo/vf#Hek -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Hek">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#invasion"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Hek">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#invasion"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#K88_fimbraie -->
+    <!-- https://github.com/superphy/vfo/vf#K88_fimbraie -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#K88_fimbraie">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#K88_fimbraie">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>K88 fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors -->
+    <!-- https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#LEE_locus_encoded_TTSS -->
+    <!-- https://github.com/superphy/vfo/vf#LEE_locus_encoded_TTSS -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#LEE_locus_encoded_TTSS">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#secretion_system"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#LEE_locus_encoded_TTSS">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#secretion_system"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#LifA -->
+    <!-- https://github.com/superphy/vfo/vf#LifA -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#LifA">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#LifA">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#NleA -->
+    <!-- https://github.com/superphy/vfo/vf#NleA -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#NleA">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#NleA">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#NleC -->
+    <!-- https://github.com/superphy/vfo/vf#NleC -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#NleC">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#NleC">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#NleD -->
+    <!-- https://github.com/superphy/vfo/vf#NleD -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#NleD">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#NleD">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#P_fimbraie -->
+    <!-- https://github.com/superphy/vfo/vf#P_fimbraie -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#P_fimbraie">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#P_fimbraie">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>P fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Pet -->
+    <!-- https://github.com/superphy/vfo/vf#Pet -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Pet">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Pet">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Pic -->
+    <!-- https://github.com/superphy/vfo/vf#Pic -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Pic">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Pic">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Porcine_attaching-effacing_associated_protein -->
+    <!-- https://github.com/superphy/vfo/vf#Porcine_attaching-effacing_associated_protein -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Porcine_attaching-effacing_associated_protein">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Porcine_attaching-effacing_associated_protein">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Porcine attaching-effacing assocaited protein</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#SPATE -->
+    <!-- https://github.com/superphy/vfo/vf#SPATE -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#SPATE">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#SPATE">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#S_fimbraie -->
+    <!-- https://github.com/superphy/vfo/vf#S_fimbraie -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#S_fimbraie">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#S_fimbraie">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>S fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Sat -->
+    <!-- https://github.com/superphy/vfo/vf#Sat -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Sat">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Sat">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#SepZ -->
+    <!-- https://github.com/superphy/vfo/vf#SepZ -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#SepZ">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#SepZ">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#TccP -->
+    <!-- https://github.com/superphy/vfo/vf#TccP -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#TccP">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#TccP">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Tia -->
+    <!-- https://github.com/superphy/vfo/vf#Tia -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Tia">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#invasion"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Tia">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#invasion"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Tir -->
+    <!-- https://github.com/superphy/vfo/vf#Tir -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Tir">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Tir">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#ToxB -->
+    <!-- https://github.com/superphy/vfo/vf#ToxB -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#ToxB">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#ToxB">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>ToxB</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Type_II_secretion_system -->
+    <!-- https://github.com/superphy/vfo/vf#Type_II_secretion_system -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Type_II_secretion_system">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#secretion_system"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Type_II_secretion_system">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#secretion_system"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#Type_I_fimbraie -->
+    <!-- https://github.com/superphy/vfo/vf#Type_I_fimbraie -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#Type_I_fimbraie">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#Type_I_fimbraie">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Type I fimbriae</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#VFO_id -->
+    <!-- https://github.com/superphy/vfo/vf#adherence -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#VFO_id">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#gene"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#adherence">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
+        <rdfs:label>Adherence</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#adherence -->
+    <!-- https://github.com/superphy/vfo/vf#adhesin_involved_in_diffuse_adherence -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#adherence">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#adhesin_involved_in_diffuse_adherence">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
+        <rdfs:label>Adhesion involved in diffuse adherence</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#adhesin_involved_in_diffuse_adherence -->
+    <!-- https://github.com/superphy/vfo/vf#aerobactin_siderophore -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#adhesin_involved_in_diffuse_adherence">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#aerobactin_siderophore">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#iron_uptake"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#aerobactin_siderophore -->
+    <!-- https://github.com/superphy/vfo/vf#alpha-hemolysin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#aerobactin_siderophore">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#alpha-hemolysin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#alpha-hemolysin -->
+    <!-- https://github.com/superphy/vfo/vf#antigen_43 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#alpha-hemolysin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#antigen_43">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#antigen_43 -->
+    <!-- https://github.com/superphy/vfo/vf#autotransporter -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#antigen_43">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#autotransporter">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
+        <rdfs:label>Autotransporter</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#autotransporter -->
+    <!-- https://github.com/superphy/vfo/vf#bundle_forming_pilus -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#autotransporter">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#bundle_forming_pilus">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Bundle forming pilus</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#bundle_forming_pilus -->
+    <!-- https://github.com/superphy/vfo/vf#category -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#bundle_forming_pilus">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/superphy/semantic/vf#category -->
-
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#category"/>
-    
-
-
-    <!-- https://github.com/superphy/semantic/vf#cell-cycle-inhibitory_factor_Cif -->
-
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#cell-cycle-inhibitory_factor_Cif">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/superphy/semantic/vf#colicin-like_USP -->
-
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#colicin-like_USP">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
-    </owl:Class>
-    
-
-
-    <!-- https://github.com/superphy/semantic/vf#contact-dependent_inhibition_CDI_system -->
-
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#contact-dependent_inhibition_CDI_system">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
-    </owl:Class>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#category"/>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#cytolethal_distending_toxin -->
+    <!-- https://github.com/superphy/vfo/vf#cell-cycle-inhibitory_factor_Cif -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#cytolethal_distending_toxin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#cell-cycle-inhibitory_factor_Cif">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#cytolysin_A -->
+    <!-- https://github.com/superphy/vfo/vf#colicin-like_USP -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#cytolysin_A">
-        <owl:equivalentClass rdf:resource="https://github.com/superphy/semantic/vf#hemolysin"/>
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#colicin-like_USP">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#cytotoxic_necrotizing_factor -->
+    <!-- https://github.com/superphy/vfo/vf#contact-dependent_inhibition_CDI_system -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#cytotoxic_necrotizing_factor">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#contact-dependent_inhibition_CDI_system">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#dispersin -->
+    <!-- https://github.com/superphy/vfo/vf#cytolethal_distending_toxin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#dispersin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#cytolethal_distending_toxin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#effector -->
+    <!-- https://github.com/superphy/vfo/vf#cytolysin_A -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#effector">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#cytolysin_A">
+        <owl:equivalentClass rdf:resource="https://github.com/superphy/vfo/vf#hemolysin"/>
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#espO1-1 -->
+    <!-- https://github.com/superphy/vfo/vf#cytotoxic_necrotizing_factor -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#espO1-1">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#cytotoxic_necrotizing_factor">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#espO1-2 -->
+    <!-- https://github.com/superphy/vfo/vf#dispersin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#espO1-2">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#dispersin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Dispersin</rdfs:label>
     </owl:Class>
-    
-
-
-    <!-- https://github.com/superphy/semantic/vf#gene -->
-
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#gene"/>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#heat-labile_enterotoxin -->
+    <!-- https://github.com/superphy/vfo/vf#effector -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#heat-labile_enterotoxin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#effector">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
+        <rdfs:label>Effector</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#heat-stable_enterotoxin_1 -->
+    <!-- https://github.com/superphy/vfo/vf#espO1-1 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#heat-stable_enterotoxin_1">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#espO1-1">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#hemin_uptake -->
+    <!-- https://github.com/superphy/vfo/vf#espO1-2 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#hemin_uptake">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#espO1-2">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#hemolysin -->
+    <!-- https://github.com/superphy/vfo/vf#heat-labile_enterotoxin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#hemolysin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#heat-labile_enterotoxin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#hemorrhagic_coli_pilus -->
+    <!-- https://github.com/superphy/vfo/vf#heat-stable_enterotoxin_1 -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#hemorrhagic_coli_pilus">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#heat-stable_enterotoxin_1">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#intimin -->
+    <!-- https://github.com/superphy/vfo/vf#hemin_uptake -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#intimin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#hemin_uptake">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#Tir"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#invasion -->
+    <!-- https://github.com/superphy/vfo/vf#hemolysin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#invasion">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#hemolysin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#invasion_of_brain_endothelial_cells -->
+    <!-- https://github.com/superphy/vfo/vf#hemorrhagic_coli_pilus -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#invasion_of_brain_endothelial_cells">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#invasion"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#hemorrhagic_coli_pilus">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Hemorrhagic coli pilus</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#iron-regulated_element -->
+    <!-- https://github.com/superphy/vfo/vf#intimin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#iron-regulated_element">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#intimin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Intimin</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#iron_transport -->
+    <!-- https://github.com/superphy/vfo/vf#invasion -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#iron_transport">
-        <owl:equivalentClass rdf:resource="https://github.com/superphy/semantic/vf#managanease_transport"/>
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#invasion">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#iron_uptake -->
+    <!-- https://github.com/superphy/vfo/vf#invasion_of_brain_endothelial_cells -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#iron_uptake">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#invasion_of_brain_endothelial_cells">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#invasion"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#longus_pilus -->
+    <!-- https://github.com/superphy/vfo/vf#iron-regulated_element -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#longus_pilus">
-        <owl:equivalentClass rdf:resource="https://github.com/superphy/semantic/vf#type_IV_pilus"/>
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#iron-regulated_element">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#iron_uptake"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#managanease_transport -->
+    <!-- https://github.com/superphy/vfo/vf#iron_transport -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#managanease_transport">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#iron_transport">
+        <owl:equivalentClass rdf:resource="https://github.com/superphy/vfo/vf#managanease_transport"/>
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#iron_uptake"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#mitochondria-associated_protein_map -->
+    <!-- https://github.com/superphy/vfo/vf#iron_uptake -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#mitochondria-associated_protein_map">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#LEE-encoded_TTSS_effectors"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#iron_uptake">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
+        <rdfs:label>Iron uptake</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors -->
+    <!-- https://github.com/superphy/vfo/vf#longus_pilus -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#non_LEE-encoded_TTSS_effectors">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#longus_pilus">
+        <owl:equivalentClass rdf:resource="https://github.com/superphy/vfo/vf#type_IV_pilus"/>
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Longus pilus</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#outer_membrane_protein -->
+    <!-- https://github.com/superphy/vfo/vf#managanease_transport -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#outer_membrane_protein">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#invasion"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#managanease_transport">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#iron_uptake"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#protease -->
+    <!-- https://github.com/superphy/vfo/vf#mitochondria-associated_protein_map -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#protease">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#mitochondria-associated_protein_map">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#LEE-encoded_TTSS_effectors"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#ref_genome -->
+    <!-- https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#ref_genome">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#gene"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#non_LEE-encoded_TTSS_effectors">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#salmochelin_siderophore -->
+    <!-- https://github.com/superphy/vfo/vf#outer_membrane_protein -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#salmochelin_siderophore">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#outer_membrane_protein">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#invasion"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#secretion_system -->
+    <!-- https://github.com/superphy/vfo/vf#protease -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#secretion_system">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#protease">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#sequence -->
+    <!-- https://github.com/superphy/vfo/vf#salmochelin_siderophore -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#sequence">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#ref_genome"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#salmochelin_siderophore">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#iron_uptake"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#shiga-like_toxin -->
+    <!-- https://github.com/superphy/vfo/vf#secretion_system -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#shiga-like_toxin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#toxin"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#secretion_system">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#temperature-sensitive_hemagglutinin -->
+    <!-- https://github.com/superphy/vfo/vf#shiga-like_toxin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#temperature-sensitive_hemagglutinin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#shiga-like_toxin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#toxin"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#toxin -->
+    <!-- https://github.com/superphy/vfo/vf#temperature-sensitive_hemagglutinin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#toxin">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#temperature-sensitive_hemagglutinin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#type_IV_pilus -->
+    <!-- https://github.com/superphy/vfo/vf#toxin -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#type_IV_pilus">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#adherence"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#toxin">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#unclassified -->
+    <!-- https://github.com/superphy/vfo/vf#type_IV_pilus -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#unclassified">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#category"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#type_IV_pilus">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#adherence"/>
+        <rdfs:label>Type IV pilus</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#uniprot -->
+    <!-- https://github.com/superphy/vfo/vf#unclassified -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#uniprot">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#gene"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#unclassified">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#category"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#vacuolating_autotransporter_gene -->
+    <!-- https://github.com/superphy/vfo/vf#vacuolating_autotransporter_gene -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#vacuolating_autotransporter_gene">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#autotransporter"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#vacuolating_autotransporter_gene">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#autotransporter"/>
     </owl:Class>
     
 
 
-    <!-- https://github.com/superphy/semantic/vf#yersiniabactin_siderophore -->
+    <!-- https://github.com/superphy/vfo/vf#yersiniabactin_siderophore -->
 
-    <owl:Class rdf:about="https://github.com/superphy/semantic/vf#yersiniabactin_siderophore">
-        <rdfs:subClassOf rdf:resource="https://github.com/superphy/semantic/vf#iron_uptake"/>
+    <owl:Class rdf:about="https://github.com/superphy/vfo/vf#yersiniabactin_siderophore">
+        <rdfs:subClassOf rdf:resource="https://github.com/superphy/vfo/vf#iron_uptake"/>
     </owl:Class>
 </rdf:RDF>
 

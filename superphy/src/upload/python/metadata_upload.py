@@ -344,11 +344,14 @@ class GeneMetadataUploader(MetadataUploader):
             metadata = GeneMetadata(gene_name)
             metadata.add_parameter("gene", gene_name)
             metadata.add_parameter("gene_type", self.kind)
+
+            ## adding metadata
             for heading in data[key]:
                 if data[key][heading] != "":
                     # Not a literal
-                    # value = self.remove_bad_chars(str(data[key][heading]))
-                    value = str(data[key][heading])
+                    value = self.remove_bad_chars(str(data[key][heading]))
+                    # literal
+                    #value = str(data[key][heading])
                     metadata.add_parameter(heading, value)
 
             self.add_to_graph(metadata)
@@ -377,8 +380,6 @@ class GeneMetadataUploader(MetadataUploader):
                                 "category",
                                 data[key][key2][category_key]["category_aro_name"]
                             )
-                            metadata.add_parameter(
-                                "category", data[key][key2][category_key]["category_aro_name"])
                     elif ("ARO" in key2) and not "description" in key2:
                         value = self.remove_bad_chars(str(data[key][key2]))
                         metadata.add_parameter(key2.lower(), value)
@@ -460,10 +461,10 @@ class GeneMetadata(Metadata):
     def build_kwargs(self):
         """
         Converts all data stored by the class into a dict used for creating
-        a superphy.uploader.classes.Genome instance
+        a superphy.uploader.classes.Gene instance
 
         Returns: the kwargs dict to be used as an argument in the constructor
-        of classes.Genome
+        of classes.Gene
         """
         kwargs = {'name': self.name}
 

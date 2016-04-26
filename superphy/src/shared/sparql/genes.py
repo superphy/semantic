@@ -126,3 +126,8 @@ def get_regions(genome_list, gene_list):
     print "query is:", query
 
     return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
+
+def get_categories(type):
+    query = prefixes + """
+    SELECT ?Category
+    """

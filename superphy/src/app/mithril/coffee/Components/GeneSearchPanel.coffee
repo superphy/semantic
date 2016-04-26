@@ -30,7 +30,11 @@ class GeneSearchPanel
                             data: ctrl.data
                             type: ctrl.type
                         })
-                        m.component(CategorySelection)
+                        m.component(CategorySelection, {
+                            ## Test values
+                            categories: []
+                            
+                        })
                     ])
                 ])
             ])
