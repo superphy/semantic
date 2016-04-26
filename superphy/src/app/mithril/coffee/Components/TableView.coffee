@@ -45,6 +45,7 @@ class TableView
                     m('tr', [
                         if args.checkbox and row.visible() then \
                             for header in headers
+                                ## For VF and AMR
                                 if header is "Gene"
                                     m('td', {class: 'gene_table_item'}, [
                                         m('.checkbox', [

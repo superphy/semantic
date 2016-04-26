@@ -1,0 +1,108 @@
+@startuml
+NamedIndividual o-- Organism
+NamedIndividual o-- Contig
+NamedIndividual o-- Genome
+NamedIndividual o-- Gene
+NamedIndividual o-- GeneLocation
+NamedIndividual o-- Attribute
+Attribute o-- HostCategory
+Attribute o-- Serotype
+Serotype o-- Otype
+Serotype o-- Htype
+Attribute o-- IsolationAttribute
+IsolationAttribute o-- FromHost
+IsolationAttribute o-- FromSource
+IsolationAttribute o-- IsolationSyndrome
+Organism o-- Host
+Organism o-- Microbe
+Genome o-- PendingGenome
+Genome o-- CompletedGenome
+
+NamedIndividual : rdf()
+
+Attribute : rdf()
+
+HostCategory : label
+HostCategory : rdf()
+
+IsolationAttribute : rdf()
+
+IsolationSyndrome : label
+IsolationSyndrome : host_category
+IsolationSyndrome : rdf()
+
+FromSource : label
+FromSource : host_category
+FromSource : rdf()
+
+Serotype : rdf()
+
+Otype : id
+Otype : name
+Otype : rdf()
+
+Htype : id
+Htype : name
+Htype : rdf()
+
+Genome : rdf()
+Genome : isolation_date(date)
+Genome : isolation_location(location)
+Genome : accession(accession)
+Genome : bioproject(bioproject)
+Genome : biosample(biosample)
+Genome : strain(strain)
+Genome : organism(organism)
+Genome : isolation_host(from_host)
+Genome : isolation_source(from_source)
+Genome : syndrome(syndrome)
+Genome : Htype(Htype=None)
+Genome : Otype(Otype=None)
+Genome : User(User)
+
+Contig : genome
+Contig : sequence
+Contig : is_from
+Contig : rdf()
+Contig : add_seq_validation(boolean)
+
+Gene : rdf()
+Gene : gene(gene)
+Gene : vfo_id(vfo_id)
+Gene : category(categories)
+Gene : subcategory(subcategories)
+Gene : uniprot(uniprot)
+Gene : gene_type(gene_type)
+Gene : cutoff(cutoff)
+Gene : aro_accession(aro_accession)
+Gene : aro_id(aro_id)
+
+GeneLocation : gene
+GeneLocation : contig
+GeneLocation : begin
+GeneLocation : end
+GeneLocation : seq
+GeneLocation : cutoff
+GeneLocation : is_ref_gene
+GeneLocation : rdf()
+
+CompletedGenome : rdf()
+
+PendingGenome : rdf()
+
+FromHost : name
+FromHost : host
+FromHost : host_category
+FromHost : rdf()
+
+Organism : label
+Organism : scientific_name
+Organism : common_name
+Organism : taxonomy_id
+Organism : rdf()
+
+Host : host_category
+Host : rdf()
+
+Microbe : rdf()
+@enduml
