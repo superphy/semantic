@@ -4,10 +4,15 @@ views.py
 provides the endpoints for this particular blueprint.
 """
 import datetime
+import os
 from flask import jsonify, request
+from flask_wtf import Form
+from wtforms import StringField
+from wtforms.validators import DataRequired
+
+from werkzeug import secure_filename
 
 from superphy.shared import sparql
-
 from . import data
 
 @data.after_request
@@ -149,3 +154,46 @@ def genesearchresults():
 
     return jsonify(genomeDict)
 
+
+# results = (sparql.get_all_genome_metadata())
+#     bindings = results['results']['bindings'][:5]
+#     rows = []
+#     for binding in bindings:
+#         row = {}
+#         for item in results['head']['vars']:
+#             try:
+#                 row[item] = binding[item]['value']
+#             except KeyError:
+#                 row[item] = ''
+#         rows.append(row)
+#     return jsonify({'data':rows})
+
+# Uploading stuff (actually belongs in uploader)
+
+class MyForm(Form):
+    """
+    This belongs in models. This is dummy  function.
+    """
+    name = StringField('name', validators=[DataRequired()])
+#Change this later to only allow '.faldo'?
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']) 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@data.route('/', methods=['GET', 'POST'])
+def upload_file():
+    """
+    We also want to be changing the filename somehow, and keep track of who 
+    is uploading what
+    """
+    if request.method == 'POST':
+        file_ = request.files['file0']
+        path = os.path.join(os.path.abspath(__file__)
+            .split('superphy')[:2][:1].pop(), 'superphy/superphy/posted_files')
+        print path
+        if file and allowed_file(file_.filename):
+            filename = secure_filename(file_.filename)
+            file_.save(os.path.join(path, filename))
+            return jsonify({})
+    return jsonify({})
