@@ -1,9 +1,9 @@
 #views.py
 """
 views.py
-provides the endpoints for this particular blueprint.
+provides the endpoints for this particular blueprint. Each endpoint is
+responsible for putting the data into an appropraite format.
 """
-import datetime
 import os
 from flask import jsonify, request
 from flask_wtf import Form
@@ -14,6 +14,7 @@ from werkzeug import secure_filename
 
 from superphy.shared import sparql
 from . import data
+from ..models import Response
 
 @data.after_request
 def add_header(response):
@@ -24,90 +25,70 @@ def add_header(response):
     response.headers['Access-Control-Allow-Headers'] = "accept, content-type"
     return response
 
+"""
 @data.route('/meta', methods=['GET', 'POST'])
 def meta():
-    """
-    General query that returns all genomes and their metadata.
-    """
+    #General query that returns all genomes and their metadata.
+
     results = (sparql.get_all_genome_metadata())
     results['date'] = (datetime.datetime.now() + datetime.timedelta(minutes=30)).isoformat()
     return jsonify(results)
-
-@data.route('/meta2', methods=['GET'])
+"""
+@data.route('/meta', methods=['GET'])
 def meta2():
     """
-    General query that returns all genomes and metadata in a nicer format.
+    General query that returns all genomes and metadata.
     """
-    results = (sparql.get_all_genome_metadata())
-    bindings = results['results']['bindings'][:5]
-    rows = []
-    for binding in bindings:
-        row = {}
-        for item in results['head']['vars']:
-            try:
-                row[item] = binding[item]['value']
-            except KeyError:
-                row[item] = ''
-        rows.append(row)
-    return jsonify({'data':rows})
+    return Response.default(sparql.get_all_genome_metadata())
 
 @data.route('/genomes', methods=['GET', 'POST'])
 def genomes():
     """
     General query that returns all genomes and their metadata.
     """
-    results = (sparql.get_all_genome_metadata())
-    return jsonify(results)
+    return Response.default(sparql.get_all_genome_metadata())
 
 @data.route('/genome/<genomeid>', methods=['GET', 'POST'])
 def genome(genomeid):
     """
     Returns the metadata of a particular genome in json format.
     """
-    results = (sparql.get_genome_metadata(genomeid))
-    return jsonify(results)
+    return Response.default(sparql.get_genome_metadata(genomeid))
 
 @data.route('/genes', methods=['GET', 'POST'])
 def genes():
     """
     General query that returns all genes and their metadata.
     """
-    results = (sparql.get_all_genes())
-    return jsonify(results)
+    return Response.default(sparql.get_all_genes())
 
 @data.route('/vf', methods=['GET', 'POST'])
 def vfs():
     """
     General query that returns all virulence factors.
     """
-    results = (sparql.get_all_genes('vf'))
-    return jsonify(results)
+    return Response.default(sparql.get_all_genes('vf'))
 
 @data.route('/amr', methods=['GET', 'POST'])
 def amrs():
     """
     General query that returns all antimicrobial resistance genes.
     """
-    results = (sparql.get_all_genes('amr'))
-    return jsonify(results)
-
+    return Response.default(sparql.get_all_genes('amr'))
 
 @data.route('/gene/<geneid>', methods=['GET', 'POST'])
 def gene(geneid):
     """
     Returns the metadata of a particular gene in json format.
     """
-    results = (sparql.get_gene(geneid))
-    return jsonify(results)
+    return Response.default(sparql.get_gene(geneid))
 
 @data.route('/regions/<genomeid>', methods=['GET', 'POST'])
 def regions(genomeid):
     """
     Returns all the genes inside a particular genome
     """
-    results = (sparql.find_alleles(genomeid))
-    return jsonify(results)
-
+    return Response.default(sparql.find_alleles(genomeid))
 
 @data.route('/region/<geneid>/<genomeid>', methods=['GET', 'POST'])
 def region(geneid, genomeid):
@@ -115,7 +96,7 @@ def region(geneid, genomeid):
     Queries for the instances of geneid in genomeid.
     """
     results = (sparql.find_regions(geneid, genomeid))
-    return jsonify(results)
+    return Response.default(results)
 
 @data.route('/genesearchresults', methods=['POST'])
 def genesearchresults():

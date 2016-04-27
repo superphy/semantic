@@ -12,7 +12,7 @@ getEndpoint = (url) ->
         response = m.prop(null)
     if response() is null
         response = m.request(
-            method: "POST",
+            method: "GET",
             url: "http://#{location.hostname}:5000/#{url}"
             data: {}
             datatype: 'json',
