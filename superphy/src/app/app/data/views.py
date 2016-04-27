@@ -24,14 +24,6 @@ def add_header(response):
     response.headers['Access-Control-Allow-Headers'] = "accept, content-type"
     return response
 
-@data.route('/query', methods=['GET'])
-def query():
-    """
-    #General query to test if the requests are working.
-    """
-    results = (sparql.get_x_triples(10))
-    return jsonify(results)
-
 @data.route('/meta', methods=['GET', 'POST'])
 def meta():
     """
