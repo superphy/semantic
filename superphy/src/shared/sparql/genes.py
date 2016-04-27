@@ -126,8 +126,19 @@ def get_categories(type):
         }
         """
     elif type == "amr":
-        pass
+        ## Temporarily loads vf data until amr categories are figured out
+        query += """
+        SELECT ?Category ?Subcategory
+        WHERE {
+            ?cat rdfs:subClassOf vfo:category .
+            ?subcat rdfs:subClassOf ?cat .
+            ?cat rdfs:label ?Category .
+            ?subcat rdfs:label ?Subcategory .
+            FILTER (?cat != ?subcat && ?cat != vfo:category) .
+            MINUS { ?cat owl:equivalentClass ?equivclass . }
+        }
+        """
     else:
         raise ValueError("Non-valid gene type inserted.")
-        
+
     return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))

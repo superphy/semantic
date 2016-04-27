@@ -16,6 +16,7 @@ GeneSearchModel =
     vfresults: m.prop({})
     amrresults: m.prop({})
 
+
     setLists: ->
         vfdata = @vfs()
         amrdata = @amrs()
@@ -88,6 +89,23 @@ GeneSearchModel =
                 )
 
         return response
+
+    getCategories: (type) ->
+        response = m.prop(null)
+        if response() is null
+            response = 
+                m.request(
+                    method: "POST"
+                    url: "http://#{location.hostname}:5000/data/categories/#{type}"
+                    data: {}
+                    datatype: "json"
+                    type: (response) ->
+                        console.log("Categories:", response)
+                        return response
+                )
+        return response
+
+
 
 
 GeneSearchModel.setLists()

@@ -100,7 +100,6 @@ class Response():
 
         bindings = results['results']['bindings']
         for binding in bindings:
-            print binding
             category = binding["Category"]['value']
             subcategory = binding["Subcategory"]['value']
             if subcategory not in categoryDict[category]:

@@ -4,6 +4,8 @@ class Factors extends Page
         @active = m.prop("genes")
         @tabCtrl = new mc.Tabs.controller('genes')
         @model = GeneSearchModel
+        @vfcategories = @model.getCategories('vf')
+        @amrcategories= @model.getCategories('amr')
         return @
 
     @view: (ctrl) ->
@@ -32,13 +34,13 @@ class Factors extends Page
                             title: "Virulence Factor"
                             type: "vf"
                             data: ctrl.model.vfList
-                            categories: []
+                            categories: ctrl.vfcategories()
                         })
                         m.component(GeneSearchPanel, {
                             title: "Antimicrobial Resistance"
                             type: "amr"
                             data: ctrl.model.amrList
-                            categories: []
+                            categories: ctrl.vfcategories()
                         })
                     ])
                 ])

@@ -135,16 +135,21 @@ class GeneForm
                                     #console.log(@data.categories[category])
                                     [m('div', {class: "row"}, [
                                         m('div', {class: "category-header col-xs-12"}, [
-                                            category
+                                            "hi"
                                         ])
                                     ])
 
-                                    # Non select2
-                                    m('div', {class: "selectize-control form-control single"}, [
-                                        m('div', {class: "selectize-input items not-full has-options"}, [
-                                            m('input', {type: "text", autocomplete: "off", placeholder: "--Select a category--", style: "width: 134px"})
-                                        ])
+                                    m('select', {class: "subcategories", multiple: "multiple"}, [
+                                        for subcat in @data.categories[category]
+                                            m('option', subcat)
                                     ])
+
+                                    # Non select2
+                                    # m('div', {class: "selectize-control form-control single"}, [
+                                    #     m('div', {class: "selectize-input items not-full has-options"}, [
+                                    #         m('input', {type: "text", autocomplete: "off", placeholder: "--Select a category--", style: "width: 134px"})
+                                    #     ])
+                                    # ])
 
                                     # m('div', {class: "selectize-control form-control single"}, [
                                     #     m.component(select2, {
