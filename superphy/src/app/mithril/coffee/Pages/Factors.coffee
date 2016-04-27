@@ -32,12 +32,13 @@ class Factors extends Page
                             title: "Virulence Factor"
                             type: "vf"
                             data: ctrl.model.vfList
-                            ## Test data
+                            categories: []
                         })
                         m.component(GeneSearchPanel, {
                             title: "Antimicrobial Resistance"
                             type: "amr"
                             data: ctrl.model.amrList
+                            categories: []
                         })
                     ])
                 ])
@@ -167,6 +168,7 @@ SubmitSelectedView =
                 ])
             ])
         ])
+
 
 
 

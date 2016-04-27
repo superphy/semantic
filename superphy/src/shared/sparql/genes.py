@@ -67,22 +67,6 @@ def get_gene(name):
 
     return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
 
-## Returns all the genes in a genome
-def find_alleles(genome):
-    query = prefixes + """
-    SELECT ?Region ?Gene
-    WHERE
-      { 
-        { ?Region rdf:type faldo:Region .
-          ?Gene :has_copy ?Region .
-          ?Contig :has_gene ?Region .
-          ?Contig :is_contig_of ?Genome .
-          ?Genome :has_accession "%s"^^xsd:string . 
-          }
-      }
-    """ % (genome)
-    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
-
 
 ## Returns the instances of a particular gene in a genome
 def find_regions(gene, genome):
@@ -128,6 +112,22 @@ def get_regions(genome_list, gene_list):
     return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
 
 def get_categories(type):
-    query = prefixes + """
-    SELECT ?Category
-    """
+    query = prefixes
+    if type == "vf":
+        query += """
+        SELECT ?Category ?Subcategory
+        WHERE {
+            ?cat rdfs:subClassOf vfo:category .
+            ?subcat rdfs:subClassOf ?cat .
+            ?cat rdfs:label ?Category .
+            ?subcat rdfs:label ?Subcategory .
+            FILTER (?cat != ?subcat && ?cat != vfo:category) .
+            MINUS { ?cat owl:equivalentClass ?equivclass . }
+        }
+        """
+    elif type == "amr":
+        pass
+    else:
+        raise ValueError("Non-valid gene type inserted.")
+        
+    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
