@@ -3,7 +3,7 @@ models.py
 """
 #pylint: disable=C0103, W0406
 
-
+from collections import defaultdict
 from flask import Flask, abort, request, jsonify, g, url_for, current_app
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.httpauth import HTTPBasicAuth
@@ -62,6 +62,50 @@ class Response():
             response.update(extra)
         return jsonify(response)
 
+    @classmethod
+    def format_gene_search(cls, results, genomeDict, extra=None):
+        """
+        Formats the response from the gene search query for the front-end in the form of a dictionary:
+        {genome1: {gene1: count, gene2: count}, genome2: {gene1: count...} ...}
+
+        Extra arguments:
+            genomeDict: a preformed dictionary based on selected genes and genomes.
+        """
+        response = {}
+        response = results
+
+        bindings = results['results']['bindings']
+        for binding in bindings:
+            accession = binding['Genome']['value'].split("#")[1]
+            gene_name = binding['Gene_Name']['value']
+            try:
+                genomeDict[accession][gene_name] += 1
+            except KeyError:
+                "Genome or gene doesn't exist in dictionary"
+
+        if extra is not None:
+            response.update(extra)
+
+        return jsonify(genomeDict)
+
+    @classmethod
+    def format_categories(cls, results, extra=None):
+        """
+        Formats the response for categories to use for the front-end.
+        """
+        response = {}
+        response = results
+
+        categoryDict = defaultdict(list)
+
+        bindings = results['results']['bindings']
+        for binding in bindings:
+            print binding
+            category = binding["Category"]['value']
+            subcategory = binding["Subcategory"]['value']
+            if subcategory not in categoryDict[category]:
+                categoryDict[category].append(subcategory) 
+        return jsonify(categoryDict)
 
 
 class User(db.Model):

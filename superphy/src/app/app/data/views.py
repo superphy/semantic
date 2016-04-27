@@ -117,29 +117,17 @@ def genesearchresults():
             genomeDict[genome][gene] = 0
     
     results = sparql.get_regions(genomes_, genes_)
-    bindings = results['results']['bindings']
-    for binding in bindings:
-        accession = binding['Genome']['value'].split("#")[1]
-        gene_name = binding['Gene_Name']['value']
-        try:
-            genomeDict[accession][gene_name] += 1
-        except KeyError:
-            "Genome or gene doesn't exist in dictionary"
+    return Response.format_gene_search(results)
 
-    return jsonify(genomeDict)
-
-@data.route('/categories/<type>', methods=['GET', 'POST'])
-def getcategories(type):
+@data.route('/categories/<gene_type>', methods=['GET', 'POST'])
+def getcategories(gene_type):
     """
     Endpoint for returning categories of genes.
     """
-    categoryDict = {}
-    results = (sparql.get_categories(type))
-    bindings = results['results']['bindings']
-    for binding in bindings:
-        category = binding["Category"]
-        subcategory = binding["Subcategory"]
-    return jsonify(results)
+
+    results = (sparql.get_categories(gene_type))
+    return Response.format_categories(results)
+
 
 # results = (sparql.get_all_genome_metadata())
 #     bindings = results['results']['bindings'][:5]
