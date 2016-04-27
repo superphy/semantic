@@ -3,7 +3,7 @@
 GeneSearchModel =
     vfs: getEndpoint(url="data/vf")
     amrs: getEndpoint(url="data/amr")
-    genomes: @genomedata = getEndpoint(url="data/meta")
+    genomes: @genomedata = getEndpoint2(url="data/meta")
 
     vfList: {}
     amrList: {}

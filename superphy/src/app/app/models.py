@@ -19,7 +19,6 @@ class Response():
     """
     This is a helper for formatting the sparql responses for the user.
 
-
     """
     @classmethod
     def default(cls, results, extra=None):
@@ -30,6 +29,27 @@ class Response():
         response = {}
 
         response = results
+
+        if extra is not None:
+            response.update(extra)
+        return jsonify(response)
+
+    @classmethod
+    def bulk_download(cls, results, extra=None):
+        """
+        """
+        response = {}
+        response['headers'] = results['head']['vars']
+        response['rows'] = []
+        bindings = results['results']['bindings']
+        for binding in bindings:
+            row = {}
+            for item in response['headers']:
+                if binding.has_key(item):
+                    row[item] = binding[item]['value']
+                else:
+                    row[item] = ""
+            response['rows'].append(row)
 
         if extra is not None:
             response.update(extra)
@@ -61,8 +81,6 @@ class Response():
         if extra is not None:
             response.update(extra)
         return jsonify(response)
-
-
 
 class User(db.Model):
     """
