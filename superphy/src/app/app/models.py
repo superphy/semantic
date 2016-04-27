@@ -15,6 +15,55 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
 
 from . import db
 
+class Response():
+    """
+    This is a helper for formatting the sparql responses for the user.
+
+
+    """
+    @classmethod
+    def default(cls, results, extra=None):
+        """
+        This is a template. Copy this over to another function if you are
+        making a different response object.
+        """
+        response = {}
+
+        response = results
+
+        if extra is not None:
+            response.update(extra)
+        return jsonify(response)
+
+    @classmethod
+    def shorten(cls, results, extra=None):
+        """
+        This is the default response from sparql. This turns the layered
+        response into a shorter dictionary object
+        Example
+
+        input:
+            {'head': {'vars': ['s', 'p', 'o']}, 'results': {'bindings': [{'p': {'value': 'FOOP'}, 's': {'value': 'FOOS'}, 'o': {'value': 'FOOO'}}, {'p': {'value': 'FOOP2'}, 's': {'value': 'FOOS2'}, 'o': {'value': 'FOOO2'}}]}}
+        output:
+        {'vars': ['s', 'p', 'o'], 'results': [{'p': 'FOOP', 's': 'FOOS', 'o': 'FOOO'}, {'p': 'FOOP2', 's': 'FOOS2', 'o': 'FOOO2'}]}
+        """
+        response = {}
+
+        response['vars'] = results.get('head').get('vars')
+        bindings = results['results']['bindings']
+        response['rows'] = []
+        for key in bindings:
+            row = {}
+            for item in response['vars']:
+                row[item] = key[item]['value']
+            response['rows'].append(row)
+
+        if extra is not None:
+            response.update(extra)
+        return jsonify(response)
+
+
+
 class User(db.Model):
     """
     User model for database.

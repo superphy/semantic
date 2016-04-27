@@ -44,5 +44,6 @@ superphy/src/upload/python/*.[np]sq
 superphy/src/upload/python/*.fsa
 
 superphy/src/app/mithril/css/*
+superphy/src/app/mithril/bower_components
 superphy/src/app/mithril/js/mithril.js
 superphy/posted_files/*

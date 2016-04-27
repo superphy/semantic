@@ -6,4 +6,5 @@ prefixes = """
     PREFIX  gfvo:  <http://www.biointerchange.org/gfvo#>
     PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
     PREFIX  aro:   <http://purl.obolibrary.org/obo/aro.obo#>
+    PREFIX  vfo:   <https://github.com/superphy/vfo#>
     """
