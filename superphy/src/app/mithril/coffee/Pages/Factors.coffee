@@ -1,3 +1,9 @@
+###
+CLASS Factors
+
+Page component for the Factors (VF and AMR) page
+###
+
 class Factors extends Page
     Routes.add('/factors', @)
     @controller: (args) ->

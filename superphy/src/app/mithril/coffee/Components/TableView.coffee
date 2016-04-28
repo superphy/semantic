@@ -1,3 +1,15 @@
+###
+CLASS TableView
+
+Component class for table views
+
+Args passed in:
+    data: Data to populate the table
+    checkbox: boolean for checkbox option (for VF & AMR)
+
+To fix: make the VF & AMR checkbox portion look nicer?
+###
+
 class TableView
     state = {pageY: 0, pageHeight: window.innerHeight}
     window.addEventListener("scroll", (e) ->
@@ -43,7 +55,7 @@ class TableView
                 ])
                 for row, x in args.data.rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
-                        if args.checkbox and row.visible() then \
+                        if args.checkbox and row.visible()
                             for header in headers
                                 ## For VF and AMR
                                 if header is "Gene"
@@ -64,6 +76,8 @@ class TableView
                                             row[header]
                                         ])
                                     ])
+                        else if not row.visible()
+                            null
                         else
                             for header in args.data.headers
                                 m('td', [row[header]])

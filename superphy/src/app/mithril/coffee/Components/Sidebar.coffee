@@ -1,3 +1,14 @@
+###
+CLASS Sidebar
+
+Component class for sidebar in VF and AMR feature
+
+Args passed in:
+    None yet
+
+To do: Add components into Sidebar
+###
+
 class Sidebar
     @controller: (args) ->
         return @

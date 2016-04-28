@@ -166,7 +166,7 @@ GeneTable =
 
 
 ###
-COMPONENT GeneTable
+COMPONENT CategorySelection
 
 Component for the category selection (whole section, not just one select bar)
 
@@ -199,71 +199,52 @@ CategorySelection =
                             category
                         ])
                     ])
-                    # m('div', {class: "selectize-control form-control single"}, [
-                    #     m('div', {class: "selectize-input items not-full has-options"}, [
-                    #         m('input', {type: "text", autocomplete: "off", placeholder: "--Select a category--", style: "width: 134px"})
-                    #     ])
-                    # ])
-
-                    # m('select', {class: "subcategories", multiple: "multiple"}, [
-                    #     for subcat in args.categories[category]
-                    #         m('option', subcat)
-                    # ])
                     m('.row',
                         m('.col-xs-12',
-                            # m('.', {class: "selectize-control form-control single"}, [
-                            #     m('div', {class: "selectize-input items not-full has-options"}, [
                             m.component(SelectMult, {
-                                #filterbar: new SelectMult()
                                 category: category
-                                data: args.categories[category]
-                                value: ctrl.currentUser
-                                onchange: ctrl.changeUser
+                                subcategories: args.categories[category]
+                                data: args.data
                             })
-                            #     ])
-                            # ])
                         )
                     )
                     ]
             ])
         ])
 
-SelectBar = 
-    controller: (args) ->
-        @filterCategories = (category, subcategory) ->
-            console.log("Filtering for ", category, " genes")
-            for row in args.data.rows
-                cat = row.Category
-                subcat = row.Sub_Category
-                if cat is category and subcat is subcategory
-                    row.visible(true)
-                else
-                    row.visible(false)
 
-        @onchange = (cat, sub) ->
-            @filterCategories(cat, sub)
+###
+COMPONENT SelectMult
+
+Component for each category search box. Based on the Select2 jQuery library
+
+Args:
+    category: top category
+    subcategories: list of subcategories
+    data: gene search model
+###
+SelectMult =
+    all_subcategories: []
+    controller: (args) ->
+        @filterCategories = (category, subcategories) ->
+            console.log("Filtering for ", category, " genes")
+            console.log(SelectMult.all_subcategories)
+            for sc in subcategories
+                console.log args.data.rows
+                for row in args.data.rows
+                    cat = row.Category
+                    subcat = row.Sub_Category
+                    console.log(cat, subcat)
+                    if subcategories is []
+                        row.visible(true)
+                    else if (cat is category) and (subcat is sc)
+                        row.visible(true)
+                    else
+                        row.visible(false)
 
         return @
 
-    config: (ctrl) ->
-        return (element, isInitialized) ->
-            el = $(element)
-            if not isInitialized
-                el.on("change", (e) ->
-                    if typeof ctrl.onchange is "function"
-                        ctrl.onchange()
-                )
-    view: (ctrl, args) ->
-        m('select', {"data-category-id": args.category, multiple: "multiple", class:"form-control"}, [
-            for subcat,index in args.data
-                attrs = {id: "#{index}", value: subcat, title:subcat}
-                m('option', attrs, subcat)
-
-            m('option', {value:'null', selected: "selected"}, "--Select Category--")
-        ])
-
-SelectMult =
-    config: (ctrl) ->
+    config: (ctrl, args) ->
         return (element, isInitialized) ->
             el = $(element)
             if not isInitialized
@@ -271,73 +252,21 @@ SelectMult =
                     placeholder: "--Select a category--"
                 }
                 el.select2(attrs)
-            #         .on("change", (e) ->
-            #             m.startComputation()
-            #             if typeof ctrl.onchange is "function"
-            #                 ctrl.onchange(el.select2("val"))
-            #                 #ctrl.filter(args.category, item)
+                    .on("change", (e) ->
+                        m.startComputation()
+                        if typeof args.onchange is "function"
+                            console.log("What is happening", el.val())
+                            if el.val() then SelectMult.all_subcategories = SelectMult.all_subcategories.concat(el.val()) else SelectMult.all_subcategories = []
+                            ctrl.filterCategories(args.category, SelectMult.all_subcategories)
 
-            #             m.endComputation()
-            #         )
+                        m.endComputation()
+                    )
     view: (ctrl, args) ->
-        #selectedId = args.value()
         return m("select", {"data-category-id": args.category, \
                             multiple: "multiple", \
                             class: "form-control", \
-                            config: SelectMult.config(args)}, [
-            for subcat,index in args.data
+                            config: SelectMult.config(ctrl, args)}, [
+            for subcat, index in args.subcategories
                 attrs = {id: "#{index}", value: subcat, title:subcat}
                 m('option', attrs, subcat)
-
-            #m('option', {value:'null', selected: "selected"}, "--Select Category--")
-        ])
-
-Select2 =
-    controller: (args) ->
-        @filter = (category, subcategory) ->
-            console.log("Filtering for ", category, " genes")
-            for row in args.data.rows
-                cat = row.Category
-                subcat = row.Sub_Category
-                if cat is category and subcat is subcategory
-                    row.visible(true)
-                else
-                    row.visible(false)
-
-        return @
-
-    config: (ctrl) ->
-        return (element, isInitialized) ->
-            if typeof jQuery isnt 'undefined' and typeof jQuery.fn.select2 isnt 'undefined'
-                el = $(element)
-                if not isInitialized
-                    el.select2()
-                        .on("change", (e) ->
-                            #id = el.select2("val")
-                            m.startComputation()
-                            # ctrl.data.map((d) ->
-                            #     if d is id
-                            #         ctrl.value(d)
-                            # )
-
-                            if typeof ctrl.onchange is "function"
-                                ctrl.onchange(el.select2("val"))
-                                #ctrl.filter(args.category, item)
-
-                            m.endComputation()
-                        )
-
-                el.select2("val", ctrl.value)
-                #el.val(ctrl.value()).trigger("change")
-            else
-                console.warn('ERROR: You need jquery and Select2 in the page')
-
-    view: (ctrl, args) ->
-        #selectedId = args.value()
-        return m("select", {config: Select2.config(args)}, [
-            args.data.map((item) ->
-                attrs = {value:item}
-                # if item is selectedId
-                #     attrs.selected = "selected"
-                return m("option", attrs, item) )
         ])
