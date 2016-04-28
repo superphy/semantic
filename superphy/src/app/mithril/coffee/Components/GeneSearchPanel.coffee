@@ -1,7 +1,18 @@
+###
+CLASS GeneSearchPanel
+
+Component class for the Gene Search Panel for one gene type
+  in the VF and AMR gene feature.
+
+Args passed in:
+    title: title of the panel
+    type: string that describes type of gene (either "vf" or "amr")
+    data: data model (global model that holds the selected genes & genomes)
+    categories: object of categories for the genes
+###
+
 class GeneSearchPanel
     @controller: (args) ->
-        @toggle = (checked) ->
-
         return @
 
     @view: (args, ctrl) ->
@@ -20,7 +31,6 @@ class GeneSearchPanel
                     ])
                     m(".row", [
                         m.component(SearchSelect, {
-                            title: ctrl.title
                             type: ctrl.type
                             data: ctrl.data
                         })
@@ -40,6 +50,15 @@ class GeneSearchPanel
         ]) 
 
 
+###
+COMPONENT SelectedGenes
+
+Component that displays the selected genes in the search search panel.
+
+Args passed in:
+    data: data model (global model that holds the selected genes & genomes)
+    type: string that describes type of gene (either "vf" or "amr")
+###
 SelectedGenes =
     controller: (args) ->
     view: (ctrl, args) ->
@@ -58,6 +77,16 @@ SelectedGenes =
             ])
         ])
 
+
+###
+COMPONENT SearchSelect
+
+Search bar for the gene table.
+
+Args passed in:
+    data: data model (global model that holds the selected genes & genomes)
+    type: string that describes type of gene (either "vf" or "amr")
+###
 SearchSelect =
     controller: (args) ->
         self = @
@@ -106,6 +135,16 @@ SearchSelect =
             ])
         ])
 
+
+###
+COMPONENT GeneTable
+
+Component that displays the gene table.
+
+Args passed in:
+    data: data model (global model that holds the selected genes & genomes)
+    type: string that describes type of gene (either "vf" or "amr")
+###
 GeneTable =
     controller: (args) ->
     view: (ctrl, args) ->
@@ -126,8 +165,19 @@ GeneTable =
         ])
 
 
+###
+COMPONENT GeneTable
+
+Component for the category selection (whole section, not just one select bar)
+
+Args passed in:
+    data: data model (global model that holds the selected genes & genomes)
+    categories: object that has the categories and subcategories for the
+                particular set of genomes.
+###
 CategorySelection =
     controller: (args) ->
+        @count = 0
         @data = [
             {id: 1, name: "John"},
             {id: 2, name: "Mary"},
@@ -159,20 +209,56 @@ CategorySelection =
                     #     for subcat in args.categories[category]
                     #         m('option', subcat)
                     # ])
-
-                    m('.', {class: "selectize-control form-control single"}, [
-                        m('div', {class: "selectize-input items not-full has-options"}, [
-                            m.component(Select2, {
+                    m('.row',
+                        m('.col-xs-12',
+                            # m('.', {class: "selectize-control form-control single"}, [
+                            #     m('div', {class: "selectize-input items not-full has-options"}, [
+                            m.component(SelectBar, {
                                 category: category
                                 data: args.categories[category]
                                 value: ctrl.currentUser
                                 onchange: ctrl.changeUser
                             })
-                        ])
-                    ])
-
+                            #     ])
+                            # ])
+                        )
+                    )
                     ]
             ])
+        ])
+
+SelectBar = 
+    controller: (args) ->
+        @filterCategories = (category, subcategory) ->
+            console.log("Filtering for ", category, " genes")
+            for row in args.data.rows
+                cat = row.Category
+                subcat = row.Sub_Category
+                if cat is category and subcat is subcategory
+                    row.visible(true)
+                else
+                    row.visible(false)
+
+        @onchange = (cat, sub) ->
+            @filterCategories(cat, sub)
+
+        return @
+
+    config: (ctrl) ->
+        return (element, isInitialized) ->
+            el = $(element)
+            if not isInitialized
+                el.on("change", (e) ->
+                    if typeof ctrl.onchange is "function"
+                        ctrl.onchange()
+                )
+    view: (ctrl, args) ->
+        m('select', {"data-category-id": args.category, class:"form-control"}, [
+            for subcat,index in args.data
+                attrs = {id: "#{index}", value: subcat, title:subcat}
+                m('option', attrs, subcat)
+
+            m('option', {value:'null', selected: "selected"}, "--Select Category--")
         ])
 
 Select2 =
@@ -196,30 +282,31 @@ Select2 =
                 if not isInitialized
                     el.select2()
                         .on("change", (e) ->
-                            id = el.select2("val")
+                            #id = el.select2("val")
                             m.startComputation()
-                            ctrl.data.map((d) ->
-                                if d is id
-                                    ctrl.value(d)
-                            )
+                            # ctrl.data.map((d) ->
+                            #     if d is id
+                            #         ctrl.value(d)
+                            # )
 
-                            #if typeof ctrl.onchange is "function"
-                            ctrl.onchange(el.select2("val"))
-                            #ctrl.filter(args.category, item)
+                            if typeof ctrl.onchange is "function"
+                                ctrl.onchange(el.select2("val"))
+                                #ctrl.filter(args.category, item)
 
                             m.endComputation()
                         )
 
-                el.val(ctrl.value()).trigger("change")
+                el.select2("val", ctrl.value)
+                #el.val(ctrl.value()).trigger("change")
             else
                 console.warn('ERROR: You need jquery and Select2 in the page')
 
     view: (ctrl, args) ->
-        selectedId = args.value()
+        #selectedId = args.value()
         return m("select", {config: Select2.config(args)}, [
             args.data.map((item) ->
                 attrs = {value:item}
-                if item is selectedId
-                    attrs.selected = "selected"
+                # if item is selectedId
+                #     attrs.selected = "selected"
                 return m("option", attrs, item) )
         ])
