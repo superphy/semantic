@@ -213,7 +213,8 @@ CategorySelection =
                         m('.col-xs-12',
                             # m('.', {class: "selectize-control form-control single"}, [
                             #     m('div', {class: "selectize-input items not-full has-options"}, [
-                            m.component(SelectBar, {
+                            m.component(SelectMult, {
+                                #filterbar: new SelectMult()
                                 category: category
                                 data: args.categories[category]
                                 value: ctrl.currentUser
@@ -253,12 +254,42 @@ SelectBar =
                         ctrl.onchange()
                 )
     view: (ctrl, args) ->
-        m('select', {"data-category-id": args.category, class:"form-control"}, [
+        m('select', {"data-category-id": args.category, multiple: "multiple", class:"form-control"}, [
             for subcat,index in args.data
                 attrs = {id: "#{index}", value: subcat, title:subcat}
                 m('option', attrs, subcat)
 
             m('option', {value:'null', selected: "selected"}, "--Select Category--")
+        ])
+
+SelectMult =
+    config: (ctrl) ->
+        return (element, isInitialized) ->
+            el = $(element)
+            if not isInitialized
+                attrs = {
+                    placeholder: "--Select a category--"
+                }
+                el.select2(attrs)
+            #         .on("change", (e) ->
+            #             m.startComputation()
+            #             if typeof ctrl.onchange is "function"
+            #                 ctrl.onchange(el.select2("val"))
+            #                 #ctrl.filter(args.category, item)
+
+            #             m.endComputation()
+            #         )
+    view: (ctrl, args) ->
+        #selectedId = args.value()
+        return m("select", {"data-category-id": args.category, \
+                            multiple: "multiple", \
+                            class: "form-control", \
+                            config: SelectMult.config(args)}, [
+            for subcat,index in args.data
+                attrs = {id: "#{index}", value: subcat, title:subcat}
+                m('option', attrs, subcat)
+
+            #m('option', {value:'null', selected: "selected"}, "--Select Category--")
         ])
 
 Select2 =
