@@ -33,12 +33,23 @@ getEndpoint = (url) ->
         )
     return response
 
-class RawEndpoint
-    Routes.add("test", @, {url:'data/amr'})
-    #Testing assistant class
-    @controller: (args) ->
-        url = args.url
-        @data = getEndpoint(args.url)
-        return @
-    @view: (ctrl)->
-        m('.', JSON.stringify(ctrl.data()))
+getEndpoint2 = (url) ->
+    try
+        response = m.prop(JSON.parse(localStorage.getItem(url)))
+        diff = (new Date(response().date).getTime() - new Date().getTime())
+        if diff < 0
+            throw diff
+    catch
+        localStorage.setItem(url, null)
+        response = m.prop(null)
+    if response() is null
+        response = m.request(
+            method: "GET",
+            url: "http://#{location.hostname}:5000/#{url}"
+            data: {}
+            datatype: 'json',
+            type: (response) ->
+                localStorage.setItem(url, JSON.stringify(response))
+                return response
+        )
+    return response

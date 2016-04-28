@@ -5,6 +5,7 @@ provides the endpoints for this particular blueprint. Each endpoint is
 responsible for putting the data into an appropraite format.
 """
 import os
+import datetime
 from flask import jsonify, request
 from flask_wtf import Form
 from wtforms import StringField
@@ -35,11 +36,13 @@ def meta():
     return jsonify(results)
 """
 @data.route('/meta', methods=['GET'])
-def meta2():
+def meta():
     """
     General query that returns all genomes and metadata.
     """
-    return Response.default(sparql.get_all_genome_metadata())
+    return Response.bulk_download(
+        sparql.get_all_genome_metadata(),
+        {'date': (datetime.datetime.now() + datetime.timedelta(minutes=30)).isoformat()})
 
 @data.route('/genomes', methods=['GET', 'POST'])
 def genomes():
