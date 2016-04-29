@@ -90,6 +90,15 @@ class Factors extends Page
             ])
         )
 
+
+###
+COMPONENT FactorsIntro
+
+Introduction for gene indentification feature
+
+Args:
+    none
+###
 FactorsIntro =
     view: (ctrl, args) ->
         m('.intro', [
@@ -118,6 +127,16 @@ FactorsIntro =
                     individual genes.")
         ])
 
+
+###
+COMPONENT SubmitView
+
+View for the third tab on the page 
+(This could be moved to another file?)
+
+Args:
+    data: gene search model
+###
 SubmitView =
     controller: (args) ->
         @submit = () ->
@@ -160,6 +179,16 @@ SubmitView =
             ])
         ])
 
+
+###
+COMPONENT SubmitSelectedView
+
+Component that confirms number of gene selected
+
+Args:
+    selected: list of selected genes or genomes
+    title: type of selected genes or genomes
+###
 SubmitSelectedView =
     view: (ctrl, args) ->
         m('.row', [

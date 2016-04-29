@@ -215,13 +215,9 @@ Args:
     data: gene search model
 ###
 SelectMult =
-    all_subcategories: []
     controller: (args) ->
         @filterCategories = (category, subcategories) ->
             console.log("Filtering for ", category, " genes")
-            console.log("selectedcats:", subcategories)
-            # for sc in SelectMult.all_subcategories
-            #     console.log("the subcat is:", sc)
             for row in args.data.rows
                 cat = row.Category
                 subcat = row.Sub_Category
@@ -229,7 +225,6 @@ SelectMult =
                     row.visible(true)
                 else
                     row.visible(false)
-
         return @
 
     config: (ctrl, args) ->

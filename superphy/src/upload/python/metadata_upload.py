@@ -478,8 +478,9 @@ class GeneMetadata(Metadata):
 
 ###### For Testing purposes ######
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
  #  # For genome testing
+    # More sample files can be found in the samples folder
     # MD = GenomeMetadataUploader("samples/meta_pipe_result.json", "Human")
     # MD.upload()
 
@@ -487,5 +488,5 @@ if __name__ == "__main__":
     # GMD1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
     # GMD1.upload_genes()
 
-    GMD2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
-    GMD2.upload_genes()
+    # GMD2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
+    # GMD2.upload_genes()

@@ -1,5 +1,11 @@
 # coffeelint: disable=max_line_length
 
+###
+CLASS Home
+
+Page component for the main page
+###
+
 class Home extends Page
     Routes.add('/', @)
     Routes.add('/home', @)
