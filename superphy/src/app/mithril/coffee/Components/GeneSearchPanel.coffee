@@ -177,15 +177,6 @@ Args passed in:
 ###
 CategorySelection =
     controller: (args) ->
-        @count = 0
-        @data = [
-            {id: 1, name: "John"},
-            {id: 2, name: "Mary"},
-            {id: 3, name: "Seniqua"}
-          ]
-        @currentUser = m.prop("Select Category")
-        @changeUser = (id) ->
-            console.log(id)
         return @
     view: (ctrl, args) ->
         m(".col-md-6", [
@@ -228,19 +219,16 @@ SelectMult =
     controller: (args) ->
         @filterCategories = (category, subcategories) ->
             console.log("Filtering for ", category, " genes")
-            console.log(SelectMult.all_subcategories)
-            for sc in subcategories
-                console.log args.data.rows
-                for row in args.data.rows
-                    cat = row.Category
-                    subcat = row.Sub_Category
-                    console.log(cat, subcat)
-                    if subcategories is []
-                        row.visible(true)
-                    else if (cat is category) and (subcat is sc)
-                        row.visible(true)
-                    else
-                        row.visible(false)
+            console.log("selectedcats:", subcategories)
+            # for sc in SelectMult.all_subcategories
+            #     console.log("the subcat is:", sc)
+            for row in args.data.rows
+                cat = row.Category
+                subcat = row.Sub_Category
+                if !subcategories or (cat is category and subcat in subcategories)
+                    row.visible(true)
+                else
+                    row.visible(false)
 
         return @
 
@@ -254,10 +242,9 @@ SelectMult =
                 el.select2(attrs)
                     .on("change", (e) ->
                         m.startComputation()
-                        if typeof args.onchange is "function"
-                            console.log("What is happening", el.val())
-                            if el.val() then SelectMult.all_subcategories = SelectMult.all_subcategories.concat(el.val()) else SelectMult.all_subcategories = []
-                            ctrl.filterCategories(args.category, SelectMult.all_subcategories)
+                        selected = []
+                        if el.val() then selected = el.val()
+                        ctrl.filterCategories(args.category, el.val())
 
                         m.endComputation()
                     )
