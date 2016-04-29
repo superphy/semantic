@@ -33,9 +33,9 @@ class Factors extends Page
                 else return m('p', "Not a valid tab name.")
 
         renderGeneForm = (ctrl) ->
-            m('.', {class: 'tab-content'}, [
-                m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
-                    m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
+            m('.tab-content', [
+                m('.tab-pane active', {id: 'gene-search-querygenes'}, [
+                    m('.panel-group genes-search', {id: 'accordian'}, [
                         m.component(GeneSearchPanel, {
                             title: "Virulence Factor"
                             type: "vf"
@@ -53,18 +53,18 @@ class Factors extends Page
             ])
 
         renderGenomeSearch = (ctrl) ->
-            m('.', {class: 'tab-content'}, [
-                m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
-                    m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
+            m('.tab-content', [
+                m('.tab-pane active', {id: 'gene-search-querygenes'}, [
+                    m('.panel-group genes-search', {id: 'accordian'}, [
                         "Testing Genome Search (you can change the genomes manually in the GeneSearchModel)"
                     ])
                 ])
             ])
 
         renderSubmit = (ctrl) ->
-            m('.', {class: 'tab-content'}, [
-                m('.', {class: 'tab-pane active', id: 'gene-search-querygenes'}, [
-                    m('.', {class: 'panel-group genes-search', id: 'accordian'}, [
+            m('.tab-content', [
+                m('.tab-pane active', {id: 'gene-search-querygenes'}, [
+                    m('.panel-group genes-search', id: 'accordian', [
                         m.component(SubmitView, {
                             data: ctrl.model
                         })
@@ -92,25 +92,24 @@ class Factors extends Page
 
 FactorsIntro =
     view: (ctrl, args) ->
-        m(".intro", [
-            m('.', {class: 'row'}, [
+        m('.intro', [
+            m('.row', [
                 m('.col-xs-8', [
                     m('.content-header', [
                         m('h1', [
-                            m('span', {class: "title_part1"}, 'VIRULENCE & AMR '),
-                            m('span', {class: "title_part2"}, 'GENES')
+                            m('span.title_part1', 'VIRULENCE & AMR '),
+                            m('span.title_part2', 'GENES')
                         ])
                     ])
                 ])
-                m('.', {class: 'col-xs-4'}, [
-                    m('button', {id: "intro-button", \
-                                 class: "btn btn-danger btn-lg", \
-                                 type:"button"}, [
+                m('.col-xs-4', [
+                    m('button.btn btn-danger btn-lg', {id: "intro-button", \
+                                                       type:"button"}, [
                         "INTRODUCTION"
                     ])
                 ])
             ])
-            m("p", "Search for the presence or absence of
+            m('p', "Search for the presence or absence of
                     virulence factor genes or antimicrobial
                     resistance genes in genomes of interest.
                     Detailed information on individual virulence
@@ -148,13 +147,13 @@ SubmitView =
                     m('.gene-search-next-wrapper', {id: 'query-gene-form'}, [
                         m('button', {class: 'btn btn-success', \
                                      type: 'submit', \
-                                     value: 'Submit',
+                                     value: 'Submit', \
                                      onclick: ctrl.submit},
                            "Submit")
                         m('button', {class: 'btn btn-danger', \
                                      type: 'reset', \
                                      value: 'Reset', \
-                                     onclick: ctrl.reset}, 
+                                     onclick: ctrl.reset},
                            "Reset")
                     ])
                 ])

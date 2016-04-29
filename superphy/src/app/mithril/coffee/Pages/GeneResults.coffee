@@ -1,5 +1,10 @@
 # coffeelint: disable=max_line_length
 
+###
+CLASS GeneResults
+
+Page Component for the gene results page.
+###
 class GeneResults extends Page
 
     Routes.add('/results', @)
@@ -22,13 +27,14 @@ class GeneResults extends Page
         return super(
             m '.', {id: 'wrapper'},
                 m.component(Sidebar)
-                m 'div', {id: "page-content-wrapper"},
+                m '.', {id: "page-content-wrapper"},
                     m '.page-content inset',
                         m '.container-fluid',
                             m.component(ContentHeader, {
                                 title: "Virulence Factor and AMR Results"
                             }),
-                            m 'div', {id: 'results'},
+                            m '.', {id: 'results'},
+                                ## Virulence factors
                                 [m.component(GeneResultsPanel, {
                                     id: "vf_results"
                                     type: "Virulence Factor"
@@ -46,6 +52,7 @@ class GeneResults extends Page
                                         elID: "matrix_ticker1"
                                     })
                                 }),
+                                ## AMR genes
                                 m.component(GeneResultsPanel, {
                                     id: "amr_results"
                                     type: "Antimicrobrial Resistance"
@@ -66,6 +73,19 @@ class GeneResults extends Page
 
         )
 
+
+###
+COMPONENT GeneResultsPanel
+
+Wrapper component for results of a set of genes.
+
+Args:
+    id: ID name for div element
+    type: type of gene
+    numSelected: number of selected genes
+    matrix: MatrixView component
+    histogram: Histogram component
+###
 GeneResultsPanel =
     view: (ctrl, args) ->
         if args.numSelected > 0 \
@@ -78,6 +98,15 @@ GeneResultsPanel =
         else
             m('div', '')
 
+
+###
+COMPONENT ContentHeader
+
+Intro information for gene results
+
+Args:
+    title: Title of the page
+###
 ContentHeader =
     view: (ctrl, args) ->
         m '.row',
@@ -90,6 +119,18 @@ ContentHeader =
                              type: "button"},
                             "INTRODUCTION"
 
+
+###
+COMPONENT Matrix
+
+Initializer component for the Matrix
+
+Args:
+    matrixview: MatrixView component
+    results: results object
+    parentEl: parent element's ID
+    elID: matrix's element ID
+###
 Matrix =
     controller: (args) ->
         @results = args.results()
@@ -100,13 +141,24 @@ Matrix =
             m '.superphy-matrix', {id: args.elID, config: args.matrixview.init(ctrl.results, args.parentEl, args.elID)}
 
 
+###
+COMPONENT Histogram
+
+Initializer component for the Histogram
+
+Args:
+    histview: Histrogram component
+    results: results object
+    parentEl: parent element's ID
+    elID: histogram's element ID
+###
 Histogram =
     controller: (args) ->
         @results = args.results()
         return @
     view: (ctrl, args) ->
-        m 'div', {class: "row histogram-row"},
+        m '.row histogram-row',
             m '.col-md-4 histogram-description'
                 m 'span', "Blurb goes here"
-            m 'div', {class: "col-md-8 histogram-container", id: args.parentEl},
+            m '.col-md-8 histogram-container', {id: args.parentEl},
                 m '.superphy-histogram', {id: args.elID, config: args.histview.init(ctrl.results, args.parentEl, args.elID)}

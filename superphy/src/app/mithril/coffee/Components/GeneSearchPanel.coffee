@@ -62,9 +62,9 @@ Args passed in:
 SelectedGenes =
     controller: (args) ->
     view: (ctrl, args) ->
-        m(".", {class: "col-md-6 col-md-offset-3"}, [
-            m(".", {class: "selected-gene-list-wrapper", \
-                    id: "#{args.type}-selected-list"}, [
+        m(".col-md-6 col-md-offset-3", [
+            m(".selected-gene-list-wrapper", \
+                    id: "#{args.type}-selected-list", [
                 m("fieldset", [
                     m("span", ["Selected factors:"])
                     m("ul", {id: "#{args.type}-selected"}, [
@@ -151,7 +151,7 @@ GeneTable =
         m(".col-md-6", [
             m(".gene-list-wrapper", [
                 m("fieldset", [
-                    m("span", {class: "col-md-12"}, [
+                    m("span.col-md-12", [
                         "Select one or more #{args.type} factors"
                         m(".",
                             m.component(TableView, {
@@ -194,8 +194,8 @@ CategorySelection =
                     m('span', "Select category to refine list of genes:")
                 ])
                 for category of args.categories
-                    [m('div', {class: "row"}, [
-                        m('div', {class: "category-header col-xs-12"}, [
+                    [m('.row', [
+                        m('.category-header col-xs-12', [
                             category
                         ])
                     ])

@@ -46,10 +46,10 @@ GeneSearchModel =
         console.log("Resetting...")
         @selectedVF = []
         @selectedAMR = []
-        for gene in @vfList.rows 
+        for gene in @vfList.rows
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
-        for gene in @amrList.rows 
+        for gene in @amrList.rows
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
 
@@ -76,15 +76,15 @@ GeneSearchModel =
         if response() is null
             response =
                 m.request(
-                    method: "POST",
+                    method: "POST"
                     url: "http://#{location.hostname}:5000/data/genesearchresults",
                     data: {
-                        genome: @selectedGenomes 
+                        genome: @selectedGenomes
                         genes: geneList ## temp for testing
                     }
                     datatype: "json",
                     type: (response) ->
-                        console.log("Response:", response)
+                        console.log("Results:", response)
                         return response
                 )
 
@@ -93,7 +93,7 @@ GeneSearchModel =
     getCategories: (type) ->
         response = m.prop(null)
         if response() is null
-            response = 
+            response =
                 m.request(
                     method: "POST"
                     url: "http://#{location.hostname}:5000/data/categories/#{type}"

@@ -1,11 +1,20 @@
+###
+CLASS MatrixView
+
+Creates the matrix for the gene search results. 
+Uses D3 library.
+
+Args:
+    None
+###
+
 class MatrixView
     constructor: () ->
         return @
 
+    ## Called by Matrix component
     init: (searchResults, parentElem, elID) =>
         ## search results is an object
-        # console.log("object", searchResults)
-        # console.log("object keys", Object.keys(searchResults))
         genomes = Object.keys(searchResults)
         genes = Object.keys(searchResults[genomes[0]])
 

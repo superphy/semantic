@@ -17,6 +17,7 @@ from superphy.shared import sparql
 from . import data
 from ..models import Response
 
+
 @data.after_request
 def add_header(response):
     """
@@ -107,6 +108,7 @@ def genesearchresults():
     """
     Endpoint for returning gene search results
     """
+
     data_ = request.get_json()
     print "data", data_
     genomes_ = data_["genome"]
@@ -120,7 +122,7 @@ def genesearchresults():
             genomeDict[genome][gene] = 0
     
     results = sparql.get_regions(genomes_, genes_)
-    return Response.format_gene_search(results)
+    return Response.format_gene_search(results, genomeDict)
 
 @data.route('/categories/<gene_type>', methods=['GET', 'POST'])
 def getcategories(gene_type):
