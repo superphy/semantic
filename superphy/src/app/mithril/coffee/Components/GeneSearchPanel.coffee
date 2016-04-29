@@ -177,12 +177,19 @@ Args passed in:
 ###
 CategorySelection =
     controller: (args) ->
+        @clear= () ->
+            ## Clears filter of categories
+            ## Bug: categories don't disappear in select boxes yet - look into
+            ##     select2 documentation for clear under programmatic access :)
+            for row in args.data.rows
+                row.visible(true)
         return @
     view: (ctrl, args) ->
         m(".col-md-6", [
             m(".gene-category-wrapper", [
                 m(".gene-category-intro", [
                     m('span', "Select category to refine list of genes:")
+                    m('button', {onclick: ctrl.clear}, "Clear")
                 ])
                 for category of args.categories
                     [m('.row', [
@@ -192,7 +199,8 @@ CategorySelection =
                     ])
                     m('.row',
                         m('.col-xs-12',
-                            m.component(SelectMult, {
+                            m.component(SelectBar, {
+                                categories: args.categories
                                 category: category
                                 subcategories: args.categories[category]
                                 data: args.data
@@ -213,9 +221,23 @@ Args:
     category: top category
     subcategories: list of subcategories
     data: gene search model
+
+WORK TO DO:
+- Fix problem with selecting multiple genes from different main categories
+  Currently, if I pick subcategories from say "Adherence", then pick
+  some others from "Autotransporter", the "Adherence" ones will disappear.
 ###
-SelectMult =
+SelectBar =
     controller: (args) ->
+        self = @
+        @allcategories = {}
+        @createCategories = () ->
+            #console.log(args.categories)
+            listCats = Object.keys(args.categories)
+            for cat in listCats
+                ## boolean for indicating if the category has been selected
+                self.allcategories[cat] = false
+
         @filterCategories = (category, subcategories) ->
             console.log("Filtering for ", category, " genes")
             for row in args.data.rows
@@ -229,6 +251,7 @@ SelectMult =
 
     config: (ctrl, args) ->
         return (element, isInitialized) ->
+            ctrl.createCategories()
             el = $(element)
             if not isInitialized
                 attrs = {
@@ -247,7 +270,7 @@ SelectMult =
         return m("select", {"data-category-id": args.category, \
                             multiple: "multiple", \
                             class: "form-control", \
-                            config: SelectMult.config(ctrl, args)}, [
+                            config: SelectBar.config(ctrl, args)}, [
             for subcat, index in args.subcategories
                 attrs = {id: "#{index}", value: subcat, title:subcat}
                 m('option', attrs, subcat)
