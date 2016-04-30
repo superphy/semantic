@@ -240,9 +240,9 @@ class AMRLocationUploaderTestCase(unittest.TestCase):
     def test_parse_result(self, mock_open, mock_load, mock_create):
         mock_open.return_value = mock.MagicMock(spec=file)
         mock_load.return_value = {
-              "gene_10|GeneMark.hmm|356_aa|+|5964|7034|gi|606959961|gb|JHNV01000083.1|\
+              "gene_10|GeneMark.hmm|356_aa|+|5964|7034|gi|606959961|gb|JHNV01100083.1|\
                 Escherichia coli O119:H4 str. 03-3458 contig83, whole genome shotgun sequence": {},
-              "gene_12|GeneMark.hmm|304_aa|-|7759|8673|gi|606959961|gb|JHNV01000083.1|\
+              "gene_12|GeneMark.hmm|304_aa|-|7759|8673|gi|606959961|gb|JHNV01100083.1|\
                 Escherichia coli O119:H4 str. 03-3458 contig83, whole genome shotgun sequence": {
                 "gnl|BL_ORD_ID|796|hsp_num:0": {
                   "SequenceFromBroadStreet": "MRKSTTLLIGFVKAAYRILQALDNKQ",
@@ -258,7 +258,7 @@ class AMRLocationUploaderTestCase(unittest.TestCase):
                   "sequenceFromDB": "TVRPLMAEQKIPGMAVAITIDGKSHFFGYGVASKESGQKVTEDTIFE",
                   "match": "T +PL    ++    +A  +DG + F G G+ S+    +   D I E",
                   "model_id": "201",
-                  "orf_From": "gi|606959961|gb|JHNV01000083.1|\
+                  "orf_From": "gi|606959961|gb|JHNV01100083.1|\
                      Escherichia coli O119:H4 str. 03-3458 contig83, whole genome shotgun sequence",
                   "pass_evalue": 1E-100,
                   "query_end": 8628,
@@ -287,9 +287,9 @@ class AMRLocationUploaderTestCase(unittest.TestCase):
 
         self.case.parse_result()
         mock_load.assert_called_with(mock.ANY)
-        mock_create.assert_called_with("OCH-3_JHNV01000083_0",
+        mock_create.assert_called_with("OCH-3_JHNV01100083_0",
                                        "OCH-3",
-                                       "JHNV01000083",
+                                       "JHNV01100083",
                                        8673,
                                        7759,
                                        "",

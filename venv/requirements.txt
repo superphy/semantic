@@ -7,7 +7,9 @@ colorama==0.3.3
 coverage==4.0.1
 dominate==2.1.16
 enum34==1.0.4
+Flask==0.10.1
 Flask-Bootstrap==3.3.5.6
+Flask-Cors==2.1.2
 Flask-HTTPAuth==2.7.0
 Flask-Jasmine==1.4
 Flask-Login==0.3.2
@@ -18,7 +20,6 @@ Flask-PageDown==0.2.1
 Flask-Script==2.0.5
 Flask-SQLAlchemy==2.0
 Flask-WTF==0.12
-Flask==0.10.1
 ForgeryPy==0.1
 funcsigs==0.4
 glob2==0.4.1
@@ -29,9 +30,8 @@ ijson==2.2
 ipaddress==1.0.14
 isodate==0.5.4
 itsdangerous==0.24
-jasmine-core==2.3.4
 jasmine==2.3.0
-Jinja2==2.7.1
+jasmine-core==2.3.4
 Jinja2==2.8
 Mako==1.0.2
 Markdown==2.6.2

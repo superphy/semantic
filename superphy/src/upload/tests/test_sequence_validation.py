@@ -66,13 +66,13 @@ class SequenceValidatorTestCase(unittest.TestCase):
         test_set = [0, 1000, 3499999, 7500001]
 
         for x in test_set:
-            self.seqdata.bp = x
+            self.seqdata.basepairs = x
             self.assertFalse(SequenceValidator(self.seqdata).check_bp())
 
         test_set = [3500000, 3500001, 5000000, 7490000, 7500000]
 
         for x in test_set:
-            self.seqdata.bp = x
+            self.seqdata.basepairs = x
             self.assertTrue(SequenceValidator(self.seqdata).check_bp())
 
     def test_check_contigs(self):

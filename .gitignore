@@ -16,6 +16,9 @@ venv/lib/python2.7/site-packages/*
 config/*
 !config/default.cfg
 
+*.sqlite
+
+
 blast/*
 
 #######################
@@ -29,5 +32,18 @@ all.min.js
 superphy/src/upload/ontology/setup.ttl
 
 superphy/src/upload/python/outputs/*
+superphy/src/upload/python/tmp/
 superphy/src/upload/python/tmp/*
 superphy/src/upload/python/samples/*
+
+## Gene and genome analysis (database files)
+superphy/src/upload/python/release-rgi-v3.0.1/*
+superphy/src/upload/python/*.[np]hr
+superphy/src/upload/python/*.[np]in
+superphy/src/upload/python/*.[np]sq
+superphy/src/upload/python/*.fsa
+
+superphy/src/app/mithril/css/*
+superphy/src/app/mithril/bower_components
+superphy/src/app/mithril/js/mithril.js
+superphy/posted_files/*

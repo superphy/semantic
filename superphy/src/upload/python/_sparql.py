@@ -63,6 +63,7 @@ def find_syndrome(syndrome):
 
     return results["results"]["bindings"][0]["s"]["value"].split("#", 1)[1]
 
+
 def find_source(source):
     """
     Finds the correct isolation_from_source instance in Blazegraph given a

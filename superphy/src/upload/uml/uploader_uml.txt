@@ -1,0 +1,116 @@
+@startuml
+GeneLocationUploader <|-- VFLocationUploader
+GeneLocationUploader <|-- AMRLocationUploader
+MetadataUploader --* Metadata
+MetadataUploader <|-- GenomeMetadataUploader
+MetadataUploader <|-- GeneMetadataUploader
+Metadata <|-- GenomeMetadata
+Metadata <|-- GeneMetadata
+ContigUploader --* ContigsWrapper
+
+class GeneLocationUploader {
+# dict = {}
++ __init__()
+# get_location_name(gene, contig)
++ add_contig(gene_name, contig)
++ create_gene_location(self, name, gene, contig, begin, end, seq, ref_gene, cutoff=None)
+}
+
+class VFLocationUploader {
++ upload(filename)
+- get_gene_names(s)
+- ncbixml_parse(filename)
+- get_reference_genes()
+- create_fasta(genes, out_file)
+- create_db(filename)
+- blastn_commandline(db)
+- parse_result()
+}
+
+class AMRLocationUploader {
++ upload(filename)
+- rgi()
+- parse_result()
+}
+
+class ContigUploader {
++ upload_missing_contigs(genomes=None)
+- load_contigs(handle, contigswrapper)
+- get_seqdata(contigswrapper)
+- upload(contigswrapper, func)
+- plasmid_rdf(contigswrapper, contig_rdf)
+- nonplasmid_rdf(contigswrapper, contig_rdf)
+- error_logging(contigswrapper)
+- ContigUploader : download_file(id_, filetype)
+}
+
+class ContigsWrapper {
+- name
+- accession
+- genome
++ hits = None
++ valid = None
++ basepairs = None
++ contigs = None
++ numcontigs = None
++ checksum = None
+- dict
+- genome_name(contig)
++ add_contigs(contigs)
++ generate_checksum()
++ generate_kwargs(accession_name, seq)
+}
+
+class MetadataUploader {
++ __init__(filename)
+# progress : Integer
+# error : Integer
+# filename : String
+# error_logging(name)
+}
+
+class Metadata {
++ __init__(name)
+# name
+# dict
++ add_parameter(key, value)
++build_kwargs()
+}
+
+class GenomeMetadataUploader {
++ __init__(filename, organism)
+- organism
++ upload()
+- parse_metadata(data)
+- add_to_graph(metadata)
+- create_pending_genome(metadata)
+- get_ncbi_ids(metadata)
+}
+
+class GenomeMetadata {
++ __init__(name, organism)
+- organism
+- dict
++ build_kwargs()
+- get_serotypes(serotypes)
+}
+
+class GeneMetadataUploader {
++ __init__(filename, kind)
+- kind
+- dict
++ upload_genes()
+- parse_vf(data)
+- parse_amr(data)
+- remove_bad_chars(str_)
+- add_to_graph(metadata)
+- create_gene(metadata)
+}
+
+class GeneMetadata {
+- dict
++ __init__(name)
++ build_kwargs()
+}
+
+@enduml

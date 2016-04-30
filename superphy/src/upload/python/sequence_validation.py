@@ -6,10 +6,8 @@ base pair count, number of contigs from sequencing, and the validity of its
 characters. The sequence is also ran against a reference database containing
 sequences for regions that would uniquely identify it as E. coli.  As well, it
 is checked for uniqueness in the database by comparing to stored md5 checksums.
-
 Hits and validity are recorded on the SequenceMetadata object used to
 instantiate the validator
-
 """
 import string
 import subprocess
@@ -36,13 +34,12 @@ class SequenceValidator(object):
     """
     def __init__(self, seqdata):
         """Initializes the class with reference values for validation
-
         Args:
             seqdata: SequenceMetadata object containing relevant data for analysis
         """
 
-        self.min_bp = 3500000
-        self.max_bp = 7500000
+        self.min_basepairs = 3500000
+        self.max_basepairs = 7500000
         self.max_contigs = 10000
 
         self.seqdata = seqdata
@@ -52,7 +49,6 @@ class SequenceValidator(object):
         results for each check, it determines how the sequence should be
         handled in sequence uploading by modifying the associated
         SequenceMetadata object.
-
         TODO: refactor this more for clarity and ease of testing?
         """
         self.filter_passing_hits()
@@ -87,7 +83,6 @@ class SequenceValidator(object):
         database to qualify as a valid genome. If there are more hits than
         regions in the database, the sequence is also disqualified
         (this is probably more indicative of a programming issue)
-
         Returns: a boolean indicating if a sequence passes this check
         """
         return 3 <= len(self.seqdata.hits) <= 10
@@ -98,17 +93,15 @@ class SequenceValidator(object):
         (enough to encompass a mostly intact E. coli sequence, not so much that
         it would indicate contamination of the sample with foreign data or
         improper alignment construction generating artifact sequences)
-
         Returns: a boolean indicating if a sequence passes this check
         """
-        return self.min_bp <= self.seqdata.basepairs <= self.max_bp
+        return self.min_basepairs <= self.seqdata.basepairs <= self.max_basepairs
 
     def check_contigs(self):
         """
         Checks if the number of contigs composing the sequence is valid
         (for WGS samples in particular). If the contiq number is too high, the
         quality of the alignment is too poor to be of use for the project.
-
         Returns: a boolean indicating if a sequence passes this check
         """
         return 0 < self.seqdata.numcontigs <= self.max_contigs
@@ -116,7 +109,6 @@ class SequenceValidator(object):
     def check_chars(self):
         """Checks if the characters composing the sequence are valid: they only
         contain IUPAC codes for nucleotides, including uncertain nucleotides.
-
         Returns: a boolean indicating if a sequence passes this check
         """
         allowed_chars = r"[^ACGTUNXRYSWKMBDHVacgtunxryswkmbdhv\.-]"

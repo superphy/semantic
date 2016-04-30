@@ -1,16 +1,15 @@
-class GroupBrowse extends PageTemplate
-    model: () =>
-        @value = m.prop('')
-        @data ?= new Data()
-        @table ?= new Table()
-        return
-    controller: (options) =>
-        @model()
-        return
-    view: () =>
-        return [
-            super()
-            m('input', {oninput: m.withAttr('value', @value), value : @value()})
-            m('button', {onclick: => @data.search(@value())},["Search"])
-            @table.view(@data)
-        ]
+# coffeelint: disable=max_line_length
+
+class GroupBrowse extends Page
+    Routes.add('/gbrowse', @)
+
+    @controller: (args) ->
+        @data = getEndpoint2(url="data/meta")()
+        return @
+        
+    @view: (ctrl) ->
+        super m(".",
+            m.component(TableView, {
+                data: ctrl.data
+            })
+        )

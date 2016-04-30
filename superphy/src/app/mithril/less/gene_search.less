@@ -1,0 +1,159 @@
+/*
+ 
+ File: genes_search.less
+ Desc: genes_search.tmpl style sheets
+ Author: Matt Whiteside matthew.whiteside@phac-aspc.gc.ca
+ Date: May 22th, 2014
+ 
+ * */
+
+@border-color: #d3d3d3;
+@title-color2: #d41616;
+@font-color2: #d3d3d3;
+@font-color3: #7e7e7e;
+
+.borderStyle {
+  border-style:solid; 
+  border-width:1px; 
+  border-color:@border-color;
+}
+
+@gene-search-panel-margin: 10px 10px 20px 10px;
+
+.intro {
+  padding-top: 5px;
+  padding-bottom: 40px;
+}
+
+.instruction-block {
+  padding-top: 40px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.gene-search-control-row {
+  padding: @gene-search-panel-margin;
+}
+
+.gene-list-wrapper {
+  .borderStyle;
+  max-height: 650px;
+  min-height: 65px;
+  overflow: auto;
+  margin: @gene-search-panel-margin;
+  padding: 10px;
+  
+  ul {
+    list-style: none;
+    margin: 2px;
+    padding: 0;
+  }
+  
+}
+
+.selected-gene-list-wrapper {
+  .borderStyle;
+  height: 200px;
+  overflow: auto;
+  margin: @gene-search-panel-margin;
+  padding: 10px;
+  ul {
+    list-style: none;
+    margin: 2px;
+    padding: 0;
+  }
+  
+}
+
+#selected_genomes {
+  .borderStyle;
+  height: 200px;
+  overflow: auto;
+  margin: @gene-search-panel-margin;
+  padding: 10px;
+  ul {
+    list-style: none;
+    margin: 2px;
+    padding: 0;
+  }
+}
+
+.gene-category-wrapper {
+  padding: 10px;
+  
+  .category-header {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-weight: bold;
+  }
+    
+  .gene-category-intro {
+    position: relative;
+    padding-bottom: 5px;
+     
+    // span {
+      // position: absolute;
+      // left: 0;
+    // }
+      
+    button {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
+.gene-search-next-wrapper {
+  padding: 20px;
+  
+  button {
+    margin: 20px;
+  }
+}
+
+.category-superscript.help-block {
+  display: inline;
+  font-size: x-small;
+}
+
+.gene-list-wrapper {
+  
+  ul > li {
+    padding-left: 10px;
+    font-weight: 600;
+  }
+  
+}
+
+.superphy_ticker_table {
+  
+  td,th {
+    padding: 5px;
+    text-align: center;
+    .borderStyle;
+  }
+  
+}
+
+.histobar {
+  
+  rect {
+    fill: steelblue;
+    shape-rendering: crispEdges;
+  }
+  
+  text {
+    fill: #000;
+    font-size: 9pt;
+  }
+  
+}
+
+.axis {
+  path, line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+}

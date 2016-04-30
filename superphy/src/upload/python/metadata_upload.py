@@ -332,7 +332,6 @@ class GeneMetadataUploader(MetadataUploader):
             elif self.kind == "antimicrobial_resistance":
                 self.parse_amr(data)
 
-
     def parse_vf(self, data):
         """
         Args:
@@ -343,10 +342,16 @@ class GeneMetadataUploader(MetadataUploader):
             if "/" in gene_name: #if gene has multiple names
                 gene_name = gene_name.split("/")[0]
             metadata = GeneMetadata(gene_name)
+            metadata.add_parameter("gene", gene_name)
             metadata.add_parameter("gene_type", self.kind)
+
+            ## adding metadata
             for heading in data[key]:
                 if data[key][heading] != "":
-                    value = str(data[key][heading])
+                    # Not a literal
+                    value = self.remove_bad_chars(str(data[key][heading]))
+                    # literal
+                    #value = str(data[key][heading])
                     metadata.add_parameter(heading, value)
 
             self.add_to_graph(metadata)
@@ -362,19 +367,24 @@ class GeneMetadataUploader(MetadataUploader):
             if "ARO_name" in data[key]:
                 gene_name = self.remove_bad_chars(str(data[key]["ARO_name"]))
                 metadata = GeneMetadata(gene_name)
+                metadata.add_parameter("gene", str(data[key]["ARO_name"]))
                 metadata.add_parameter("gene_type", self.kind)
                 for key2 in data[key]:
                     if key2 == "ARO_category":
                         for category_key in data[key][key2]:
                             metadata.add_parameter(
+                                # "category_uri",
+                                # self.remove_bad_chars(
+                                #     data[key][key2][category_key]["category_aro_name"]
+                                # )
                                 "category",
                                 data[key][key2][category_key]["category_aro_name"]
                             )
                     elif ("ARO" in key2) and not "description" in key2:
                         value = self.remove_bad_chars(str(data[key][key2]))
                         metadata.add_parameter(key2.lower(), value)
-
                 self.add_to_graph(metadata)
+
 
     @classmethod
     def remove_bad_chars(cls, str_):
@@ -408,6 +418,7 @@ class GeneMetadataUploader(MetadataUploader):
                 self.create_gene(metadata)
             except Exception:
                 self.error_logging(metadata.name)
+
 
     @classmethod
     def create_gene(cls, metadata):
@@ -450,10 +461,10 @@ class GeneMetadata(Metadata):
     def build_kwargs(self):
         """
         Converts all data stored by the class into a dict used for creating
-        a superphy.uploader.classes.Genome instance
+        a superphy.uploader.classes.Gene instance
 
         Returns: the kwargs dict to be used as an argument in the constructor
-        of classes.Genome
+        of classes.Gene
         """
         kwargs = {'name': self.name}
 
@@ -467,8 +478,9 @@ class GeneMetadata(Metadata):
 
 ###### For Testing purposes ######
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
  #  # For genome testing
+    # More sample files can be found in the samples folder
     # MD = GenomeMetadataUploader("samples/meta_pipe_result.json", "Human")
     # MD.upload()
 
@@ -476,5 +488,5 @@ if __name__ == "__main__":
     # GMD1 = GeneMetadataUploader('data/superphy_vf.json', "virulence_factor")
     # GMD1.upload_genes()
 
-    GMD2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
-    GMD2.upload_genes()
+    # GMD2 = GeneMetadataUploader('data/card.json', "antimicrobial_resistance")
+    # GMD2.upload_genes()

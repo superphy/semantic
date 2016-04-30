@@ -26,7 +26,6 @@ class Gene(NamedIndividual):
                            spurious entries
 
         """
-
         searchparam = ["gene",
                        "category", 
                        "subcategory",
@@ -141,6 +140,7 @@ class Gene(NamedIndividual):
 
         literal = Literal(aroid, datatype=XSD.string)
         self.graph.add((n[self.name], n.has_aro_id, literal))
+
 
 
 class GeneLocation(NamedIndividual):

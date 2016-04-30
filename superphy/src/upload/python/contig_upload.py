@@ -112,6 +112,7 @@ class ContigUploader(object):
 
         while i < 3:
             try:
+                print "Getting data from Entrez..."
                 handle = Entrez.efetch(
                     db="nuccore", id=contigswrapper.genome,
                     rettype="fasta", retmode="text"
@@ -119,6 +120,7 @@ class ContigUploader(object):
                 for record in SeqIO.parse(handle, 'fasta'):
                     if "complete" in record.description.lower():
                         contigswrapper.dict["is_from"] = "CORE"
+                        print "Getting data from Entrez..."
                         handle = Entrez.efetch(
                             db="nuccore", id=contigswrapper.genome,
                             rettype="fasta", retmode="text"
@@ -126,6 +128,7 @@ class ContigUploader(object):
                         self.load_contigs(handle, contigswrapper)
                         break
                     else:
+                        print "Downloading data from WGS"
                         self.download_file(
                             strip_non_alphabetic(str(contigswrapper.genome)),
                             'fsa_nt.gz'
