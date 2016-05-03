@@ -33,6 +33,11 @@ getEndpoint = (url) ->
         )
     return response
 
+
+###
+This is the endpoint without front-end json manipulation. 
+###
+
 getEndpoint2 = (url) ->
     try
         response = m.prop(JSON.parse(localStorage.getItem(url)))

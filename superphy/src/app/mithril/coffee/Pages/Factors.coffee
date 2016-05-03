@@ -15,15 +15,6 @@ class Factors extends Page
         return @
 
     @view: (ctrl) ->
-        tabOptions = {
-            flavor: 'bs/nav-tabs'
-            tabs: [
-                { name: 'genes', label: 'Select Genes'}
-                { name: 'genomes', label: 'Select Genomes'}
-                { name: 'submit', label: 'Submit Query'}
-            ]
-        }
-
         renderTabContents = (ctrl) ->
             activeTab = ctrl.tabCtrl.activeTabName
             switch (activeTab())
@@ -81,7 +72,14 @@ class Factors extends Page
                         m('.container-fluid', [
                             m.component(FactorsIntro)
                             m('.container', [
-                                mc.Tabs.view(ctrl.tabCtrl, tabOptions)
+                                mc.Tabs.view(ctrl.tabCtrl
+                                    flavor: 'bs/nav-tabs'
+                                    tabs: [
+                                        {name: 'genes', label: 'Select Genes'}
+                                        {name: 'genomes', label: 'Select Genomes'}
+                                        {name: 'submit', label: 'Submit Query'}
+                                    ]
+                                )
                                 renderTabContents(ctrl)
                             ])
                         ])
