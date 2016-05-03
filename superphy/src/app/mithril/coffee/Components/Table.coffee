@@ -1,5 +1,5 @@
 ###
-CLASS TableView
+CLASS Table
 
 Component class for table views
 
@@ -10,7 +10,9 @@ Args passed in:
 To fix: make the VF & AMR checkbox portion look nicer?
 ###
 
-class TableView
+# coffeelint: disable=max_line_length
+
+class Table
     state = {pageY: 0, pageHeight: window.innerHeight}
     window.addEventListener("scroll", (e) ->
         state.pageY = Math.max(e.pageY || window.pageYOffset, 0)
@@ -55,14 +57,14 @@ class TableView
                 ])
                 for row, x in args.data.rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
-                        if args.checkbox and row.visible()
+                        if args.checkbox
                             for header in headers
                                 ## For VF and AMR
                                 if header is "Gene"
                                     m('td', {class: 'gene_table_item'}, [
                                         m('.checkbox', [
                                             m('label', [
-                                                m('input[type=checkbox]', 
+                                                m('input[type=checkbox]',
                                                   {class: 'checkbox gene-table-checkbox gene-search-select', \
                                                    checked: row.selected(), \
                                                    onclick: m.withAttr("checked", row.selected)})
@@ -76,8 +78,6 @@ class TableView
                                             row[header]
                                         ])
                                     ])
-                        else if not row.visible()
-                            null
                         else
                             for header in args.data.headers
                                 m('td', [row[header]])

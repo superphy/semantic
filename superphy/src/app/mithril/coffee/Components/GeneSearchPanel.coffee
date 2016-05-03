@@ -10,6 +10,7 @@ Args passed in:
     data: data model (global model that holds the selected genes & genomes)
     categories: object of categories for the genes
 ###
+# coffeelint: disable=max_line_length
 
 class GeneSearchPanel
     @controller: (args) ->
@@ -47,7 +48,7 @@ class GeneSearchPanel
                     ])
                 ])
             ])
-        ]) 
+        ])
 
 
 ###
@@ -154,10 +155,10 @@ GeneTable =
                     m("span.col-md-12", [
                         "Select one or more #{args.type} factors"
                         m(".",
-                            m.component(TableView, {
+                            m.component(Table,
                                 data: args.data
                                 checkbox: true
-                            })
+                            )
                         )
                     ])
                 ])
