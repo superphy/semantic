@@ -2,14 +2,14 @@
 # coffeelint: disable=max_line_length
 
 class Navbar
-    @links = [
-        {title: "Genome", url: "/Home.get()"}
-        {title: "Group Browse", url: "/gbrowse"}
-        {title: "Group Analyses", url: "/groups"}
-        {title: "VF and AMR", url: "/factors"}
-        {title: "Meta", url: "/meta"}
-    ]
     @controller: (args) ->
+        @links = [
+            {title: "Genome", url: "/Home.get()"}
+            {title: "Group Browse", url: "/gbrowse"}
+            {title: "Group Analyses", url: "/groups"}
+            {title: "VF and AMR", url: "/factors"}
+            {title: "Meta", url: "/meta"}
+        ]
         return @
     @view: (ctrl) ->
         m(".container-fluid"
@@ -21,7 +21,7 @@ class Navbar
                 m("ul.nav navbar-nav"
                     m("li"
                         m("a", {href: link.url, config:m.route}, link.title)
-                    ) for link in @links
+                    ) for link in ctrl.links
                     m("li.dropdown"
                         m("a.dropdown-toggle"
                             {href:"", role:"button", 'data-toggle':"dropdown"}

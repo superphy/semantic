@@ -16,8 +16,14 @@ class Sidebar
         m('.', {id: 'sidebar-wrapper'}, [
             m('.sidebar', [
                 m('#sidebar-expand-collapse', [
-                    m('button', {id: 'sidebar-expand', class: 'btn btn-default'}, [">>"])
-                    m('button', {id: 'sidebar-collapse', class: 'btn btn-default'}, ["<<"])
+                    m('button.btn btn-default[type=button]'
+                        id: 'sidebar-expand'
+                        ">>"
+                    )
+                    m('button.btn btn-default[type=button]'
+                        id: 'sidebar-collapse'
+                        "<<"
+                    )
                 ])
             ])
         ])

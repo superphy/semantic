@@ -1,3 +1,6 @@
+
+#This does not follow coding conventions. A refactor is in order.
+
 class HistogramView
     constructor: () ->
         return @
@@ -55,9 +58,9 @@ class HistogramView
             .attr("width", @width + margin.left + margin.right)
             .attr("height", @height + margin.top + margin.bottom)
             .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", "translate(#{margin.left},#{margin.top})")
       
-        @formatCount = d3.format(",.0f");
+        @formatCount = d3.format(",.0f")
     
         @canvas.append("g")
             .attr("class", "x axis")
