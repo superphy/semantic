@@ -4,7 +4,7 @@ class GroupBrowse extends Page
     Routes.add('/gbrowse', @)
 
     @controller: (args) ->
-        @data = getEndpoint2(url="data/meta")()
+        @data = getEndpoint2(url="data/meta")
         return @
         
     @view: (ctrl) ->

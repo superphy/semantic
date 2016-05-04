@@ -255,7 +255,7 @@ class GeneSearchPanel
                     ])
                     m(".row", [
                         GeneTable(
-                            data: ctrl.data
+                            data: m.prop(ctrl.data)
                             type: ctrl.type
                         )
                         m.component(CategorySelection, {
