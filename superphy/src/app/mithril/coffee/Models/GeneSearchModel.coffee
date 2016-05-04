@@ -16,20 +16,17 @@ GeneSearchModel =
     vfresults: m.prop({})
     amrresults: m.prop({})
 
-
     setLists: ->
-        vfdata = @vfs()
-        amrdata = @amrs()
-        @vfList["headers"] = vfdata.headers
-        @amrList["headers"] = amrdata.headers
-        for gene in vfdata.rows
+        @vfList["headers"] = @vfs().headers
+        @amrList["headers"] = @amrs().headers
+        for gene in @vfs().rows
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
-            @vfList["rows"] = vfdata.rows
-        for gene in amrdata.rows
+            @vfList["rows"] = @vfs().rows
+        for gene in @amrs().rows
             gene["selected"] = m.prop(false)
             gene["visible"] = m.prop(true)
-            @amrList["rows"] = amrdata.rows
+            @amrList["rows"] = @amrs().rows
 
     getSelectedVF: ->
         @selectedVF = []

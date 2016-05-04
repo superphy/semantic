@@ -72,7 +72,7 @@ class Factors extends Page
                         m('.container-fluid', [
                             m.component(FactorsIntro)
                             m('.container', [
-                                mc.Tabs.view(ctrl.tabCtrl
+                                mc.Tabs.view(ctrl.tabCtrl,
                                     flavor: 'bs/nav-tabs'
                                     tabs: [
                                         {name: 'genes', label: 'Select Genes'}

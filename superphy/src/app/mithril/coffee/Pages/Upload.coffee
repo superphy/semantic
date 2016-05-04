@@ -22,7 +22,7 @@ dragdrop = (element, options) ->
 submodule = (module, args) ->
     module.view.bind this, new (module.controller)(args)
 
-class Uploader
+class Foo
     @upload: (files) ->
         formData = new FormData
         i = 0
@@ -48,19 +48,39 @@ class Uploader
     @view = (ctrl) ->
         m('.uploader'
             {
-                config: (element, isInitialized) ->
-                    if !isInitialized
-                        dragdrop element, onchange: ctrl.onchange
-                    return
+
             }
             "FOO"
         )
 
-class Demo
+class Uploader extends Page
+    Routes.add('/uploader', @)
+    Routes.add('/upload', @)
+
     @controller: ->
-        @title= m.prop('Upload something')
+        @title= -> 'Upload something'
+        @foo = m.prop()
         return @
     @view: (ctrl) ->
+        m('.'
+            m('h1', ctrl.title())
+            m('input[type=file]', {
+                oninput:m.withAttr('value', ctrl.foo)
+                value:ctrl.foo()
+                placeholder:"Username"
+            })
+            m('input[type=button]'
+                value:"PUSH ME"
+                onchange: (files) ->
+                    ctrl.files = files
+                onclick: (files) ->
+                    alert(JSON.stringify(ctrl.foo))
+            )
+        )
+
+
+
+###
         m('.'
             m('h1', ctrl.title())
             m.component(Uploader, onchange: (files) ->
@@ -73,10 +93,4 @@ class Demo
             )
             m('p', 'drop a file in the box above')
         )
-
-class Foo extends Page
-    Routes.add('/uploader', @)
-    Routes.add('/upload', @)
-    @controller: ->
-    @view: (ctrl) ->
-        m.component(Demo)
+###

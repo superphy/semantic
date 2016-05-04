@@ -43,19 +43,19 @@ class Table
         return @
     
     @view: (ctrl, args) ->
-        rows = args.data.rows
-        headers = args.data.headers
+        rows = args.data().rows
+        headers = args.data().headers
         pageY = state.pageY
         begin = pageY / 60 | 0
         end = begin + (state.pageHeight /60 | 0 + 10)
         offset = pageY % 60
-        m(".Occlusion", {style: {height: args.data.rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
+        m(".Occlusion", {style: {height: args.data().rows.length * 46 + "px", position: "relative", top: -offset + "px"}}, [
             m("table", {style: {top: state.pageY + "px"}}, [
                 m("tr", [
-                    for header in args.data.headers
-                        m('th[data-sort-by=' + header + ']', ctrl.sort_table(list = args.data.rows) ,[header])
+                    for header in args.data().headers
+                        m('th[data-sort-by=' + header + ']', ctrl.sort_table(list = args.data().rows) ,[header])
                 ])
-                for row, x in args.data.rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
+                for row, x in args.data().rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
                         if args.checkbox
                             for header in headers
@@ -79,7 +79,7 @@ class Table
                                         ])
                                     ])
                         else
-                            for header in args.data.headers
+                            for header in args.data().headers
                                 m('td', [row[header]])
                     ])
             ])
