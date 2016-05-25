@@ -19,6 +19,8 @@ class Table
         state.pageHeight = window.innerHeight
         m.redraw()
     )
+    # The above was needed for the infinite scroll.
+    #The controller contains the sort_table function which take two parameters: list and attribute
     @controller: (args) ->
         @sort_table = (list, attribute = 'data-sort-by') ->
             { onclick: (e) ->
@@ -54,7 +56,8 @@ class Table
                 m("tr", [
                     for header in args.data().headers
                         m('th[data-sort-by=' + header + ']', ctrl.sort_table(list = args.data().rows) ,[header])
-                ])
+                ]) #Above for loop
+                #For loop to populate rows
                 for row, x in args.data().rows[begin .. end] #when JSON.stringify(row).search(/Unknown/i) > -1
                     m('tr', [
                         if args.checkbox

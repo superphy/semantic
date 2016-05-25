@@ -9,6 +9,7 @@ class Test extends Page
         @data = getEndpoint2(url="data/meta")
         return @
 
+    #To be removed as soon as offset on page is working
     @view: (ctrl) ->
         super m("."
             m.component(Table_2, data: ctrl.data)

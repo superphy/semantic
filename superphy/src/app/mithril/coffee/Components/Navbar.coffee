@@ -13,7 +13,8 @@ class Navbar
         return @
     @view: (ctrl) ->
         m(".container-fluid"
-            m("nav.navbar navbar-default navbar-fixed-top"
+            m("nav.navbar navbar-default"
+            #m("nav.navbar navbar-default navbar-fixed-top"
                 role:'navigation',
                 m(".navbar-header"
                     m("a.navbar-brand", {href:"/home", config:m.route}, "SuperPhy")
