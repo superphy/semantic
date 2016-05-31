@@ -3,6 +3,7 @@
 
 # Virtual environment
 venv/*
+**/venv/*
 !venv/lib
 !venv/requirements.txt
 !venv/npm-requirements.txt
@@ -12,6 +13,8 @@ venv/lib/python2.7/*
 !venv/lib/python2.7/site-packages/
 venv/lib/python2.7/site-packages/*
 !venv/lib/python2.7/site-packages/superphy
+
+
 
 config/*
 !config/default.cfg
