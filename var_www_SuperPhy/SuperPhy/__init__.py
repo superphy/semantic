@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
 	print os.path.abspath(os.path.dirname(__file__))
-	return render_template('index.html')
+	return render_template('simple_index.html')
 
 @app.route("/Info")
 def routes():
