@@ -2020,7 +2020,7 @@
       }
       response = m.request({
         method: 'POST',
-        url: "http://" + location.hostname + ":5000/data/",
+        url: "http://" + location.hostname + "/data/",
         data: formData,
         datatype: "multipart/form-data",
         serialize: function(value) {
@@ -2115,7 +2115,7 @@
     if (response() === null) {
       response = m.request({
         method: "GET",
-        url: "http://" + location.hostname + ":5000/" + url,
+        url: "http://" + location.hostname + "/" + url,
         data: {},
         datatype: 'json',
         type: function(response) {
@@ -2166,7 +2166,7 @@
     if (response() === null) {
       response = m.request({
         method: "GET",
-        url: "http://" + location.hostname + ":5000/" + url,
+        url: "http://" + location.hostname + "/" + url,
         data: {},
         datatype: 'json',
         type: function(response) {
@@ -2277,7 +2277,7 @@
       if (response() === null) {
         response = m.request({
           method: "POST",
-          url: "http://" + location.hostname + ":5000/data/genesearchresults",
+          url: "http://" + location.hostname + "/data/genesearchresults",
           data: {
             genome: this.selectedGenomes,
             genes: geneList
@@ -2297,7 +2297,7 @@
       if (response() === null) {
         response = m.request({
           method: "POST",
-          url: "http://" + location.hostname + ":5000/data/categories/" + type,
+          url: "http://" + location.hostname + "/data/categories/" + type,
           data: {},
           datatype: "json",
           type: function(response) {
@@ -2325,7 +2325,7 @@
     if (this.data() === null || args.reset === true) {
       this.data = m.request({
         method: "POST",
-        url: "http://" + location.hostname + ":5000/data/meta",
+        url: "http://" + location.hostname + "/data/meta",
         data: {},
         datatype: 'json',
         type: function(response) {
@@ -2374,7 +2374,7 @@
     return response = m.request({
       headers: get_headers(),
       method: "POST",
-      url: "http://" + location.hostname + ":5000/" + URL,
+      url: "http://" + location.hostname + "/" + URL,
       data: {
         'username': user.username(),
         'password': user.password()
@@ -2393,7 +2393,7 @@
     auth = "Basic " + btoa((user.username()) + ":" + (user.password()));
     return response = m.request({
       method: "GET",
-      url: "http://" + location.hostname + ":5000/" + URL,
+      url: "http://" + location.hostname + "/" + URL,
       config: function(xhr) {
         xhr.setRequestHeader('Content-Type', 'application/json');
         return xhr.setRequestHeader('Authorization', auth);

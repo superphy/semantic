@@ -2,13 +2,40 @@
 import os
 from flask import Flask, render_template, jsonify
 
-from SuperPhy.blueprints.simple import simple as simple_blueprint
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.httpauth import HTTPBasicAuth
+from flask.ext.cors import CORS
+
+db = SQLAlchemy()
+auth = HTTPBasicAuth()
+cors = CORS
 
 app = Flask(__name__)
 
+from SuperPhy.config import config
+
+config_name = os.getenv('FLASK_CONFIG') or 'default'
+app.config.from_object(config[config_name])
+config[config_name].init_app(app)
+
+cors(app)
+
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+
+
+from SuperPhy.models import User
+
+from SuperPhy.blueprints.simple import simple as simple_blueprint
+from SuperPhy.blueprints.example import example as example_blueprint
+from SuperPhy.blueprints.data import data as data_blueprint
+#from SuperPhy.blueprints.api import api as api_blueprint
+#from SuperPhy.blueprints.upload import upload as upload_blueprint
+
 @app.route("/")
 def index():
-	return render_template('simple_index.html')
+	return render_template('index.html')
 
 @app.route("/Info")
 def routes():
@@ -24,23 +51,9 @@ def exception_handler(error):
     return jsonify({"ERROR": repr(error)})
 
 app.register_blueprint(simple_blueprint, url_prefix='/simple')
-
+app.register_blueprint(example_blueprint, url_prefix='/example')
+app.register_blueprint(data_blueprint, url_prefix='/data')
+#app.register_blueprint(example_blueprint, url_prefix='/example')
 
 if __name__ == "__main__":
     app.run()
-
-"""
-    from.example import example as example_blueprint
-    app.register_blueprint(example_blueprint, url_prefix='/example')
-
-    from .data import data as data_blueprint
-    app.register_blueprint(data_blueprint, url_prefix='/data')
-
-    from .api import api as api_blueprint
-    app.register_blueprint(api_blueprint, url_prefix='/api')
-
-    from .upload import upload as upload_blueprint
-    app.register_blueprint(upload_blueprint, url_prefix='/upload')
-
-    return app
-"""
