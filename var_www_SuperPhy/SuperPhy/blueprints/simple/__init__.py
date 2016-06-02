@@ -8,7 +8,6 @@ def add_header(response):
     """
     Append after request the nessesary headers.
     """
-    response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] = "accept, content-type"
     return response
 
