@@ -2,20 +2,11 @@
 api for users
 """
 
-from flask import abort, request, jsonify, g, url_for, render_template
+from flask import abort, request, jsonify, g, url_for
 
 from SuperPhy.blueprints.api import api
 from SuperPhy.models import User
-from SuperPhy import app, auth, db
-
-@api.route('/')
-def routes():
-    routes = []
-    for rule in app.url_map.iter_rules():
-        if "GET" in rule.methods:
-            routes.append(rule.rule)
-    routes.sort()
-    return render_template('routes.html', routes=sorted(routes, key=lambda s: s.lower()))
+from SuperPhy import auth, db
 
 @auth.verify_password
 def verify_password(username_or_token, password):
@@ -32,14 +23,6 @@ def verify_password(username_or_token, password):
             return False
     g.user = user
     return True
-
-@api.after_request
-def add_header(response):
-    """
-    Append after request the nessesary headers.
-    """
-    response.headers['Access-Control-Allow-Headers'] = "accept, content-type, authorization"
-    return response
 
 @api.route('/users', methods=['POST'])
 def new_user():
