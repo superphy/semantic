@@ -26,16 +26,16 @@ var ordering = [
 
 gulp.task('coffee_to_js',  function() {
 	gulp
-    .src("coffee/**/*.coffee")
+    .src("CoffeeScript/**/*.coffee")
     .pipe(order(ordering))
     .pipe(print(function(filepath) {
       return "build: " + filepath;
     }))
   	.pipe(flatten())
-  	.pipe(concat('all.coffee'))
+  	.pipe(concat('superphy.coffee'))
   	.pipe(coffee())
     //.pipe(uglify())
-    .pipe( rename( { extname: '.min.js'} ) )
+    .pipe( rename( { extname: '.js'} ) )
     .pipe(gulp.dest('./js'));
 });
 

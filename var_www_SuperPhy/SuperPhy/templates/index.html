@@ -22,23 +22,7 @@
 <script src="{{ url_for('static', filename='js/bower_components/mithril-components/components/tabs/tabs.js') }}"></script>
 <!--<script src="{{ url_for('static', filename='js/mithril.min.js') }}"></script>-->
 <script src="{{ url_for('static', filename='js/mithril.js') }}"></script>
-<!--<script src="{{ url_for('static', filename='js/superphy.js') }}"></script>-->
-<script type="text/javascript">
-    var response
-    response = m.request({
-        method: "GET",
-        url: "http://" + location.hostname + '/hello',
-        data: {},
-        datatype: 'json',
-        type: function(response) {
-            console.log(response.data)
-            return response
-        }
-    });
-    m('.Foo', "FOO")
-
-</script>
-
+<script src="{{ url_for('static', filename='js/superphy.js') }}"></script>
 <div id="test">SUPERPHY</div>
 </body>
 </html>
