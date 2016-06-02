@@ -27,8 +27,6 @@ with app.app_context():
 
 from SuperPhy.models import User
 
-from SuperPhy.blueprints.simple import simple as simple_blueprint
-from SuperPhy.blueprints.example import example as example_blueprint
 from SuperPhy.blueprints.data import data as data_blueprint
 from SuperPhy.blueprints.api import api as api_blueprint
 from SuperPhy.blueprints.upload import upload as upload_blueprint
@@ -41,8 +39,6 @@ def index():
 #def exception_handler(error):
 #    return jsonify({"ERROR": repr(error), "FOO": error})
 
-app.register_blueprint(simple_blueprint, url_prefix='/simple')
-app.register_blueprint(example_blueprint, url_prefix='/example')
 app.register_blueprint(data_blueprint, url_prefix='/data')
 app.register_blueprint(api_blueprint, url_prefix='/api')
 app.register_blueprint(upload_blueprint, url_prefix='/upload')
