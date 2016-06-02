@@ -17,7 +17,7 @@ User.sign_up = (user) ->
     response = m.request(
         headers: get_headers()
         method: "POST"
-        url: "http://#{location.hostname}:5000/#{URL}"
+        url: "http://#{location.hostname}/#{URL}"
         data: {
             'username': user.username()
             'password': user.password()
@@ -33,7 +33,7 @@ User.log_in = (user) ->
     auth = "Basic " + btoa("#{user.username()}:#{user.password()}")
     response = m.request(
         method: "GET"
-        url: "http://#{location.hostname}:5000/#{URL}"
+        url: "http://#{location.hostname}/#{URL}"
         config: (xhr) ->
             xhr.setRequestHeader('Content-Type', 'application/json')
             xhr.setRequestHeader('Authorization', auth)

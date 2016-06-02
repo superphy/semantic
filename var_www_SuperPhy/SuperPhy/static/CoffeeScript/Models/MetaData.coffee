@@ -11,7 +11,7 @@ MetaData = (args) ->
     if @data() is null or args.reset is true
         @data = m.request(
             method: "POST",
-            url: "http://#{location.hostname}:5000/data/meta"
+            url: "http://#{location.hostname}/data/meta"
             data: {}
             datatype: 'json',
             type: (response) ->
