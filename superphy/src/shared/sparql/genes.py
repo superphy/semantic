@@ -31,7 +31,7 @@ def get_all_genes(type_="all"):
     ORDER BY (?Gene)
     """ % (gene_type)
 
-    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query)
 
 
 ## Returns a certain gene
@@ -65,7 +65,7 @@ def get_gene(name):
     ORDER BY (?Gene)
     """ % (name)
 
-    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query)
 
 
 ## Returns the instances of a particular gene in a genome
@@ -83,7 +83,7 @@ def find_regions(gene, genome):
           }
       }
     """ % (gene, genome)
-    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query)
 
 def get_regions(genome_list, gene_list):
     genes = ""
@@ -109,7 +109,7 @@ def get_regions(genome_list, gene_list):
 
     print "query is:", query
 
-    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query)
 
 def get_categories(type):
     query = prefixes
@@ -141,4 +141,4 @@ def get_categories(type):
     else:
         raise ValueError("Non-valid gene type inserted.")
 
-    return endpoint.query(query, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(query)

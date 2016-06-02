@@ -17,7 +17,7 @@ def get_all_syndromes():
             ?_Syndrome_Uri rdfs:label ?syndromes
      }
      group by ?syndromes"""
-    syndrome_query = endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
+    syndrome_query = endpoint.query(string)
     syndromes = []
     for item in syndrome_query['results']['bindings']:
         syndromes.append(item[syndrome_query['head']['vars'][0]]['value'])
@@ -65,7 +65,7 @@ def get_all_genome_metadata():
     GROUP BY ?Genome_Uri
     ORDER BY (?Genome_Uri)
     """
-    return endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(string)
 
 
 def get_genome_metadata(accession):
@@ -116,4 +116,4 @@ def get_genome_metadata(accession):
     GROUP BY ?Genome_Uri
     ORDER BY (?Genome_Uri)
     """ % (accession)
-    return endpoint.query(string, url=os.getenv('SUPERPHY_RDF_URL'))
+    return endpoint.query(string)
