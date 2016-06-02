@@ -37,15 +37,6 @@ from SuperPhy.blueprints.upload import upload as upload_blueprint
 def index():
 	return render_template('index.html')
 
-@app.route("/help")
-def routes():
-    routes = []
-    for rule in app.url_map.iter_rules():
-        if "GET" in rule.methods:
-            routes.append(rule.rule)
-    routes.sort()
-    return render_template('routes.html', routes=sorted(routes, key=lambda s: s.lower()))
-
 #@app.errorhandler(Exception)
 #def exception_handler(error):
 #    return jsonify({"ERROR": repr(error), "FOO": error})

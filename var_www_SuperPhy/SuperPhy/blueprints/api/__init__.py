@@ -2,12 +2,22 @@
 api for users
 """
 
-from flask import abort, Blueprint, request, jsonify, g, url_for
+from flask import abort, Blueprint, request, jsonify, g, url_for, render_template
 
 from SuperPhy.models import User
-from SuperPhy import auth, db
+from SuperPhy import app, auth, db
 
 api = Blueprint('api', __name__)
+
+@api.route('/')
+def routes():
+    routes = []
+    for rule in app.url_map.iter_rules():
+        if "GET" in rule.methods:
+            routes.append(rule.rule)
+    routes.sort()
+    return render_template('routes.html', routes=sorted(routes, key=lambda s: s.lower()))
+
 
 @auth.verify_password
 def verify_password(username_or_token, password):
