@@ -5,6 +5,8 @@ from flask import Blueprint, request, jsonify, url_for
 from werkzeug import secure_filename
 
 from SuperPhy import auth
+from SuperPhy.models import Response
+from superphy.shared import sparql
 
 example = Blueprint('example', __name__)
 
@@ -51,3 +53,10 @@ def file():
         filename = secure_filename(file_.filename)
         file.save(os.path.join(os.path.dirname(os.path.realpath(__file__)), filename))
 
+
+@example.route('/meta', methods=['GET'])
+def meta():
+    """
+    General query that returns all genomes and metadata.
+    """
+    return Response.bulk_download(sparql.get_all_genome_metadata())

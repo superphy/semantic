@@ -2,9 +2,13 @@
 import os
 import sys
 import logging
+import subprocess
 
 activate_this = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'venv/bin/activate_this.py')
 execfile(activate_this, dict(__file__=activate_this))
+
+#activate = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'venv/bin/activate')
+#os.system("bash %s" % activate)
 
 #logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/SuperPhy/")

@@ -4,31 +4,41 @@
     <meta charset="UTF-8">
     <title>SuperPhy</title>
 
-    <!--
-    <link rel="stylesheet" type="text/css" href="css/all.min.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/select2.min.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" media="screen">
-    <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
-    <link rel="icon" href="images/superphy_icon_paths.svg" type="image/svg"/>
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/all.min.css') }}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/select2.min.css') }}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.5.0/css/font-awesome.min.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/superphy_icon_paths.svg') }}" type="image/svg"/>
+    
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    -->
+    
 </head>
 <body>
-    <!-- We need to change this back to the minify version for production-->
-    <script src="{{ url_for('static', filename='mithril.js') }}"></script>
-    <!-- This is the code that we are compiling from CoffeeScript. All other scripts should be 3rd party. -->
-    <script src="{{ url_for('static', filename='superphy.js') }}"></script>
-<!--
-<script src="js/d3/d3.min.js" charset="utf-8"></script>
-<script src="js/select2.min.js"></script>
-<script src="js/selectize.min.js"></script>
-<script src="bower_components/mithril-components/components/utils/mcUtils.js"></script>
-<script src="bower_components/mithril-components/components/tabs/tabs.js"></script>
-<script src="js/mithril.min.js"></script>
-<script src="js/all.min.js"></script>
--->
-<div id="test"></div>
+<script src="{{ url_for('static', filename='js/d3/d3.min.js') }}" charset="utf-8"></script>
+<script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/selectize.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bower_components/mithril-components/components/utils/mcUtils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bower_components/mithril-components/components/tabs/tabs.js') }}"></script>
+<!--<script src="{{ url_for('static', filename='js/mithril.min.js') }}"></script>-->
+<script src="{{ url_for('static', filename='js/mithril.js') }}"></script>
+<!--<script src="{{ url_for('static', filename='js/superphy.js') }}"></script>-->
+<script type="text/javascript">
+    var response
+    response = m.request({
+        method: "GET",
+        url: "http://" + location.hostname + '/hello',
+        data: {},
+        datatype: 'json',
+        type: function(response) {
+            console.log(response.data)
+            return response
+        }
+    });
+    m('.Foo', "FOO")
+
+</script>
+
+<div id="test">SUPERPHY</div>
 </body>
 </html>
