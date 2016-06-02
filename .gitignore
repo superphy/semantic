@@ -30,7 +30,8 @@ blast/*
 #Temporary Files
 python_package/uploader/outputs/errors.txt
 all.min.css
-all.min.js
+superphy.min.js
+superphy.js
 
 superphy/src/upload/ontology/setup.ttl
 
