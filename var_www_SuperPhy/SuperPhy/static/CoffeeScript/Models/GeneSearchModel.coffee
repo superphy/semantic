@@ -74,7 +74,7 @@ GeneSearchModel =
             response =
                 m.request(
                     method: "POST"
-                    url: "http://#{location.hostname}/data/genesearchresults",
+                    url: "http://#{location.hostname}:#{location.port}/data/genesearchresults",
                     data: {
                         genome: @selectedGenomes
                         genes: geneList ## temp for testing
@@ -93,7 +93,7 @@ GeneSearchModel =
             response =
                 m.request(
                     method: "POST"
-                    url: "http://#{location.hostname}/data/categories/#{type}"
+                    url: "http://#{location.hostname}:#{location.port}/data/categories/#{type}"
                     data: {}
                     datatype: "json"
                     type: (response) ->

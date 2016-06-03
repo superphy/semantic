@@ -31,7 +31,7 @@ class Foo
             i++
         response = m.request(
             method: 'POST'
-            url: "http://#{location.hostname}:5000/data/"
+            url: "http://#{location.hostname}:#{location.port}/data/"
             data: formData
             datatype:"multipart/form-data"
             serialize: (value) ->

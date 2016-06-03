@@ -13,7 +13,7 @@ getEndpoint = (url) ->
     if response() is null
         response = m.request(
             method: "GET",
-            url: "http://#{location.hostname}/#{url}"
+            url: "http://#{location.hostname}:#{location.port}/#{url}"
             data: {}
             datatype: 'json',
             type: (response) ->
@@ -50,7 +50,7 @@ getEndpoint2 = (url) ->
     if response() is null
         response = m.request(
             method: "GET",
-            url: "http://#{location.hostname}/#{url}"
+            url: "http://#{location.hostname}:#{location.port}/#{url}"
             data: {}
             datatype: 'json',
             type: (response) ->
