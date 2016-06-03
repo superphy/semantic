@@ -1,16 +1,19 @@
 #!/usr/bin/python
 
-import os, subprocess
+import os, subprocess, sys
 
-def install():
-    os.system("bash superphy/scripts/install.sh")
-    apache = os.path.join('/var/www/html', 'superphy')
-    index = os.path.join(os.getcwd(), "superphy/src/app/mithril")
+def symlink():
+    apache = os.path.join('/var/www', 'SuperPhy')
+    index = os.path.join(os.getcwd(), "var_www_SuperPhy")
     if os.path.realpath(apache) != index:
         subprocess.call("sudo rm '%s'; sudo ln -s '%s' '%s'" % (apache, index, apache), shell=True)
         print "Apache is now deployed!"
     else:
       print "Apache is already deployed!"
+
+def install():
+    os.system("bash superphy/scripts/install.sh")
+    symlink()
 
 #This function belongs in superphy/... package
 def start_database(default="development"):

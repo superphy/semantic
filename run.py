@@ -20,10 +20,11 @@ def run():
     .
     """
     config.start_database()
-    os.system("cd superphy/src/app; bash gulp.sh; cd ../../..")
-    from superphy.app import create_app
-    app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-    app.run(host='0.0.0.0', debug=True, use_reloader=False)
+    os.system("cd var_www_SuperPhy/SuperPhy/static; bash compile.sh; cd ../../..")
+    os.system("sudo /etc/init.d/apache2 reload")
+    #from superphy.app import create_app
+    #app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+    #app.run(host='0.0.0.0', debug=True, use_reloader=False)
 
 def install():
     """

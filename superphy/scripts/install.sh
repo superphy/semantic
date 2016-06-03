@@ -1,16 +1,5 @@
 #!/bin/bash
 
-#Deploy apache
-#echo "Deploy apache"
-#INDEX=${PWD}/superphy/src/app/mithril
-#APACHE=/var/www/html/superphy
-
-#echo $INDEX
-#echo $APACHE
-
-#[ -L "$APACHE" ] && sudo rm $APACHE #&& echo "Removing existing symlink at ${APACHE} ..."
-#sudo ln  $INDEX $APACHE -sf
-
 #Install sudo packages
 if [ "$(whoami)" == "root" ]; then
 	echo "Install sudo packages"
@@ -30,6 +19,7 @@ BASHDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo Adding postactivate script to venv/bin/activate
 echo "# Superphy Environment setup" >> venv/bin/activate
 echo "source $BASHDIR/postactivate.sh" >> venv/bin/activate
+
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r venv/requirements.txt
@@ -63,8 +53,8 @@ fi
 
 #install bower components
 
-if ! find superphy/app/src/mithril/bower_components/mithril-components | read v; then
-	git clone --depth=1 https://github.com/eddyystop/mithril-components.git superphy/src/app/mithril/bower_components/mithril-components;
+if ! find var_www_SuperPhy/SuperPhy/static/bower_components/mithril-components | read v; then
+	git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/bower_components/mithril-components;
 fi
 
 echo ""
