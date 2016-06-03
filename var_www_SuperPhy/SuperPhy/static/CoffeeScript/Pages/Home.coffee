@@ -27,7 +27,7 @@ class Home extends Page
                     " Some features are still under development and may not be fully functional."
                 )))
                 m(".row superphy-image"
-                    m("img", {src:'images/superphy_logo_with_title.png'}),
+                    m("img", {src:'static/images/superphy_logo_with_title.png'}),
                     m("p.superphy-image"
                         'NEXT-LEVEL PHYLOGENETIC AND
                         EPIDEMIOLOGICAL ANALYSIS OF PATHOGENS'
