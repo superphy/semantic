@@ -46,7 +46,7 @@ gulp.task('less_to_css', function() {
 });
 
 gulp.task('minify_css', function() {
-  return; gulp.src('./css/*.css')
+  gulp.src('./css/*.css')
     .pipe(concat('all.css'))
     .pipe(minifyCSS())
     .pipe(rename({
