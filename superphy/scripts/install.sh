@@ -53,8 +53,8 @@ fi
 
 #install bower components
 
-if ! find var_www_SuperPhy/SuperPhy/static/bower_components/mithril-components | read v; then
-	git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/bower_components/mithril-components;
+if ! find var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components | read v; then
+	git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;
 fi
 
 echo ""
