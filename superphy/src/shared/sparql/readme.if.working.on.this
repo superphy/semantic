@@ -1,0 +1,5 @@
+This folder has been copied out to the models folder of the project. The reason
+it is still here is that uploader uses it.
+
+Uploader only uses 1 or 2 of these, or may even just use the endpoint module
+1 folder down. This is here right now for legacy reasons.

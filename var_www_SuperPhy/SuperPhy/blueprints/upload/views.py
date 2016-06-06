@@ -1,5 +1,5 @@
 from flask import jsonify, request
-from superphy.shared import sparql
+from SuperPhy.models import sparql
 
 from SuperPhy.blueprints.upload import upload
 

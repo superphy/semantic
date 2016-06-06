@@ -14,7 +14,7 @@ from wtforms.validators import DataRequired
 
 from werkzeug import secure_filename
 
-from superphy.shared import sparql
+from SuperPhy.models import sparql
 from SuperPhy.models import Response
 
 from SuperPhy.blueprints.data import data
