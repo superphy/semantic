@@ -1,8 +1,11 @@
 #!bin/bash
-source scripts/config
-
-#!/bin/bash
 #starts up Blazegraph
+
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/..
+
+source scripts/config
 
 bash scripts/stop.sh <&- 1>/dev/null
 

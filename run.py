@@ -17,20 +17,19 @@ config.import_env()
 #Debug allows the execution of arbitrary code. Do not use it with production
 def run():
     """
-    .
+    This compiles files in the project, and restarts nessesary systems.
+    After this is run, if you have installed properly you will have a working superphy
     """
-    config.start_database()
+    os.system("bash superphy/database/scripts/start.sh")
     os.system("cd var_www_SuperPhy/SuperPhy/static; bash compile.sh; cd ../../..")
     os.system("sudo /etc/init.d/apache2 reload")
-    #from superphy.app import create_app
-    #app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-    #app.run(host='0.0.0.0', debug=True, use_reloader=False)
+    exit()
 
 def install():
     """
     .
     """
-    config.start_database()
+    os.system("bash superphy/database/scripts/start.sh")
     config.install()
     exit()
 
