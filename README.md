@@ -4,7 +4,11 @@ SuperPhy for the semantic web
 # Quick Start
 
 ## Starting from a fresh image ##
+    * sudo apt-get install git -y
+    * git clone https://github.com/superphy/semantic.git ~/superphy
+    * cd ~/superphy
     * python run.py install --sys
+    
 
 ## [Coffeescript](http://coffeescript.org/)
 * Setup coffeelint to ensure we are all following the same coding style
