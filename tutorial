@@ -15,12 +15,12 @@ sudo apt-get update && sudo apt-get upgrade -y
 #Adds the git repository to your files. This is version controll for our
 #project.
 
-sudo apt-get install git
+sudo apt-get install git -y
 
 #Download the master branch from our prject. Currently it is located at the
 #URI mentioned below.
 
-git clone https://github.com/superphy/semantic.git ~/superphy
+git clone -b mod_wsgi https://github.com/superphy/semantic.git ~/superphy
 
 #Optional:
 #If you want to use sublime-text as your word processor, now is the time to
@@ -40,18 +40,18 @@ sudo a2enmod wsgi
 #Configure and Enable your virtual host: (deploying to apache)
 
 #copy 000-default.conf to /etc/apache2/sites-available
-sudo cp development_virtualhost.conf /etc/apache2/sites-available/000-default.conf
+sudo cp ~/superphy/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf
 
 sudo service apache2 reload
 
 #-----------------------
-
-#Assume you have set up the system
+#Assume you have set up the system, and have just downloading the new
 
 cd ~/superphy
 
 ln -s ~/superphy ~/Desktop/superphy
 
+#start and download the blazegraph java file.
 bash superphy/database/scripts/start.sh
 
 apache='/var/www/SuperPhy'
@@ -83,5 +83,5 @@ fi
 
 # Recompiling
 
-cd var_www_SuperPhy/SuperPhy/static && bash compile.sh; && cd ../../..
+bash var_www_SuperPhy/SuperPhy/static/compile.sh
 sudo /etc/init.d/apache2 reload

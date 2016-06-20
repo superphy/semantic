@@ -3,11 +3,8 @@ SuperPhy for the semantic web
 
 # Quick Start
 
-    * python run.py install - Installs the virtuall environment and nessesary packages
-
-    * source venv/bin/activate
-
-    * ./run.py run - Compiles cofeescript & runs the flask web-server
+## Starting from a fresh image ##
+    * python run.py install --sys
 
 ## [Coffeescript](http://coffeescript.org/)
 * Setup coffeelint to ensure we are all following the same coding style
