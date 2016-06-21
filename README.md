@@ -8,6 +8,12 @@ SuperPhy for the semantic web
     * git clone https://github.com/superphy/semantic.git ~/superphy
     * cd ~/superphy
     * python run.py install --sys
+    * //Navigate to localhost:5000, and verify the page loads, go back to the terminal and hit ctrl-c
+    * //Navigate to localhost, and verify the apache-mod_wsgi server is running.
+
+/*If any thing doesn't load, try refreshing the page again, as the first load is broken at the time of writing this.
+
+Congratulations. You have a working version of SuperPhy. Next thing to do is add in genome data to the Blazegraph Triplestore.
     
 
 ## [Coffeescript](http://coffeescript.org/)
