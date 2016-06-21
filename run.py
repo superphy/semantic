@@ -24,10 +24,14 @@ def parse_args():
         """
         Download, install, initialize, etc.
         """
+        if args.upgrade:
+            subprocess.call("sudo apt-get update && sudo apt-get upgrade -y", shell=True)
+            args.sys = True
+
         if args.sys:
             args.symlink = True
             #Setup fresh image to use SuperPhy
-            #subprocess.call("sudo apt-get update && sudo apt-get upgrade -y", shell=True)
+            
             subprocess.call("sudo apt-get install apache2 curl libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb -y", shell=True)
             subprocess.call("sudo a2enmod wsgi", shell=True)
             subprocess.call("sudo cp $(pwd)/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf)", shell=True)
@@ -47,14 +51,33 @@ def parse_args():
         
         #Install virtualenv binaries
 
+        if args.verbose:
+            print "Initializing virtualenv"
         subprocess.call("virtualenv --no-site-packages venv", shell=True)
+
+        if args.verbose:
+            print "Upgrading pip"
         subprocess.call("venv/bin/pip install --upgrade pip", shell=True)
+
+        if args.verbose:
+            print "Installing Pip requirments into virtualenv"
         subprocess.call("venv/bin/pip install -r venv/requirements.txt", shell=True)
-        subprocess.call("venv/bin/nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt", shell=True)
+
+        if args.verbose:
+            print "Installing Npm requirments into virtualenv"
+        subprocess.call("cd venv/lib; ../bin/nodeenv -p --prebuilt --requirements=../npm-requirements.txt", shell=True)
+
+        if args.verbose:
+            print "Grabbing mithril components from github"
         subprocess.call("git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;", shell=True)
 
         #For some reason, even apache doesn't work if you don't run the pyserver beforehand.
-        subprocess.call("python run.py run --pyserver", shell=True)
+        v = ""
+        if args.verbose:
+            print "Restarting and running pyserver. (Press Ctrl-c to exit):"
+            v = "--verbose"
+        subprocess.call("python run.py run --pyserver %s" % v, shell=True)
+
 
     def pull(args):
         """
@@ -81,9 +104,10 @@ def parse_args():
 
     # Install subparser
     install_parser = subparsers.add_parser('install', help='Download, install, initialize, etc.')
-    install_parser.add_argument('--sys', help='help for b', action="store_true")
+    install_parser.add_argument('--sys', help='Install system packages. (Includes --symlink)', action="store_true")
     install_parser.add_argument('--symlink', help='Point a symlink from apache to SuperPhy', action="store_true")
     install_parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+    install_parser.add_argument("-U", "--upgrade", help="Update and Upgrade your system packages. (Includes --sys, and --symlink)")
 
     # Pull subparser
     pull_parser = subparsers.add_parser('pull', help='Pull the development changes into production.')
