@@ -4,7 +4,7 @@ SuperPhy for the semantic web
 # Starting from a fresh install of linuxmint-17.3-cinnamon-64bit
 
     * sudo apt-get update && sudo apt-get upgrade -y
-    * sudo apt-get install apache2 curl git libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb
+    * sudo apt-get install apache2 curl git libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb -y
     * git clone https://github.com/superphy/semantic.git ~/superphy
     * cd ~/superphy
     * python run.py install --sys

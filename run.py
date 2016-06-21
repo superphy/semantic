@@ -26,13 +26,15 @@ def parse_args():
     def install(args):
         """
         Download, install, initialize, etc.
+
+        You should already have system packages installed on your build.
         """
         if args.sys:
             args.symlink = True
             #Setup fresh image to use SuperPhy
             
             subprocess.call("sudo a2enmod wsgi", shell=True)
-            subprocess.call("sudo cp $(pwd)/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf)", shell=True)
+            subprocess.call("sudo cp $(pwd)/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf", shell=True)
             subprocess.call("sudo service apache2 reload", shell=True)
 
             #This is a very large download. If you aren't going to be uploading data, don't bother downloading it.
