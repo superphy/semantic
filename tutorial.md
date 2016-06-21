@@ -1,50 +1,48 @@
-This tutorial is using [linuxmint-17.3-cinnamon-64bit.iso]()
+####This tutorial is using [linuxmint-17.3-cinnamon-64bit.iso]()
 
-Assume you have a new system.
+#### Assume you have a new system.
 
-#Optional:
-#This adds the respository for sublime text 3. If you are using a different
-#Text editor, then you don't need this repo. Likewize, you don't need to 
+- Optional (for development):
+This adds the respository for sublime text 3. If you are using a different
+Text editor, then you don't need this repo. Likewize, you don't need to 
 
-sudo add-apt-repository ppa:webupd8team/sublime-text-3
+```sudo add-apt-repository ppa:webupd8team/sublime-text-3```
 
-#This updates and upgrades your current system.
+- This updates and upgrades your current system.
 
-sudo apt-get update && sudo apt-get upgrade -y
+```sudo apt-get update && sudo apt-get upgrade -y```
 
-#Adds the git repository to your files. This is version controll for our
-#project.
+- Adds the git repository to your files. This is version controll for our project.
 
-sudo apt-get install git -y
+```sudo apt-get install git -y```
 
-#Download the master branch from our prject. Currently it is located at the
-#URI mentioned below.
+- Download the master branch from our prject. Currently it is located at the URI mentioned below.
 
-git clone -b mod_wsgi https://github.com/superphy/semantic.git ~/superphy
+```git clone -b mod_wsgi https://github.com/superphy/semantic.git ~/superphy```
 
-#Optional:
-#If you want to use sublime-text as your word processor, now is the time to
-#Download it.
+#### Optional:
+If you want to use sublime-text as your word processor, now is the time to Download it.
 
-sudo apt-get install sublime-text-installer -y
+```sudo apt-get install sublime-text-installer -y```
 
-#Install the other sudo packages we need to run SuperPhy on the machine
+- Install the other sudo packages we need to run SuperPhy on the machine
 
-#!note: sort these!
+####note: sort these!
+
 sudo apt-get install curl python-virtualenv xvfb python-dev libyajl2 wget \
 MUMmer muscle apache2 libapache2-mod-wsgi -y
 
-#To enable mod_wsgi, run the following command:
+- To enable mod_wsgi, run the following command:
 sudo a2enmod wsgi 
 
-#Configure and Enable your virtual host: (deploying to apache)
+- Configure and Enable your virtual host: (deploying to apache)
 
-#copy 000-default.conf to /etc/apache2/sites-available
+- copy 000-default.conf to /etc/apache2/sites-available
 sudo cp ~/superphy/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf
 
-sudo service apache2 reload
+- sudo service apache2 reload
 
-#-----------------------
+***
 #Assume you have set up the system, and have just downloading the new
 
 cd ~/superphy
