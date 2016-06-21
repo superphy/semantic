@@ -1,6 +1,9 @@
 """
 This is the file that should be used to build and run superphy.
     Parses std input for program
+
+    TODO: verbose is only showing debug statments. We need to tie it in with
+        the subprocesses.
 """
 #pylint: skip-file
 
@@ -24,15 +27,10 @@ def parse_args():
         """
         Download, install, initialize, etc.
         """
-        if args.upgrade:
-            subprocess.call("sudo apt-get update && sudo apt-get upgrade -y", shell=True)
-            args.sys = True
-
         if args.sys:
             args.symlink = True
             #Setup fresh image to use SuperPhy
             
-            subprocess.call("sudo apt-get install apache2 curl libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb -y", shell=True)
             subprocess.call("sudo a2enmod wsgi", shell=True)
             subprocess.call("sudo cp $(pwd)/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf)", shell=True)
             subprocess.call("sudo service apache2 reload", shell=True)
@@ -42,9 +40,11 @@ def parse_args():
             #subprocess.call("if ! find blast/ncbi*/ | read v; then cd blast; wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"; tar zxvpf *x64-linux.tar.gz; cd ..; fi", shell=True)
 
         if args.symlink:
-            print "SYMLINKING"
+            if args.verbose:
+                print "SYMLINKING"
             apache = os.path.join('/var/www/', 'SuperPhy')
-            print "APACHE: %s" %apache
+            if args.verbose:
+                print "APACHE: %s" %apache
             project = os.path.join(os.getcwd(), 'var_www_SuperPhy')
             subprocess.call("sudo rm -f %s" % apache, shell=True)
             subprocess.call("sudo ln -s %s %s" % (project, apache), shell=True)
@@ -107,7 +107,6 @@ def parse_args():
     install_parser.add_argument('--sys', help='Install system packages. (Includes --symlink)', action="store_true")
     install_parser.add_argument('--symlink', help='Point a symlink from apache to SuperPhy', action="store_true")
     install_parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
-    install_parser.add_argument("-U", "--upgrade", help="Update and Upgrade your system packages. (Includes --sys, and --symlink)", action="store_true")
 
     # Pull subparser
     pull_parser = subparsers.add_parser('pull', help='Pull the development changes into production.')
