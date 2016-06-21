@@ -1,10 +1,10 @@
 # semantic   [![Build Status](https://travis-ci.org/superphy/semantic.svg?branch=master)](https://travis-ci.org/superphy/semantic)
 SuperPhy for the semantic web
 
-# Quick Start
+# Starting from a fresh install of linuxmint-17.3-cinnamon-64bit
 
-## Starting from a fresh image ##
-    * sudo apt-get install git -y
+    * sudo apt-get update && sudo apt-get upgrade -y
+    * sudo apt-get install apache2 curl git libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb
     * git clone https://github.com/superphy/semantic.git ~/superphy
     * cd ~/superphy
     * python run.py install --sys
