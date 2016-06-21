@@ -70,7 +70,7 @@ nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
 
 #### How to deactivate
 
-#This may become deprecated soon. These are bower js components for mithril.
+##### This may become deprecated soon. These are bower js components for mithril.
 if ! find var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components | read v; then
     git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;
 fi
@@ -84,7 +84,7 @@ if ! find ncbi*/ | read v; then
     tar zxvpf *x64-linux.tar.gz
 fi && cd ..
 ```
-#### Recompiling
+#### How to Recompile
 
 bash var_www_SuperPhy/SuperPhy/static/compile.sh
 sudo /etc/init.d/apache2 reload
