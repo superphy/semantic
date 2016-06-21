@@ -107,7 +107,7 @@ def parse_args():
     install_parser.add_argument('--sys', help='Install system packages. (Includes --symlink)', action="store_true")
     install_parser.add_argument('--symlink', help='Point a symlink from apache to SuperPhy', action="store_true")
     install_parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
-    install_parser.add_argument("-U", "--upgrade", help="Update and Upgrade your system packages. (Includes --sys, and --symlink)")
+    install_parser.add_argument("-U", "--upgrade", help="Update and Upgrade your system packages. (Includes --sys, and --symlink)", action="store_true")
 
     # Pull subparser
     pull_parser = subparsers.add_parser('pull', help='Pull the development changes into production.')
