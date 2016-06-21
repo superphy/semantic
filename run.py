@@ -16,12 +16,14 @@ def parse_args():
     def run(args):
         if not args.no_compile:
             subprocess.call("bash var_www_SuperPhy/SuperPhy/static/compile.sh", shell=True)
-        if args.pyserver:
-            #Run Python server
-            subprocess.call("/usr/bin/python var_www_SuperPhy/run.py", shell=True)
         if not args.no_restart:
             subprocess.call("bash superphy/database/scripts/start.sh", shell=True)
             subprocess.call("sudo /etc/init.d/apache2 reload", shell=True)
+        if args.pyserver:
+            #Run Python server
+            #Remember you don't want this running all the time. This is a
+            #   security hazard if you allow port 5000 traffic.
+            subprocess.call("echo 'RUNNING debug python in background' || /usr/bin/python var_www_SuperPhy/run.py", shell=True)
 
     def install(args):
         """
