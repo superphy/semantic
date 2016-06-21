@@ -56,7 +56,7 @@ If you want to use sublime-text as your word processor, now is the time to Downl
 ```$ sudo service apache2 reload```
 
 ***
-####Assume you have set up the system, and have just downloading the new
+####Assume you have set up the system,
 
 $ cd ~/superphy
 
@@ -69,14 +69,19 @@ start and download the blazegraph java file.
 ------What's happening here?--------
 
 $ apache='/var/www/SuperPhy'
+
 $ project=$(pwd)/var_www_SuperPhy
+
 $ sudo rm -f $apache
+
 $ sudo ln -s $project $apache
 
 virtualenv --no-site-packages venv
 
 $ source venv/bin/activate
+
 $ pip install --upgrade pip && pip install -r venv/requirements.txt
+
 $ nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
 
 
