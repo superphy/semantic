@@ -29,28 +29,32 @@ If you want to use sublime-text as your word processor, now is the time to Downl
 
 ####note: sort these!
 
-sudo apt-get install curl python-virtualenv xvfb python-dev libyajl2 wget \
-MUMmer muscle apache2 libapache2-mod-wsgi -y
+```sudo apt-get install apache2 curl git libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb -y```
 
 - To enable mod_wsgi, run the following command:
-sudo a2enmod wsgi 
+
+```sudo a2enmod wsgi``` 
 
 - Configure and Enable your virtual host: (deploying to apache)
 
 - copy 000-default.conf to /etc/apache2/sites-available
-sudo cp ~/superphy/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf
 
-- sudo service apache2 reload
+```sudo cp ~/superphy/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf```
+
+```sudo service apache2 reload```
 
 ***
-#Assume you have set up the system, and have just downloading the new
+####Assume you have set up the system, and have just downloading the new
 
 cd ~/superphy
 
 ln -s ~/superphy ~/Desktop/superphy
 
-#start and download the blazegraph java file.
-bash superphy/database/scripts/start.sh
+start and download the blazegraph java file.
+
+```bash superphy/database/scripts/start.sh```
+
+------What's happening here?--------
 
 apache='/var/www/SuperPhy'
 project=$(pwd)/var_www_SuperPhy
@@ -63,23 +67,24 @@ source venv/bin/activate
 pip install --upgrade pip && pip install -r venv/requirements.txt
 nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
 
-deactivate
+
+#### How to deactivate
 
 #This may become deprecated soon. These are bower js components for mithril.
 if ! find var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components | read v; then
     git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;
 fi
 
-#This is a very large download. If you aren't going to be uploading data, don't
-#bother downloading it.
-#mkdir blast &> /dev/null 
-#cd blast
-#if ! find ncbi*/ | read v; then
-#    wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"
-#    tar zxvpf *x64-linux.tar.gz
-#fi && cd ..
-
-# Recompiling
+- This is a very large download. If you aren't going to be uploading data, don't bother downloading it.
+```
+mkdir blast &> /dev/null 
+cd blast
+if ! find ncbi*/ | read v; then
+    wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"
+    tar zxvpf *x64-linux.tar.gz
+fi && cd ..
+```
+#### Recompiling
 
 bash var_www_SuperPhy/SuperPhy/static/compile.sh
 sudo /etc/init.d/apache2 reload
