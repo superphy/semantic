@@ -23,7 +23,7 @@ def parse_args():
             #Run Python server
             #Remember you don't want this running all the time. This is a
             #   security hazard if you allow port 5000 traffic.
-            subprocess.call("echo 'RUNNING debug python in background' || /usr/bin/python var_www_SuperPhy/run.py", shell=True)
+            subprocess.call("/usr/bin/python var_www_SuperPhy/run.py", shell=True)
 
     def install(args):
         """
