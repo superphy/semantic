@@ -5,94 +5,102 @@ This is the file that should be used to build and run superphy.
     TODO: verbose is only showing debug statments. We need to tie it in with
         the subprocesses.
 """
-#pylint: skip-file
+# pylint: disable=line-too-long
 
 import argparse
 import subprocess
 import os
 
+def run(args):
+    """
+    Compile and run the code
+    """
+    if not args.no_compile:
+        subprocess.call("bash var_www_SuperPhy/SuperPhy/static/compile.sh", shell=True)
+    if not args.no_restart:
+        subprocess.call("bash superphy/database/scripts/start.sh", shell=True)
+        subprocess.call("sudo /etc/init.d/apache2 reload", shell=True)
+    if args.pyserver:
+        #Run Python server
+        #Remember you don't want this running all the time. This is a
+        #   security hazard if you allow port 5000 traffic.
+        subprocess.call("/usr/bin/python var_www_SuperPhy/run.py", shell=True)
+
+def install(args):
+    """
+    Download, install, initialize, etc.
+
+    You should already have system packages installed on your build.
+    """
+    if args.sys:
+        args.symlink = True
+        #Setup fresh image to use SuperPhy
+
+        subprocess.call("sudo a2enmod wsgi", shell=True)
+        subprocess.call("sudo cp $(pwd)/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf", shell=True)
+        subprocess.call("sudo service apache2 reload", shell=True)
+
+        #This is a very large download. If you aren't going to be uploading data, don't bother downloading it.
+        #subprocess.call("mkdir blast", shell=True)
+        #subprocess.call("if ! find blast/ncbi*/ | read v; then cd blast; wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"; tar zxvpf *x64-linux.tar.gz; cd ..; fi", shell=True)
+
+    if args.symlink:
+        if args.verbose:
+            print "SYMLINKING"
+        apache = os.path.join('/var/www/', 'SuperPhy')
+        if args.verbose:
+            print "APACHE: %s" %apache
+        project = os.path.join(os.getcwd(), 'var_www_SuperPhy')
+        subprocess.call("sudo rm -f %s" % apache, shell=True)
+        subprocess.call("sudo ln -s %s %s" % (project, apache), shell=True)
+
+    #Install virtualenv binaries
+
+    if args.verbose:
+        print "Initializing virtualenv"
+    subprocess.call("virtualenv --no-site-packages venv", shell=True)
+
+    if args.verbose:
+        print "Upgrading pip"
+    subprocess.call("venv/bin/pip install --upgrade pip", shell=True)
+
+    if args.verbose:
+        print "Installing Pip requirments into virtualenv"
+    subprocess.call("venv/bin/pip install -r venv/requirements.txt", shell=True)
+
+    if args.verbose:
+        print "Installing Npm requirments into virtualenv"
+    subprocess.call("cd venv/lib; ../bin/nodeenv -p --prebuilt --requirements=../npm-requirements.txt", shell=True)
+
+    if args.verbose:
+        print "Grabbing mithril components from github"
+    subprocess.call("git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;", shell=True)
+
+    #For some reason, even apache doesn't work if you don't run the pyserver beforehand.
+    if args.verbose:
+        print "Restarting and running pyserver. (Press Ctrl-c to exit):"
+
+    subprocess.call("python run.py run --pyserver {0}".format("--verbose" if args.verbose else ""), shell=True)
+
+
+def pull(args):
+    """
+    Grab any changes to the git master branch. Pull the development changes
+    into production.
+    """
+    pass
+
+def test(args):
+    """
+    Test the code
+    """
+    pass
+
+
 def parse_args():
-
-    def run(args):
-        if not args.no_compile:
-            subprocess.call("bash var_www_SuperPhy/SuperPhy/static/compile.sh", shell=True)
-        if not args.no_restart:
-            subprocess.call("bash superphy/database/scripts/start.sh", shell=True)
-            subprocess.call("sudo /etc/init.d/apache2 reload", shell=True)
-        if args.pyserver:
-            #Run Python server
-            #Remember you don't want this running all the time. This is a
-            #   security hazard if you allow port 5000 traffic.
-            subprocess.call("/usr/bin/python var_www_SuperPhy/run.py", shell=True)
-
-    def install(args):
-        """
-        Download, install, initialize, etc.
-
-        You should already have system packages installed on your build.
-        """
-        if args.sys:
-            args.symlink = True
-            #Setup fresh image to use SuperPhy
-            
-            subprocess.call("sudo a2enmod wsgi", shell=True)
-            subprocess.call("sudo cp $(pwd)/development_virtualhost.conf /etc/apache2/sites-available/000-default.conf", shell=True)
-            subprocess.call("sudo service apache2 reload", shell=True)
-
-            #This is a very large download. If you aren't going to be uploading data, don't bother downloading it.
-            #subprocess.call("mkdir blast", shell=True) 
-            #subprocess.call("if ! find blast/ncbi*/ | read v; then cd blast; wget -rc -nd -A "*x64-linux.tar.gz" "ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/"; tar zxvpf *x64-linux.tar.gz; cd ..; fi", shell=True)
-
-        if args.symlink:
-            if args.verbose:
-                print "SYMLINKING"
-            apache = os.path.join('/var/www/', 'SuperPhy')
-            if args.verbose:
-                print "APACHE: %s" %apache
-            project = os.path.join(os.getcwd(), 'var_www_SuperPhy')
-            subprocess.call("sudo rm -f %s" % apache, shell=True)
-            subprocess.call("sudo ln -s %s %s" % (project, apache), shell=True)
-        
-        #Install virtualenv binaries
-
-        if args.verbose:
-            print "Initializing virtualenv"
-        subprocess.call("virtualenv --no-site-packages venv", shell=True)
-
-        if args.verbose:
-            print "Upgrading pip"
-        subprocess.call("venv/bin/pip install --upgrade pip", shell=True)
-
-        if args.verbose:
-            print "Installing Pip requirments into virtualenv"
-        subprocess.call("venv/bin/pip install -r venv/requirements.txt", shell=True)
-
-        if args.verbose:
-            print "Installing Npm requirments into virtualenv"
-        subprocess.call("cd venv/lib; ../bin/nodeenv -p --prebuilt --requirements=../npm-requirements.txt", shell=True)
-
-        if args.verbose:
-            print "Grabbing mithril components from github"
-        subprocess.call("git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;", shell=True)
-
-        #For some reason, even apache doesn't work if you don't run the pyserver beforehand.
-        v = ""
-        if args.verbose:
-            print "Restarting and running pyserver. (Press Ctrl-c to exit):"
-            v = "--verbose"
-        subprocess.call("python run.py run --pyserver %s" % v, shell=True)
-
-
-    def pull(args):
-        """
-        Grab any changes to the git master branch. Pull the development changes
-        into production.
-        """
-        pass
-
-    def test(args):
-        pass
-
+    """
+    Parse the command-line arguments
+    """
     #Define the acceptable arguements for the program:
 
     # create the top-level parser
@@ -125,18 +133,18 @@ def parse_args():
     args = parser.parse_args()
 
     if args.verbose:
-        print args
         print args.method
 
-    # switch for which method is being used.
-    options = {
+    return args
+
+if __name__ == "__main__":
+
+    OPTIONS = {
         'run': run,
         'install': install,
         'pull': pull,
         'test': test
     }
 
-    options[args.method](args)
-
-if __name__ == "__main__":
-    parse_args()
+    ARGS = parse_args()
+    OPTIONS[ARGS.method](ARGS)
