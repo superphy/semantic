@@ -126,8 +126,7 @@ def parse_args():
 
     if args.verbose:
         print args
-
-    print args.method
+        print args.method
 
     # switch for which method is being used.
     options = {
