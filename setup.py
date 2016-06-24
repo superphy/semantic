@@ -151,12 +151,16 @@ def import_env(verbose=True):
      for example: [rdf] url = localhost/blazegraph/namespace/superphy/sparql
      becomes:     ['SUPERPHY_RDF_URL', ' localhost/blazegraph/namespace/superphy/sparql']
     """
+
+    DEFAULT_CONFIG_DIRECTORY = "config/default.cfg"
+    ACTIVE_CONFIG_DIRECTORY = "config/active.cfg"
+
     #Create active configuration file.
-    if not os.path.exists("config/active.cfg"):
+    if not os.path.exists("{active}".format(active=ACTIVE_CONFIG_DIRECTORY)):
         #Copy of config file from default
-        subprocess.call("cp config/default.cfg config/active.cfg", shell=True)
+        subprocess.call("cp {default} {active}".format(active=ACTIVE_CONFIG_DIRECTORY, default=DEFAULT_CONFIG_DIRECTORY), shell=True)
     #Setting the Environment Variables
-    for line in open('config/superphy.cfg'):
+    for line in open("{active}".format(active=ACTIVE_CONFIG_DIRECTORY)):
         #Ignore lines that are commented out.
         if line.startswith("#"):
             continue
@@ -202,6 +206,3 @@ if __name__ == "__main__":
     ARGS = parse_args()
     import_env(ARGS.verbose)
     OPTIONS[ARGS.method](ARGS)
-    
-
-
