@@ -21,7 +21,7 @@ def run():
     After this is run, if you have installed properly you will have a working superphy
     """
     os.system("bash superphy/database/scripts/start.sh")
-    os.system("cd var_www_SuperPhy/SuperPhy/static; bash compile.sh; cd ../../..")
+    os.system("cd app/SuperPhy/static; bash compile.sh; cd ../../..")
     os.system("sudo /etc/init.d/apache2 reload")
     exit()
 

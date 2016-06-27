@@ -16,7 +16,7 @@ def run(args):
     Compile and run the code
     """
     if not args.no_compile:
-        subprocess.call("bash var_www_SuperPhy/SuperPhy/static/compile.sh", shell=True)
+        subprocess.call("bash app/SuperPhy/static/compile.sh", shell=True)
     if not args.no_restart:
         subprocess.call("bash superphy/database/scripts/start.sh", shell=True)
         subprocess.call("sudo /etc/init.d/apache2 reload", shell=True)
@@ -24,7 +24,7 @@ def run(args):
         #Run Python server
         #Remember you don't want this running all the time. This is a
         #   security hazard if you allow port 5000 traffic.
-        subprocess.call("/usr/bin/python var_www_SuperPhy/run.py", shell=True)
+        subprocess.call("/usr/bin/python app/run.py", shell=True)
 
 
 
@@ -32,10 +32,10 @@ GIT_CONF_FILE = "development_virtualhost.conf"
 APACHE = "apache2"
 APACHE_CONF_DESTINATION = "/etc/{apache}/sites-available".format(apache=APACHE)
 APACHE_SYMLINK_DESTINATION = '/var/www/SuperPhy'
-NETWORK_FACEING_SUBDIRECTORY = 'var_www_SuperPhy'
+NETWORK_FACEING_SUBDIRECTORY = 'app'
 VIRTUALENV_FOLDER = "venv"
 NPM_REQUIRMENTS = "npm-requirements.txt"
-BOWER_COMPONENTS_DESTINATION = "var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components"
+BOWER_COMPONENTS_DESTINATION = "app/SuperPhy/static/js/bower_components/mithril-components"
 
 def install(args):
     """

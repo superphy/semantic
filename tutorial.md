@@ -70,7 +70,7 @@ start and download the blazegraph java file.
 
 $ apache='/var/www/SuperPhy'
 
-$ project=$(pwd)/var_www_SuperPhy
+$ project=$(pwd)/app
 
 $ sudo rm -f $apache
 
@@ -88,8 +88,8 @@ $ nodeenv -p --prebuilt --requirements=venv/npm-requirements.txt
 #### How to deactivate
 
 ##### This may become deprecated soon. These are bower js components for mithril.
-if ! find var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components | read v; then
-    git clone --depth=1 https://github.com/eddyystop/mithril-components.git var_www_SuperPhy/SuperPhy/static/js/bower_components/mithril-components;
+if ! find app/SuperPhy/static/js/bower_components/mithril-components | read v; then
+    git clone --depth=1 https://github.com/eddyystop/mithril-components.git app/SuperPhy/static/js/bower_components/mithril-components;
 fi
 
 - This is a very large download. If you aren't going to be uploading data, don't bother downloading it.
@@ -103,5 +103,5 @@ fi && cd ..
 ```
 #### How to Recompile
 
-bash var_www_SuperPhy/SuperPhy/static/compile.sh
+bash app/SuperPhy/static/compile.sh
 sudo /etc/init.d/apache2 reload
