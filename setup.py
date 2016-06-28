@@ -100,10 +100,13 @@ def pull(args):
 
 def test(args):
     """
-    Test the code
+    Test the code. (Need to be in the venv context to run this)
     """
-    pass
+    #Start up a new Blazegraph instance, but make the DB files reference non-production.
+    subprocess.call("bash superphy/database/scripts/start.sh testing", shell=True)
 
+    subprocess.call("venv/bin/nosetests -vv --exe", shell=True)
+    
 
 def parse_args():
     """

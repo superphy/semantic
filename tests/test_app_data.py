@@ -4,7 +4,7 @@ import unittest
 from flask import json, jsonify, url_for
 
 from apptester import AppTester
-from superphy.app.data import views as module
+from SuperPhy.blueprints.data import views as module
 
 
 
@@ -15,17 +15,6 @@ class DataTestCase(AppTester):
     You need to have your blazegraph running, and populated with test-data in
     order for these functions to work.
     """
-    def test_query(self):
-        """
-        #General query to test if the requests are working.
-        """
-        resp = self.client.get(
-            url_for('data.query'),
-            headers=self.get_api_headers("", ""),
-            data=None
-        )
-        self.assertEqual(200, resp.status_code)
-
     def test_meta(self):
         """
         General query that returns all genomes and their metadata.

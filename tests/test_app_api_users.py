@@ -4,8 +4,9 @@ import unittest
 from flask import json, jsonify, url_for
 
 from apptester import AppTester
-from superphy.app import create_app, db
-from superphy.app.models import User
+from SuperPhy import db
+#from SuperPhy import create_app
+from SuperPhy.models import User
 
 class UserTestCase(AppTester):
     """
