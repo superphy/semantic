@@ -12,7 +12,7 @@ venv/lib/*
 venv/lib/python2.7/*
 !venv/lib/python2.7/site-packages/
 venv/lib/python2.7/site-packages/*
-!venv/lib/python2.7/site-packages/superphy
+!venv/lib/python2.7/site-packages/SuperPhy
 
 
 
