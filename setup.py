@@ -88,7 +88,7 @@ def install(args):
     if args.verbose:
         print "Restarting and running pyserver. (Press Ctrl-c to exit):"
 
-    subprocess.call("python {this} run --pyserver {verbose}".format(this=__file__, verbose="--verbose" if args.verbose else ""), shell=True)
+    #subprocess.call("python {this} run --pyserver {verbose}".format(this=__file__, verbose="--verbose" if args.verbose else ""), shell=True)
 
 
 def pull(args):
