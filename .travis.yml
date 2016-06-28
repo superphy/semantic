@@ -6,13 +6,13 @@ addons:
   firefox: latest-esr
   apt:
     packages:
-    - libyajl1
-    - python-virtualenv
-    - xvfb
-    - libyajl2
+    - apache2
+    - curl
+    - muscle 
+    - python-dev
+    - python-virtualenv 
     - wget
-    - MUMmer
-    - muscle
+    - xvfb
 
 cache:
   directories:
@@ -21,15 +21,12 @@ cache:
   - blast
 
 before_cache:
-# - rm -f venv/lib/python2.7/site-packages/superphy
 
 before_install:
-  - 
 
 install:
- - python run.py install
+ - python setup.py install
 
 # command to run tests
 script:
- - source venv/bin/activate
- - python run.py test
+ - python setup.py test

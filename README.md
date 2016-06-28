@@ -1,13 +1,20 @@
 # semantic   [![Build Status](https://travis-ci.org/superphy/semantic.svg?branch=master)](https://travis-ci.org/superphy/semantic)
 SuperPhy for the semantic web
 
-# Quick Start
+# Starting from a fresh install of linuxmint-17.3-cinnamon-64bit
 
-    * python run.py install - Installs the virtuall environment and nessesary packages
+    * sudo apt-get update && sudo apt-get upgrade -y
+    * sudo apt-get install apache2 curl git libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb -y
+    * git clone https://github.com/superphy/semantic.git ~/superphy
+    * cd ~/superphy
+    * python run.py install --sys
+    * //Navigate to localhost:5000, and verify the page loads, go back to the terminal and hit ctrl-c
+    * //Navigate to localhost, and verify the apache-mod_wsgi server is running.
 
-    * source venv/bin/activate
+/*If any thing doesn't load, try refreshing the page again, as the first load is broken at the time of writing this.
 
-    * ./run.py run - Compiles cofeescript & runs the flask web-server
+Congratulations. You have a working version of SuperPhy. Next thing to do is add in genome data to the Blazegraph Triplestore.
+    
 
 ## [Coffeescript](http://coffeescript.org/)
 * Setup coffeelint to ensure we are all following the same coding style

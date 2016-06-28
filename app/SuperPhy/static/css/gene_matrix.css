@@ -1,0 +1,31 @@
+/*
+ 
+ File: genes_matrix.less
+ Desc: genes_matrix.tmpl style sheets
+ Author: Matt Whiteside matthew.whiteside@phac-aspc.gc.ca
+ Date: May 6th, 2014
+ 
+ * */
+.histogram-description span {
+  display: inline-block;
+  padding-top: 60px;
+}
+h4 {
+  padding: 10px;
+}
+h4.panel-title {
+  padding: 0px;
+}
+.legend {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.matrixBackground {
+  fill: #eeeeee;
+}
+text.matrixActive {
+  fill: #ff0000;
+}
+line {
+  stroke: #ffffff;
+}

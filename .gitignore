@@ -3,6 +3,7 @@
 
 # Virtual environment
 venv/*
+**/venv/*
 !venv/lib
 !venv/requirements.txt
 !venv/npm-requirements.txt
@@ -11,7 +12,9 @@ venv/lib/*
 venv/lib/python2.7/*
 !venv/lib/python2.7/site-packages/
 venv/lib/python2.7/site-packages/*
-!venv/lib/python2.7/site-packages/superphy
+!venv/lib/python2.7/site-packages/SuperPhy
+
+
 
 config/*
 !config/default.cfg
@@ -27,7 +30,8 @@ blast/*
 #Temporary Files
 python_package/uploader/outputs/errors.txt
 all.min.css
-all.min.js
+superphy.min.js
+superphy.js
 
 superphy/src/upload/ontology/setup.ttl
 
@@ -44,6 +48,6 @@ superphy/src/upload/python/*.[np]sq
 superphy/src/upload/python/*.fsa
 
 superphy/src/app/mithril/css/*
-superphy/src/app/mithril/bower_components
+**/bower_components/*
 superphy/src/app/mithril/js/mithril.js
 superphy/posted_files/*

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">All Defined Routes</h3>
+      </div>
+      <div>
+        {% for route in routes %}
+        <div><a href="{{ request.host_url + route[1:] }}">{{ route }}</a></div>
+        {% endfor %}
+    </div>
+  </body>
+</html>
