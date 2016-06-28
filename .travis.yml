@@ -8,9 +8,6 @@ addons:
     packages:
     - apache2
     - curl
-    - libapache2-mod-wsgi
-    - libyajl2
-    - MUMmer
     - muscle 
     - python-dev
     - python-virtualenv 
