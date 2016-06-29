@@ -6,8 +6,8 @@ import unittest
 
 from Bio.SeqRecord import SeqRecord
 
-from superphy.upload.classes import Sequence
-from superphy.upload.sequence_upload import SequenceUploader, SequenceMetadata
+from SuperPhy.models.upload.classes import Sequence
+from SuperPhy.models.upload.sequence_upload import SequenceUploader, SequenceMetadata
 
 
 __author__ = 'Stephen Kan'
@@ -26,12 +26,12 @@ class SequenceUploaderTestCase(unittest.TestCase):
         del self.case
 
 
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.error_logging')
-    @mock.patch('superphy.upload.sequence_upload.SequenceValidator')
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.upload')
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.load_sequence')
-    @mock.patch('superphy.upload.sequence_upload.SequenceMetadata')
-    @mock.patch('superphy.upload.sequence_upload.find_missing_sequences')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.error_logging')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceValidator')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.upload')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.load_sequence')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceMetadata')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.find_missing_sequences')
     def test_upload_missing_sequences(self, mock_find, mock_data, mock_load, mock_upload, mock_valid, mock_error):
         self.mock_seqdata.dict = {}
 
@@ -82,8 +82,8 @@ class SequenceUploaderTestCase(unittest.TestCase):
         self.assertEqual(len(mock_valid.mock_calls), 2)
         self.assertEqual(len(mock_error.mock_calls), 1)
 
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.get_seqdata')
-    @mock.patch('superphy.upload.sequence_upload.check_named_individual')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.get_seqdata')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.check_named_individual')
     def test_load_sequence(self, mock_check, mock_get):
         mock_check.side_effect = [True, False]
         self.mock_seqdata.name = "AAAA_seq"
@@ -99,8 +99,8 @@ class SequenceUploaderTestCase(unittest.TestCase):
         mock_check.assert_called_once_with(mock.ANY)
         mock_get.assert_called_once_with(mock.ANY)
 
-    @mock.patch('superphy.upload.sequence_upload.BlazegraphUploader', autospec=True)
-    @mock.patch('superphy.upload.sequence_upload.Sequence')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.BlazegraphUploader', autospec=True)
+    @mock.patch('SuperPhy.models.upload.sequence_upload.Sequence')
     def test_upload(self, mock_rdf, mock_bg):
         seq_ref = mock.MagicMock(spec=Sequence, create=True)
         sample_func = mock.Mock()
@@ -144,8 +144,8 @@ class SequenceUploaderTestCase(unittest.TestCase):
     def test_error_logging(self):
         pass
 
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.from_ftp')
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.from_nuccore')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.from_ftp')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.from_nuccore')
     def test_get_seqdata(self, mock_nuccore, mock_ftp):
         mock_nuccore.side_effect = [ValueError, None]
         mock_ftp.side_effect = None
@@ -160,8 +160,8 @@ class SequenceUploaderTestCase(unittest.TestCase):
         mock_nuccore.assert_called_once_with(mock.ANY)
         mock_ftp.assert_not_called()
 
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.read_fasta')
-    @mock.patch('superphy.upload.sequence_upload.Entrez', autospec=True)
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.read_fasta')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.Entrez', autospec=True)
     def test_from_nuccore(self, mock_entrez, mock_read):
         mock_entrez.efetch.return_value = mock.MagicMock(spec=file)
         self.mock_seqdata.accession = None
@@ -188,9 +188,9 @@ class SequenceUploaderTestCase(unittest.TestCase):
         self.case.from_nuccore(self.mock_seqdata)
         self.assertEqual(self.mock_seqdata.dict["is_from"], "CORE")
 
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.read_fasta')
-    @mock.patch('superphy.upload.sequence_upload.open')
-    @mock.patch('superphy.upload.sequence_upload.SequenceUploader.download_file')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.read_fasta')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.open')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SequenceUploader.download_file')
     def test_from_ftp(self, mock_download, mock_open, mock_read):
         mock_open.return_value = mock.MagicMock(spec=file)
         self.mock_seqdata.accession = None
@@ -203,7 +203,7 @@ class SequenceUploaderTestCase(unittest.TestCase):
         mock_read.assert_called_once_with(mock.ANY, mock.ANY)
         self.assertEqual(self.mock_seqdata.dict["is_from"], "WGS")
 
-    @mock.patch('superphy.upload.sequence_upload.SeqIO.parse')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.SeqIO.parse')
     def test_read_fasta(self, mock_SeqIO):
         record1 = SeqRecord(seq="abcd")
         record2 = SeqRecord(seq="efghi")
@@ -225,8 +225,8 @@ class SequenceUploaderTestCase(unittest.TestCase):
         self.assertEqual(args, ["abcd"])
         self.assertEqual(self.mock_seqdata.dict["is_from"], "PLASMID")
 
-    @mock.patch('superphy.upload.sequence_upload.open')
-    @mock.patch('superphy.upload.sequence_upload.FTP', autospec=True)
+    @mock.patch('SuperPhy.models.upload.sequence_upload.open')
+    @mock.patch('SuperPhy.models.upload.sequence_upload.FTP', autospec=True)
     def test_download_file(self, mock_FTP, mock_open):
         mock_FTP().nlst.return_value = ["wgs.JHNI.1.fsa_nt.gz", "wgs.ABCD.1.fsa_nt.gz", "wgs.IDLE.1.fsa_nt.gz"]
         mock_open.return_value = mock.MagicMock(spec=file)

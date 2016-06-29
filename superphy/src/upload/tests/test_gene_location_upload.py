@@ -15,12 +15,12 @@ import os
 from rdflib import Graph, Namespace, Literal, XSD
 from Bio.Blast import NCBIXML, Record
 
-from superphy.upload._sparql import check_named_individual, has_ref_gene, _sparql_query
-from superphy.upload._utils import generate_output, generate_path
-from superphy.upload.classes import GeneLocation
-from superphy.upload.blazegraph_upload import BlazegraphUploader
-from superphy.upload.contig_upload import ContigUploader
-from superphy.upload.gene_location_upload import GeneLocationUploader, VFLocationUploader, AMRLocationUploader
+from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene, _sparql_query
+from SuperPhy.models.upload._utils import generate_output, generate_path
+from SuperPhy.models.upload.classes import GeneLocation
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.upload.contig_upload import ContigUploader
+from SuperPhy.models.upload.gene_location_upload import GeneLocationUploader, VFLocationUploader, AMRLocationUploader
 
 n = Namespace("https://github.com/superphy#")
 owl = Namespace("http://www.w3.org/2002/07/owl#")
@@ -85,7 +85,7 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         self.assertEqual(returned_string, "CP102000_closed")
 
 
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.get_num_gene_copies')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.get_num_gene_copies')
     def test_add_contig(self, mock_copies):
         ## Adding a location to an existing gene with existing contig
         self.case.dict = {"hlyA":{"ANVW01000001":0}}
@@ -116,10 +116,10 @@ class GeneLocationUploaderTestCase(unittest.TestCase):
         self.assertEqual(self.case.get_num_gene_copies("espF", "ANVW01000001"), 0)
 
 
-    @mock.patch('superphy.upload.gene_location_upload.BlazegraphUploader', autospec=True)
-    @mock.patch('superphy.upload.gene_location_upload.Graph')
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocation')
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.BlazegraphUploader', autospec=True)
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.Graph')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocation')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
     def test_create_gene_location(self, mock_check, mock_rdf, mock_graph, mock_bg):
         mock_check.return_value = False
         mock_genelocation = mock.MagicMock(spec=GeneLocation, create=True)
@@ -155,11 +155,11 @@ class VFLocationUploaderTestCase(unittest.TestCase):
         gene_name = self.case.get_gene_name(string)
         self.assertEqual(gene_name, "agn43")
 
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.get_num_gene_copies')
-    @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse')
-    @mock.patch('superphy.upload.gene_location_upload.open')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.check_gene_copy')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.get_num_gene_copies')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.NCBIXML.parse')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.open')
     def test_ncbixml_parse(self, mock_open, mock_parse, mock_copies, mock_check, mock_create):
         mock_handle = mock.MagicMock(spec=file)
         mock_open.return_value = mock.MagicMock(spec=file)
@@ -190,9 +190,9 @@ class VFLocationUploaderTestCase(unittest.TestCase):
         """
         self.assertEqual(len(list(self.case.get_reference_genes())), 1)
 
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
-    @mock.patch('superphy.upload.gene_location_upload.NCBIXML.parse', autospec=True)
-    @mock.patch('superphy.upload.gene_location_upload.open')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.NCBIXML.parse', autospec=True)
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.open')
     def test_parse_result(self, mock_open, mock_parse, mock_create):
         mock_open.return_value = mock.MagicMock(spec=file)
         mock_parse.return_value = [self.create_sample_record("gaa", "gnl|BL_ORD_ID|56 gi|606962173|gb|JHNV01000056.1| \
@@ -234,9 +234,9 @@ class AMRLocationUploaderTestCase(unittest.TestCase):
     def tearDown(self):
         del self.case
 
-    @mock.patch('superphy.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
-    @mock.patch('superphy.upload.metadata_upload.json.load')
-    @mock.patch('superphy.upload.gene_location_upload.open')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.GeneLocationUploader.create_gene_location')
+    @mock.patch('SuperPhy.models.upload.metadata_upload.json.load')
+    @mock.patch('SuperPhy.models.upload.gene_location_upload.open')
     def test_parse_result(self, mock_open, mock_load, mock_create):
         mock_open.return_value = mock.MagicMock(spec=file)
         mock_load.return_value = {

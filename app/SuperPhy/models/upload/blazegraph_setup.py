@@ -15,8 +15,8 @@ import os
 
 from rdflib import Graph
 
-from superphy.upload._utils import generate_file_output, generate_path
-from superphy.upload.classes import FromSource, Host, HostCategory, Htype, \
+from SuperPhy.models.upload._utils import generate_file_output, generate_path
+from SuperPhy.models.upload.classes import FromSource, Host, HostCategory, Htype, \
     IsolationSyndrome, Microbe, Otype
 
 

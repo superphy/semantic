@@ -9,7 +9,7 @@ Classes for a Genome:
 """
 
 from named_individual import *
-from superphy.upload import _sparql
+from Superphy.models.upload import _sparql
 
 class Genome(NamedIndividual):
     """

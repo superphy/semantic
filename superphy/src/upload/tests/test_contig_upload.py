@@ -6,8 +6,8 @@ import unittest
 
 from Bio.SeqRecord import SeqRecord
 
-from superphy.upload.classes import Contig
-from superphy.upload.contig_upload import ContigUploader, ContigsWrapper
+from SuperPhy.models.upload.classes import Contig
+from SuperPhy.models.upload.contig_upload import ContigUploader, ContigsWrapper
 
 
 __author__ = 'Clarice Ng'
@@ -26,12 +26,12 @@ class ContigUploaderTestCase(unittest.TestCase):
         del self.case
 
 
-    @mock.patch('superphy.upload.contig_upload.ContigUploader.error_logging')
-    @mock.patch('superphy.upload.contig_upload.SequenceValidator')
-    @mock.patch('superphy.upload.contig_upload.ContigUploader.upload')
-    @mock.patch('superphy.upload.contig_upload.ContigUploader.get_seqdata')
-    @mock.patch('superphy.upload.contig_upload.ContigsWrapper')
-    @mock.patch('superphy.upload.contig_upload.find_missing_sequences')
+    @mock.patch('SuperPhy.models.upload.contig_upload.ContigUploader.error_logging')
+    @mock.patch('SuperPhy.models.upload.contig_upload.SequenceValidator')
+    @mock.patch('SuperPhy.models.upload.contig_upload.ContigUploader.upload')
+    @mock.patch('SuperPhy.models.upload.contig_upload.ContigUploader.get_seqdata')
+    @mock.patch('SuperPhy.models.upload.contig_upload.ContigsWrapper')
+    @mock.patch('SuperPhy.models.upload.contig_upload.find_missing_sequences')
     def test_upload_missing_contigs(self, mock_find, mock_wrapper, mock_data, mock_upload, mock_valid, mock_error):
         self.mock_contigswrapper.dict = {}
 
@@ -88,8 +88,8 @@ class ContigUploaderTestCase(unittest.TestCase):
 
 
 
-    @mock.patch('superphy.upload.contig_upload.BlazegraphUploader', autospec=True)
-    @mock.patch('superphy.upload.contig_upload.Contig')
+    @mock.patch('SuperPhy.models.upload.contig_upload.BlazegraphUploader', autospec=True)
+    @mock.patch('SuperPhy.models.upload.contig_upload.Contig')
     def test_upload(self, mock_rdf, mock_bg):
         contig_ref = mock.MagicMock(spec=Contig, create=True)
         mock_rdf.return_value = contig_ref
@@ -137,11 +137,11 @@ class ContigUploaderTestCase(unittest.TestCase):
     def test_error_logging(self):
         pass
 
-    @mock.patch('superphy.upload.contig_upload.ContigUploader.download_file')
-    @mock.patch('superphy.upload.contig_upload.open')
-    @mock.patch('superphy.upload.contig_upload.ContigUploader.load_contigs')
-    @mock.patch('superphy.upload.contig_upload.SeqIO.parse')
-    @mock.patch('superphy.upload.contig_upload.Entrez', autospec=True)
+    @mock.patch('SuperPhy.models.upload.contig_upload.ContigUploader.download_file')
+    @mock.patch('SuperPhy.models.upload.contig_upload.open')
+    @mock.patch('SuperPhy.models.upload.contig_upload.ContigUploader.load_contigs')
+    @mock.patch('SuperPhy.models.upload.contig_upload.SeqIO.parse')
+    @mock.patch('SuperPhy.models.upload.contig_upload.Entrez', autospec=True)
     def test_get_seqdata(self, mock_entrez, mock_SeqIO, mock_load, mock_open, mock_download):
         mock_entrez.efetch.return_value = mock.MagicMock(spec=file)
         mock_handle = mock.MagicMock(spec=file)
@@ -171,8 +171,8 @@ class ContigUploaderTestCase(unittest.TestCase):
         self.assertEqual(self.mock_contigswrapper.dict["is_from"], "WGS")
 
 
-    @mock.patch('superphy.upload.contig_upload.open')
-    @mock.patch('superphy.upload.contig_upload.FTP', autospec=True)
+    @mock.patch('SuperPhy.models.upload.contig_upload.open')
+    @mock.patch('SuperPhy.models.upload.contig_upload.FTP', autospec=True)
     def test_download_file(self, mock_FTP, mock_open):
         mock_FTP().nlst.return_value = ["wgs.JHNI.1.fsa_nt.gz", "wgs.ABCD.1.fsa_nt.gz", "wgs.IDLE.1.fsa_nt.gz"]
         mock_open.return_value = mock.MagicMock(spec=file)

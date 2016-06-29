@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from named_individual import *
-from superphy.upload import _sparql
+from Superphy.models.upload import _sparql
 
 class Gene(NamedIndividual):
     """

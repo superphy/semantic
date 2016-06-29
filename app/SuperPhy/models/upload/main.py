@@ -7,9 +7,9 @@ A module used to initialize and set up the superphy namespace in Blazegraph
 
 import gc
 
-from superphy.upload import _sparql
-from superphy.upload.blazegraph_upload import BlazegraphUploader
-from superphy.upload.blazegraph_setup import BlazegraphSetup
+from SuperPhy.models.upload import _sparql
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.upload.blazegraph_setup import BlazegraphSetup
 
 __author__ = "Stephen Kan"
 __copyright__ = """

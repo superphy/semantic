@@ -10,8 +10,8 @@ import os
 
 import requests
 
-from superphy.upload._utils import generate_path
-from superphy.shared.endpoint import file_update
+from SuperPhy.models.upload._utils import generate_path
+from Superphy.models.sparql.endpoint import file_update
 
 __author__ = "Stephen Kan"
 __copyright__ = """

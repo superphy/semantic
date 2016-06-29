@@ -6,8 +6,7 @@ This module wraps often-used queries to the Blazegraph SPARQL endpoint.
 """
 
 #from SPARQLWrapper import JSON, SPARQLWrapper
-from superphy.shared.endpoint import query as _sparql_query
-from superphy.shared.endpoint import update as _sparql_update
+from SuperPhy.models.sparql.endpoint import Endpoint
 
 __author__ = "Stephen Kan"
 __copyright__ = """
@@ -33,7 +32,7 @@ def find_from_host(host):
     None
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX : <https://github.com/superphy#>\n'
         'SELECT ?p WHERE {?s ?o "%s"^^xsd:string . ?s :is_object_of ?p . ?p \
         rdf:type :isolation_from_host}' % host
@@ -53,7 +52,7 @@ def find_syndrome(syndrome):
     Returns: the SPARQL URI for the associated isolation_syndrome or None
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX : <https://github.com/superphy#>\n'
         'SELECT ?s WHERE {'
         '?s ?o "%s"^^xsd:string .'
@@ -75,7 +74,7 @@ def find_source(source):
     Returns: the SPARQL URI for the associated isolation_from_source or None
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX : <https://github.com/superphy#>\n'
         'SELECT ?s WHERE {'
         '?s ?o "%s"^^xsd:string .'
@@ -98,7 +97,7 @@ def check_named_individual(name):
     Returns: a boolean indicating if the instance exists or not in the database
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
@@ -116,7 +115,7 @@ def find_missing_sequences():
     Returns:  list of SPARQL URIs for Genome instances
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX : <https://github.com/superphy#>\n'
         'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
@@ -139,7 +138,7 @@ def check_validation(genome):
     Returns: a boolean indication if the genome has been through validation
     (whether validation was true or false)
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
@@ -159,7 +158,7 @@ def find_duplicate_biosamples():
     URIs for Genomes
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
@@ -191,7 +190,7 @@ def find_core_genome(biosample):
     core genomes
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
@@ -222,7 +221,7 @@ def find_genome(accession):
         'PREFIX : <https://github.com/superphy#>\n'
         'SELECT ?s WHERE {?s :has_accession "%s" . }' % accession
     )
-    results = _sparql_query(query)
+    results = Endpoint.query(query)
 
     return results["results"]["bindings"][0]["s"]["value"]
 
@@ -236,7 +235,7 @@ def has_ref_gene(gene_name):
 
     Returns: A boolean, T if is has a reference_gene tag, false if not.
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'ASK {'
@@ -260,7 +259,7 @@ def delete_instance(name):
     Prints out the response from the server regarding the SPARQL Update query
 
     """
-    print _sparql_update(
+    print Endpoint.update(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'DELETE { :%s ?property ?object . ?subject ?property :%s . }\n'
@@ -291,7 +290,7 @@ def insert_accession_sequence(core, plasmid, plasmid_seq):
     Prints out the response from the server regarding the SPARQL Update query
 
     """
-    print _sparql_update(
+    print Endpoint.update(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'INSERT DATA { :%s :has_accession "%s"^^xsd:string. '
@@ -307,7 +306,7 @@ def check_blank_nodes():
     Returns: a boolean indicating if blank nodes exists or not in the database
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'ASK {?x ?y ?z . FILTER ( isBlank(?x) || isBlank(?z) )}'
     )
 
@@ -327,7 +326,7 @@ def delete_blank_nodes():
     Prints out the response from the server regarding the SPARQL Update query
 
     """
-    print _sparql_update(
+    print Endpoint.update(
         'DELETE { ?x ?y ?z }'
         'WHERE { ?x ?y ?z . FILTER ( isBlank(?x) || isBlank(?z) ) }'
     )
@@ -346,7 +345,7 @@ def check_checksum(checksum):
     Returns: a boolean indicating if the hash was found in the database
 
     """
-    results = _sparql_query(
+    results = Endpoint.query(
         'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
         'PREFIX : <https://github.com/superphy#>\n'
         'ASK { ?Sequence :has_checksum "%s"^^xsd:string}' % checksum
@@ -356,7 +355,7 @@ def check_checksum(checksum):
 
 
 '''
-def _sparql_query(query):
+def Endpoint.query(query):
     sparql = SPARQLWrapper(os.getenv('SUPERPHY_RDF_URL',
         "http://localhost:9999/blazegraph/namespace/superphy/sparql"))
     sparql.setQuery(query)
@@ -364,7 +363,7 @@ def _sparql_query(query):
     results = sparql.query().convert()
     return results
 
-def _sparql_update(query):
+def Endpoint.update(query):
     sparql = SPARQLWrapper(os.getenv('SUPERPHY_RDF_URL',
         "http://localhost:9999/blazegraph/namespace/superphy/sparql"))
     sparql.method = 'POST'

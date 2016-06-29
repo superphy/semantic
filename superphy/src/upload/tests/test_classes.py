@@ -6,7 +6,7 @@ import unittest
 
 from rdflib import Graph, Namespace
 
-from superphy.upload import classes
+from SuperPhy.models.upload import classes
 
 __author__ = "Stephen Kan"
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -246,9 +246,9 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(fields, objects)
 
-    @mock.patch("superphy.upload._sparql.find_syndrome")
-    @mock.patch("superphy.upload._sparql.find_source")
-    @mock.patch("superphy.upload._sparql.find_from_host")
+    @mock.patch("SuperPhy.models.upload._sparql.find_syndrome")
+    @mock.patch("SuperPhy.models.upload._sparql.find_source")
+    @mock.patch("SuperPhy.models.upload._sparql.find_from_host")
     def test_Genome(self, mock_host, mock_source, mock_syndrome):
         
         kwargs = {"isolation_date": {"2013-06-24"},
@@ -302,9 +302,9 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch("superphy.upload._sparql.find_syndrome")
-    @mock.patch("superphy.upload._sparql.find_source")
-    @mock.patch("superphy.upload._sparql.find_from_host")
+    @mock.patch("SuperPhy.models.upload._sparql.find_syndrome")
+    @mock.patch("SuperPhy.models.upload._sparql.find_source")
+    @mock.patch("SuperPhy.models.upload._sparql.find_from_host")
     def test_PendingGenome(self, mock_host, mock_source, mock_syndrome):
 
         kwargs = {"isolation_date": {"2013-06-24"},
@@ -359,9 +359,9 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch("superphy.upload._sparql.find_syndrome")
-    @mock.patch("superphy.upload._sparql.find_source")
-    @mock.patch("superphy.upload._sparql.find_from_host")
+    @mock.patch("SuperPhy.models.upload._sparql.find_syndrome")
+    @mock.patch("SuperPhy.models.upload._sparql.find_source")
+    @mock.patch("SuperPhy.models.upload._sparql.find_from_host")
     def test_CompletedGenome(self, mock_host, mock_source, mock_syndrome):
 
         kwargs = {"isolation_date": {"2013-06-24"},
@@ -416,7 +416,7 @@ class ClassesTestCase(unittest.TestCase):
 
         self.check_triples(field, subjects)
 
-    @mock.patch("superphy.upload._sparql.check_validation")
+    @mock.patch("SuperPhy.models.upload._sparql.check_validation")
     def test_Contig(self, mock_validation):
 
         # Testing general contig without sequence validation

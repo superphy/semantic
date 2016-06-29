@@ -29,13 +29,13 @@ from rdflib import Graph
 
 #from Bio.Blast import NCBIXML
 
-from superphy.upload._eutils import return_elink_uid, return_esearch_uid
-from superphy.upload._sparql import check_named_individual, has_ref_gene, \
+from SuperPhy.models.upload._eutils import return_elink_uid, return_esearch_uid
+from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene, \
     _sparql_query
-from superphy.upload._utils import generate_output, generate_path
-from superphy.upload.classes import PendingGenome, Gene, GeneLocation
-from superphy.upload.contig_upload import ContigUploader, ContigsWrapper
-from superphy.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.upload._utils import generate_output, generate_path
+from SuperPhy.models.upload.classes import PendingGenome, Gene, GeneLocation
+from SuperPhy.models.upload.contig_upload import ContigUploader, ContigsWrapper
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 '''
     # UTF-8 is necessary to handle the encoding for non-ASCII characters
     in user-inputed strings (user-inputted fields are
@@ -123,7 +123,7 @@ class Metadata(object):
 
     def build_kwargs(self):
         """Converts all data stored by the class into a dict used for creating
-        a superphy.uploader.classes.(some entity) instance
+        a SuperPhy.models.uploader.classes.(some entity) instance
 
         Returns: the kwargs dict to be used as an argument in the constructor
         of classes.(some entity)
@@ -259,7 +259,7 @@ class GenomeMetadata(Metadata):
 
     def build_kwargs(self):
         """Converts all data stored by the class into a dict used for creating
-        a superphy.uploader.classes.Genome instance
+        a SuperPhy.models.uploader.classes.Genome instance
 
         Returns: the kwargs dict to be used as an argument in the constructor
         of classes.Genome
@@ -461,7 +461,7 @@ class GeneMetadata(Metadata):
     def build_kwargs(self):
         """
         Converts all data stored by the class into a dict used for creating
-        a superphy.uploader.classes.Gene instance
+        a SuperPhy.models.uploader.classes.Gene instance
 
         Returns: the kwargs dict to be used as an argument in the constructor
         of classes.Gene

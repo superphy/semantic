@@ -6,10 +6,10 @@ import unittest
 from rdflib import Graph, Namespace, Literal, XSD, BNode
 
 from db_integration import BlazegraphIntegration
-from superphy.upload import _sparql
-from superphy.upload._utils import generate_output
-from superphy.upload.blazegraph_upload import BlazegraphUploader
-from superphy.shared import endpoint as endpoint
+from SuperPhy.models.upload import _sparql
+from SuperPhy.models.upload._utils import generate_output
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.sparql import endpoint as endpoint
 
 __author__ = 'Stephen Kan'
 __copyright__ = """

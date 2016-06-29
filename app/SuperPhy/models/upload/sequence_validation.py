@@ -15,8 +15,8 @@ import sys
 
 from Bio.Blast import NCBIXML
 
-from superphy.upload._sparql import check_checksum
-from superphy.upload._utils import generate_path
+from SuperPhy.models.upload._sparql import check_checksum
+from SuperPhy.models.upload._utils import generate_path
 
 reload(sys)
 

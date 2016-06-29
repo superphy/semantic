@@ -6,8 +6,8 @@ import mock
 
 from Bio.Blast import Record
 
-from superphy.upload.contig_upload import ContigsWrapper
-from superphy.upload.sequence_validation import SequenceValidator
+from SuperPhy.models.upload.contig_upload import ContigsWrapper
+from SuperPhy.models.upload.sequence_validation import SequenceValidator
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
@@ -24,13 +24,13 @@ class SequenceValidatorTestCase(unittest.TestCase):
     def tearDown(self):
         del self.seqdata
 
-    @mock.patch("superphy.upload.sequence_validation.open")
-    @mock.patch('superphy.upload.sequence_validation.check_checksum')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.check_chars')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.check_contigs')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.check_bp')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.check_hits')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.filter_passing_hits')
+    @mock.patch("SuperPhy.models.upload.sequence_validation.open")
+    @mock.patch('SuperPhy.models.upload.sequence_validation.check_checksum')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.check_chars')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.check_contigs')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.check_bp')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.check_hits')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.filter_passing_hits')
     def test_validate(self, mock_filter, mock_hits, mock_bp, mock_contigs, mock_chars, mock_checksum, mock_open):
         mock_open.return_value = mock.MagicMock(spec=file)
         mock_hits.return_value = True
@@ -97,10 +97,10 @@ class SequenceValidatorTestCase(unittest.TestCase):
                                 ("JHNV", "AAAGTCAACTGCTCTACCAACTGAGCTAACGACCCGAAGTGGTGGGTGATGACGGGATCGAACCGC3@#CGAC")]
         self.assertFalse(SequenceValidator(self.seqdata).check_chars())
 
-    @mock.patch('superphy.upload.sequence_validation.NCBIXML.parse', autospec=True)
-    @mock.patch('superphy.upload.sequence_validation.open')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.blastn_commandline')
-    @mock.patch('superphy.upload.sequence_validation.SequenceValidator.create_fasta')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.NCBIXML.parse', autospec=True)
+    @mock.patch('SuperPhy.models.upload.sequence_validation.open')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.blastn_commandline')
+    @mock.patch('SuperPhy.models.upload.sequence_validation.SequenceValidator.create_fasta')
     def test_filter_passing_hits(self, mock_fasta, mock_blast, mock_open, mock_parse):
         mock_open.return_value = mock.MagicMock(spec=file)
 

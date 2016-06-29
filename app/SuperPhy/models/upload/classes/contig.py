@@ -7,7 +7,7 @@ Classes:
 """
 
 from named_individual import *
-from superphy.upload import _sparql
+from SuperPhy.models.upload import _sparql
 
 class Contig(NamedIndividual):
     """

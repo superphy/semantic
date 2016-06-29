@@ -3,7 +3,7 @@
 
 import unittest
 
-from superphy.upload.metadata_validation import MetadataValidator
+from SuperPhy.models.upload.metadata_validation import MetadataValidator
 
 __author__ = 'Stephen Kan'
 __copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"

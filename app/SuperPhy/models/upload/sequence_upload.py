@@ -26,13 +26,13 @@ from urllib2 import HTTPError
 from Bio import Entrez, SeqIO
 from rdflib import Graph
 
-from superphy.upload._sparql import check_named_individual, \
+from SuperPhy.models.upload._sparql import check_named_individual, \
     find_missing_sequences
-from superphy.upload._utils import generate_output, generate_path, \
+from SuperPhy.models.upload._utils import generate_output, generate_path, \
     strip_non_alphabetic
-from superphy.upload.classes import Sequence
-from superphy.upload.blazegraph_upload import BlazegraphUploader
-from superphy.upload.sequence_validation import SequenceValidator
+from SuperPhy.models.upload.classes import Sequence
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.upload.sequence_validation import SequenceValidator
 
 reload(sys)
 sys.setdefaultencoding("utf-8")

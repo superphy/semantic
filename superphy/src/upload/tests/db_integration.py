@@ -8,8 +8,8 @@
 import os
 import subprocess
 
-from superphy.upload._utils import generate_path
-from superphy.shared import config
+from SuperPhy.models.upload._utils import generate_path
+
 __author__ = 'Stephen Kan'
 __copyright__ = """
     © Copyright Government of Canada 2012-2015. Funded by the Government of

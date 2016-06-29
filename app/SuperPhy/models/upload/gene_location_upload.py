@@ -25,12 +25,12 @@ import os
 from rdflib import Graph
 from Bio.Blast import NCBIXML
 
-from superphy.upload._sparql import check_named_individual, has_ref_gene, \
+from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene, \
     _sparql_query
-from superphy.upload._utils import generate_output, generate_path
-from superphy.upload.classes import GeneLocation
-from superphy.upload.blazegraph_upload import BlazegraphUploader
-from superphy.upload.contig_upload import ContigUploader
+from SuperPhy.models.upload._utils import generate_output, generate_path
+from SuperPhy.models.upload.classes import GeneLocation
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.upload.contig_upload import ContigUploader
 
 __author__ = "Clarice Ng"
 __copyright__ = """
