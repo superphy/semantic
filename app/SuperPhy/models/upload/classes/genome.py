@@ -8,8 +8,8 @@ Classes for a Genome:
     CompletedGenome: a genome that has finished processing
 """
 
-from named_individual import *
-from Superphy.models.upload import _sparql
+from SuperPhy.models.upload.classes.named_individual import NamedIndividual
+from SuperPhy.models.upload import _sparql
 
 class Genome(NamedIndividual):
     """

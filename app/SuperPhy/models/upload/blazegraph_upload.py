@@ -11,7 +11,7 @@ import os
 import requests
 
 from SuperPhy.models.upload._utils import generate_path
-from Superphy.models.sparql.endpoint import file_update
+from SuperPhy.models.sparql.endpoint import Endpoint
 
 __author__ = "Stephen Kan"
 __copyright__ = """
@@ -48,14 +48,14 @@ class BlazegraphUploader(object):
         for file_ in files:
             path = os.path.join(folder, file_)
             print "importing %s" % file
-            file_update(path)
+            Endpoint.file_update(path)
 
     @classmethod
     def upload_file(cls, filepath):
         """
             Relic - replaced by shared module
         """
-        return file_update(filepath)
+        return Endpoint.file_update(filepath)
 
     @classmethod
     def upload_data(cls, data):
