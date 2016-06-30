@@ -30,8 +30,7 @@ from rdflib import Graph
 #from Bio.Blast import NCBIXML
 
 from SuperPhy.models.upload._eutils import return_elink_uid, return_esearch_uid
-from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene, \
-    _sparql_query
+from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene
 from SuperPhy.models.upload._utils import generate_output, generate_path
 from SuperPhy.models.upload.classes import PendingGenome, Gene, GeneLocation
 from SuperPhy.models.upload.contig_upload import ContigUploader, ContigsWrapper
