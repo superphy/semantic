@@ -9,14 +9,6 @@ from Bio.Blast import Record
 from SuperPhy.models.upload.contig_upload import ContigsWrapper
 from SuperPhy.models.upload.sequence_validation import SequenceValidator
 
-__author__ = 'Stephen Kan'
-__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = 'Stephen Kan'
-__email__ = 'stebokan@gmail.com'
-
-
 class SequenceValidatorTestCase(unittest.TestCase):
     def setUp(self):
         self.seqdata = ContigsWrapper("ABCD00000000", "ABCD00000000")

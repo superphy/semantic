@@ -32,16 +32,6 @@ from SuperPhy.models.upload.classes import GeneLocation
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 from SuperPhy.models.upload.contig_upload import ContigUploader
 
-__author__ = "Clarice Ng"
-__copyright__ = """
-    © Copyright Government of Canada 2012-2015. Funded by the Government of
-    Canada Genomics Research and Development Initiative"""
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Clarice Ng"
-__email__ = "c32ng@uwaterloo.ca"
-
-
 class GeneLocationUploader(object):
     """
     A superclass for parsing and uploading gene locations from a Blasted XML file.

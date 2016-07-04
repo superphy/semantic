@@ -8,17 +8,6 @@ This module wraps often-used queries to the Blazegraph SPARQL endpoint.
 #from SPARQLWrapper import JSON, SPARQLWrapper
 from SuperPhy.models.sparql.endpoint import Endpoint
 
-__author__ = "Stephen Kan"
-__copyright__ = """
-    © Copyright Government of Canada 2012-2015. Funded by the Government of
-    Canada Genomics Research and Development Initiative
-    """
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Stephen Kan"
-__email__ = "stebokan@gmail.com"
-
-
 def find_from_host(host):
     """
     Finds the correct isolation_from_host instance in Blazegraph given a host

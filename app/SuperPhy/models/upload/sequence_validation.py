@@ -20,15 +20,6 @@ from SuperPhy.models.upload._utils import generate_path
 
 reload(sys)
 
-__author__ = "Stephen Kan"
-__copyright__ = """
-    © Copyright Government of Canada 2012-2015. Funded by the Government of
-    Canada Genomics Research and Development Initiative"""
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Stephen Kan"
-__email__ = "stebokan@gmail.com"
-
 class SequenceValidator(object):
     """ A class for evaluating if a given E. coli sequence is valid.
     """

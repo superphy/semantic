@@ -13,16 +13,6 @@ import requests
 from SuperPhy.models.upload._utils import generate_path
 from SuperPhy.models.sparql.endpoint import Endpoint
 
-__author__ = "Stephen Kan"
-__copyright__ = """
-    © Copyright Government of Canada 2012-2015. Funded by the Government of
-    Canada Genomics Research and Development Initiative
-    """
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Stephen Kan"
-__email__ = "stebokan@gmail.com"
-
 class BlazegraphUploader(object):
     """
     A class that sets up data upload to Blazegraph via the initialized

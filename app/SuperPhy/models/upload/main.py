@@ -11,15 +11,6 @@ from SuperPhy.models.upload import _sparql
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 from SuperPhy.models.upload.blazegraph_setup import BlazegraphSetup
 
-__author__ = "Stephen Kan"
-__copyright__ = """
-    © Copyright Government of Canada 2012-2015. Funded by the Government of
-    Canada Genomics Research and Development Initiative"""
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Stephen Kan"
-__email__ = "stebokan@gmail.com"
-
 #response = BlazegraphUploader().create_namespace()
 
 def init():

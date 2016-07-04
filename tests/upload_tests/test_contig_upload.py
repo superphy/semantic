@@ -9,14 +9,6 @@ from Bio.SeqRecord import SeqRecord
 from SuperPhy.models.upload.classes import Contig
 from SuperPhy.models.upload.contig_upload import ContigUploader, ContigsWrapper
 
-
-__author__ = 'Clarice Ng'
-__copyright__ = "© Copyright Government of Canada 2012-2016. Funded by the Government of Canada Genomics Research and Development Initiative"
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = 'Clarice Ng'
-__email__ = 'c32ng@uwaterloo.ca'
-
 class ContigUploaderTestCase(unittest.TestCase):
     def setUp(self):
         self.case = ContigUploader()

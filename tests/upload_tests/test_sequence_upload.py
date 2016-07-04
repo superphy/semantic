@@ -9,14 +9,6 @@ from Bio.SeqRecord import SeqRecord
 from SuperPhy.models.upload.classes import Sequence
 from SuperPhy.models.upload.sequence_upload import SequenceUploader, SequenceMetadata
 
-
-__author__ = 'Stephen Kan'
-__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = 'Stephen Kan'
-__email__ = 'stebokan@gmail.com'
-
 class SequenceUploaderTestCase(unittest.TestCase):
     def setUp(self):
         self.case = SequenceUploader()

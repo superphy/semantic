@@ -10,13 +10,6 @@ the same BioSample ID --> may have some issues with resequencing (check dates an
 
 import _sparql
 
-__author__ = "Stephen Kan"
-__copyright__ = "© Copyright Government of Canada 2012-2015. Funded by the Government of Canada Genomics Research and Development Initiative"
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Stephen Kan"
-__email__ = "stebokan@gmail.com"
-
 class MetadataValidator(object):
     """
     A class for finding, resolving, and logging incidents of invalid sequences.

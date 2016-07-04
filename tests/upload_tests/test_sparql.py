@@ -11,16 +11,6 @@ from SuperPhy.models.upload._utils import generate_output
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 from SuperPhy.models.sparql import endpoint as endpoint
 
-__author__ = 'Stephen Kan'
-__copyright__ = """
-    © Copyright Government of Canada 2012-2015. Funded by the
-    Government of Canada Genomics Research and Development Initiative
-    """
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = 'Stephen Kan'
-__email__ = 'stebokan@gmail.com'
-
 N = Namespace("https://github.com/superphy#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
 RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
