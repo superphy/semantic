@@ -49,12 +49,13 @@ Classes:
 """
 
 
-from named_individual import NamedIndividual
-from attribute import Attribute, HostCategory, IsolationAttribute, FromHost, FromSource, IsolationSyndrome, Serotype, Otype, Htype
-from gene import Gene, GeneLocation
-from genome import Genome, PendingGenome, CompletedGenome
-from organism import Organism, Host, Microbe
-from sequence import Sequence
-from contig import Contig
-from user import User
-from namespaces import n, rdf
+from SuperPhy.models.upload.classes.named_individual import NamedIndividual
+from SuperPhy.models.upload.classes.attribute import Attribute, HostCategory, \
+IsolationAttribute, FromHost, FromSource, IsolationSyndrome, Serotype, Otype, Htype
+from SuperPhy.models.upload.classes.gene import Gene, GeneLocation
+from SuperPhy.models.upload.classes.genome import Genome, PendingGenome, CompletedGenome
+from SuperPhy.models.upload.classes.organism import Organism, Host, Microbe
+from SuperPhy.models.upload.classes.sequence import Sequence
+from SuperPhy.models.upload.classes.contig import Contig
+from SuperPhy.models.upload.classes.user import User
+from SuperPhy.models.upload.classes.namespaces import n, rdf

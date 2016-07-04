@@ -11,6 +11,14 @@ Classes for a Genome:
 from SuperPhy.models.upload.classes.named_individual import NamedIndividual
 from SuperPhy.models.upload import _sparql
 
+from SuperPhy.models.sparql.endpoint import Endpoint
+
+from SuperPhy.models.upload.classes.namespaces import n
+
+from rdflib import Literal, XSD
+
+from SuperPhy.models.upload.classes.namespaces import rdf, gfvo
+
 class Genome(NamedIndividual):
     """
     A genome with associated metadata

@@ -9,7 +9,7 @@ from db_integration import BlazegraphIntegration
 from SuperPhy.models.upload import _sparql
 from SuperPhy.models.upload._utils import generate_output
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
-from SuperPhy.models.sparql import endpoint as endpoint
+from SuperPhy.models.sparql.endpoint import Endpoint
 
 N = Namespace("https://github.com/superphy#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
@@ -124,12 +124,12 @@ class SPARQLTestCase(BlazegraphIntegration, unittest.TestCase):
     def test_insert_accession_sequence(self):
         _sparql.insert_accession_sequence("fakeGenome", "fakePlasmid", "fakePlasmidSeq")
 
-        self.assertTrue(endpoint.ask(
+        self.assertTrue(Endpoint.ask(
             'PREFIX : <https://github.com/superphy#>\n'
             'ASK { :fakeGenome :has_accession "fakePlasmid"^^xsd:string}'
         ))
 
-        self.assertTrue(endpoint.ask(
+        self.assertTrue(Endpoint.ask(
             'PREFIX : <https://github.com/superphy#>\n'
             'ASK { :fakeGenome :has_sequence :fakePlasmidSeq}'
         ))

@@ -25,8 +25,9 @@ import os
 from rdflib import Graph
 from Bio.Blast import NCBIXML
 
-from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene, \
-    _sparql_query
+from SuperPhy.models.upload._sparql import check_named_individual, has_ref_gene
+
+from SuperPhy.models.sparql.endpoint import Endpoint
 from SuperPhy.models.upload._utils import generate_output, generate_path
 from SuperPhy.models.upload.classes import GeneLocation
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
@@ -107,7 +108,7 @@ class GeneLocationUploader(object):
             contig(str): the name of the contig
         """
 
-        results = _sparql_query(
+        results = Endpoint.query(
             'PREFIX : <https://github.com/superphy#>\n'
             'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
             'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
@@ -148,7 +149,7 @@ class GeneLocationUploader(object):
         Checks to see if a certain gene copy on a contig has already been
         uploaded.
         """
-        results = _sparql_query(
+        results = Endpoint.query(
             'PREFIX : <https://github.com/superphy#>\n'
             'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
             'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
@@ -316,7 +317,7 @@ class VFLocationUploader(GeneLocationUploader):
         their sequences for analysis (from Blazegraph)
         """
 
-        results = _sparql_query(
+        results = Endpoint.query(
             'PREFIX : <https://github.com/superphy#>\n'
             'PREFIX gfvo: <http://www.biointerchange.org/gfvo#>\n'
             'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n'
