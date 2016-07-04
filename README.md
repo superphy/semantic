@@ -8,7 +8,7 @@ SuperPhy for the semantic web
     * git clone https://github.com/superphy/semantic.git ~/superphy
     * cd ~/superphy
     * python setup.py install --sys
-    * python setup.py install --pyserver
+    * python setup.py run --pyserver
     * //Navigate to localhost:5000, and verify the page loads, go back to the terminal and hit ctrl-c
     * //Navigate to localhost, and verify the apache-mod_wsgi server is running.
 
