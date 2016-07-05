@@ -10,24 +10,15 @@
     #
 
 import rdflib
-from blazegraph_upload import *
-from classes.sequence import *
+from SuperPhy.models.upload.classes.sequence import Sequence
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 
-
-g = rdflib.Graph()
-seq = Sequence(g, "newSequence_seq", "ATCCnewGenome",(">contig1", "ATGC", ">contig2", "GGGG"), 42, 1, "fakeCheckSum", "WGS")
+graph = rdflib.Graph()
+seq = Sequence(graph, "newSequence_seq", "ATCCnewGenome", (">contig1", "ATGC",\
+    ">contig2", "GGGG"), 42, 1, "fakeCheckSum", "WGS")
 seq.rdf()
-output = g.serialize(format='turtle')
+
+output = graph.serialize(format='turtle')
 
 uploader = BlazegraphUploader
 uploader.upload_data(output)
-
-
-
-
-
-
-
-
-
-
