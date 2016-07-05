@@ -45,15 +45,70 @@ def graph_to_json(g):
         json[s][p].append(v)
     return json
 
+
+def batch_iterator(iterator, batch_size):
+    """Returns lists of length batch_size.
+
+    This can be used on any iterator, for example to batch up
+    SeqRecord objects from Bio.SeqIO.parse(...), or to batch
+    Alignment objects from Bio.AlignIO.parse(...), or simply
+    lines from a file handle.
+
+    This is a generator function, and it returns lists of the
+    entries from the supplied iterator.  Each list will have
+    batch_size entries, although the final list may be shorter.
+    """
+    entry = True  # Make sure we loop once
+    while entry:
+        batch = []
+        while len(batch) < batch_size:
+            try:
+                entry = iterator.next()
+            except StopIteration:
+                entry = None
+            if entry is None:
+                # End of file
+                break
+            batch.append(entry)
+        if batch:
+            yield batch
+
+
+
+def getFile(filename):
+    from Bio import SeqIO
+    for seq_record in SeqIO.parse(filename, "fasta"): #Contigs
+        print seq_record.id
+        print repr(seq_record.seq)
+        print len(seq_record)
+
+    #output sum of all seq_records as bp
+    #Accession #
+    #Data = [seq_record.id, repr(seq_record.seq), seq_record.id, repr(seq_record.seq)]
+    #contigs
+
+
+def seqdata(accession, data, bp):
+    graph = rdflib.Graph()
+    seq = Sequence(graph, "{}{}".format(accession, "_seq"), accession, data, bp, contigs, md5sum, "WGS")
+    seq.rdf()
+
+    output = graph.serialize(format='turtle')
+
+    uploader = BlazegraphUploader
+    uploader.upload_data(output)
+
+    return Response.default(graph_to_json(graph))
+
+
+
 @upload.route('/', methods=['GET', 'POST'])
 def genome_example():
     """
     Example of making a database insertion of genome data.
     """
-
     graph = rdflib.Graph()
-    seq = Sequence(graph, "newSequence_seq", "ATCCnewGenome", (">contig1", "ATGC",\
-        ">contig2", "GGGG"), 42, 1, "fakeCheckSum", "WGS")
+    seq = Sequence(graph, "newSequence{}".format("_seq"), "ATCCnewGenome", data, 42, 1, "fakeCheckSum", "WGS")
     seq.rdf()
 
     output = graph.serialize(format='turtle')
