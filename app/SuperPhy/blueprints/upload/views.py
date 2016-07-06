@@ -90,30 +90,16 @@ class Uploader(object):
         """
         Open the fasta file and get the fasta data.
         """
-        base_pairs = 0
-        contigs = 0
-        data = []
-        for record in SeqIO.parse(self.fasta_path, "fasta"): #Contigs
-            contigs += 1
-            base_pairs += len(record)
-            try:
-                id_ = record.id.split(">", 1)[1].split(" ", 1)[0]
-            except IndexError:
-                id_ = record.id
-            data.append(id_)
-            data.append(repr(record.seq))
-
-
-            #print record.seq
-            #print repr(record.seq)
-
-
         self.md5sum = subprocess.Popen("md5sum {}".format(self.fasta_path),\
             shell=True, stdout=subprocess.PIPE).stdout.read(32)
-        self.accession = "???"
-        self.data = data
-        self.base_pairs = base_pairs
-        self.contig_numbers = contigs
+        self.base_pairs = 0
+        self.contig_numbers = 0
+        for record in SeqIO.parse(self.fasta_path, "fasta"): #Contigs
+            if not self.accession:
+                self.accession = record.name.split("|")[3].split(".")[0]
+            self.contig_numbers += 1
+            self.base_pairs += len(record.seq)
+            self.data.append((">" + self.accession, str(record.seq)))
 
     def send_fasta_data(self):
         """
