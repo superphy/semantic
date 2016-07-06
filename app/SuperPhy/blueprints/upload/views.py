@@ -1,7 +1,10 @@
 """
-.
+This view is for uploading related endpoints
 """
+import subprocess
+import os
 import rdflib
+from Bio import SeqIO
 
 from SuperPhy.models import Response
 from SuperPhy.models.upload.classes.sequence import Sequence
@@ -45,63 +48,91 @@ def graph_to_json(g):
         json[s][p].append(v)
     return json
 
-
-def batch_iterator(iterator, batch_size):
-    """Returns lists of length batch_size.
-
-    This can be used on any iterator, for example to batch up
-    SeqRecord objects from Bio.SeqIO.parse(...), or to batch
-    Alignment objects from Bio.AlignIO.parse(...), or simply
-    lines from a file handle.
-
-    This is a generator function, and it returns lists of the
-    entries from the supplied iterator.  Each list will have
-    batch_size entries, although the final list may be shorter.
+@upload.route('/foo', methods=['GET', 'POST'])
+def foobar():
     """
-    entry = True  # Make sure we loop once
-    while entry:
-        batch = []
-        while len(batch) < batch_size:
+    Endpoint for testing & devloping upload functionality
+    """
+    u = Uploader("foo.fasta", None)
+    data = u.send_fasta_data()
+    return Response.default(data)
+
+class Uploader(object):
+    """
+    Class for moving fasta files and meta-data to blazegraph.
+    """
+    def __init__(self, fasta_file, meta_file):
+        basedir = os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0]
+        filepath = os.path.join(basedir, 'uploads', fasta_file)
+
+        self.fasta_path = filepath
+        self.meta_file = meta_file
+
+        self.accession = ""
+        self.data = []
+        self.base_pairs = 0
+        self.contig_numbers = 0
+        self.md5sum = ""
+        self.get_fasta_data()
+
+    def fake_fasta_data(self):
+        """
+        Fake fasta data in the format provided.
+        """
+        self.accession = "newSequence"
+        self.accession = "ATCCnewGenome"
+        self.data = (">contig1", "ATGC", ">contig2", "GGGG")
+        self.base_pairs = 42
+        self.contig_numbers = 1
+        self.md5sum = "fakeCheckSum"
+
+    def get_fasta_data(self):
+        """
+        Open the fasta file and get the fasta data.
+        """
+        base_pairs = 0
+        contigs = 0
+        data = []
+        for record in SeqIO.parse(self.fasta_path, "fasta"): #Contigs
+            contigs += 1
+            base_pairs += len(record)
             try:
-                entry = iterator.next()
-            except StopIteration:
-                entry = None
-            if entry is None:
-                # End of file
-                break
-            batch.append(entry)
-        if batch:
-            yield batch
+                id_ = record.id.split(">", 1)[1].split(" ", 1)[0]
+            except IndexError:
+                id_ = record.id
+            data.append(id_)
+            data.append(repr(record.seq))
 
 
-
-def getFile(filename):
-    from Bio import SeqIO
-    for seq_record in SeqIO.parse(filename, "fasta"): #Contigs
-        print seq_record.id
-        print repr(seq_record.seq)
-        print len(seq_record)
-
-    #output sum of all seq_records as bp
-    #Accession #
-    #Data = [seq_record.id, repr(seq_record.seq), seq_record.id, repr(seq_record.seq)]
-    #contigs
+            #print record.seq
+            #print repr(record.seq)
 
 
-def seqdata(accession, data, bp):
-    graph = rdflib.Graph()
-    seq = Sequence(graph, "{}{}".format(accession, "_seq"), accession, data, bp, contigs, md5sum, "WGS")
-    seq.rdf()
+        self.md5sum = subprocess.Popen("md5sum {}".format(self.fasta_path),\
+            shell=True, stdout=subprocess.PIPE).stdout.read(32)
+        self.accession = "???"
+        self.data = data
+        self.base_pairs = base_pairs
+        self.contig_numbers = contigs
 
-    output = graph.serialize(format='turtle')
+    def send_fasta_data(self):
+        """
+        Uploads and sends the fasta data to Blazegraph
+        """
+        graph = rdflib.Graph()
+        seq = Sequence(graph, "{}{}".format(self.accession, "_seq"),\
+            self.accession, self.data, self.base_pairs, self.contig_numbers,\
+            self.md5sum, "WGS")
+        seq.rdf()
 
-    uploader = BlazegraphUploader
-    uploader.upload_data(output)
+        output = graph.serialize(format='turtle')
 
-    return Response.default(graph_to_json(graph))
+        uploader = BlazegraphUploader
+        uploader.upload_data(output)
 
+        return graph_to_json(graph)
 
-
+'''
 @upload.route('/', methods=['GET', 'POST'])
 def genome_example():
     """
@@ -117,3 +148,5 @@ def genome_example():
     uploader.upload_data(output)
 
     return Response.default(graph_to_json(graph))
+
+'''
