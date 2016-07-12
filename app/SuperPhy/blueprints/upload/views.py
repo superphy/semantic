@@ -1,108 +1,138 @@
-from flask import jsonify, request
-from SuperPhy.models import sparql
+"""
+This view is for uploading related endpoints
+"""
+import subprocess
+import os
+import rdflib
+from Bio import SeqIO
+
+from SuperPhy.models import Response
+from SuperPhy.models.upload.classes.sequence import Sequence
+from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 
 from SuperPhy.blueprints.upload import upload
 
-def validate_parameters(key, value):
-    default = "ERROR: NO ERROR CHECKER YET. VALUE: %s" % value
-    switcher = {
-        "Asymptomatic": default,
-        "Bacteremia": default,
-        "Bacteriuria": default,
-        "Bloody diarrhea": default,
-        "Crohn's Disease": default,
-        "Diarrhea": default,
-        "Gastroenteritis": default,
-        "Hemolytic-uremic syndrome": default,
-        "Hemorrhagic colitis": default,
-        "Mastitis": default,
-        "Meningitis": default,
-        "Necrotizing fasciitis": default,
-        "Omphalitis": default,
-        "Peritonitis": default,
-        "Pneumonia": default,
-        "Pyelonephritis": default,
-        "Septicaemia": default,
-        "Ulcerateive colitis": default,
-        "Urinary tract infection (cystitis)": default,
-        "additional_notes": default,
-        "city": default,
-        "data_of_isolation": default,
-        "external_db_identifier_accession_id": default,
-        "external_db_identifier_database": default,
-        "external_db_identifier_version_number": default,
-        "file": default,
-        "genome_alias": default,
-        "genome_description": default,
-        "genome_name": default,
-        "genome_sequence_status": default,
-        "group_label": default,
-        "isolation_host": default,
-        "isolation_source": default,
-        "keywords": default,
-        "molecular_type": default,
-        "owner": default,
-        "privacy_settings": default,
-        "province/state": default,
-        "pubmed_id": default,
-        "serotype": default,
-        "strain": default,
-        "swollen head syndrome": default
-    }
-    if key in switcher:
-        return switcher[key]
-    else:
-        return default
-
-@upload.route('/genome', methods=['POST', 'GET'])
-def genome():
+def graph_to_json(g):
     """
-    Endpoint for posting genomes.
-
-    Todo:
-    add security
-    do something with the data
-    validate the data
+    Pass in a rdflib.Graph and get back a chunk of JSON using
+    the Talis JSON serialization for RDF:
+    Source: https://gist.github.com/edsu/76729
     """
+    json = {}
 
-    #Fix items that can't be posted due to special characters
-    value = request.json.get("Urinary tract infection")
-    if value != '':
-        request.json["Urinary tract infection (cystitis)"] = value
+    # go through all the triples in the graph
+    for s, p, o in g:
 
-    value = request.json.get("Crohns Disease")
-    if value != '':
-        request.json["Crohn's Disease"] = value
+        # initialize property dictionary if we've got a new subject
+        if not json.has_key(s):
+            json[s] = {}
 
-    #Get parameters from request object
-    params = dict((key, "") for key in [
-        'file', 'genome_name', 'strain', 'serotype', 'isolation_host',
-        'isolation_source', 'data_of_isolation',
-        'province/state', 'city', 'privacy_settings',
-        'group_label', 'additional_notes', 'genome_description',
-        'keywords', 'owner', 'genome_alias', 'external_db_identifier_database',
-        'external_db_identifier_accession_id',
-        'external_db_identifier_version_number', 'pubmed_id',
-        'genome_sequence_status', 'molecular_type'
-    ])
-    params.update(dict((key, "") for key in sparql.get_all_syndromes()))
+        # initialize object list if we've got a new subject-property combo
+        if not json[s].has_key(p):
+            json[s][p] = []
 
-    errors = {'status': 'error'}
-    for key in params:
-        params[key] = request.json.get(key)
-        error = validate_parameters(key, params[key])
-        if error:
-            errors[key] = error
+        # determine the value dictionary for the object
+        v = {'value': unicode(o)}
+        if isinstance(o, rdflib.URIRef):
+            v['type'] = 'uri'
+        elif isinstance(o, rdflib.BNode):
+            v['type'] = 'bnode'
+        elif isinstance(o, rdflib.Literal):
+            v['type'] = 'literal'
+            if o.language:
+                v['lang'] = o.language
+            if o.datatype:
+                v['datatype'] = unicode(o.datatype)
 
-    #Show all errors
-    if errors:
-        return jsonify(errors)
+        # add the triple
+        json[s][p].append(v)
+    return json
 
-    #Add data to uploader processes
+@upload.route('/foo', methods=['GET', 'POST'])
+def foobar():
+    """
+    Endpoint for testing & devloping upload functionality
+    """
+    u = Uploader("foo.fasta", None)
+    data = u.send_fasta_data()
+    return Response.default(data)
 
-    #Return success notification
-    return jsonify({'status':'ok', 'params': params})
+class Uploader(object):
+    """
+    Class for moving fasta files and meta-data to blazegraph.
+    """
+    def __init__(self, fasta_file, meta_file):
+        basedir = os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0]
+        filepath = os.path.join(basedir, 'uploads', fasta_file)
+
+        self.fasta_path = filepath
+        self.meta_file = meta_file
+
+        self.accession = ""
+        self.data = []
+        self.base_pairs = 0
+        self.contig_numbers = 0
+        self.md5sum = ""
+        self.get_fasta_data()
+
+    def fake_fasta_data(self):
+        """
+        Fake fasta data in the format provided.
+        """
+        self.accession = "newSequence"
+        self.accession = "ATCCnewGenome"
+        self.data = (">contig1", "ATGC", ">contig2", "GGGG")
+        self.base_pairs = 42
+        self.contig_numbers = 1
+        self.md5sum = "fakeCheckSum"
+
+    def get_fasta_data(self):
+        """
+        Open the fasta file and get the fasta data.
+        """
+        self.md5sum = subprocess.Popen("md5sum {}".format(self.fasta_path),\
+            shell=True, stdout=subprocess.PIPE).stdout.read(32)
+        self.base_pairs = 0
+        self.contig_numbers = 0
+        for record in SeqIO.parse(self.fasta_path, "fasta"): #Contigs
+            if not self.accession:
+                self.accession = record.name.split("|")[3].split(".")[0]
+            self.contig_numbers += 1
+            self.base_pairs += len(record.seq)
+            self.data.append((">" + self.accession, str(record.seq)))
+
+    def send_fasta_data(self):
+        """
+        Uploads and sends the fasta data to Blazegraph
+        """
+        graph = rdflib.Graph()
+        seq = Sequence(graph, "{}{}".format(self.accession, "_seq"),\
+            self.accession, self.data, self.base_pairs, self.contig_numbers,\
+            self.md5sum, "WGS")
+        seq.rdf()
+
+        output = graph.serialize(format='turtle')
+
+        uploader = BlazegraphUploader
+        uploader.upload_data(output)
+
+        return graph_to_json(graph)
 
 '''
-curl -i -X POST -H "Content-Type: application/json" -d '{ "Asymptomatic": "", "Bacteremia": "", "Bacteriuria": "", "Bloody diarrhea": "", "Crohn's Disease": "", "Diarrhea": "", "Gastroenteritis": "", "Hemolytic-uremic syndrome": "", "Hemorrhagic colitis": "", "Mastitis": "", "Meningitis": "", "Necrotizing fasciitis": "", "Omphalitis": "", "Peritonitis": "", "Pneumonia": "", "Pyelonephritis": "", "Septicaemia": "", "Ulcerateive colitis": "", "Urinary tract infection (cystitis)": "", "additional_notes": "", "city": "", "data_of_isolation": "", "external_db_identifier_accession_id": "", "external_db_identifier_database": "", "external_db_identifier_version_number": "", "file": "", "genome_alias": "", "genome_description": "", "genome_name": "", "genome_sequence_status": "", "group_label": "", "isolation_host": "", "isolation_source": "", "keywords": "", "molecular_type": "", "owner": "", "privacy_settings": "", "province/state": "", "pubmed_id": "", "serotype": "", "strain": "", "swollen head syndrome": "" }' http://127.0.0.1:5000/upload/genome
+@upload.route('/', methods=['GET', 'POST'])
+def genome_example():
+    """
+    Example of making a database insertion of genome data.
+    """
+    graph = rdflib.Graph()
+    seq = Sequence(graph, "newSequence{}".format("_seq"), "ATCCnewGenome", data, 42, 1, "fakeCheckSum", "WGS")
+    seq.rdf()
+
+    output = graph.serialize(format='turtle')
+
+    uploader = BlazegraphUploader
+    uploader.upload_data(output)
+
+    return Response.default(graph_to_json(graph))
+
 '''

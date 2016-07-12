@@ -1,0 +1,61 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+"""
+This module converts inputted data into RDF triples in accordance with the Superphy ontology
+
+This module uses the rdflib module to handle RDF triples in a Graph instance in preparation for conversion
+into a turtle file (.ttl) or other RDF format.
+
+The format to add triples would be:
+
+    g.add( (subject, predicate, object) )
+
+where each of the three terms ( can be constructed by using:
+
+    namespace.objectname
+    namespace[vars_containing_object_name]
+    Literal(vars_containing_literal, datatype=XSD.typeofdata)
+
+Examples:
+    superphy = Namespace("https://github.com/superphy#")
+
+    organism = "ecoli"
+    tid = "562"
+
+    g.add( (superphy[organism], superphy.has_taxonomy_id, Literal(tid, datatype=XSD.string) )
+
+If you want to contruct an RDF object with many optional arguments, the Genome class is a good example.
+
+Classes:
+    NamedIndividual: superclass of all RDF Objects
+    User: a Superphy user
+    Organism: an organism
+    Host: a host for another organism
+    Microbe: a microbe
+    Attribute: attributes of objects in the ontology (abstract class)
+    HostCategory: host category for an object
+    IsolationAttribute: details associated with isolation of a genome (abstract class)
+    FromHost: the host from which the organism was extracted from
+    FromSource: the biological source of the sample
+    IsolationSyndrome: the syndromes associated with the sample
+    Serotype: the serotype of the genome (abstract class)
+    Otype: the id of the O-antigen associated with the sample
+    Htype: the id of the H-antigen associated with the sample
+    Genome: a genome sequenced from a sample
+    PendingGenome: a genome that has not finished processing
+    CompletedGenome: a genome that has finished processing
+    Sequence: a DNA sequence belonging to a genome
+"""
+
+
+from SuperPhy.models.upload.classes.named_individual import NamedIndividual
+from SuperPhy.models.upload.classes.attribute import Attribute, HostCategory, \
+IsolationAttribute, FromHost, FromSource, IsolationSyndrome, Serotype, Otype, Htype
+from SuperPhy.models.upload.classes.gene import Gene, GeneLocation
+from SuperPhy.models.upload.classes.genome import Genome, PendingGenome, CompletedGenome
+from SuperPhy.models.upload.classes.organism import Organism, Host, Microbe
+from SuperPhy.models.upload.classes.sequence import Sequence
+from SuperPhy.models.upload.classes.contig import Contig
+from SuperPhy.models.upload.classes.user import User
+from SuperPhy.models.upload.classes.namespaces import n, rdf
