@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 from SuperPhy.models.sparql.endpoint import Endpoint
 from SuperPhy.models.sparql.prefixes import prefixes
