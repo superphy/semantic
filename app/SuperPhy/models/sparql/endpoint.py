@@ -23,8 +23,8 @@ class Endpoint(object):
     """
     Interface between blazegraph and python
     """
-    #DEFAULT = "http://localhost:9000/blazegraph/namespace/superphy/sparql"
-    DEFAULT = "http://10.139.14.118:9000/blazegraph/namespace/superphy/sparql"
+    DEFAULT = "http://localhost:9000/blazegraph/namespace/superphy/sparql"
+
 
     @classmethod
     def query(cls, data, url=os.getenv('SUPERPHY_RDF_URL', DEFAULT)):
