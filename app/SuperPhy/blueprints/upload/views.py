@@ -9,6 +9,8 @@ from Bio import SeqIO
 from SuperPhy.models import Response
 from SuperPhy.models.upload.classes.sequence import Sequence
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
+from SuperPhy.models.upload.guelph_pipeline import Pipeline
+
 
 from SuperPhy.blueprints.upload import upload
 
@@ -48,13 +50,32 @@ def graph_to_json(g):
         json[s][p].append(v)
     return json
 
+@upload.route('/fasta', methods=['GET', 'POST'])
+def fasta():
+    basedir = os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0]
+    uploads = os.path.join(basedir, 'uploads')
+
+    fasta_files = ["AYQH01000001.fasta", "JCM5491.fasta", "JEMI01000001.fasta", "KI929742.fasta", "MG1655.fasta"]
+    for pos, item in enumerate(fasta_files):
+        fasta_files[pos] = os.path.join(uploads, item)
+        print fasta_files[pos]
+
+    meta_file = os.path.join(uploads, "genomes.csv")
+    pipeline = Pipeline(fasta_files, meta_file)
+    return Response.default({"triples": pipeline.process()})
+
+
+
+
 @upload.route('/foo', methods=['GET', 'POST'])
 def foobar():
     """
     Endpoint for testing & devloping upload functionality
     """
-    u = Uploader("foo.fasta", None)
+    u = Uploader("JCM5491.fasta", None)
     data = u.send_fasta_data()
+    
+
     return Response.default(data)
 
 class Uploader(object):
@@ -95,8 +116,9 @@ class Uploader(object):
         self.base_pairs = 0
         self.contig_numbers = 0
         for record in SeqIO.parse(self.fasta_path, "fasta"): #Contigs
-            if not self.accession:
-                self.accession = record.name.split("|")[3].split(".")[0]
+            print record.name.rsplit('.')[0]
+            #if not self.accession:
+            #    self.accession = record.name.split("|")[3].split(".")[0]
             self.contig_numbers += 1
             self.base_pairs += len(record.seq)
             self.data.append((">" + self.accession, str(record.seq)))
