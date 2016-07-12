@@ -5,6 +5,7 @@ provides the endpoints for this particular blueprint. Each endpoint is
 responsible for putting the data into an appropraite format.
 """
 
+
 import os
 import datetime
 from flask import jsonify, request
@@ -18,6 +19,16 @@ from SuperPhy.models import sparql
 from SuperPhy.models import Response
 
 from SuperPhy.blueprints.data import data
+
+@data.route("/testmetadata", methods=['GET'])
+def fooo():
+    """
+        Query that returns all metadata for genomes with the following accession numbers.
+    """
+    Accession = A = ["ADWR00000000", "AQFH00000000", "AICG00000000", "AJLU00000000", "AJLU00000000", "AVZM00000000"]
+    #Find a way for the above dictionary to be created from a csv file or whatever format)
+    return Response.default(sparql.get_all_accession(Accession))
+
 
 @data.route('/meta', methods=['GET'])
 def meta():
