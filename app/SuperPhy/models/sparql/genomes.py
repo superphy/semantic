@@ -1,7 +1,83 @@
 #!/usr/bin/env python
 
+
 from SuperPhy.models.sparql.endpoint import Endpoint
 from SuperPhy.models.sparql.prefixes import prefixes
+
+
+# Get all genomes using the accession number list given
+
+def get_all_accession(accession_list):
+    """
+    input  - list of accession numbers (accession_list)
+    output - metadata for those accession numbers
+    """
+    # Accession_list
+    accessions = ""
+    accessions = ":" + " :".join(accession_list)
+
+    # Metadata Query
+    string = prefixes + """
+    SELECT  ?Genome_Uri
+    (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession)
+    (GROUP_CONCAT (DISTINCT ?_Syndrome ; separator=',\\n') AS ?Syndromes) 
+    (GROUP_CONCAT (DISTINCT ?_Serotype_O ; separator=',\\n') AS ?Serotype_O) 
+    (GROUP_CONCAT (DISTINCT ?_Geographic_Location ; separator=',\\n') AS ?Geographic_Location) 
+    (GROUP_CONCAT (DISTINCT ?_Biosample_Id ; separator=',\\n') AS ?Biosample_Id)
+    (GROUP_CONCAT (DISTINCT ?_Bioproject_Id ; separator=',\\n') AS ?Bioproject_Id)
+    (GROUP_CONCAT (DISTINCT ?_Strain ; separator=',\\n') AS ?Strain) 
+    (GROUP_CONCAT (DISTINCT ?_Serotype_H ; separator=',\\n') AS ?Serotype_H)
+    (GROUP_CONCAT (DISTINCT ?_Scientific_Name ; separator=',\\n') AS ?Scientific_Name)
+    (GROUP_CONCAT (DISTINCT ?_Common_Name ; separator=',\\n') AS ?Common_Name)
+    (GROUP_CONCAT (DISTINCT ?_Isolation_Date ; separator=',\\n') AS ?Isolation_Date)
+    #(GROUP_CONCAT (DISTINCT ?_Gene_Name ; separator=',\\n') AS ?Gene_Name)
+    #(GROUP_CONCAT (DISTINCT ?_Category ; separator=',\\n') AS ?Category)
+    #(GROUP_CONCAT (DISTINCT ?_Sub_Category ; separator=',\\n') AS ?Sub_Category)
+      WHERE
+      { 
+        #{ ?Genome_Uri a gfvo:Genome } #Find all URIs with accession values
+        VALUES ?Genome_Uri { %s }     #Set of Accession Values
+        OPTIONAL
+          { ?Genome_Uri :has_accession ?_Accession}
+        OPTIONAL
+          { ?Genome_Uri :has_bioproject ?_Bioproject_Id}
+        OPTIONAL
+          { ?Genome_Uri :has_biosample ?_Biosample_Id}
+        OPTIONAL
+          { ?Genome_Uri :has_Htype ?_Serotype_H_Uri .
+            ?_Serotype_H_Uri rdfs:label ?_Serotype_H
+          }
+        OPTIONAL
+          { ?Genome_Uri :has_Otype ?_Serotype_O_Uri .
+            ?_Serotype_O_Uri rdfs:label ?_Serotype_O
+          }
+        OPTIONAL
+          { ?Genome_Uri :has_geographic_location ?_Geographic_Location}
+        OPTIONAL
+          { ?Genome_Uri :has_strain ?_Strain}
+        OPTIONAL
+          { ?Genome_Uri :has_attribute ?_From_Host_Uri .
+            ?_From_Host_Uri rdf:type :isolation_from_host .
+            ?_From_Host_Uri :has_attribute ?_Host_Uri .
+            ?_Host_Uri :scientific_name ?_Scientific_Name . 
+            ?_Host_Uri :common_name ?_Common_Name
+          }
+        OPTIONAL
+          { ?Genome_Uri :has_isolation_date ?_Isolation_Date}
+        OPTIONAL
+          { ?Genome_Uri :has_isolation_attribute ?_Syndrome_Uri .
+            ?_Syndrome_Uri rdf:type :isolation_syndrome .
+            ?_Syndrome_Uri rdfs:label ?_Syndrome
+          }
+      }
+    GROUP BY (?Genome_Uri)
+    """ % (accessions)
+
+    return Endpoint.query(string)
+
+
+# Get All Genome Metadata
+
 
 def get_all_syndromes():
     """
@@ -25,7 +101,17 @@ def get_all_syndromes():
 def get_all_genome_metadata():
     string = prefixes + """
     SELECT  ?Genome_Uri 
-    (GROUP_CONCAT (DISTINCT ?_Syndrome ; separator=',\\n') AS ?Syndromes)(GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) (GROUP_CONCAT (DISTINCT ?_Biosample_Id ; separator=',\\n') AS ?Biosample_Id)(GROUP_CONCAT (DISTINCT ?_Bioproject_Id ; separator=',\\n') AS ?Bioproject_Id)(GROUP_CONCAT (DISTINCT ?_Strain ; separator=',\\n') AS ?Strain)(GROUP_CONCAT (DISTINCT ?_Serotype_O ; separator=',\\n') AS ?Serotype_O)(GROUP_CONCAT (DISTINCT ?_Serotype_H ; separator=',\\n') AS ?Serotype_H)(GROUP_CONCAT (DISTINCT ?_Scientific_Name ; separator=',\\n') AS ?Scientific_Name)(GROUP_CONCAT (DISTINCT ?_Common_Name ; separator=',\\n') AS ?Common_Name)(GROUP_CONCAT (DISTINCT ?_Isolation_Date ; separator=',\\n') AS ?Isolation_Date)(GROUP_CONCAT (DISTINCT ?_Geographic_Location ; separator=',\\n') AS ?Geographic_Location)
+    (GROUP_CONCAT (DISTINCT ?_Syndrome ; separator=',\\n') AS ?Syndromes)
+    (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession) 
+    (GROUP_CONCAT (DISTINCT ?_Biosample_Id ; separator=',\\n') AS ?Biosample_Id)
+    (GROUP_CONCAT (DISTINCT ?_Bioproject_Id ; separator=',\\n') AS ?Bioproject_Id)
+    (GROUP_CONCAT (DISTINCT ?_Strain ; separator=',\\n') AS ?Strain)
+    (GROUP_CONCAT (DISTINCT ?_Serotype_O ; separator=',\\n') AS ?Serotype_O)
+    (GROUP_CONCAT (DISTINCT ?_Serotype_H ; separator=',\\n') AS ?Serotype_H)
+    (GROUP_CONCAT (DISTINCT ?_Scientific_Name ; separator=',\\n') AS ?Scientific_Name)
+    (GROUP_CONCAT (DISTINCT ?_Common_Name ; separator=',\\n') AS ?Common_Name)
+    (GROUP_CONCAT (DISTINCT ?_Isolation_Date ; separator=',\\n') AS ?Isolation_Date)
+    (GROUP_CONCAT (DISTINCT ?_Geographic_Location ; separator=',\\n') AS ?Geographic_Location)
     WHERE
       { { ?Genome_Uri a gfvo:Genome }
         OPTIONAL
