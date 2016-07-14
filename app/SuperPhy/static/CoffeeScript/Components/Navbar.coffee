@@ -9,6 +9,8 @@ class Navbar
             {title: "Group Analyses", url: "/groups"}
             {title: "VF and AMR", url: "/factors"}
             {title: "Meta", url: "/meta"}
+            {title: "Test Table", url: "?/test"} # Shortcut to the table I'm working on
+            {title: "New VF & AMR", url: "?/new"} # Not yet re-done
         ]
         return @
     @view: (ctrl) ->

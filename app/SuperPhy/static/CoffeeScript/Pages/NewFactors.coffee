@@ -1,29 +1,33 @@
 ###
-CLASS Factors
+CLASS NewFactors
 
-Page component for the Factors (VF and AMR) page
+A page component for the New VF & AMR page
+
 ###
 
-class Factors extends Page
-    Routes.add('?/factors', @)
+# coffeelint: disable=max_line_length
+
+class NewFactors extends Page
+    Routes.add("/new", @)
     @controller: (args) ->
         @active = m.prop("genes")
         @tabCtrl = new mc.Tabs.controller('genes')
         @model = GeneSearchModel
         @vfcategories = @model.getCategories('vf')
-        @amrcategories= @model.getCategories('amr')
+        @amrcategories = @model.getCategories('amr')
         return @
 
     @view: (ctrl) ->
-        renderTabContents = (ctrl) ->
+        NewrenderTabContents = (ctrl) ->
             activeTab = ctrl.tabCtrl.activeTabName
             switch (activeTab())
-                when 'genes' then return renderGeneForm(ctrl)
-                when 'genomes' then return renderGenomeSearch(ctrl)
-                when 'submit' then return renderSubmit(ctrl)
+                when 'genes' then return NewrenderGeneForm(ctrl)
+                when 'genomes' then return NewrenderGenomeSearch(ctrl)
+                when 'submit' then return NewrenderSubmit(ctrl)
                 else return m('p', "Not a valid tab name.")
 
-        renderGeneForm = (ctrl) ->
+        # Below: Defining the 3 functions used above
+        NewrenderGeneForm = (ctrl) ->
             m('.tab-content', [
                 m('.tab-pane active', {id: 'gene-search-querygenes'}, [
                     m('.panel-group genes-search', {id: 'accordian'}, [
@@ -43,7 +47,7 @@ class Factors extends Page
                 ])
             ])
 
-        renderGenomeSearch = (ctrl) ->
+        NewrenderGenomeSearch = (ctrl) ->
             m('.tab-content', [
                 m('.tab-pane active', {id: 'gene-search-querygenes'}, [
                     m('.panel-group genes-search', {id: 'accordian'}, [
@@ -52,17 +56,17 @@ class Factors extends Page
                 ])
             ])
 
-        renderSubmit = (ctrl) ->
+        NewrenderSubmit = (ctrl) ->
             m('.tab-content', [
                 m('.tab-pane active', {id: 'gene-search-querygenes'}, [
                     m('.panel-group genes-search', id: 'accordian', [
-                        m.component(SubmitView, {
+                        m.component(NewSubmitView, {
                             data: ctrl.model
                         })
                     ])
                 ])
             ])
-
+        # End function definitions
 
         super(
             m('.', {id: "wrapper"}, [
@@ -70,7 +74,7 @@ class Factors extends Page
                 m('.', {id: 'page-content-wrapper'}, [
                     m('.', {id: 'page-content -inset'}, [
                         m('.container-fluid', [
-                            m.component(FactorsIntro)
+                            m.component(NewFactorsIntro)
                             m('.container', [
                                 mc.Tabs.view(ctrl.tabCtrl,
                                     flavor: 'bs/nav-tabs'
@@ -80,7 +84,7 @@ class Factors extends Page
                                         {name: 'submit', label: 'Submit Query'}
                                     ]
                                 )
-                                renderTabContents(ctrl)
+                                NewrenderTabContents(ctrl)
                             ])
                         ])
                     ])
@@ -89,15 +93,16 @@ class Factors extends Page
         )
 
 
+
 ###
-COMPONENT FactorsIntro
+COMPONENT NewFactorsIntro
 
 Introduction for gene indentification feature
 
 Args:
     none
 ###
-FactorsIntro =
+NewFactorsIntro =
     view: (ctrl, args) ->
         m('.intro', [
             m('.row', [
@@ -126,8 +131,10 @@ FactorsIntro =
         ])
 
 
+
+
 ###
-COMPONENT SubmitView
+COMPONENT NewSubmitView
 
 View for the third tab on the page 
 (This could be moved to another file?)
@@ -135,7 +142,7 @@ View for the third tab on the page
 Args:
     data: gene search model
 ###
-SubmitView =
+NewSubmitView =
     controller: (args) ->
         @submit = () ->
             args.data.submit()
@@ -148,15 +155,15 @@ SubmitView =
         args.data.getSelectedAMR()
         m('.tab-content', [
             m('.tab-pane active', {id: 'gene-search-submit'}, [
-                m.component(SubmitSelectedView, {
+                m.component(NewSubmitSelectedView, {
                     selected: args.data.selectedVF
                     title: "Virulence Factor"
                 })
-                m.component(SubmitSelectedView, {
+                m.component(NewSubmitSelectedView, {
                     selected: args.data.selectedAMR
                     title: "Antimicrobial Resistance"
                 })
-                m.component(SubmitSelectedView, {
+                m.component(NewSubmitSelectedView, {
                     selected: args.data.selectedGenomes
                     title: "Genome"
                 })
@@ -177,9 +184,8 @@ SubmitView =
             ])
         ])
 
-
 ###
-COMPONENT SubmitSelectedView
+COMPONENT NewSubmitSelectedView
 
 Component that confirms number of gene selected
 
@@ -187,7 +193,7 @@ Args:
     selected: list of selected genes or genomes
     title: type of selected genes or genomes
 ###
-SubmitSelectedView =
+NewSubmitSelectedView =
     view: (ctrl, args) ->
         m('.row', [
             m('.col-md-4 col-md-offset-1', [
