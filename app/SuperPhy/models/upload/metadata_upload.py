@@ -170,6 +170,20 @@ class GenomeMetadataUploader(MetadataUploader):
                 metadata.add_parameter(prefix.split(".", 3)[1], value)
         self.add_to_graph(metadata)
 
+
+        '''
+        metadata = None
+        for prefix, event, value in data:
+            if ("." not in prefix) and (prefix is not "") and \
+            (event == "start_map"):
+                self.add_to_graph(metadata)
+                metadata = GenomeMetadata(prefix, self.organism)
+
+            if prefix.endswith(".displayname"):
+                metadata.add_parameter(prefix.split(".", 3)[1], value)
+        self.add_to_graph(metadata)'''
+
+
     def add_to_graph(self, metadata):
         """Attempts to upload data to Blazegraph via conversion to RDF and
         turtle. Tracks errors made during this process
@@ -182,12 +196,10 @@ class GenomeMetadataUploader(MetadataUploader):
             relevant key-value pairs from the parse
         """
         if metadata:
-            try:
-                self.progress += 1
-                print "%d: downloading files" % self.progress
-                self.create_pending_genome(metadata)
-            except Exception:
-                self.error_logging(metadata.name)
+            self.progress += 1
+            print "%d: downloading files" % self.progress
+            self.create_pending_genome(metadata)
+
 
     def create_pending_genome(self, metadata):
         """Creates a PendingGenome object to export the data out in the turtle
@@ -204,9 +216,11 @@ class GenomeMetadataUploader(MetadataUploader):
         if check_named_individual(name):
             print "%s already in Blazegraph." % name
         else:
-            self.get_ncbi_ids(metadata)
+            #self.get_ncbi_ids(metadata)
             kwargs = metadata.build_kwargs()
+            print kwargs
             PendingGenome(graph, **kwargs).rdf()
+            print generate_output(graph)
             BlazegraphUploader().upload_data(generate_output(graph))
 
     @classmethod

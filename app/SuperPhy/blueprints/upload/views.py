@@ -10,7 +10,7 @@ from SuperPhy.models import Response
 from SuperPhy.models.upload.classes.sequence import Sequence
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 from SuperPhy.models.upload.guelph_pipeline import Pipeline
-
+from SuperPhy.models.upload.metadata_upload import GenomeMetadataUploader
 
 from SuperPhy.blueprints.upload import upload
 
@@ -55,16 +55,19 @@ def fasta():
     basedir = os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0]
     uploads = os.path.join(basedir, 'uploads')
 
-    fasta_files = ["AYQH01000001.fasta", "JCM5491.fasta", "JEMI01000001.fasta", "KI929742.fasta", "MG1655.fasta"]
+    fasta_files = ['AYQH00000000.fasta', 'JEMI00000000.fasta', 'MG1655.fasta', 'JCM5491.fasta', 'KI929742.fasta']
     for pos, item in enumerate(fasta_files):
+        print os.path.join(uploads, item)
         fasta_files[pos] = os.path.join(uploads, item)
         print fasta_files[pos]
 
     meta_file = os.path.join(uploads, "genomes.csv")
-    pipeline = Pipeline(fasta_files, meta_file)
-    return Response.default({"triples": pipeline.process()})
-
-
+    #pipeline = Pipeline(fasta_files, meta_file)
+    
+    m = GenomeMetadataUploader(os.path.join(uploads, "2_genome.json"), "Eschericia Coli")
+    m.upload() #Import, not upload
+    #return Response.default({"triples": pipeline.process()})
+    return Response.default({})
 
 
 @upload.route('/foo', methods=['GET', 'POST'])

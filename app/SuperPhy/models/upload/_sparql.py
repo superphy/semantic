@@ -27,6 +27,8 @@ def find_from_host(host):
         rdf:type :isolation_from_host}' % host
     )
 
+    print results
+
     return results["results"]["bindings"][0]["p"]["value"].split("#", 1)[1]
 
 

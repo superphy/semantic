@@ -9,16 +9,16 @@ import rdflib
 from SuperPhy.models.upload.classes.sequence import Sequence
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 from SuperPhy.models.upload.metadata_upload import MetadataUploader, Metadata, GenomeMetadataUploader, GenomeMetadata
-
+from SuperPhy.models.upload.contig_upload import ContigUploader, ContigsWrapper
 
 class Pipeline(object):
     def __init__(self, fasta_files=list, metadata=str):
+        print "FASTA FILES: ", fasta_files, "METADATA: ", metadata
         self.fasta_files = []
         for file_ in fasta_files:
             self.__add_fasta_file(file_)
         self.meta_files = []
-        if len(metadata) > 0:
-            self.__add_csv(metadata)
+        self.__add_csv(metadata)
 
     def __add_fasta_file(self, file_):
         self.fasta_files.append(file_)
@@ -28,14 +28,12 @@ class Pipeline(object):
 
     @classmethod
     def __split_csv(cls, filepath):
-        try:
-            os.makedirs("tmp")
-        except OSError:
-            pass
+        basedir = os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0]
+        uploads = os.path.join(basedir, 'uploads')
 
         data = tablib.Dataset()
         data.csv = open(filepath).read()
-
+        print data
         def __validate_headers(data):
             pass
         def __validate_fields(data):
@@ -46,7 +44,11 @@ class Pipeline(object):
 
         json_files = []
         for genome in data.dict:
-            json_files.append("tmp/{}.json".format(genome["Accession"]))
+            file_ = os.path.join(uploads, genome["Accession"]+".json")
+            json_files.append(file_)
+            for key, value in genome.items():
+                if value == "" or value == []:
+                    del genome[key]
             with open(json_files[-1], 'w') as outfile:
                 json.dump(genome, outfile, indent=4, sort_keys=True, separators=(',', ':'))
         return json_files
@@ -56,14 +58,12 @@ class Pipeline(object):
 
     def process(self):
         output = []
+
         for file_ in self.fasta_files:
             s = SequenceData()
             s.load(file_)
-            if os.path.isfile("{}.json".format(s.accession)):
-                print "UPLOADING METADATA for ", s.accession
-                m = GenomeMetadataUploader("{}.json".format(s.accession), "Eschericia Coli")
-                m.upload() #Import, not upload
-                m.create_pending_genome()
+            #m = GenomeMetadataUploader(file_, "Eschericia Coli")
+            #m.upload() #Import, not upload
             s.send_fasta_data()
             output.append(s.show_fasta_data())
         return output
@@ -93,9 +93,10 @@ class SequenceData(object):
             shell=True, stdout=subprocess.PIPE).stdout.read(32)
         self.base_pairs = 0
         self.contig_numbers = 0
+        print "FILEPATH: ", filepath
         for record in SeqIO.parse(filepath, "fasta"): #Contigs
             #if self.accession is not None:
-            self.accession = record.id.split('.').pop(0)
+            self.accession = ContigsWrapper.genome_name(record.id.split('.').pop(0))
             self.contig_numbers += 1
             self.base_pairs += len(record.seq)
             self.data.append((">" + self.accession, record.seq))
