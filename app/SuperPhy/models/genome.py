@@ -14,3 +14,19 @@ class Genome(object):
         """
         self.data = rdflib.Graph()
 
+
+    def upload(self):
+        """
+        .
+        """
+        #todo: change this to a call to models/sparql/endpoint
+        request = requests.post(
+            os.getenv(
+                'SUPERPHY_RDF_URL',
+                "http://localhost:9000/blazegraph/namespace/superphy/sparql"
+            ),
+            data=self.data.serialize(format="turtle"),
+            headers={'Content-Type':'application/x-turtle'}
+        )
+        return request.content
+
