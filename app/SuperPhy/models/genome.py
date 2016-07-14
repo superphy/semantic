@@ -179,14 +179,3 @@ class Genomes(object):
                 n["public"], n.owns, n[name]
             ))
 
-
-genomes = Genomes()
-genomes.add_metadata({
-    "Accession":"AAJW00000000",
-    "Bioproject_Id":"15578",
-    "Biosample_Id":"2435896",
-    "Serotype_H":"9",
-    "Serotype_O":"111",
-    "Strain":"E110019"
-})
-print genomes.data.serialize(format="turtle")
