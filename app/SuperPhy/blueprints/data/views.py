@@ -17,17 +17,20 @@ from werkzeug import secure_filename
 
 from SuperPhy.models import sparql
 from SuperPhy.models import Response
+#from SuperPhy.models.makecsv import Makecsv
 
 from SuperPhy.blueprints.data import data
 
 @data.route("/testmetadata", methods=['GET'])
-def fooo():
+def testmetadata():
     """
         Query that returns all metadata for genomes with the following accession numbers.
     """
     Accession = A = ["ADWR00000000", "AQFH00000000", "AICG00000000", "AJLU00000000", "AJLU00000000", "AVZM00000000"]
     #Find a way for the above dictionary to be created from a csv file or whatever format)
-    return Response.default(sparql.get_all_accession(Accession))
+
+    #return Makecsv.default(Response.default(sparql.get_all_accession(Accession)))
+    return Response.default(sparql.get_all_accession(Accession)) #returns json object
 
 
 @data.route('/meta', methods=['GET'])
