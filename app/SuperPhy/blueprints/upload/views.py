@@ -7,6 +7,8 @@ import rdflib
 from Bio import SeqIO
 import json
 
+from flask import request, url_for
+
 from SuperPhy.models import Response
 from SuperPhy.models.upload.classes.sequence import Sequence
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
@@ -102,6 +104,13 @@ def foobar():
     genomes.upload()
 
     return genomes.data.serialize(format='turtle')
+
+@upload.route('/post', methods=['POST', 'PUT'])
+def uploading():
+    file_ = request.files['filedata']
+
+    print file_
+    return Response.default({})
 
 class Uploader(object):
     """
