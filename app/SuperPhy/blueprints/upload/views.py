@@ -5,12 +5,15 @@ import subprocess
 import os
 import rdflib
 from Bio import SeqIO
+import json
 
 from SuperPhy.models import Response
 from SuperPhy.models.upload.classes.sequence import Sequence
 from SuperPhy.models.upload.blazegraph_upload import BlazegraphUploader
 from SuperPhy.models.upload.guelph_pipeline import Pipeline
 from SuperPhy.models.upload.metadata_upload import GenomeMetadataUploader
+
+from SuperPhy.models.genome import Genomes
 
 from SuperPhy.blueprints.upload import upload
 
@@ -75,11 +78,30 @@ def foobar():
     """
     Endpoint for testing & devloping upload functionality
     """
-    u = Uploader("JCM5491.fasta", None)
-    data = u.send_fasta_data()
+    folderpath = os.path.join(os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0], 'uploads')
+    """
+    Download a genome with multiple contigs from:
+    ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/bacteria/Escherichia_coli/all_assembly_versions/
+    """
+    fastapath = os.path.join(folderpath, "KI929759.fasta")
     
+    #This is where we make rdf.
+    genomes = Genomes()
+    genomes.add_sequence(fastapath)
+    #Fake data
+    genomes.add_metadata({
+        "Accession":"KI929759",
+        "Bioproject_Id":"15578",
+        "Biosample_Id":"2435896",
+        "Genome_Uri":"https://github.com/superphy#KI929759",
+        "Serotype_H":"9",
+        "Serotype_O":"111",
+        "Strain":"E110019"
+    })
 
-    return Response.default(data)
+    genomes.upload()
+
+    return genomes.data.serialize(format='turtle')
 
 class Uploader(object):
     """
