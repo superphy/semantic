@@ -107,9 +107,17 @@ def foobar():
 
 @upload.route('/post', methods=['POST', 'PUT'])
 def uploading():
-    file_ = request.files['filedata']
+    """
+    
+    """
+    #This needs to have protection!!!!!!!!!!!!!!!
+    files = [request.files['fasta'], request.files['meta']]
+    uploads = os.path.join(os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0], 'uploads')
+    for file_ in files:
+        file_.save(os.path.join(uploads, file_.filename))
+        #filename = secure_filename(file_.filename)
+        #file_.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-    print file_
     return Response.default({})
 
 class Uploader(object):
