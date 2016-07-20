@@ -6,6 +6,7 @@ import os
 import rdflib
 from Bio import SeqIO
 import json
+import tablib
 
 from flask import request, url_for
 
@@ -111,14 +112,24 @@ def uploading():
     
     """
     #This needs to have protection!!!!!!!!!!!!!!!
-    files = [request.files['fasta'], request.files['meta']]
+    
     uploads = os.path.join(os.path.realpath(os.path.dirname(__file__)).rsplit("SuperPhy", 1)[0], 'uploads')
+
+    files = [request.files['fasta'], request.files['meta']]
     for file_ in files:
         file_.save(os.path.join(uploads, file_.filename))
         #filename = secure_filename(file_.filename)
         #file_.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-    return Response.default({})
+    genomes = Genomes()
+    genomes.add_sequence(os.path.join(uploads, os.path.join(uploads, files[0].filename)))
+
+    metadata = tablib.Dataset()
+    metadata.csv = open(os.path.join(uploads, files[1].filename)).read()
+    for ordered_dict in metadata.dict:
+        genomes.add_metadata(dict(ordered_dict))
+
+    return Response.default({"turtle":[item for item in genomes.data.serialize(format="turtle").split('\n')]})
 
 class Uploader(object):
     """
