@@ -129,7 +129,7 @@ def uploading():
     for ordered_dict in metadata.dict:
         genomes.add_metadata(dict(ordered_dict))
 
-    return Response.default({"turtle":[item for item in genomes.data.serialize(format="turtle").split('\n')]})
+    return Response.default({"turtle":[item for item in genomes.data.serialize(format="turtle").split('\n') if item != ""]})
 
 class Uploader(object):
     """
