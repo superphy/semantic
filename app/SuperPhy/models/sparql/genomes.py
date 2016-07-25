@@ -18,8 +18,7 @@ def get_all_accession(accession_list):
 
     # Metadata Query
     string = prefixes + """
-    SELECT  ?Genome_Uri
-    (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession)
+    SELECT  (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession)
     (GROUP_CONCAT (DISTINCT ?_Syndrome ; separator=',\\n') AS ?Syndromes) 
     (GROUP_CONCAT (DISTINCT ?_Serotype_O ; separator=',\\n') AS ?Serotype_O) 
     (GROUP_CONCAT (DISTINCT ?_Geographic_Location ; separator=',\\n') AS ?Geographic_Location) 

@@ -11,11 +11,63 @@ from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 
-class Response():
+from flask import send_file
+import StringIO
+
+class Response(object):
     """
     This is a helper for formatting the sparql responses for the user.
 
     """
+    @classmethod
+    def csv(cls, dictionary):
+        """
+        Converts a Blazegraph response dictionary into a tab separated values.
+
+        Because we want our first key to be Accession id number, make sure your
+        sparql query is formed such that that is the first key.
+        """
+        response = dictionary
+
+        #the dict stores all the metadata in the heads,vars list
+        metadata = response["head"]["vars"]
+
+        #we want to print every genome as a new row, and the metadata in the same order
+        #using the accession number as the genome name
+        csv = "\t".join(metadata) + "\n"
+        #the JSON stores every genome as an entry in results,bindings
+        genomeObj = response["results"]["bindings"]
+
+        for genome in genomeObj:
+            #start the next line of output
+            line = []
+
+            #get all of the other metadata for printing
+            for m in metadata:
+                #some values have include a newline
+                #we would prefer not to have that for our table output
+                nextM = genome[m]["value"].replace("\n", " ")
+                line.append(nextM)
+
+            #end the current line, prepare for the next one
+            print line
+            csv += "\t".join(line) + "\n"
+
+        return csv
+
+    @classmethod
+    def csvfile(cls, dictionary):
+        """
+        Returns response as a file.
+        """
+        data = Response.csv(dictionary)
+        strIO = StringIO.StringIO()
+        strIO.write(str(data))
+        strIO.seek(0)
+        return send_file(strIO,
+                         attachment_filename="metadata.txt",
+                         as_attachment=True)
+
     @classmethod
     def default(cls, results, extra=None):
         """
