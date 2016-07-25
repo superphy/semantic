@@ -20,9 +20,6 @@ from SuperPhy.models import Response
 #from SuperPhy.models.makecsv import Makecsv
 
 from SuperPhy.blueprints.data import data
-from SuperPhy.models import makecsv
-
-import json
 
 @data.route("/testmetadata", methods=['GET'])
 def testmetadata():
