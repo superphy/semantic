@@ -7,6 +7,7 @@ responsible for putting the data into an appropraite format.
 
 
 import os
+import json
 import datetime
 from flask import jsonify, request
 from flask_wtf import Form
@@ -21,18 +22,34 @@ from SuperPhy.models import Response
 
 from SuperPhy.blueprints.data import data
 
-@data.route("/testmetadata", methods=['GET'])
+@data.route("/metadata/<accession>", methods=['GET'])
+def metadata(accession):
+    """
+    Single Accession # input
+    curl -X GET "http://localhost:5000/data/metadata/ADWR00000000"
+    """
+    data_ = sparql.get_all_accession([accession])
+    return Response.csvfile(data_)
+
+@data.route("/testmetadata", methods=['GET', 'POST'])
 def testmetadata():
     """
-        Query that returns all metadata for genomes with the following accession numbers.
+        Query that returns all metadata for genomes for supplied accession #s.
     """
-    Accession = ["ADWR00000000", "AQFH00000000", "AICG00000000", "AJLU00000000", "AJLU00000000", "AVZM00000000"]
-    #Find a way for the above dictionary to be created from a csv file or whatever format)
+    if request.method == 'POST':
+        #curl -X POST -d '["ADWR00000000", "AQFH00000000", "AICG00000000", "AJLU00000000", "AVZM00000000"]' "http://localhost:5000/data/testmetadata" -H "Content-type: application/json"
+        accessions = json.loads(request.data)
+    else:
+        #Sample data
+        accessions = ["ADWR00000000",
+                      "AQFH00000000",
+                      "AICG00000000",
+                      "AJLU00000000",
+                      "AVZM00000000"]
 
-    #return Makecsv.default(Response.default(sparql.get_all_accession(Accession)))
-    data_ = sparql.get_all_accession(Accession)
+    data_ = sparql.get_all_accession(accessions)
 
-    return Response.csvfile(data_) #returns json object
+    return Response.csvfile(data_)
 
 
 @data.route('/meta', methods=['GET'])
