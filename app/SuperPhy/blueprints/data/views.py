@@ -31,14 +31,21 @@ def metadata(accession):
     data_ = sparql.get_all_accession([accession])
     return Response.csvfile(data_)
 
-@data.route("/testmetadata", methods=['GET', 'POST'])
-def testmetadata():
+@data.route("/metadata", methods=['GET', 'POST'])
+def metadata_post():
     """
         Query that returns all metadata for genomes for supplied accession #s.
+
+        Example:
+
+            curl -X POST -d '["ADWR00000000", "AQFH00000000", "AICG00000000",
+                "AJLU00000000", "AVZM00000000"]' "http://localhost:5000/data/metadata"
+                -H "Content-type: application/json"
     """
+
     if request.method == 'POST':
-        #curl -X POST -d '["ADWR00000000", "AQFH00000000", "AICG00000000", "AJLU00000000", "AVZM00000000"]' "http://localhost:5000/data/testmetadata" -H "Content-type: application/json"
         accessions = json.loads(request.data)
+
     else:
         #Sample data
         accessions = ["ADWR00000000",
