@@ -32,6 +32,8 @@ python_package/uploader/outputs/errors.txt
 all.min.css
 superphy.min.js
 superphy.js
+superphy_bundle.js
+superphy_bundle.js.maps
 
 superphy/src/upload/ontology/setup.ttl
 

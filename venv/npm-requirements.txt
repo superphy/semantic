@@ -16,3 +16,4 @@ js2coffee@2.1.0
 less@2.5.3
 npm@3.7.3
 streamqueue@1.1.1
+browserify@13.1.0
