@@ -130,7 +130,7 @@ def uploading():
         genomes.add_metadata(dict(ordered_dict))
 
     return Response.default({"turtle":[item for item in genomes.data.serialize(format="turtle").split('\n') if item != ""]})
-
+'''
 class Uploader(object):
     """
     Class for moving fasta files and meta-data to blazegraph.
@@ -192,7 +192,7 @@ class Uploader(object):
         uploader.upload_data(output)
 
         return graph_to_json(graph)
-
+'''
 '''
 @upload.route('/', methods=['GET', 'POST'])
 def genome_example():
