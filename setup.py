@@ -24,7 +24,9 @@ def run(args):
         #Run Python server
         #Remember you don't want this running all the time. This is a
         #   security hazard if you allow port 5000 traffic.
-        subprocess.call("/usr/bin/python app/run.py", shell=True)
+
+        subprocess.call("export FLASK_APP=app.run.py", shell=True)
+        subprocess.call("venv/bin/flask run --host=0.0.0.0", shell=True)
 
 
 

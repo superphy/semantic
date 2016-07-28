@@ -14,7 +14,7 @@ execfile(activate_this, dict(__file__=activate_this))
 sys.path.insert(0,"/var/www/SuperPhy/")
 
 from SuperPhy import app as application
-application.secret_key = 'Add your secret key'
+#application.secret_key = 'Add your secret key'
 
 
-application.run(host='0.0.0.0', debug=True, use_reloader=False, port=5000)
+#application.run(host='0.0.0.0', debug=True, use_reloader=False, port=5000)

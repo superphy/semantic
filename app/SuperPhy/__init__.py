@@ -2,9 +2,9 @@
 import os
 from flask import Flask, render_template, jsonify
 
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.httpauth import HTTPBasicAuth
-from flask.ext.cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from flask_httpauth import HTTPBasicAuth
+from flask_cors import CORS
 
 db = SQLAlchemy()
 auth = HTTPBasicAuth()
