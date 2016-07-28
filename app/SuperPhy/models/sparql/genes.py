@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from SuperPhy.models.sparql.endpoint import Endpoint
-from SuperPhy.models.sparql.prefixes import prefixes
 
 ## Returns all genes
 def get_all_genes(type_="all"):
@@ -11,7 +10,15 @@ def get_all_genes(type_="all"):
     elif type_ == "amr":
         gene_type = "?Gene rdf:type :antimicrobial_resistance ."
 
-    query = prefixes + """
+    query = """
+    PREFIX  :      <https://github.com/superphy#>
+    PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX  owl:   <http://www.w3.org/2002/07/owl#>
+    PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX  gfvo:  <http://www.biointerchange.org/gfvo#>
+    PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
+    PREFIX  aro:   <http://purl.obolibrary.org/obo/aro.obo#>
+    PREFIX  vfo:   <https://github.com/superphy/vfo#>
     SELECT  ?Gene
     (GROUP_CONCAT (DISTINCT ?_Gene_Name ; separator=',\\n') AS ?Gene_Name)
     (GROUP_CONCAT (DISTINCT ?_Category ; separator=',\\n') AS ?Category)
@@ -35,7 +42,15 @@ def get_all_genes(type_="all"):
 
 ## Returns a certain gene
 def get_gene(name):
-    query = prefixes + """
+    query = """
+    PREFIX  :      <https://github.com/superphy#>
+    PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX  owl:   <http://www.w3.org/2002/07/owl#>
+    PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX  gfvo:  <http://www.biointerchange.org/gfvo#>
+    PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
+    PREFIX  aro:   <http://purl.obolibrary.org/obo/aro.obo#>
+    PREFIX  vfo:   <https://github.com/superphy/vfo#>
     SELECT  ?Gene
     (GROUP_CONCAT (DISTINCT ?_Gene_Name ; separator=',\\n') AS ?Gene_Name)
     (GROUP_CONCAT (DISTINCT ?_Accession ; separator=',\\n') AS ?Accession)
@@ -69,7 +84,15 @@ def get_gene(name):
 
 ## Returns the instances of a particular gene in a genome
 def find_regions(gene, genome):
-    query = prefixes + """
+    query = """
+    PREFIX  :      <https://github.com/superphy#>
+    PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX  owl:   <http://www.w3.org/2002/07/owl#>
+    PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX  gfvo:  <http://www.biointerchange.org/gfvo#>
+    PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
+    PREFIX  aro:   <http://purl.obolibrary.org/obo/aro.obo#>
+    PREFIX  vfo:   <https://github.com/superphy/vfo#>
     SELECT  ?Region 
     WHERE
       { 
@@ -91,7 +114,15 @@ def get_regions(genome_list, gene_list):
         genes = genes + ' "%s" ' % gene
     for genome in genome_list:
         genomes = genomes + ' :%s ' % genome
-    query = prefixes + """
+    query = """
+    PREFIX  :      <https://github.com/superphy#>
+    PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX  owl:   <http://www.w3.org/2002/07/owl#>
+    PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX  gfvo:  <http://www.biointerchange.org/gfvo#>
+    PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
+    PREFIX  aro:   <http://purl.obolibrary.org/obo/aro.obo#>
+    PREFIX  vfo:   <https://github.com/superphy/vfo#>
     SELECT ?Region ?Gene_Name ?Genome
     WHERE
       {
@@ -111,7 +142,16 @@ def get_regions(genome_list, gene_list):
     return Endpoint.query(query)
 
 def get_categories(type_):
-    query = prefixes
+    query = """
+    PREFIX  :      <https://github.com/superphy#>
+    PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX  owl:   <http://www.w3.org/2002/07/owl#>
+    PREFIX  rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX  gfvo:  <http://www.biointerchange.org/gfvo#>
+    PREFIX  faldo: <http://biohackathon.org/resource/faldo#>
+    PREFIX  aro:   <http://purl.obolibrary.org/obo/aro.obo#>
+    PREFIX  vfo:   <https://github.com/superphy/vfo#>
+    """
     if type_ == "vf":
         query += """
         SELECT ?Category ?Subcategory
