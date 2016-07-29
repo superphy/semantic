@@ -25,7 +25,12 @@ def run(args):
         #Remember you don't want this running all the time. This is a
         #   security hazard if you allow port 5000 traffic.
 
-        subprocess.call("export FLASK_APP=app.run.py", shell=True)
+        os.environ['FLASK_APP'] = "app/run.py"
+
+        #Activate the debugger; Activate the automatic reloader;
+        #Enable the debug mode on the Flask application.
+        os.environ['FLASK_DEBUG'] = 1
+
         subprocess.call("venv/bin/flask run --host=0.0.0.0", shell=True)
 
 

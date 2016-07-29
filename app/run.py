@@ -4,6 +4,8 @@ import sys
 import logging
 import subprocess
 
+#After migrating to 0.11, I am not sure this is even nessesary. `flask run app/SuperPhy` ?
+
 activate_this = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'venv/bin/activate_this.py')
 execfile(activate_this, dict(__file__=activate_this))
 
