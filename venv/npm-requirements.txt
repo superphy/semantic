@@ -16,6 +16,7 @@ gutil@1.6.4
 jasmine@2.3.2
 js2coffee@2.1.0
 less@2.5.3
+mithril@0.2.5
 streamqueue@1.1.1
 vinyl-buffer@1.0.0
 vinyl-source-stream@1.1.0
