@@ -31,7 +31,7 @@ var ordering = [
 
 var config = {
     coffee: {
-        src: 'CoffeeScript/delete_later.coffee',       // Entry point
+        src: 'CoffeeScript/superphy.coffee',       // Entry point
         outputDir: './js/',  // Directory to save bundle to
         mapDir: './maps/',      // Subdirectory to save maps to
         outputFile: 'superphy_bundle.js' // Name to use for bundle
