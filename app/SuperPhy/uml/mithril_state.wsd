@@ -1,0 +1,27 @@
+@startuml
+
+title Mithril control flow
+
+[*] -down-> BuildPage
+BuildPage : Component constructors defined in route() setup get called
+BuildPage : - component constructors return controllers
+BuildPage : - controllers store view state data and provide methods that\nmodify or expose parts of the view state to the view methods
+
+BuildPage -down-> UpdatePage
+UpdatePage : Component view methods automatically called
+UpdatePage : - view methods makes changes to virtual DOM based on current view state and models
+UpdatePage : - constructors passed automatically as argument to view method
+UpdatePage : - view methods bidirectionally bind controller view state data or link controller methods to DOM elements
+UpdatePage : - mithrils autodraw function determines differences between virtual and actual DOM
+UpdatePage : - mithril renders only the things that have changed in DOM
+
+UpdatePage -right-> Event
+Event : Mithril registers event like click, select etc.
+Event : - mithril updates bound view state data linked to DOM elements that have triggered event
+Event : - mithril calls controller functions linked to DOM elements that have triggered event
+Event : - mithril calls view methods for all components
+
+Event -left-> UpdatePage
+UpdatePage -down-> [*]
+
+@enduml
