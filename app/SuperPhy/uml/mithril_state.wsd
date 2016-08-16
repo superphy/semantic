@@ -16,7 +16,7 @@ UpdatePage : - mithrils autodraw function determines differences between virtual
 UpdatePage : - mithril renders only the things that have changed in DOM
 
 UpdatePage -right-> Event
-Event : Mithril registers event like click, select etc.
+Event : Mithril registers any events like click, select etc defined in m() interface.
 Event : - mithril updates bound view state data linked to DOM elements that have triggered event
 Event : - mithril calls controller functions linked to DOM elements that have triggered event
 Event : - mithril calls view methods for all components

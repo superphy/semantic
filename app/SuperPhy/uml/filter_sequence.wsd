@@ -1,0 +1,13 @@
+@startuml
+
+title Genome Filtering Sequence
+
+MetadataFilterControl -> Server: validateFilter()
+Server --> MetadataFilterControl: genome_set_id
+MetadataFilterControl -> GenomeWidget: updateGenomeSet(genome_set_id)
+GenomeWidget -> GenomeModel: updateGenomeSet(genome_set_id)
+GenomeModel -> Server: getGenomes(genome_set_id)
+Server --> GenomeModel: genomes
+GenomeModel --> GenomeWidget: success
+
+@enduml

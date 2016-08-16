@@ -1,0 +1,119 @@
+@startuml
+
+title GenomeWidget Class UML
+
+class GenomeWidget {
+	+ genome_dataset_id : String
+	+ updateMeta() // Callback
+	+ updateGenomeDataset() // Callback
+}
+
+DisplayGenomeWidget -up-|> GenomeWidget
+
+class SelectionGenomeWidget {
+	+ updateSelection() // Callback
+}
+
+SelectionGenomeWidget --|> GenomeWidget
+DisplayGenomeWidget -[hidden]> SelectionGenomeWidget
+
+class GroupVM {
+	+ submit()
+	+ add()
+	+ remove()
+	+ reset()
+}
+GroupVM --o SelectionGenomeWidget
+
+class Group {
+	
+}
+Group --o DisplayGenomeWidget
+Group -[hidden]> GroupVM
+
+
+abstract GenomeComponents {
+	+ setVisibleMeta()
+}
+GenomeComponents --o GenomeWidget
+
+abstract GroupComponents {
+	+ setVisibleMeta()
+}
+GroupComponents --o GenomeWidget
+
+abstract GenomeModels {
+	+ genome_dataset_id : String
+	+ getGenomes()
+	+ updateGenomeDataset()
+}
+GenomeModels --o GenomeWidget
+
+abstract GroupModels {
+	+ genome_dataset_id : String
+	+ category : String
+	+ name : String
+	+ getGenomes()
+	+ updateGenomeDataset()
+}
+GroupModels <|-- GroupVM
+GroupModels <|-- Group
+GroupModels -[hidden]> GenomeModels
+
+
+
+class MetadataVM {
+	+ host : bool
+	+ source : bool
+	+ syndrome : bool
+	+ serotype : bool
+	+ date : bool
+	+ strain : bool
+	+ accession : bool
+	+ stx1_subtype : bool
+	+ stx2_subtype : bool
+}
+MetadataVM o-- GenomeWidget
+
+
+class FilterVM {
+
+}
+FilterVM o-- GenomeWidget
+
+class SetString {
+	+ encode()
+	+ stringify()
+}
+SetString --o FilterVM
+
+abstract SetToken {
+
+}
+SetToken --o SetString
+
+class SetOperator {
+	+ operator : String
+}
+SetOperator --|> SetToken
+
+class Set {
+	+ category : String
+	+ value : String
+}
+Set --|> SetToken
+
+
+
+
+MetadataDisplayControl -up-* GenomeWidget
+MetadataDisplayControl --o MetadataVM
+
+class MetadataFilterControl {
+	- validateFilter()
+}
+MetadataFilterControl --* GenomeWidget
+MetadataFilterControl --o FilterVM
+
+
+@enduml
