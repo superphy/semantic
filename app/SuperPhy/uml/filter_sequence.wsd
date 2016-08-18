@@ -1,13 +1,21 @@
 @startuml
 
-title Genome Filtering Sequence
+title Apply Genome Filter
 
 MetadataFilterControl -> Server: validateFilter()
 Server --> MetadataFilterControl: genome_set_id
 MetadataFilterControl -> GenomeWidget: updateGenomeSet(genome_set_id)
-GenomeWidget -> GenomeModel: updateGenomeSet(genome_set_id)
-GenomeModel -> Server: getGenomes(genome_set_id)
-Server --> GenomeModel: genomes
-GenomeModel --> GenomeWidget: success
+GenomeWidget -> GroupModels: updateGenomeSet(genome_set_id)
+GroupModels -> GroupModel: getGroup(genome_set_id)
+GroupModel --> GroupModels: GroupModel
+GroupModels --> GenomeWidget: GroupModels
+par
+GenomeWidget -> GenomeVizControllers: trigger("genomeSetUpdate", this)
+GenomeVizControllers -> GenomeViz: genomeSetUpdate()
+GenomeWidget -> GroupVizControllers: trigger("genomeSetUpdate", this)
+GroupVizControllers -> GroupViz: genomeSetUpdate()
+end
+
+
 
 @enduml

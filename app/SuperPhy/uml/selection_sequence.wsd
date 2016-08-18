@@ -1,0 +1,17 @@
+@startuml
+
+title Update Selected Genome Group
+
+GenomeViz -> GenomeWidget: updateSelection(add_or_remove, genome)
+GenomeWidget -> GroupModels: add(genome_id, genome)
+GroupModels -> GroupModel: add(genome)
+GroupModel --> GroupModels: GroupModel
+GroupModels --> GenomeWidget: GroupModels
+par
+GenomeWidget -> GenomeVizController: trigger('selectionUpdate', this)
+GenomeVizController -> GenomeViz: selectionUpdate()
+GenomeWidget -> GroupVizController: trigger('selectionUpdate', this)
+GroupVizController -> GroupViz: selectionUpdate()
+end
+
+@enduml

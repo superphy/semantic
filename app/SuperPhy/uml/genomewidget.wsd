@@ -2,67 +2,102 @@
 
 title GenomeWidget Class UML
 
-class GenomeWidget {
-	+ genome_dataset_id : String
-	+ updateMeta() // Callback
-	+ updateGenomeDataset() // Callback
+interface Page {
+	+ view()
 }
 
-DisplayGenomeWidget -up-|> GenomeWidget
+class GenomeWidget {
+	~ genome_dataset_id : String
+	~ groupModels : GroupModels
+	~ metadataVM : MetadataVM
+	- genomeVizControllers : GenomeVizControllers
+	- groupVizControllers : GroupVizControllers
+	~ updateMeta() // Callback
+	~ updateGenomeDataset() // Callback
+	+ view()
+	+ {abstract} controller()
+}
+GenomeWidget "0..1" <--o "1" Page
+
+class DisplayGenomeWidget {
+	+ controller( Int[] group_ids, String[] genomeVizClasses, String[] groupVizClasses )
+}
+DisplayGenomeWidget -|> GenomeWidget
 
 class SelectionGenomeWidget {
+	+ controller( String[] genomeVizClasses, String[] groupVizClasses )
 	+ updateSelection() // Callback
 }
-
 SelectionGenomeWidget --|> GenomeWidget
 DisplayGenomeWidget -[hidden]> SelectionGenomeWidget
 
-class GroupVM {
-	+ submit()
-	+ add()
-	+ remove()
-	+ reset()
+interface Observable {
+	- controllers
+	- channels : String[]
+	+ register(String class, Object widget)
+	+ trigger(String channel, Object widget)
 }
-GroupVM --o SelectionGenomeWidget
 
-class Group {
-	
+class GenomeVizControllers {
+	- controllers : GenomeViz[]
+	- channels=[metaUpdate|genomeDatasetUpdate|selectionUpdate]
+	+ GenomeViz register(String genomeVizClass, Object widget)
+	+ trigger(String channel, Object widget)
 }
-Group --o DisplayGenomeWidget
-Group -[hidden]> GroupVM
+GenomeVizControllers --|> Observable
+GenomeVizControllers "1" <--* "1" GenomeWidget
 
-
-abstract GenomeComponents {
-	+ setVisibleMeta()
+abstract GenomeViz {
+	+ genomeModel : GenomeModel
+	+ metaUpdate()
+	+ genomeDatasetUpdate()
+	+ selectionUpdate()
+	+ view()
+	+ controller()
 }
-GenomeComponents --o GenomeWidget
+GenomeViz "0..*" <--o "1" GenomeVizControllers
 
-abstract GroupComponents {
-	+ setVisibleMeta()
+
+class GroupVizControllers {
+	- controllers : GenomeViz[]
+	+ GenomeViz register(String groupVizClass, Object widget)
+	+ trigger(String channel=[metaUpdate|genomeDatasetUpdate|selectionUpdate], Object widget)
 }
-GroupComponents --o GenomeWidget
+GroupVizControllers --|> Observable
+GroupVizControllers "1" <--* "1" GenomeWidget
 
-abstract GenomeModels {
-	+ genome_dataset_id : String
-	+ getGenomes()
-	+ updateGenomeDataset()
+abstract GroupViz {
+	+ groupModel : GroupModel
+	+ metaUpdate()
+	+ genomeDatasetUpdate()
+	+ selectionUpdate()
+	+ view()
+	+ controller()
 }
-GenomeModels --o GenomeWidget
+GroupViz "0..*" <--o "1" GroupVizControllers
 
-abstract GroupModels {
-	+ genome_dataset_id : String
+class GroupModels {
+	- models: GroupModel
+	- GroupModel register(Int group_id, Object widget)
+	- add(Int group_id, Object genome)
+	- remove(Int group_id, Object genome)
+	- submit(Int group_id)
+	- updateGenomeDataset(Int genome_dataset_id)
+}
+GroupModels "1" <--* "1" GenomeWidget 
+
+class GroupModel {
 	+ category : String
 	+ name : String
-	+ getGenomes()
-	+ updateGenomeDataset()
+	+ add(Object genome)
+	+ remove(Object genome)
+	+ submit()
+	+ getGroup()
 }
-GroupModels <|-- GroupVM
-GroupModels <|-- Group
-GroupModels -[hidden]> GenomeModels
+GroupModel "0..*" <--o "1" GroupModels
 
 
-
-class MetadataVM {
+class MetadataModel {
 	+ host : bool
 	+ source : bool
 	+ syndrome : bool
@@ -73,24 +108,23 @@ class MetadataVM {
 	+ stx1_subtype : bool
 	+ stx2_subtype : bool
 }
-MetadataVM o-- GenomeWidget
+MetadataModel "1" o--> "1" GenomeWidget
 
-
-class FilterVM {
-
+class FilterModel {
+	
 }
-FilterVM o-- GenomeWidget
+FilterModel "1" o--> "1" GenomeWidget
 
 class SetString {
 	+ encode()
 	+ stringify()
 }
-SetString --o FilterVM
+SetString "0..1" <--o "1" FilterModel
 
 abstract SetToken {
 
 }
-SetToken --o SetString
+SetToken "1..*" <--o "1" SetString
 
 class SetOperator {
 	+ operator : String
@@ -103,17 +137,16 @@ class Set {
 }
 Set --|> SetToken
 
-
-
-
-MetadataDisplayControl -up-* GenomeWidget
-MetadataDisplayControl --o MetadataVM
+MetadataDisplayControl "1" <--* "1" GenomeWidget
+MetadataDisplayControl "1" <--o "1" MetadataModel
 
 class MetadataFilterControl {
 	- validateFilter()
 }
-MetadataFilterControl --* GenomeWidget
-MetadataFilterControl --o FilterVM
+MetadataFilterControl "1" <--* "1" GenomeWidget
+MetadataFilterControl "1" <--o "1" FilterModel
+
+
 
 
 @enduml

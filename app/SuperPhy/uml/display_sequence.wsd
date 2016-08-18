@@ -1,0 +1,13 @@
+@startuml
+
+title Update Displayed Genome Metadata
+
+MetadataDisplayControl -> GenomeWidget: updateMeta(metaVM)
+par
+GenomeWidget -> GenomeVizControllers: trigger("metaUpdate", this)
+GenomeVizControllers -> GenomeViz: metaUpdate()
+GenomeWidget -> GroupVizControllers: trigger("metaUpdate", this)
+GroupVizControllers -> GroupViz: metaUpdate()
+end
+
+@enduml
