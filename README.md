@@ -7,7 +7,7 @@ SuperPhy for the semantic web
     * sudo apt-get install apache2 curl git libapache2-mod-wsgi libyajl2 MUMmer muscle python-dev python-virtualenv wget xvfb -y
     * git clone https://github.com/superphy/semantic.git ~/superphy
     * cd ~/superphy
-    * python run.py install --sys
+    * python setup.py install --sys
     * //Navigate to localhost:5000, and verify the page loads, go back to the terminal and hit ctrl-c
     * //Navigate to localhost, and verify the apache-mod_wsgi server is running.
 
