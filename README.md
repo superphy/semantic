@@ -8,6 +8,13 @@ SuperPhy for the semantic web
     * git clone https://github.com/superphy/semantic.git ~/superphy
     * cd ~/superphy
     * python setup.py install --sys
+    *
+    * //to start blazegraph
+    * python setup.py run
+    *
+    * cd app/
+    * //to start superphy webapp
+    * python run.py
     * //Navigate to localhost:5000, and verify the page loads, go back to the terminal and hit ctrl-c
     * //Navigate to localhost, and verify the apache-mod_wsgi server is running.
 
@@ -34,8 +41,7 @@ Like react, it provides a virtual DOM, and only re-draws what has changed.
 A standalone Blazegraph `.jar` file can be found at [Blazegraph Download](www.blazegraph.com/download/)
 
 ## Adding real genomic data to the Blazegraph triplestore
-The Java Heap Size will need to be changed (probably) for datasets of our size -- even loading the basic GO owl file required this. To do so, locate the base tomcat directory. On Debian it is /usr/share/tomcat8/bin/ (there should be a startup.sh file in this directory). The catalina.sh file is the one invoked for Tomcat startup -- in it, it describes the following: create a new file in the same directory as catalina.sh called setenv.sh and specify the environment parameters in it. eg:
-    export JAVA_OPTS="-Xmx4g"
+The Java Heap Size will need to be changed (probably) for datasets of our size -- even loading the basic GO owl file required this. 
 This will give blazegraph a 4GB heap space, which should be enough.
 
 The OWL file for the Genomic Feature and Variation Ontology (GFVO) An ontology for describing genomic features and variants; in particular the contents of GFF3, GTF, GVF and VCF files, should be obatined from: (https://raw.github.com/BioInterchange/Ontologies/master/gfvo.xml) and installed
