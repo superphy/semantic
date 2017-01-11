@@ -47,12 +47,12 @@ This will give blazegraph a 4GB heap space, which should be enough.
 The OWL file for the Genomic Feature and Variation Ontology (GFVO) An ontology for describing genomic features and variants; in particular the contents of GFF3, GTF, GVF and VCF files, should be obatined from: (https://raw.github.com/BioInterchange/Ontologies/master/gfvo.xml) and installed
 
 
-    curl -X POST -H 'Content-Type:application/rdf+xml' --data-binary '@gfvo.xml' http://localhost:8080/blazegraph/namespace/superphy/sparql
+    curl -X POST -H 'Content-Type:application/rdf+xml' --data-binary '@gfvo.xml' http://localhost:9000/blazegraph/namespace/superphy/sparql
 
 GO ontology for genes in OWL (http://geneontology.org/page/download-ontology). 10 tips for using GO (www.ploscompbiol.org/article/info:doi/10.1371/journal.pcbi.1003343#s2). The latest version includes the ~900 PAMGO (http://pamgo.vbi.vt.edu/) terms for virulence
 
 
-    curl -X POST -H 'Content-Type:application/rdf+xml' --data-binary '@go.owl' http://localhost:8080/blazegraph/namespace/superphy/sparql
+    curl -X POST -H 'Content-Type:application/rdf+xml' --data-binary '@go.owl' http://localhost:9000/blazegraph/namespace/superphy/sparql
 
 This takes a few minutes (Modified: 1349345 Milliseconds: 926484)
 
