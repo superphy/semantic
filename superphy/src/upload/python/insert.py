@@ -12,10 +12,14 @@ if __name__ == "__main__":
 
     #setting up graph
     graph = Graph()
-    superphy = 'https://github.com/superphy#'
-    g = Namespace("http://www.biointerchange.org/gfvo#")
-    so = 'http://purl.obolibrary.org/obo/SO_'
-    ge = 'http://purl.obolibrary.org/obo/GENEPIO_'
+    superphy = Namespace('https://www.github.com/superphy#')
+    g = Namespace('http://www.biointerchange.org/gfvo#')
+    so = Namespace('http://purl.obolibrary.org/obo/SO_')
+    ge = Namespace('http://purl.obolibrary.org/obo/GENEPIO_')
+    graph.bind('so', so)
+    graph.bind('ge', ge)
+    graph.bind('g', g)
+    graph.bind(':', superphy)
 
     #parsing cli-input
     parser = argparse.ArgumentParser()
@@ -34,19 +38,19 @@ if __name__ == "__main__":
 
         #creating :id1
         #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)
-        graph.add((URIRef(superphy + "idEcoli" + species), g.Name, Literal(accession_id[0:4])))
-        graph.add((URIRef(superphy + "idEcoli" + species), URIRef(ge + '0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+        graph.add((superphy["idEcoli" + species], g.Name, Literal(accession_id[0:4])))
+        graph.add((superphy["idEcoli" + species], ge['0001567'], Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
 
         #creating :genomeID1
         #this is repetitive for the same assembly
-        graph.add((URIRef(superphy + "idEcoli" + species), g.Genome, URIRef(superphy + "genomeID" + assembly)))
+        graph.add((superphy["idEcoli" + species], g.Genome, superphy["genomeID" + assembly]))
 
         #no longer using blank node, instead uri
-        graph.add((URIRef(superphy + "genomeID" + assembly), URIRef(so + '0001462'), URIRef(superphy + "genomeID" + assembly + "contigs")))
+        graph.add((superphy["genomeID" + assembly], so['0001462'], superphy["genomeID" + assembly + "/contigs"]))
 
         #creating :genomeID1/contigID1
-        graph.add((URIRef(superphy + "genomeID" + assembly + "contigs"), g.Contig, URIRef(superphy + "genomeID" + assembly + '/contigID' + contig)))
-        graph.add((URIRef(superphy + "genomeID" + assembly + '/contigID' + contig), g.DNASequence, Literal(record.seq)))
+        graph.add((superphy["genomeID" + assembly + "contigs"], g.Contig, superphy["genomeID" + assembly + '/contigID' + contig]))
+        graph.add((superphy["genomeID" + assembly + '/contigID' + contig], g.DNASequence, Literal(record.seq)))
 
     print("Writing out...")
-    graph.serialize(destination='outputs/newFormat.txt', format='turtle')
+    graph.serialize(destination='outputs/newFormat.ttl', format='turtle')
