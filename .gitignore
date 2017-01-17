@@ -51,3 +51,7 @@ superphy/src/app/mithril/css/*
 **/bower_components/*
 superphy/src/app/mithril/js/mithril.js
 superphy/posted_files/*
+
+#oversize ontologies
+superphy/src/upload/ontology/go.owl
+superphy/src/upload/ontology/ncbitaxon.owl
