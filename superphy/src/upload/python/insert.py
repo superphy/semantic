@@ -19,7 +19,7 @@ if __name__ == "__main__":
     graph.bind('so', so)
     graph.bind('ge', ge)
     graph.bind('g', g)
-    graph.bind(':', superphy)
+    graph.bind('', superphy)
 
     #parsing cli-input
     parser = argparse.ArgumentParser()
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         graph.add((superphy["genomeID" + assembly], so['0001462'], superphy["genomeID" + assembly + "/contigs"]))
 
         #creating :genomeID1/contigID1
-        graph.add((superphy["genomeID" + assembly + "contigs"], g.Contig, superphy["genomeID" + assembly + '/contigID' + contig]))
+        graph.add((superphy["genomeID" + assembly + "/contigs"], g.Contig, superphy["genomeID" + assembly + '/contigID' + contig]))
         graph.add((superphy["genomeID" + assembly + '/contigID' + contig], g.DNASequence, Literal(record.seq)))
 
     print("Writing out...")
