@@ -10,15 +10,6 @@ import inspect
 import os
 import string
 
-__author__ = "Stephen Kan"
-__copyright__ = """© Copyright Government of Canada 2012-2015. Funded by the
-    Government of Canada Genomics Research and Development Initiative
-    """
-__license__ = "ASL"
-__version__ = "2.0"
-__maintainer__ = "Stephen Kan"
-__email__ = "stebokan@gmail.com"
-
 def generate_path(filename):
     """
     Generates the absolute filepath based on the location of the caller of this
@@ -75,7 +66,6 @@ def generate_output(graph):
     """
 
     output = graph.serialize(format="turtle")
-    graph.remove((None, None, None))
     return output
 
 def generate_file_output(graph, destination):
@@ -89,4 +79,26 @@ def generate_file_output(graph, destination):
     """
 
     graph.serialize(destination=destination, format="turtle")
-    graph.remove((None, None, None))
+
+def parse_nih_name(nih_name):
+    """
+    Parses a String of a nih name (eg. record.description after Bio.SeqIO.parse)
+    and returns a dictionary of the substrings we're interesting FOR creating
+    uriSpecies
+
+    Args:
+        nih_name (str): a record.description
+        ex. gi|427200135|gb|ANLJ01000508.1| Escherichia coli 89.0511 gec890511.contig.603_1, whole genome shotgun sequence
+    Returns:
+        (dict) with keys: accession_id, species, assembly, contig
+        ex. {'accession_id': 'ANLJ01000508', 'contig': '000508', 'assembly': 'ANLJ01', 'species': '89.0511'}
+
+    TODO:
+        -add code to parse other nih naming conventions
+        -what happens when no species name??
+    """
+    d = {'accession_id' : nih_name.split("|")[3].split(".")[0]}
+    d['species'] = nih_name.split("|")[4].split(" ")[3]
+    d['assembly'] = d['accession_id'][0:6]
+    d['contig'] = d['accession_id'][6:12]
+    return d
