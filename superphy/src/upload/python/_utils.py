@@ -80,14 +80,14 @@ def generate_file_output(graph, destination):
 
     graph.serialize(destination=destination, format="turtle")
 
-def parse_nih_name(nih_name):
+def parse_nih_name(description):
     """
     Parses a String of a nih name (eg. record.description after Bio.SeqIO.parse)
     and returns a dictionary of the substrings we're interesting FOR creating
     uriSpecies
 
     Args:
-        nih_name (str): a record.description
+        description (str): a record.description
         ex. gi|427200135|gb|ANLJ01000508.1| Escherichia coli 89.0511 gec890511.contig.603_1, whole genome shotgun sequence
     Returns:
         (dict) with keys: accession_id, species, assembly, contig
@@ -97,8 +97,23 @@ def parse_nih_name(nih_name):
         -add code to parse other nih naming conventions
         -what happens when no species name??
     """
-    d = {'accession_id' : nih_name.split("|")[3].split(".")[0]}
-    d['species'] = nih_name.split("|")[4].split(" ")[3]
-    d['assembly'] = d['accession_id'][0:6]
-    d['contig'] = d['accession_id'][6:12]
-    return d
+
+    identifiers = {'accession_id' : description.split("|")[3].split(".")[0]}
+    identifiers['species'] = description.split("|")[4].split(" ")[3]
+    identifiers['assembly'] = identifiers['accession_id'][0:6]
+    identifiers['contig'] = identifiers['accession_id'][6:12]
+    return identifiers
+
+def generate_uri(uri):
+
+    from rdflib import Namespace, URIRef, Literal
+    from ConfigParser import SafeConfigParser
+
+    parser = SafeConfigParser()
+    parser.read('defaults.cfg')
+    prefix = uri.split(':')[0]
+    postfix = uri.split(':')[1]
+    if prefix == '':
+        return URIRef(parser.get('Namespaces', 'root') + postfix)
+    else:
+        return URIRef(parser.get('Namespaces', prefix) + postfix)

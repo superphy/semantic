@@ -5,7 +5,8 @@
 
 #importing Stephen's work for uploading to blazegraph
 from blazegraph_upload import BlazegraphUploader
-from _utils import generate_output, parse_nih_name
+from _utils import generate_output, parse_nih_name, generate_uri
+gu = generate_uri
 
 if __name__ == "__main__":
 
@@ -35,9 +36,9 @@ if __name__ == "__main__":
 
     print("Importing FASTA from: " + args.i)
     for record in SeqIO.parse(open(args.i), "fasta"):
-        accession_id = record.id.split("|")[3].split(".")[0]
         identifiers = parse_nih_name(record.description)
-        print d
+        print generate_uri(':gfvo')
+        accession_id = record.id.split("|")[3].split(".")[0]
         species = record.description.split("|")[4].split(" ")[3]
         assembly = accession_id[0:6]
         contig = accession_id[6:12]
@@ -46,7 +47,9 @@ if __name__ == "__main__":
         #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)
         uriSpecies = superphy["idEcoli" + species]
         graph.add((uriSpecies, g.Name, Literal(accession_id[0:4])))
-        graph.add((uriSpecies, ge['0001567'], Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+        graph.add((uriSpecies, generate_uri('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+        #graph.add((uriSpecies, ge['0001567'], Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+        print gu('ge:0001567')
 
         #creating :genomeID1
         #this is repetitive for the same assembly
