@@ -6,7 +6,7 @@
 #importing Stephen's work for uploading to blazegraph
 from blazegraph_upload import BlazegraphUploader
 from _utils import generate_output, parse_nih_name, generate_uri
-gu = generate_uri
+gu = generate_uri #shorthand to make it easier to code
 
 if __name__ == "__main__":
 
@@ -37,11 +37,12 @@ if __name__ == "__main__":
     print("Importing FASTA from: " + args.i)
     for record in SeqIO.parse(open(args.i), "fasta"):
         identifiers = parse_nih_name(record.description)
-        print generate_uri(':gfvo')
         accession_id = record.id.split("|")[3].split(".")[0]
         species = record.description.split("|")[4].split(" ")[3]
         assembly = accession_id[0:6]
         contig = accession_id[6:12]
+
+        gu()
 
         #creating :id1
         #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)

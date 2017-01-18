@@ -105,6 +105,15 @@ def parse_nih_name(description):
     return identifiers
 
 def generate_uri(uri):
+    """
+    Takes a string as one would define for .ttl files and returns a URI for rdflib.
+
+    Args:
+        uri (str): a string following .ttl convention for a URI
+        ex. g:Identifier as shorthand for http://www.biointerchange.org/gfvo#Identifier
+    Returns:
+        (rdflib.URIRef) with URI needed to add to rdflib.Graph
+    """
 
     from rdflib import Namespace, URIRef, Literal
     from ConfigParser import SafeConfigParser
