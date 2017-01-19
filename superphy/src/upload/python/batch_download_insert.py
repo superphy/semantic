@@ -23,11 +23,16 @@ def downloadFasta_to_insert(url):
     from time import sleep
 
     print 'working on ' + url
-    try:
-        r = download_fasta(url)
-    except:
-        sleep(300)
-        continue
+
+    i = 0
+
+    while i < 3:
+        try:
+            r = download_fasta(url)
+        except:
+            sleep(300)
+            i += 1
+            continue
 
     print 'done downloading, file at ' + r
     print 'now generating .ttl'
