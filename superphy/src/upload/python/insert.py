@@ -3,8 +3,6 @@
 
 #use: python insert.py -i samples/ANLJ01.1.fsa_nt
 
-#importing Stephen's work for uploading to blazegraph
-from blazegraph_upload import BlazegraphUploader
 from _utils import generate_output, parse_nih_name, generate_uri, upload_data
 gu = generate_uri #shorthand to make it easier to code
 
