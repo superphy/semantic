@@ -11,6 +11,7 @@ gu = generate_uri #shorthand to make it easier to code
 if __name__ == "__main__":
 
     import argparse
+    import os #for batch cleanup
 
     from Bio import SeqIO
     from rdflib import Namespace, BNode, Graph, URIRef, Literal
@@ -36,10 +37,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print("Importing FASTA from: " + args.i)
-
-    ##### will have to wrap entire thing for multiple files
-
-
+    
     #we do this outside of record as we want same uri for all isolates
     #todo: add some check if same fasta files represents same isolate
     #grabs current id #
@@ -74,13 +72,15 @@ if __name__ == "__main__":
         graph.add((uriContigs, g.Contig, uriContig))
         graph.add((uriContig, g.DNASequence, Literal(record.seq)))
 
+    '''
     #for testing
     print("Writing out...")
     #we use the i value for when we're testing batches
     graph.serialize(destination='outputs/newFormat' + str(i) + '.ttl', format='turtle')
+    '''
 
     print("Uploading to Blazegraph")
     print BlazegraphUploader().upload_data(generate_output(graph))
     print 'uploaded wooot!'
 
-    #####will have to wrap entire thing for multiple files
+    os.remove(args.i)
