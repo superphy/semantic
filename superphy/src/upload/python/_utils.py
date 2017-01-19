@@ -97,9 +97,12 @@ def parse_nih_name(description):
         -add code to parse other nih naming conventions
         -what happens when no species name??
     """
-
-    identifiers = {'accession_id' : description.split("|")[3].split(".")[0]}
-    identifiers['species'] = description.split("|")[4].split(" ")[3]
+    if '|' in description: #of format: >gi|427220012|gb|ANLJ01000001.1| Escherichia coli 89.0511 gec890511.contig.0_1, whole genome shotgun sequence
+        identifiers = {'accession_id' : description.split("|")[3].split(".")[0]}
+        identifiers['species'] = description.split("|")[4].split(" ")[3]
+    else: #assuming: >AJMD01000001.1 Escherichia coli NCCP15658 NCCP15658_contig01, whole genome shotgun sequence
+        identifiers = {'accession_id' : description.split(" ")[0]}
+        identifiers['species'] = description.split('coli ')[1].split(' ')[0]
     identifiers['assembly'] = identifiers['accession_id'][0:6]
     identifiers['contig'] = identifiers['accession_id'][6:12]
     return identifiers
@@ -123,7 +126,7 @@ def generate_uri(uri, s=''):
         return URIRef(str(uri) + s)
 
     parser = SafeConfigParser()
-    parser.read('defaults.cfg')
+    parser.read('config.cfg')
     prefix = uri.split(':')[0]
     postfix = uri.split(':')[1]
     if prefix == '': #this is our : case
@@ -133,11 +136,13 @@ def generate_uri(uri, s=''):
 
 def from_nuccore(accession):
     """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
-    using Entrez EUtils. If there
-    is nothing found for the sequence, raise a ValueError.
+    using Entrez EUtils. If found writes it the tmp/ folder and turns the path of the file.
+    If there is nothing found for the sequence, raise a ValueError.
 
     Args:
         accession (str): genbank accession id
+    Returns:
+        (str) containing the path of the downloaded *.fasta file
     """
 
     from Bio import Entrez, SeqIO
@@ -154,8 +159,9 @@ def from_nuccore(accession):
                 rettype="fasta",
                 retmode="text"
             )
-            SeqIO.write(handle, 'tmp/' + accession + '.fasta', 'fasta')
-            return 'tmp/' + accession + '.fasta'
+            if not handle is None:
+                SeqIO.write(handle, 'tmp/' + accession + '.fasta', 'fasta')
+                return 'tmp/' + accession + '.fasta'
         except:
             i += 1
             continue
@@ -163,3 +169,33 @@ def from_nuccore(accession):
         handle is None
     except NameError:
         raise TypeError("Could not retrieve file for analysis")
+
+def download_fasta(url):
+    """Downloads the gzip file with the correct id and filetype and unzips
+    it and transfers its contents into a temporary FASTA file for further
+    processing. Removes the gzipped file.
+
+    Args:
+        url(str): the full url for the file
+        ex. ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA_900148645.1_Hp_23-13_05/GCA_900148645.1_Hp_23-13_05_genomic.fna.gz
+    Return:
+        (str): Path of the unzipped .fasta file
+    """
+    import gzip, os
+    import time
+
+    from urllib import urlretrieve
+
+    time.sleep(1) #so it doesn't boot us off
+
+    filename = 'tmp/' + url.split('/')[-1]
+    print 'filename is ' + filename
+    urlretrieve(url, filename)
+
+    with gzip.open(filename) as fasta, \
+        open(filename.strip('.gz'), 'wb') as output:
+        output.write(fasta.read())
+        print 'wrote file!'
+    os.remove(filename)
+
+    return filename.strip('.gz')

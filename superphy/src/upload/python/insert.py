@@ -44,14 +44,14 @@ if __name__ == "__main__":
     #todo: add some check if same fasta files represents same isolate
     #grabs current id #
     parser = SafeConfigParser()
-    parser.read('defaults.cfg')
+    parser.read('config.cfg')
     i = parser.getint('Database', 'id_tracking')
     #creating :id1
     #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)
     uriIsolate = gu(':spfy' + str(i))
     i += 1
     parser.set('Database', 'id_tracking', str(i)) #saves the id so we don't overlap
-    with open(r'defaults.cfg', 'wb') as configfile:
+    with open(r'config.cfg', 'wb') as configfile:
         parser.write(configfile)
 
     for record in SeqIO.parse(open(args.i), "fasta"):
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     #for testing
     print("Writing out...")
     #we use the i value for when we're testing batches
-    graph.serialize(destination='outputs/newFormat' + i '.ttl', format='turtle')
+    graph.serialize(destination='outputs/newFormat' + str(i) + '.ttl', format='turtle')
 
     print("Uploading to Blazegraph")
     print BlazegraphUploader().upload_data(generate_output(graph))
