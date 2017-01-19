@@ -31,7 +31,7 @@ def downloadFasta_to_insert(url):
             r = download_fasta(url)
             i = 4
         except:
-            sleep(60 * i)
+            sleep(60 * i) #'linear backoff equation'
             i += 1
             continue
 
@@ -66,5 +66,6 @@ if __name__ == "__main__":
 
     with open('data/download_files.txt') as f:
         lines = f.read().splitlines()
-        p = Pool(cpu_count())
+        #p = Pool(cpu_count())
+        p = Pool(2)
         p.map(downloadFasta_to_insert, lines)
