@@ -130,3 +130,35 @@ def generate_uri(uri, s=''):
         return URIRef(parser.get('Namespaces', 'root') + postfix)
     else:
         return URIRef(parser.get('Namespaces', prefix) + postfix)
+
+def from_nuccore(accession):
+    """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
+    using Entrez EUtils. If there
+    is nothing found for the sequence, raise a ValueError.
+
+    Args:
+        accession (str): genbank accession id
+    """
+
+    from Bio import Entrez
+
+    Entrez.email = "superphy.info@gmail.com"
+    handle = None
+    i = 0
+
+    while i < 3:
+        try:
+            handle = Entrez.efetch(
+                db="nuccore",
+                id=accession,
+                rettype="fasta",
+                retmode="text"
+            )
+            return handle
+        except:
+            i += 1
+            continue
+    try:
+        handle is None
+    except NameError:
+        raise TypeError("Could not retrieve file for analysis")

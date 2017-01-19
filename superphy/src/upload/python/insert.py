@@ -76,7 +76,8 @@ if __name__ == "__main__":
 
     #for testing
     print("Writing out...")
-    graph.serialize(destination='outputs/newFormat.ttl', format='turtle')
+    #we use the i value for when we're testing batches
+    graph.serialize(destination='outputs/newFormat' + i '.ttl', format='turtle')
 
     print("Uploading to Blazegraph")
     BlazegraphUploader().upload_data(generate_output(graph))
