@@ -24,13 +24,14 @@ def downloadFasta_to_insert(url):
 
     print 'working on ' + url
 
-    i = 0
+    i = 1
 
-    while i < 3:
+    while i < 4:
         try:
             r = download_fasta(url)
+            i = 4
         except:
-            sleep(300)
+            sleep(60 * i)
             i += 1
             continue
 
