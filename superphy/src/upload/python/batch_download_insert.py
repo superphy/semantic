@@ -3,19 +3,19 @@
 
 #usage python batch_download_insert.py
 
+from Bio import SeqIO
+
 def download_to_insert(accession):
     import subprocess
 
-    from Bio import SeqIO
+    r = from_nuccore(accession)
 
-    SeqIO.write(from_nuccore(accession), 'tmp/' + accession + '.fasta', 'fasta')
-    subprocess.call('python insert.py -i ' + 'tmp/' + accession + '.fasta')
-        #print 'working on ' + record.id
-        #SeqIO.write(record, 'tmp/' + accession)
-
-def test(a):
-    print a
-    print "boogle"
+    if r is None:
+        print 'OH CRAP'
+    else:
+        subprocess.call('python insert.py -i ' + from_nuccore(accession))
+        
+    print 'woogle'
 
 if __name__ == "__main__":
     import pandas #this is the .csv parser we're using
@@ -26,6 +26,6 @@ if __name__ == "__main__":
     metadata_table = pandas.read_csv('data/metadata_table.csv')
     accessions = metadata_table['primary_dbxref'].apply(lambda s: s.strip().split(':')[1])
 
-    p = Pool(4) #don't go crazy here
-    p.map(test, accessions) #note: you may want to write out the fasta file, but I'm unsure whether it will improve performance as concurrency requires them all to be loaded into memory anyways
+    p = Pool(multiprocessing.cpu_count()) #you can use an int instead, just don't go crazy
+    #note: you may want to write out the fasta file, but I'm unsure whether it will improve performance as concurrency requires them all to be loaded into memory anyways
     p.map(download_to_insert, accessions)

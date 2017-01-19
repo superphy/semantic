@@ -80,6 +80,7 @@ if __name__ == "__main__":
     graph.serialize(destination='outputs/newFormat' + i '.ttl', format='turtle')
 
     print("Uploading to Blazegraph")
-    BlazegraphUploader().upload_data(generate_output(graph))
+    print BlazegraphUploader().upload_data(generate_output(graph))
+    print 'uploaded wooot!'
 
     #####will have to wrap entire thing for multiple files

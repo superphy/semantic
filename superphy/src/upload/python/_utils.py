@@ -140,7 +140,7 @@ def from_nuccore(accession):
         accession (str): genbank accession id
     """
 
-    from Bio import Entrez
+    from Bio import Entrez, SeqIO
 
     Entrez.email = "superphy.info@gmail.com"
     handle = None
@@ -154,7 +154,8 @@ def from_nuccore(accession):
                 rettype="fasta",
                 retmode="text"
             )
-            return handle
+            SeqIO.write(handle, 'tmp/' + accession + '.fasta', 'fasta')
+            return 'tmp/' + accession + '.fasta'
         except:
             i += 1
             continue
