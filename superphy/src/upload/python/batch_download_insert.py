@@ -20,8 +20,15 @@ def download_to_insert(accession):
 def downloadFasta_to_insert(url):
     import subprocess, os
 
+    from time import sleep
+
     print 'working on ' + url
-    r = download_fasta(url)
+    try:
+        r = download_fasta(url)
+    except:
+        sleep(300)
+        continue
+
     print 'done downloading, file at ' + r
     print 'now generating .ttl'
     if r is None:
