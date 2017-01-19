@@ -199,3 +199,33 @@ def download_fasta(url):
     os.remove(filename)
 
     return filename.strip('.gz')
+
+def upload_data(data):
+    """
+    Uploads raw data onto Blazegraph. To ensure that Blazegraph interprets
+    properly, it is necessary to specify the format in a Context-Header.
+
+    Accepted formats are listed on this site:
+    https://wiki.blazegraph.com/wiki/index.php/REST_API#MIME_Types
+
+    Currently, the only data type needed is turtle, so this function is not
+    usable for other formats.
+
+    Args:
+        data (turtle): a turtle data object
+
+    Prints out the response object from Blazegraph
+    """
+
+    import requests, os
+
+    headers = {'Content-Type':'application/x-turtle'}
+    request = requests.post(
+        os.getenv(
+            'SUPERPHY_RDF_URL',
+            "http://10.139.14.172:9000/blazegraph/namespace/superphy/sparql"
+        ),
+        data=data,
+        headers=headers
+    )
+    print request.content

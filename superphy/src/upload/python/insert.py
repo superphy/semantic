@@ -5,7 +5,7 @@
 
 #importing Stephen's work for uploading to blazegraph
 from blazegraph_upload import BlazegraphUploader
-from _utils import generate_output, parse_nih_name, generate_uri
+from _utils import generate_output, parse_nih_name, generate_uri, upload_data
 gu = generate_uri #shorthand to make it easier to code
 
 if __name__ == "__main__":
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print("Importing FASTA from: " + args.i)
-    
+
     #we do this outside of record as we want same uri for all isolates
     #todo: add some check if same fasta files represents same isolate
     #grabs current id #
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     '''
 
     print("Uploading to Blazegraph")
-    print BlazegraphUploader().upload_data(generate_output(graph))
+    print upload_data(generate_output(graph))
     print 'uploaded wooot!'
 
     os.remove(args.i)
