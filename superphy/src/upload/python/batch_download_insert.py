@@ -28,9 +28,9 @@ def downloadFasta_to_insert(url):
         print 'OH CRAP'
     else:
         print 'calling subproces'
-        subprocess.call(['./insert.py', r])
+        subprocess.call(['./insert.py', '-i', r])
         print 'done generating .ttl'
-    #os.remove(r) need to add way to check after subprocess is done
+    #os.remove(r) need to add way to check after
     print 'woogle'
 
 if __name__ == "__main__":
