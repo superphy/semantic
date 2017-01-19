@@ -104,7 +104,7 @@ def parse_nih_name(description):
     identifiers['contig'] = identifiers['accession_id'][6:12]
     return identifiers
 
-def generate_uri(uri):
+def generate_uri(uri, s=''):
     """
     Takes a string as one would define for .ttl files and returns a URI for rdflib.
 
@@ -118,11 +118,15 @@ def generate_uri(uri):
     from rdflib import Namespace, URIRef, Literal
     from ConfigParser import SafeConfigParser
 
+    #if you call with a uri already
+    if isinstance(uri, URIRef):
+        return URIRef(str(uri) + s)
+
     parser = SafeConfigParser()
     parser.read('defaults.cfg')
     prefix = uri.split(':')[0]
     postfix = uri.split(':')[1]
-    if prefix == '':
+    if prefix == '': #this is our : case
         return URIRef(parser.get('Namespaces', 'root') + postfix)
     else:
         return URIRef(parser.get('Namespaces', prefix) + postfix)
