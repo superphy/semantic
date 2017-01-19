@@ -186,7 +186,7 @@ def download_fasta(url):
 
     from urllib import urlretrieve
 
-    time.sleep(60) #so it doesn't boot us off
+    time.sleep(1) #so it doesn't boot us off
 
     filename = 'tmp/' + url.split('/')[-1]
     print 'filename is ' + filename
