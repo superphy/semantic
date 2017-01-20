@@ -31,11 +31,12 @@ def downloadFasta_to_insert(url):
             r = download_fasta(url)
             i = 4
         except:
-            sleep(60 * i) #'linear backoff equation'
+            sleep(60 * i) #'linear backoff equation', for those of us too impatiant for the exponential kind
             i += 1
             continue
 
     print 'done downloading, file at ' + r
+    '''
     print 'now generating .ttl'
     if r is None:
         print 'OH CRAP'
@@ -45,12 +46,13 @@ def downloadFasta_to_insert(url):
         print 'done generating .ttl'
     #os.remove(r) need to add way to check after
     print 'woogle'
+    '''
 
 if __name__ == "__main__":
     from multiprocessing import Pool, cpu_count
 
     '''this is testing code using the .csv file
-    import pandas #this is the .csv parser we're using
+    import pandas #this is the .csv parser
     from _utils import from_nuccore
 
     metadata_table = pandas.read_csv('data/metadata_table.csv')
