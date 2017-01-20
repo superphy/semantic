@@ -122,8 +122,8 @@ if __name__ == "__main__":
 
         #creating :spfy1/ANLJ01/00001.1 ie. the contig uri
         uriContig = gu(uriAssembly, '/' + identifiers['contig'])
-        graph.add((uriContigs, g.Contig, uriContig))
-        graph.add((uriContig, g.DNASequence, Literal(record.seq)))
+        graph.add((uriContigs, gu('g:Contig'), uriContig))
+        graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
 
     '''
     #for testing
