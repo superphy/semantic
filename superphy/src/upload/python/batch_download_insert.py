@@ -71,3 +71,5 @@ if __name__ == "__main__":
         #p = Pool(cpu_count())
         p = Pool(2)
         p.map(downloadFasta_to_insert, lines)
+
+    print 'ALL DONE XD!!!!!!!!'
