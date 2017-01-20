@@ -6,6 +6,7 @@ if __name__ == "__main__":
     from os import listdir
 
     for filename in listdir('tmp'):
+        print 'working on ' + filename
         try:
             subprocess.call('python insert.py -i tmp/' + filename)
         except:
