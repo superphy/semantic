@@ -112,7 +112,7 @@ if __name__ == "__main__":
         #this is repetitive for the same assembly
         uriAssembly = gu(uriIsolate, '/' + identifiers['assembly'])
         #associatting isolate URI with assembly URI
-        graph.add((uriIsolate, g.Genome, uriAssembly))
+        graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
         graph.add((uriIsolate, gu('g:Name'), Literal(identifiers['accession_id'][0:4])))
         graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
 
