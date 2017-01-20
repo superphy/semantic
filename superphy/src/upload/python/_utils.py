@@ -182,11 +182,11 @@ def download_fasta(url):
         (str): Path of the unzipped .fasta file
     """
     import gzip, os
-    import time
 
+    from time import sleep
     from urllib import urlretrieve
 
-    time.sleep(1) #so it doesn't boot us off
+    sleep(1) #so it doesn't boot us off
 
     filename = 'tmp/' + url.split('/')[-1]
     print 'filename is ' + filename
@@ -219,11 +219,17 @@ def upload_data(data):
 
     import requests, os
 
+    from ConfigParser import SafeConfigParser
+
+    parser = SafeConfigParser()
+    parser.read('config.cfg')
+    url = parser.get('Database', 'blazegraph_url')
+
     headers = {'Content-Type':'application/x-turtle'}
     request = requests.post(
         os.getenv(
             'SUPERPHY_RDF_URL',
-            "http://10.139.14.172:9000/blazegraph/namespace/superphy/sparql"
+            url
         ),
         data=data,
         headers=headers

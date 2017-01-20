@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
+if __name__ == "__main__":
+    import subprocess
+    from os import listdir
+
+    for filename in listdir('tmp'):
+        try:
+            subprocess.call('python insert.py -i ' + filename)
+        except:
+            print 'call failed'

@@ -4,7 +4,70 @@
 #use: python insert.py -i samples/ANLJ01.1.fsa_nt
 
 from _utils import generate_output, parse_nih_name, generate_uri, upload_data
-gu = generate_uri #shorthand to make it easier to code
+gu = generate_uri
+
+def generate_graph():
+    '''
+    Parses all the Namespaces defined in the config file and returns a graph
+    with them bound.
+
+    Return:
+        (rdflib.Graph): a graph with all the defined Namespaces bound to it.
+    '''
+
+    from ConfigParser import SafeConfigParser
+    from rdflib import Namespace, Graph
+
+    graph = Graph()
+
+    parser = SafeConfigParser()
+    parser.read('config.cfg')
+
+    for name in parser.items('Namespaces'):
+        if name[0] is 'root':
+            graph.bind('', Namespace(name[1]))
+        else:
+            graph.bind(name[0], Namespace(name[1]))
+
+    return graph
+
+def generate_turtle(graph, fasta_file):
+    '''
+    '''
+
+    from Bio import SeqIO
+    from rdflib import Literal
+
+    for record in SeqIO.parse(open(fasta_file), "fasta"):
+        identifiers = parse_nih_name(record.description)
+
+        #creating :spfy1/ANLJ01
+        #this is repetitive for the same assembly
+        uriAssembly = gu(uriIsolate, '/' + identifiers['assembly'])
+        #associatting isolate URI with assembly URI
+        graph.add((uriIsolate, g.Genome, uriAssembly))
+        graph.add((uriIsolate, gu('g:Name'), Literal(identifiers['accession_id'][0:4])))
+        graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+
+        #no longer using blank node, instead uri for bag of contigs
+        uriContigs = gu(uriAssembly + "/contigs")
+        graph.add((uriAssembly, gu('so:0001462'), uriContigs))
+
+        #creating :spfy1/ANLJ01/00001.1 ie. the contig uri
+        uriContig = gu(uriAssembly, '/' + identifiers['contig'])
+        graph.add((uriContigs, g.Contig, uriContig))
+        graph.add((uriContig, g.DNASequence, Literal(record.seq)))
+
+    return graph
+
+def get_tracking_id():
+    #we do this outside of record as we want same uri for all isolates
+    #todo: add some check if same fasta files represents same isolate
+    #grabs current id #
+    parser = SafeConfigParser()
+    parser.read('config.cfg')
+    i = parser.getint('Database', 'id_tracking')
+    return i
 
 if __name__ == "__main__":
 
@@ -16,15 +79,7 @@ if __name__ == "__main__":
     from ConfigParser import SafeConfigParser
 
     #setting up graph
-    graph = Graph()
-    superphy = Namespace('https://www.github.com/superphy#')
-    g = Namespace('http://www.biointerchange.org/gfvo#')
-    so = Namespace('http://purl.obolibrary.org/obo/SO_')
-    ge = Namespace('http://purl.obolibrary.org/obo/GENEPIO_')
-    graph.bind('so', so)
-    graph.bind('ge', ge)
-    graph.bind('g', g)
-    graph.bind('', superphy)
+    graph = generate_graph()
 
     #parsing cli-input
     parser = argparse.ArgumentParser()
