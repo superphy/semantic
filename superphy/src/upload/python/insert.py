@@ -83,7 +83,7 @@ def generate_turtle(graph, fasta_file, spfyID):
         #this is repetitive for the same assembly
         #uriAssembly = gu(uriIsolate, '/' + identifiers['assembly'])
         #TODO: add in ECTyper so we can get unique ids for isolates, hash of filename maybe ideal for assemblies or just use filename
-        uriAssembly = gu(uriIsolate, '/' + hash(fasta_file)) #done to ensure 1:1 for now
+        uriAssembly = gu(uriIsolate, '/' + str(hash(fasta_file))) #done to ensure 1:1 for now
         #associatting isolate URI with assembly URI
         graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
         graph.add((uriIsolate, gu('g:Name'), Literal('Escherichia coli' + identifiers['species'])))
