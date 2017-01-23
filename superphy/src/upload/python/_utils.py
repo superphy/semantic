@@ -207,4 +207,4 @@ def upload_data(data):
         data=data,
         headers=headers
     )
-    print request.content
+    return request.content
