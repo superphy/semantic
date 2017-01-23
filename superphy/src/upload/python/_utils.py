@@ -90,22 +90,21 @@ def generate_uri(uri, s=''):
     Returns:
         (rdflib.URIRef) with URI needed to add to rdflib.Graph
     """
+    import settings #this is the settings.py
 
     from rdflib import Namespace, URIRef, Literal
-    from ConfigParser import SafeConfigParser
 
     #if you call with a uri already
     if isinstance(uri, URIRef):
         return URIRef(str(uri) + s)
 
-    parser = SafeConfigParser()
-    parser.read('config.cfg')
     prefix = uri.split(':')[0]
     postfix = uri.split(':')[1]
+
     if prefix == '': #this is our : case
-        return URIRef(parser.get('Namespaces', 'root') + postfix)
+        return URIRef(settings.namespaces['root'] + postfix)
     else:
-        return URIRef(parser.get('Namespaces', prefix) + postfix)
+        return URIRef(settings.namespaces[prefix] + postfix)
 
 def from_nuccore(accession):
     """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
@@ -191,12 +190,9 @@ def upload_data(data):
     """
 
     import requests, os
+    import settings
 
-    from ConfigParser import SafeConfigParser
-
-    parser = SafeConfigParser()
-    parser.read('config.cfg')
-    url = parser.get('Database', 'blazegraph_url')
+    url = settings.database['blazegraph_url']
 
     headers = {'Content-Type':'application/x-turtle'}
     request = requests.post(

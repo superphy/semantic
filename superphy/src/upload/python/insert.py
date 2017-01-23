@@ -13,20 +13,17 @@ def generate_graph():
     Return:
         (rdflib.Graph): a graph with all the defined Namespaces bound to it.
     '''
+    import settings
 
-    from ConfigParser import SafeConfigParser
     from rdflib import Namespace, Graph
 
     graph = Graph()
 
-    parser = SafeConfigParser()
-    parser.read('config.cfg')
-
-    for name in parser.items('Namespaces'):
-        if name[0] is 'root':
-            graph.bind('', Namespace(name[1]))
+    for key in settings.namespaces.keys():
+        if key is 'root':
+            graph.bind('', settings.namespaces['root'])
         else:
-            graph.bind(name[0], Namespace(name[1]))
+            graph.bind(key, settings.namespaces[key])
 
     return graph
 
@@ -108,15 +105,6 @@ def generate_turtle(graph, fasta_file, spfyID):
 
     return graph
 
-def get_tracking_id():
-    #we do this outside of record as we want same uri for all isolates
-    #todo: add some check if same fasta files represents same isolate
-    #grabs current id #
-    parser = SafeConfigParser()
-    parser.read('config.cfg')
-    i = parser.getint('Database', 'id_tracking')
-    return i
-
 if __name__ == "__main__":
 
     import argparse
@@ -142,16 +130,11 @@ if __name__ == "__main__":
     #we do this outside of record as we want same uri for all isolates
     #todo: add some check if same fasta files represents same isolate
     #grabs current id #
-    parser = SafeConfigParser()
-    parser.read('config.cfg')
-    spfyID = parser.getint('Database', 'id_tracking')
+    #TODO: replace ID with query to sparql endpoint to check / maybe base of serotype
+    spfyID = hash(args.i)
     #creating :id1
     #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)
     graph = generate_turtle(graph, args.i, spfyID)
-    spfyID += 1
-    parser.set('Database', 'id_tracking', str(spfyID)) #saves the id so we don't overlap
-    with open(r'config.cfg', 'wb') as configfile:
-        parser.write(configfile)
 
     '''old func
     for record in SeqIO.parse(open(args.i), "fasta"):
