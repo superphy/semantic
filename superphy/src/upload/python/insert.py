@@ -3,8 +3,7 @@
 
 #use: python insert.py -i samples/ANLJ01.1.fsa_nt
 
-from _utils import generate_output, parse_nih_name, generate_uri, upload_data
-gu = generate_uri
+from _utils import generate_output, generate_uri as gu, upload_data
 
 def generate_graph():
     '''
@@ -31,12 +30,54 @@ def generate_graph():
 
     return graph
 
-def generate_turtle(graph, fasta_file):
+def parse_nih_name(description):
+    """
+    Parses a String of a nih name (eg. record.description after Bio.SeqIO.parse)
+    and returns a dictionary of the substrings we're interesting FOR creating
+    uriSpecies
+
+    Args:
+        description (str): a record.description
+        ex. gi|427200135|gb|ANLJ01000508.1| Escherichia coli 89.0511 gec890511.contig.603_1, whole genome shotgun sequence
+    Returns:
+        (dict) with keys: accession_id, species, assembly, contig
+        ex. {'accession_id': 'ANLJ01000508', 'contig': '000508', 'assembly': 'ANLJ01', 'species': '89.0511'}
+
+    TODO:
+        -add code to parse other nih naming conventions
+        -what happens when no species name??
+    """
+    if '|' in description:
+        #of format: >gi|427220012|gb|ANLJ01000001.1| Escherichia coli 89.0511 gec890511.contig.0_1, whole genome shotgun sequence
+        identifiers = {'accession_id' : description.split("|")[3].split(".")[0]} # ANLJ01000001.1
+        identifiers['species'] = description.split("|")[4].split(" ")[3] # 89.0511
+        identifiers['assembly'] = identifiers['accession_id'][0:6] # ANLJ01
+        identifiers['contig'] = identifiers['accession_id'][6:12] # 000001.1
+    elif description[0].isalpha() and description[1].isalpha() and description[2].isdigit():
+        #of format: JH709084.1 Escherichia coli PA10 genomic scaffold PA10.contig.633, whole genome shotgun sequence
+        identifiers = {'accession_id' : description.split(" ")[0]}
+        identifiers['species'] = description.split('.contig.')[0].split(' ')[-1]
+        identifiers['assembly'] = identifiers['species'] #this differs from the other 2 cases, here the assembly is just the strain of e.coli because each contig has a unique accession #
+        identifiers['contig'] = description.split('.contig.')[1].split(' ')[0]
+    else:
+        #assuming: >AJMD01000001.1 Escherichia coli NCCP15658 NCCP15658_contig01, whole genome shotgun sequence
+        identifiers = {'accession_id' : description.split(" ")[0]} # AJMD01000001.1
+        identifiers['species'] = description.split('coli ')[1].split(' ')[0] # NCCP15658
+        identifiers['assembly'] = identifiers['accession_id'][0:6] # AJMD01
+        identifiers['contig'] = identifiers['accession_id'][6:12] # 000001.1
+    return identifiers
+
+def generate_turtle(graph, fasta_file, spfyID):
     '''
+    Handles the main generation of a turtle object. The separate parsing of
     '''
 
     from Bio import SeqIO
     from rdflib import Literal
+
+    #makes the spfy uri -> currently unique to a file
+    #TODO: do check to make unique to an isolate
+    uriIsolate = gu(':spfy' + str(spfyID))
 
     for record in SeqIO.parse(open(fasta_file), "fasta"):
         identifiers = parse_nih_name(record.description)
@@ -45,18 +86,25 @@ def generate_turtle(graph, fasta_file):
         #this is repetitive for the same assembly
         uriAssembly = gu(uriIsolate, '/' + identifiers['assembly'])
         #associatting isolate URI with assembly URI
-        graph.add((uriIsolate, g.Genome, uriAssembly))
-        graph.add((uriIsolate, gu('g:Name'), Literal(identifiers['accession_id'][0:4])))
+        graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
+        graph.add((uriIsolate, gu('g:Name'), Literal('Escherichia coli' + identifiers['species'])))
         graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
 
+        #the assembly aka the genome (kindof)
         #no longer using blank node, instead uri for bag of contigs
         uriContigs = gu(uriAssembly + "/contigs")
         graph.add((uriAssembly, gu('so:0001462'), uriContigs))
+        if '/' in fasta_file: #check for path incl
+            graph.add((uriAssembly, gu('dc:source'), Literal(fasta_file.split('/')[-1])))
+        else:
+            graph.add((uriAssembly, gu('dc:source'), Literal(fasta_file)))
+        graph.add((uriAssembly, gu('dc:description'), Literal(record.description)))
 
         #creating :spfy1/ANLJ01/00001.1 ie. the contig uri
         uriContig = gu(uriAssembly, '/' + identifiers['contig'])
-        graph.add((uriContigs, g.Contig, uriContig))
-        graph.add((uriContig, g.DNASequence, Literal(record.seq)))
+        graph.add((uriContigs, gu('g:Contig'), uriContig))
+        graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
+        graph.add((uriContig, gu('dc:source'), Literal(identifiers['accession_id'])))
 
     return graph
 
@@ -96,15 +144,16 @@ if __name__ == "__main__":
     #grabs current id #
     parser = SafeConfigParser()
     parser.read('config.cfg')
-    i = parser.getint('Database', 'id_tracking')
+    spfyID = parser.getint('Database', 'id_tracking')
     #creating :id1
     #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)
-    uriIsolate = gu(':spfy' + str(i))
-    i += 1
-    parser.set('Database', 'id_tracking', str(i)) #saves the id so we don't overlap
+    graph = generate_turtle(graph, args.i, spfyID)
+    spfyID += 1
+    parser.set('Database', 'id_tracking', str(spfyID)) #saves the id so we don't overlap
     with open(r'config.cfg', 'wb') as configfile:
         parser.write(configfile)
 
+    '''old func
     for record in SeqIO.parse(open(args.i), "fasta"):
         identifiers = parse_nih_name(record.description)
 
@@ -124,6 +173,7 @@ if __name__ == "__main__":
         uriContig = gu(uriAssembly, '/' + identifiers['contig'])
         graph.add((uriContigs, gu('g:Contig'), uriContig))
         graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
+    '''
 
     '''
     #for testing

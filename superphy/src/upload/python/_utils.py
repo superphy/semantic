@@ -80,33 +80,6 @@ def generate_file_output(graph, destination):
 
     graph.serialize(destination=destination, format="turtle")
 
-def parse_nih_name(description):
-    """
-    Parses a String of a nih name (eg. record.description after Bio.SeqIO.parse)
-    and returns a dictionary of the substrings we're interesting FOR creating
-    uriSpecies
-
-    Args:
-        description (str): a record.description
-        ex. gi|427200135|gb|ANLJ01000508.1| Escherichia coli 89.0511 gec890511.contig.603_1, whole genome shotgun sequence
-    Returns:
-        (dict) with keys: accession_id, species, assembly, contig
-        ex. {'accession_id': 'ANLJ01000508', 'contig': '000508', 'assembly': 'ANLJ01', 'species': '89.0511'}
-
-    TODO:
-        -add code to parse other nih naming conventions
-        -what happens when no species name??
-    """
-    if '|' in description: #of format: >gi|427220012|gb|ANLJ01000001.1| Escherichia coli 89.0511 gec890511.contig.0_1, whole genome shotgun sequence
-        identifiers = {'accession_id' : description.split("|")[3].split(".")[0]}
-        identifiers['species'] = description.split("|")[4].split(" ")[3]
-    else: #assuming: >AJMD01000001.1 Escherichia coli NCCP15658 NCCP15658_contig01, whole genome shotgun sequence
-        identifiers = {'accession_id' : description.split(" ")[0]}
-        identifiers['species'] = description.split('coli ')[1].split(' ')[0]
-    identifiers['assembly'] = identifiers['accession_id'][0:6]
-    identifiers['contig'] = identifiers['accession_id'][6:12]
-    return identifiers
-
 def generate_uri(uri, s=''):
     """
     Takes a string as one would define for .ttl files and returns a URI for rdflib.

@@ -8,6 +8,7 @@ if __name__ == "__main__":
     for filename in listdir('tmp'):
         print 'working on ' + filename
         try:
-            subprocess.call('python insert.py -i tmp/' + filename)
+            subprocess.call(['./insert.py', '-i', 'tmp/' + filename])
         except:
             print 'call failed'
+            continue
