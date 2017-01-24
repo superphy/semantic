@@ -118,11 +118,14 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     import subprocess
 
     from rdflib import Literal
+    from ast import literal_eval
 
     #concurrency is handled at the batch level, not here (note: this might change)
-    ectyper_dict = subprocess.call(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
+    ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
         '-in', fasta_file,
         '-s', '1'])
+
+    ectyper_dict = literal_eval(ectyper_dict)
 
     serotype_dict = ectyper_dict['Serotype']
 
@@ -176,4 +179,4 @@ if __name__ == "__main__":
     print upload_data(generate_output(graph))
     print 'uploaded wooot!'
 
-    os.remove(args.i)
+    #os.remove(args.i)
