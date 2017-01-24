@@ -82,6 +82,9 @@ def generate_turtle(graph, fasta_file, uriIsolate):
     from Bio import SeqIO
     from rdflib import Literal
 
+    graph.add((uriIsolate, gu('rdf:type'), gu('ncbi:562'))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+    graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
+
     for record in SeqIO.parse(open(fasta_file), "fasta"):
         identifiers = parse_nih_name(record.description)
 
@@ -93,7 +96,6 @@ def generate_turtle(graph, fasta_file, uriIsolate):
         #associatting isolate URI with assembly URI
         graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
         graph.add((uriIsolate, gu('g:Name'), Literal('Escherichia coli' + identifiers['species'])))
-        graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
 
         #the assembly aka the genome (kindof)
         #no longer using blank node, instead uri for bag of contigs
