@@ -1,3 +1,0 @@
-[submodule "ecoli_serotyping"]
-	path = ecoli_serotyping
-	url = https://github.com/phac-nml/ecoli_serotyping.git
