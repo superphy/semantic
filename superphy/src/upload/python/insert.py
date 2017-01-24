@@ -133,11 +133,11 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     serotype_dict = ectyper_dict['Serotype']
 
     if 'O type' in serotype_dict:
-        graph.add((uriIsolate, gu('ge:0001076'), serotype_dict['O type']))
+        graph.add((uriIsolate, gu('ge:0001076'), Literal(serotype_dict['O type'])))
     if 'H type' in serotype_dict:
-        graph.add((uriIsolate, gu('ge:0001077'), serotype_dict['H type']))
+        graph.add((uriIsolate, gu('ge:0001077'), Literal(serotype_dict['H type'])))
     if 'K type' in serotype_dict:
-        graph.add((uriIsolate, gu('ge:0001684'), serotype_dict['K type']))
+        graph.add((uriIsolate, gu('ge:0001684'), Literal(serotype_dict['K type'])))
 
     return graph
 
