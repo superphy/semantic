@@ -121,13 +121,9 @@ def call_ectyper(graph, fasta_file, spfyID):
     #i don't intend to import anything from ECTyper (there are a lot of imports in it - not sure if we'll use them all)
     import subprocess
 
-    from os.path import dirname
-
-    print dirname(__file__) + fasta_file
-
     #concurrency is handled at the batch level, not here (note: this might change)
     print subprocess.call(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
-        '-in', '../../../../' + fasta_file,
+        '-in', fasta_file,
         '-s', '1'])
 
 if __name__ == "__main__":
