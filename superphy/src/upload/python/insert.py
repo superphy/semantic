@@ -64,7 +64,7 @@ def parse_nih_name(description):
         identifiers['contig'] = identifiers['accession_id'][6:12] # 000001.1
     return identifiers
 
-def generate_turtle(graph, fasta_file, spfyID):
+def generate_turtle(graph, fasta_file, uriIsolate):
     '''
     Handles the main generation of a turtle object.
 
@@ -81,10 +81,6 @@ def generate_turtle(graph, fasta_file, spfyID):
 
     from Bio import SeqIO
     from rdflib import Literal
-
-    #makes the spfy uri -> currently unique to a file
-    #TODO: do check to make unique to an isolate
-    uriIsolate = gu(':spfy' + str(spfyID))
 
     for record in SeqIO.parse(open(fasta_file), "fasta"):
         identifiers = parse_nih_name(record.description)
@@ -117,14 +113,27 @@ def generate_turtle(graph, fasta_file, spfyID):
 
     return graph
 
-def call_ectyper(graph, fasta_file, spfyID):
+def call_ectyper(graph, fasta_file, uriIsolate):
     #i don't intend to import anything from ECTyper (there are a lot of imports in it - not sure if we'll use them all)
     import subprocess
 
+    from rdflib import Literal
+
     #concurrency is handled at the batch level, not here (note: this might change)
-    print subprocess.call(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
+    ectyper_dict = subprocess.call(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
         '-in', fasta_file,
         '-s', '1'])
+
+    serotype_dict = ectyper_dict['Serotype']
+
+    if 'O type' in serotype_dict:
+        graph.add((uriIsolate, gu('ge:0001076'), serotype_dict['O type']))
+    if 'H type' in serotype_dict:
+        graph.add((uriIsolate, gu('ge:0001077'), serotype_dict['H type']))
+    if 'K type' in serotype_dict:
+        graph.add((uriIsolate, gu('ge:0001684'), serotype_dict['K type']))
+
+    return graph
 
 if __name__ == "__main__":
 
@@ -154,11 +163,14 @@ if __name__ == "__main__":
     #grabs current id #
     #TODO: replace ID with query to sparql endpoint to check / maybe base of serotype
     spfyID = hash(args.i.split('/')[-1]) #just from the filename (not incl the dir)
-    #creating :id1
-    #note: these adds become repetitive as the fasta file references the same species (will need it or a check for importing directories)
-    graph = generate_turtle(graph, args.i, spfyID)
 
-    call_ectyper(graph, args.i, spfyID)
+    #makes the spfy uri -> currently unique to a file
+    #TODO: do check to make unique to an isolate
+    uriIsolate = gu(':spfy' + str(spfyID))
+
+    graph = generate_turtle(graph, args.i, uriIsolate)
+
+    graph = call_ectyper(graph, args.i, spfyID)
 
     print "Uploading to Blazegraph"
     print upload_data(generate_output(graph))
