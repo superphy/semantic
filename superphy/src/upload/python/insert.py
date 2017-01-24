@@ -119,6 +119,7 @@ def call_ectyper(graph, fasta_file, uriIsolate):
 
     from rdflib import Literal
     from ast import literal_eval
+    from os.path import splitext
 
     #concurrency is handled at the batch level, not here (note: this might change)
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
@@ -126,6 +127,8 @@ def call_ectyper(graph, fasta_file, uriIsolate):
         '-s', '1'])
 
     ectyper_dict = literal_eval(ectyper_dict)
+
+    ectyper_dict = ectyper_dict[splitext(fasta_file)[0].split('/')[-1]]
 
     serotype_dict = ectyper_dict['Serotype']
 
