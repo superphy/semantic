@@ -1,0 +1,3 @@
+[submodule "superphy/src/upload/python/ecoli_serotyping"]
+	path = superphy/src/upload/python/ecoli_serotyping
+	url = https://github.com/phac-nml/ecoli_serotyping
