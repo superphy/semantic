@@ -127,7 +127,7 @@ def call_ectyper(graph, fasta_file, spfyID):
 
     #concurrency is handled at the batch level, not here (note: this might change)
     print subprocess.call(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
-        '-in', dirname(__file__) + fasta_file,
+        '-in', '../' + fasta_file,
         '-s', '1'])
 
 if __name__ == "__main__":
