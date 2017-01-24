@@ -1,0 +1,21 @@
+Importing FASTA from: tmp/GCA_000148365.1_ASM14836v1_genomic.fna
+Importing FASTA from: tmp/GCA_000006665.1_ASM666v1_genomic.fna
+Importing FASTA from: tmp/GCA_000148605.1_ASM14860v1_genomic.fna
+Importing FASTA from: tmp/GCA_000007445.1_ASM744v1_genomic.fna
+Importing FASTA from: tmp/GCA_000155005.1_ASM15500v1_genomic.fna
+Importing FASTA from: tmp/GCA_000008865.1_ASM886v1_genomic.fna
+Importing FASTA from: tmp/GCA_000155125.1_ASM15512v1_genomic.fna
+Importing FASTA from: tmp/GCA_000009565.2_ASM956v1_genomic.fna
+Importing FASTA from: tmp/GCA_000158395.1_ASM15839v1_genomic.fna
+Importing FASTA from: tmp/GCA_000010245.1_ASM1024v1_genomic.fna
+Importing FASTA from: tmp/GCA_000267625.2_ASM26762v2_genomic.fna
+Uploading to Blazegraph
+Importing FASTA from: tmp/GCA_000264035.1_ASM26403v1_genomic.fna
+Uploading to Blazegraph
+Importing FASTA from: tmp/GCA_000159295.1_ASM15929v1_genomic.fna
+Importing FASTA from: tmp/GCA_000352885.1_Esch_coli_KTE184_V1_genomic.fna
+Importing FASTA from: tmp/GCA_000408425.1_Esch_coli_KTE70_V1_genomic.fna
+Importing FASTA from: tmp/GCA_000461155.1_Esch_coli_UMEA_3298-1_V1_genomic.fna
+Importing FASTA from: tmp/GCA_000461935.2_ASM46193v2_genomic.fna
+Importing FASTA from: tmp/GCA_000614255.1_Ec2011EL-2114_genomic.fna
+Importing FASTA from: tmp/GCA_000615695.1_Ec2011EL-2101_genomic.fna

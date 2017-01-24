@@ -10,8 +10,8 @@ import os
 
 import requests
 
-from superphy.upload._utils import generate_path
-from superphy.shared.endpoint import file_update
+from _utils import generate_path
+import sparql.endpoint
 
 __author__ = "Stephen Kan"
 __copyright__ = """
@@ -78,7 +78,7 @@ class BlazegraphUploader(object):
         request = requests.post(
             os.getenv(
                 'SUPERPHY_RDF_URL',
-                "http://localhost:9000/blazegraph/namespace/superphy/sparql"
+                "http://10.139.14.172:9000/blazegraph/namespace/superphy/sparql"
             ),
             data=data,
             headers=headers

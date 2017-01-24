@@ -25,12 +25,12 @@ import os
 from rdflib import Graph
 from Bio.Blast import NCBIXML
 
-from superphy.upload._sparql import check_named_individual, has_ref_gene, \
+from _sparql import check_named_individual, has_ref_gene, \
     _sparql_query
-from superphy.upload._utils import generate_output, generate_path
-from superphy.upload.classes import GeneLocation
-from superphy.upload.blazegraph_upload import BlazegraphUploader
-from superphy.upload.contig_upload import ContigUploader
+from _utils import generate_output, generate_path
+from classes import GeneLocation
+from blazegraph_upload import BlazegraphUploader
+from contig_upload import ContigUploader
 
 __author__ = "Clarice Ng"
 __copyright__ = """
@@ -337,8 +337,8 @@ class VFLocationUploader(GeneLocationUploader):
                                           ?gene :has_copy ?s .}'
         )
 
-        return ((result["s"]["value"].rsplit("#", 1)[1], 
-                 result["gene"]["value"].split("#")[1], 
+        return ((result["s"]["value"].rsplit("#", 1)[1],
+                 result["gene"]["value"].split("#")[1],
                  result["seq"]["value"])
                 for result in results["results"]["bindings"])
 
@@ -346,8 +346,8 @@ class VFLocationUploader(GeneLocationUploader):
     @classmethod
     def create_fasta(cls, genes, out_file):
         """
-        Writes a FASTA sequence to a file for use by the command 
-        line version of BLAST. Obtains nucleotide data from the 
+        Writes a FASTA sequence to a file for use by the command
+        line version of BLAST. Obtains nucleotide data from the
         sequence data object used to initialize the validator and
         writes each entry as a separate FASTA object.
         """
@@ -367,7 +367,7 @@ class VFLocationUploader(GeneLocationUploader):
         subprocess.call("%s -dbtype nucl -title genome_db -out genome_db -in %s"
                         % (db_path, generate_path(filename)), shell=True)
 
-    
+
     @classmethod
     def blastn_commandline(cls, db):
         """
@@ -451,7 +451,7 @@ class AMRLocationUploader(GeneLocationUploader):
 
     def rgi(self):
         """
-        Calls the RGI, which produces a file called Report.json in the 
+        Calls the RGI, which produces a file called Report.json in the
         release-rgi directory.
         """
         os.chdir("release-rgi-v3.0.1")
@@ -498,7 +498,7 @@ class AMRLocationUploader(GeneLocationUploader):
                         )
         except IOError:
             print "File Report.json not found."
-            
+
 
 ###### For Testing purposes ######
 
