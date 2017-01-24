@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
     graph = generate_turtle(graph, args.i, uriIsolate)
 
-    graph = call_ectyper(graph, args.i, spfyID)
+    graph = call_ectyper(graph, args.i, uriIsolate)
 
     print "Uploading to Blazegraph"
     print upload_data(generate_output(graph))
