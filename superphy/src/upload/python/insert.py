@@ -128,6 +128,11 @@ def call_ectyper(graph, fasta_file, uriIsolate):
 
     ectyper_dict = literal_eval(ectyper_dict)
 
+    if 'error' in ectyper_dict.lower():
+        print 'ECTyper failed for: ', fasta_file
+        print 'returning graph w/o serotype'
+        return graph
+
     ectyper_dict = ectyper_dict[splitext(fasta_file)[0].split('/')[-1]]
 
     serotype_dict = ectyper_dict['Serotype']
