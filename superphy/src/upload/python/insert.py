@@ -187,4 +187,4 @@ if __name__ == "__main__":
     print upload_data(generate_output(graph))
     print 'uploaded wooot!'
 
-    #os.remove(args.i)
+    os.remove(args.i)
