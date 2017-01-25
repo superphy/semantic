@@ -186,7 +186,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
 
     #the rgi_json call in rgitool.py isn't needed for us
     #this generates the .tsv we want
-    subprocess.call(['rgi_tab',
+    subprocess.call(['rgi_jsontab',
         '-i', 'outputs/' + outputname + '.json',
         '-o', 'outputs/' + outputname])
 
