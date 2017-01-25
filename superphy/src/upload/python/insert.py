@@ -215,7 +215,7 @@ if __name__ == "__main__":
 
     #starting logging
     logging.basicConfig(
-        filename = 'outputs/' + args.i.split('/')[-1],
+        filename = 'outputs/' + __name__ + args.i.split('/')[-1] + '.log',
         level = logging.INFO
     )
 
@@ -249,4 +249,4 @@ if __name__ == "__main__":
 
     #removing fasta
     os.remove(args.i)
-    os.remove('outputs/' + __name__ + args.i)
+    os.remove('outputs/' + __name__ + args.i.split('/')[-1] + '.log')
