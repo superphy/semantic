@@ -248,5 +248,5 @@ if __name__ == "__main__":
     print 'uploaded wooot!'
 
     #removing fasta
-    os.remove(args.i)
+    #os.remove(args.i)
     os.remove('outputs/' + __name__ + args.i.split('/')[-1] + '.log')
