@@ -231,7 +231,7 @@ if __name__ == "__main__":
     graph = generate_turtle(graph, args.i, uriIsolate)
     logging.info('barebones ttl generated')
 
-    logging.infor('calling ectyper')
+    logging.info('calling ectyper')
     graph = call_ectyper(graph, args.i, uriIsolate)
     logging.info('ectyper call completed')
 
