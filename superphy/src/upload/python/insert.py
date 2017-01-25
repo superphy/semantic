@@ -137,7 +137,7 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     #because we are using check_output, this catches any print messages from tools_controller
     #TODO: switch to pipes
     if 'error' in ectyper_dict.lower():
-        logging.error('ectyper failed for', fasta_file)
+        logging.error('ectyper failed for' + fasta_file)
         print 'ECTyper failed for: ', fasta_file
         print 'returning graph w/o serotype'
         return graph
@@ -173,17 +173,22 @@ def parse_serotype(graph, serotyper_dict, uriIsolate):
 def generate_amr(graph, uriIsolate, fasta_file):
     import subprocess
 
+    if '/' in fasta_file:
+        outputname = fasta_file.split('/')[-1]
+    else:
+        outputname = fasta_file
+
     #differs from ectyper as we dont care about the temp results, just the final .tsv
     #direct (the main) call
     subprocess.call(['rgi',
         '-i', fasta_file,
-        '-o', 'outputs/' + fasta_file])
+        '-o', 'outputs/' + outputname])
 
     #the rgi_json call in rgitool.py isn't needed for us
     #this generates the .tsv we want
     subprocess.call(['rgi_tab',
         '-i', 'outputs/' + fasta_file + '.json',
-        '-o', 'outputs/' + fasta_file])
+        '-o', 'outputs/' + outputname])
 
     return graph
 
@@ -215,7 +220,7 @@ if __name__ == "__main__":
     )
 
     print("Importing FASTA from: " + args.i)
-    logging.info('importing from', args.i)
+    logging.info('importing from' + args.i)
 
     #we do this outside of record as we want same uri for all isolates
     #todo: add some check if same fasta files represents same isolate
