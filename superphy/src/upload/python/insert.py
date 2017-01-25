@@ -172,6 +172,9 @@ def parse_serotype(graph, serotyper_dict, uriIsolate):
 
 def generate_amr(graph, uriIsolate, fasta_file):
     import subprocess
+    import pandas
+
+    from os import rename
 
     if '/' in fasta_file:
         outputname = fasta_file.split('/')[-1]
@@ -189,6 +192,10 @@ def generate_amr(graph, uriIsolate, fasta_file):
     subprocess.call(['rgi_jsontab',
         '-i', 'outputs/' + outputname + '.json',
         '-o', 'outputs/' + outputname])
+
+    rename('outputs/' + outputname + '.txt', 'outputs/' + outputname + '.tsv')
+
+    amr_results = pandas.read_table('outputs/' + outputname + '.tsv')
 
     return graph
 
