@@ -210,7 +210,7 @@ if __name__ == "__main__":
 
     #starting logging
     logging.basicConfig(
-        filename = 'outputs/' + __name__ + args.i,
+        filename = 'outputs/' + args.i,
         level = logging.INFO
     )
 
