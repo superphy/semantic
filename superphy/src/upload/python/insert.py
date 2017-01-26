@@ -217,12 +217,12 @@ def generate_amr(graph, uriIsolate, fasta_file):
         graph.add((uriGene, gu('g:Identifier'), gu(':' + amr_results['Best_Hit_ARO'][i].replace(' ', '_')))) #ex. :metN
         graph.add((uriGene, gu('dc:Description'), Literal(amr_results['CUT_OFF'][i])))
 
-        gene_location = BNode()
+        gene_location = gu(uriGene, '/location')
         graph.add((uriGene, gu('faldo:location'), gene_location))
         graph.add((gene_location, gu('rdf:type'), gu('faldo:Region'))) #rdf:type is same as 'a'
 
-        gene_start = BNode()
-        gene_end = BNode()
+        gene_start = gu(gene_location, '/start')
+        gene_end = gu(gene_location, '/end')
 
         graph.add((gene_location, gu('faldo:Begin'), gene_start))
         graph.add((gene_start, gu('rdf:type'), gu('faldo:Position')))
