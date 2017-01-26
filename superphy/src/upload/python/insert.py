@@ -201,8 +201,8 @@ def generate_amr(graph, uriIsolate, fasta_file):
     #triple generation
     for i in amr_results.index:
 
-        orf_id = amr_results['ORF_ID'][i]
-        contig_id = orf_id.split(orf_id.split('_')[-1])[0].split('_')[0].strip()
+        orf_id = amr_results['ORF_ID'][i].strip()
+        contig_id = orf_id.split(orf_id.split('_')[-1])[0].split('_')[0]
 
         #recreating the contig uri
         uriContig = gu(uriIsolate, '/' + fasta_file.split('/')[-1]) #now at assembly id
