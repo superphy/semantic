@@ -70,6 +70,15 @@ def generate_turtle(graph, fasta_file, uriIsolate):
     '''
     Handles the main generation of a turtle object.
 
+    NAMING CONVENTIONS:
+    uriIsolate: this is the top-most entry, a uniq. id per file is allocated by checking our DB for the greatest most entry (not in this file)
+        ex. :spfy234
+    uriAssembly: aka. the genome ID, just append the filename
+        ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna
+    uriContig: indiv contig ids; from SeqIO.record.id - this should be uniq to a contig (at least within a given file)
+        ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/contigs/FLOF01006689.1
+        note: the record.id is what RGI uses as a prefix for ORF_ID (ORF_ID has additional _314 or w/e #s)
+
     Args:
         graph(rdflib.Graph): the graph instance that is 1:1 with a .fasta file
         fasta_file(str): path to the .fasta file (this should incl the directory)
@@ -84,36 +93,26 @@ def generate_turtle(graph, fasta_file, uriIsolate):
     from Bio import SeqIO
     from rdflib import Literal
 
+    #ex. :spfy234
     graph.add((uriIsolate, gu('rdf:type'), gu('ncbi:562'))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
     graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium"))) #rdflib.Namespace seems to not like numbers hence ge + '0001567'
 
+    #ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna
+    uriAssembly = gu(uriIsolate, '/' + fasta_file.split('/')[-1]) #done to ensure 1:1 for now
+    #associatting isolate URI with assembly URI
+    graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
+
+    #uri for bag of contigs
+    #ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/contigs
+    uriContigs = gu(uriAssembly + "/contigs")
+    graph.add((uriAssembly, gu('so:0001462'), uriContigs))
+
     for record in SeqIO.parse(open(fasta_file), "fasta"):
-        identifiers = parse_nih_name(record.description)
 
-        #creating :spfy1/ANLJ01
-        #this is repetitive for the same assembly
-        #uriAssembly = gu(uriIsolate, '/' + identifiers['assembly'])
-        #TODO: add in ECTyper so we can get unique ids for isolates, hash of filename maybe ideal for assemblies or just use filename
-        uriAssembly = gu(uriIsolate, '/' + str(hash(fasta_file.split('/')[-1]))) #done to ensure 1:1 for now
-        #associatting isolate URI with assembly URI
-        graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
-        graph.add((uriIsolate, gu('g:Name'), Literal('Escherichia coli' + identifiers['species'])))
-
-        #the assembly aka the genome (kindof)
-        #no longer using blank node, instead uri for bag of contigs
-        uriContigs = gu(uriAssembly + "/contigs")
-        graph.add((uriAssembly, gu('so:0001462'), uriContigs))
-        if '/' in fasta_file: #check for path incl
-            graph.add((uriAssembly, gu('dc:source'), Literal(fasta_file.split('/')[-1])))
-        else:
-            graph.add((uriAssembly, gu('dc:source'), Literal(fasta_file)))
-        graph.add((uriAssembly, gu('dc:description'), Literal(record.description)))
-
-        #creating :spfy1/ANLJ01/00001.1 ie. the contig uri
-        uriContig = gu(uriAssembly, '/' + identifiers['contig'])
-        graph.add((uriContigs, gu('g:Contig'), uriContig))
+        #ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/FLOF01006689.1
+        uriContig = gu(uriAssembly, '/contigs/' + record.id)
+        graph.add((uriContigs, gu('g:Contig'), uriContig)) #linking the spec contig and the bag of contigs
         graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
-        graph.add((uriContig, gu('dc:source'), Literal(identifiers['accession_id'])))
 
     return graph
 
@@ -196,6 +195,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
     rename('outputs/' + outputname + '.txt', 'outputs/' + outputname + '.tsv')
 
     amr_results = pandas.read_table('outputs/' + outputname + '.tsv')
+    amr_results = amr_results[['ORF_ID','START','STOP','ORIENTATION','CUT_OFF','Best_Hit_ARO']]
 
     return graph
 
