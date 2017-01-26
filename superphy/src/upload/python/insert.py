@@ -3,6 +3,8 @@
 
 #use: python insert.py -i samples/ANLJ01.1.fsa_nt
 
+import logging
+
 from _utils import generate_output, generate_uri as gu, upload_data
 
 def generate_graph():
@@ -123,28 +125,77 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     from ast import literal_eval
     from os.path import splitext
 
+    logging.info('calling ectyper from fun call_ectyper')
     #concurrency is handled at the batch level, not here (note: this might change)
+    #we only use ectyper for serotyping, amr is handled by rgi directly
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
         '-in', fasta_file,
-        '-s', '1'])
+        '-s', '1'
+        ])
+    logging.info('inner call completed')
 
-    ectyper_dict = literal_eval(ectyper_dict)
-
+    #because we are using check_output, this catches any print messages from tools_controller
+    #TODO: switch to pipes
     if 'error' in ectyper_dict.lower():
+        logging.error('ectyper failed for' + fasta_file)
         print 'ECTyper failed for: ', fasta_file
         print 'returning graph w/o serotype'
         return graph
 
+    logging.info('evalulating ectyper output')
+    #generating the dict
+    ectyper_dict = literal_eval(ectyper_dict)
+    logging.info('evaluation okay')
+
+    #we are calling tools_controller on only one file, so grab that dict
     ectyper_dict = ectyper_dict[splitext(fasta_file)[0].split('/')[-1]]
 
-    serotype_dict = ectyper_dict['Serotype']
+    #serotype parsing
+    graph = parse_serotype(graph, ectyper_dict['Serotype'], uriIsolate)
+    logging.info('serotype parsed okay')
 
-    if 'O type' in serotype_dict:
-        graph.add((uriIsolate, gu('ge:0001076'), Literal(serotype_dict['O type'])))
-    if 'H type' in serotype_dict:
-        graph.add((uriIsolate, gu('ge:0001077'), Literal(serotype_dict['H type'])))
-    if 'K type' in serotype_dict:
-        graph.add((uriIsolate, gu('ge:0001684'), Literal(serotype_dict['K type'])))
+    #amr
+    graph = generate_amr(graph, uriIsolate, fasta_file)
+
+
+    return graph
+
+def parse_serotype(graph, serotyper_dict, uriIsolate):
+    if 'O type' in serotyper_dict:
+        graph.add((uriIsolate, gu('ge:0001076'), Literal(serotyper_dict['O type'])))
+    if 'H type' in serotyper_dict:
+        graph.add((uriIsolate, gu('ge:0001077'), Literal(serotyper_dict['H type'])))
+    if 'K type' in serotyper_dict:
+        graph.add((uriIsolate, gu('ge:0001684'), Literal(serotyper_dict['K type'])))
+
+    return graph
+
+def generate_amr(graph, uriIsolate, fasta_file):
+    import subprocess
+    import pandas
+
+    from os import rename
+
+    if '/' in fasta_file:
+        outputname = fasta_file.split('/')[-1]
+    else:
+        outputname = fasta_file
+
+    #differs from ectyper as we dont care about the temp results, just the final .tsv
+    #direct (the main) call
+    subprocess.call(['rgi',
+        '-i', fasta_file,
+        '-o', 'outputs/' + outputname])
+
+    #the rgi_json call in rgitool.py isn't needed for us
+    #this generates the .tsv we want
+    subprocess.call(['rgi_jsontab',
+        '-i', 'outputs/' + outputname + '.json',
+        '-o', 'outputs/' + outputname])
+
+    rename('outputs/' + outputname + '.txt', 'outputs/' + outputname + '.tsv')
+
+    amr_results = pandas.read_table('outputs/' + outputname + '.tsv')
 
     return graph
 
@@ -169,7 +220,14 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    #starting logging
+    logging.basicConfig(
+        filename = 'outputs/' + __name__ + args.i.split('/')[-1] + '.log',
+        level = logging.INFO
+    )
+
     print("Importing FASTA from: " + args.i)
+    logging.info('importing from' + args.i)
 
     #we do this outside of record as we want same uri for all isolates
     #todo: add some check if same fasta files represents same isolate
@@ -181,12 +239,21 @@ if __name__ == "__main__":
     #TODO: do check to make unique to an isolate
     uriIsolate = gu(':spfy' + str(spfyID))
 
+    logging.info('generating barebones ttl from file')
     graph = generate_turtle(graph, args.i, uriIsolate)
+    logging.info('barebones ttl generated')
 
+    logging.info('calling ectyper')
     graph = call_ectyper(graph, args.i, uriIsolate)
+    logging.info('ectyper call completed')
 
     print "Uploading to Blazegraph"
-    print upload_data(generate_output(graph))
+    logging.info('uploading to blazegraph')
+    confirm = upload_data(generate_output(graph))
+    print confirm
+    logging.info(confirm)
     print 'uploaded wooot!'
 
-    os.remove(args.i)
+    #removing fasta
+    #os.remove(args.i)
+    os.remove('outputs/' + __name__ + args.i.split('/')[-1] + '.log')
