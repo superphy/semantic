@@ -214,7 +214,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
 
         uriGene = gu(uriGenes, '/' + orf_id)
         graph.add((uriGenes, gu('so:Gene'), uriGene))
-        graph.add((uriGene, gu('g:Identifier'), gu(':' + amr_results['Best_Hit_ARO'][i]))) #ex. :metN
+        graph.add((uriGene, gu('g:Identifier'), gu(':' + amr_results['Best_Hit_ARO'][i].replace(' ', '_')))) #ex. :metN
         graph.add((uriGene, gu('dc:Description'), Literal(amr_results['CUT_OFF'][i])))
 
         gene_location = BNode()
