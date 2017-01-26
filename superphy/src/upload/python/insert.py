@@ -81,8 +81,8 @@ def generate_turtle(graph, fasta_file, uriIsolate):
 
     Args:
         graph(rdflib.Graph): the graph instance that is 1:1 with a .fasta file
-        fasta_file(str): path to the .fasta file (this should incl the directory)
-        spfyID(hash): a hash value generated from the name of the fasta file
+        fasta_file(str): path to the .fasta file (this should already incl the directory)
+        spfyID(hash): currently a hash value generated from the name of the fasta file
     Returns:
         graph: the graph with all the triples generated from the .fasta file
 
@@ -104,7 +104,7 @@ def generate_turtle(graph, fasta_file, uriIsolate):
 
     #uri for bag of contigs
     #ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/contigs
-    uriContigs = gu(uriAssembly + "/contigs")
+    uriContigs = gu(uriAssembly, "/contigs")
     graph.add((uriAssembly, gu('so:0001462'), uriContigs))
 
     for record in SeqIO.parse(open(fasta_file), "fasta"):
@@ -194,8 +194,21 @@ def generate_amr(graph, uriIsolate, fasta_file):
 
     rename('outputs/' + outputname + '.txt', 'outputs/' + outputname + '.tsv')
 
-    amr_results = pandas.read_table('outputs/' + outputname + '.tsv')
+    amr_results = pandas.read_table('outputs/' + outputname + '.tsv', index_col = False)
     amr_results = amr_results[['ORF_ID','START','STOP','ORIENTATION','CUT_OFF','Best_Hit_ARO']]
+
+    #triple generation
+    for orf_id in amr_results['ORF_ID']:
+        contig_id = orf_id.split(orf_id.split('_')[-1])[0].split('_')[0]
+
+        #recreating the contig uri
+        uriContig = gu(uriIsolate, '/' + fasta_file.split('/')[-1]) #now at assembly id
+        uriContig = gu(uriContig, '/contigs/' + contig_id) #now at contig uri
+
+        uriGene = gu(uriContig, '/' + orf_id)
+        graph.add(uriContig, gu('faldo:BagOfRegions'), uriGene)
+
+        graph.add
 
     return graph
 
