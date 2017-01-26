@@ -212,7 +212,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
         #we may end up adding the same bag if the contigs are the same - it doesn't really matter, graph.add will check for this
         graph.add((uriContig, gu('faldo:BagOfRegions'), uriGenes))
 
-        uriGene = gu(uriGenes, + '/' + orf_id)
+        uriGene = gu(uriGenes, '/' + orf_id)
         graph.add((uriGenes, gu('so:Gene'), uriGene))
         graph.add((uriGene, gu('g:Identifier'), gu(':' + amr_results['Best_Hit_ARO'][i]))) #ex. :metN
         graph.add((uriGene, gu('dc:Description'), amr_results['CUT_OFF'][i]))
