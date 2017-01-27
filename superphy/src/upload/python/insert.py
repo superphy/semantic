@@ -233,54 +233,46 @@ def generate_amr(graph, uriIsolate, fasta_file):
                        [-1])  # now at assembly id
         uriContig = gu(uriContig, '/contigs/' + contig_id)  # now at contig uri
 
-        uriGenes = gu(uriContig, '/genes')
-        # we may end up adding the same bag if the contigs are the same - it
-        # doesn't really matter, graph.add will check for this
-        graph.add((uriContig, gu('faldo:BagOfRegions'), uriGenes))
+        # after this point we switch perspective to the gene and built down to relink the gene with the contig
+
+        bnode_start = BNode()
+        bnode_end = BNode()
 
         gene_name = amr_results['Best_Hit_ARO'][i].replace(' ', '_')
-        # we need the gene uri to be unique in the rare? case that the same gene is found twice in the same contig
-        uriGene = gu(uriGenes, '/AMR_' + gene_name + '_' + amr_results['START'][i] + '_' + amr_results['STOP'][i])
-        graph.add((uriGenes, gu('so:Gene'), uriGene))
-        graph.add((uriGene, gu('g:Identifier'), gu(
-            ':' + gene_name)))  # ex. :metN
-        graph.add((uriGene, gu('dc:Description'),
+
+        graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
+        graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
+
+        graph.add((bnode_start, gu('dc:Description'),
+                   Literal(amr_results['CUT_OFF'][i])))
+        graph.add((bnode_end, gu('dc:Description'),
                    Literal(amr_results['CUT_OFF'][i])))
 
-        gene_location = gu(uriGene, '/location')
-        graph.add((uriGene, gu('faldo:location'), gene_location))
-        # rdf:type is same as 'a'
-        graph.add((gene_location, gu('rdf:type'), gu('faldo:Region')))
-
-        gene_start = gu(gene_location, '/start')
-        gene_end = gu(gene_location, '/end')
-
-        graph.add((gene_location, gu('faldo:Begin'), gene_start))
-        graph.add((gene_start, gu('rdf:type'), gu('faldo:Position')))
-        graph.add((gene_start, gu('rdf:type'), gu('faldo:ExactPosition')))
-
-        graph.add((gene_location, gu('faldo:End'), gene_end))
-        graph.add((gene_end, gu('rdf:type'), gu('faldo:Position')))
-        graph.add((gene_end, gu('rdf:type'), gu('faldo:ExactPosition')))
+        graph.add((bnode_start, gu('rdf:type'), gu('faldo:Position')))
+        graph.add((bnode_start, gu('rdf:type'), gu('faldo:ExactPosition')))
+        graph.add((bnode_end, gu('rdf:type'), gu('faldo:Position')))
+        graph.add((bnode_end, gu('rdf:type'), gu('faldo:ExactPosition')))
 
         if amr_results['ORIENTATION'][i] is '+':
-            graph.add((gene_start, gu('rdf:type'), gu(
+            graph.add((bnode_start, gu('rdf:type'), gu(
                 'faldo:ForwardStrandPosition')))
-            graph.add((gene_end, gu('rdf:type'), gu(
+            graph.add((bnode_end, gu('rdf:type'), gu(
                 'faldo:ForwardStrandPosition')))
         else:
-            graph.add((gene_start, gu('rdf:type'), gu(
+            graph.add((bnode_start, gu('rdf:type'), gu(
                 'faldo:ReverseStrandPosition')))
-            graph.add((gene_end, gu('rdf:type'), gu(
+            graph.add((bnode_end, gu('rdf:type'), gu(
                 'faldo:ReverseStrandPosition')))
 
-        graph.add((gene_start, gu('faldo:Position'),
+        graph.add((bnode_start, gu('faldo:Position'),
                    Literal(amr_results['START'][i])))
-        graph.add((gene_start, gu('faldo:Reference'), uriContig))
+        graph.add((bnode_start, gu('faldo:Reference'), uriContig))
 
-        graph.add((gene_end, gu('faldo:Position'),
+        graph.add((bnode_end, gu('faldo:Position'),
                    Literal(amr_results['STOP'][i])))
-        graph.add((gene_end, gu('faldo:Reference'), uriContig))
+        graph.add((bnode_end, gu('faldo:Reference'), uriContig))
+
+        ####
 
     return graph
 
