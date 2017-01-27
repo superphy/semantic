@@ -233,7 +233,8 @@ def generate_amr(graph, uriIsolate, fasta_file):
                        [-1])  # now at assembly id
         uriContig = gu(uriContig, '/contigs/' + contig_id)  # now at contig uri
 
-        # after this point we switch perspective to the gene and built down to relink the gene with the contig
+        # after this point we switch perspective to the gene and built down to
+        # relink the gene with the contig
 
         bnode_start = BNode()
         bnode_end = BNode()
