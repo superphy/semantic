@@ -238,10 +238,12 @@ def generate_amr(graph, uriIsolate, fasta_file):
         # doesn't really matter, graph.add will check for this
         graph.add((uriContig, gu('faldo:BagOfRegions'), uriGenes))
 
-        uriGene = gu(uriGenes, '/' + orf_id)
+        gene_name = amr_results['Best_Hit_ARO'][i].replace(' ', '_')
+        # we need the gene uri to be unique in the rare? case that the same gene is found twice in the same contig
+        uriGene = gu(uriGenes, '/AMR_' + gene_name + '_' + amr_results['START'][i] + '_' + amr_results['STOP'][i])
         graph.add((uriGenes, gu('so:Gene'), uriGene))
         graph.add((uriGene, gu('g:Identifier'), gu(
-            ':' + amr_results['Best_Hit_ARO'][i].replace(' ', '_'))))  # ex. :metN
+            ':' + gene_name)))  # ex. :metN
         graph.add((uriGene, gu('dc:Description'),
                    Literal(amr_results['CUT_OFF'][i])))
 
