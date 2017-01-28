@@ -191,6 +191,76 @@ def parse_serotype(graph, serotyper_dict, uriIsolate):
 
     return graph
 
+def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
+    '''
+    My intention is to eventually use ECTyper for all of the calls it was meant for.
+    Just need to update ECTyper dict format to ref. AMR / VF by contig. as opposed to genome directly.
+
+    These are the common gene related triples to both AMR / VF.
+    Note: we are working from uriIsolate and assume that the calling functions (
+    generate_amr() and generate_vf() are doing the transformations to the
+    gene_dict.keys so that they are contig ids (as they differ in return value
+    between VF & AMR from ECTyper)
+    )
+
+    TODO: offshore rgi calls to ectyper and make it return a dict in the format we need
+    -currently, we'll handle ORF_ID to contig id transform in generate_amr()
+
+    Args:
+    graph(rdflib.Graph): the running graph with all our triples
+    gene_dict({{}}): a dictionary of genes with a assoc info
+        ex. {'Some_Contig_ID':[{'START','STOP','ORIENTATION','GENE_NAME'}]}
+    uriIsolate(rdflib.URIRef): the base uri of the isolate
+        ex. :spfy324
+
+    TODO: merge common components with generate_amr()
+    '''
+
+    for contig_id in gene_dict.keys():
+        for gene_record in gene_dict[contig_id]:
+            # recreating the contig uri
+            uriContig = gu(uriIsolate, '/' + fasta_file.split('/')
+                           [-1])  # now at assembly id
+            uriContig = gu(uriContig, '/contigs/' + contig_id)  # now at contig uri
+
+            # after this point we switch perspective to the gene and build down to
+            # relink the gene with the contig
+
+            bnode_start = BNode()
+            bnode_end = BNode()
+
+            gene_name = gene_record['GENE_NAME'].replace(' ', '_')
+
+            graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
+            graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
+
+            graph.add((bnode_start, gu('rdf:type'), gu('faldo:Position')))
+            graph.add((bnode_start, gu('rdf:type'), gu('faldo:ExactPosition')))
+            graph.add((bnode_end, gu('rdf:type'), gu('faldo:Position')))
+            graph.add((bnode_end, gu('rdf:type'), gu('faldo:ExactPosition')))
+
+            if gene_record['ORIENTATION'] is '+':
+                graph.add((bnode_start, gu('rdf:type'), gu(
+                    'faldo:ForwardStrandPosition')))
+                graph.add((bnode_end, gu('rdf:type'), gu(
+                    'faldo:ForwardStrandPosition')))
+            else:
+                graph.add((bnode_start, gu('rdf:type'), gu(
+                    'faldo:ReverseStrandPosition')))
+                graph.add((bnode_end, gu('rdf:type'), gu(
+                    'faldo:ReverseStrandPosition')))
+
+            graph.add((bnode_start, gu('faldo:Position'),
+                       Literal(gene_record['START'])))
+            graph.add((bnode_start, gu('faldo:Reference'), uriContig))
+
+            graph.add((bnode_end, gu('faldo:Position'),
+                       Literal(gene_record['STOP'])))
+            graph.add((bnode_end, gu('faldo:Reference'), uriContig))
+
+            ####
+
+    return graph
 
 def generate_amr(graph, uriIsolate, fasta_file):
     import subprocess
@@ -233,7 +303,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
                        [-1])  # now at assembly id
         uriContig = gu(uriContig, '/contigs/' + contig_id)  # now at contig uri
 
-        # after this point we switch perspective to the gene and built down to
+        # after this point we switch perspective to the gene and build down to
         # relink the gene with the contig
 
         bnode_start = BNode()
