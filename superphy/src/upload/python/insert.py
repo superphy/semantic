@@ -191,6 +191,7 @@ def parse_serotype(graph, serotyper_dict, uriIsolate):
 
     return graph
 
+
 def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
     '''
     My intention is to eventually use ECTyper for all of the calls it was meant for.
@@ -221,7 +222,8 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
             # recreating the contig uri
             uriContig = gu(uriIsolate, '/' + fasta_file.split('/')
                            [-1])  # now at assembly id
-            uriContig = gu(uriContig, '/contigs/' + contig_id)  # now at contig uri
+            uriContig = gu(uriContig, '/contigs/' +
+                           contig_id)  # now at contig uri
 
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
@@ -261,6 +263,7 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
             ####
 
     return graph
+
 
 def generate_amr(graph, uriIsolate, fasta_file):
     import subprocess
