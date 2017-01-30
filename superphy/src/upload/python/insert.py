@@ -149,7 +149,7 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
                                             '-in', fasta_file,
                                             '-s', '1',
-                                            'vf', '1'
+                                            '-vf', '1'
                                             ])
     logging.info('inner call completed')
 
