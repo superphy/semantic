@@ -148,7 +148,8 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     # we only use ectyper for serotyping, amr is handled by rgi directly
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
                                             '-in', fasta_file,
-                                            '-s', '1'
+                                            '-s', '1',
+                                            'vf', '1'
                                             ])
     logging.info('inner call completed')
 
@@ -174,6 +175,9 @@ def call_ectyper(graph, fasta_file, uriIsolate):
 
     # amr
     graph = generate_amr(graph, uriIsolate, fasta_file)
+
+    #vf
+    graph = parse_gene_dict(graph, ectyper_dict['Virulence Factors'], uriIsolate, fasta_file)
 
     return graph
 
