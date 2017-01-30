@@ -224,9 +224,9 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
     for contig_id in gene_dict.keys():
         for gene_record in gene_dict[contig_id]:
             # recreating the contig uri
-            uriContig = gu(uriIsolate, '/' + fasta_file.split('/')
-                           [-1])  # now at assembly id
-            uriContig = gu(uriContig, '/contigs/' +
+            uriGenome = gu(':' + fasta_file.split('/')
+                           [-1])
+            uriContig = gu(uriGenome, '/contigs/' +
                            contig_id)  # now at contig uri
 
             # after this point we switch perspective to the gene and build down to
