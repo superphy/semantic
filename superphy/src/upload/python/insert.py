@@ -278,11 +278,16 @@ def generate_amr(graph, uriGenome, fasta_file):
     # note: you might be tempted to prefix a set_index('contig_id') but remember, the same contig might have multiple genes
     amr_results = amr_results.to_dict(orient='index')
 
-
-    print(amr_results)
     # we have to manually check for contigs with multiple genes
     amr_dict = {}
     print amr_results.keys()
+    for i in amr_results.keys():
+        contig_id = amr_results[i]['contig_id']
+        if contig_id not in amr_dict.keys():
+            amr_dict[contig_id] = []
+        amr_dict[contig_id].append(dict((keys, amr_results[i][keys]) for keys in ('START','STOP','GENE_NAME','ORIENTATION','CUT_OFF','GENE_NAME')))
+
+    print amr_dict
 
     print 'amr parse call'
     graph = parse_gene_dict(graph, amr_results, uriGenome)
