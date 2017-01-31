@@ -270,8 +270,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
     amr_results.rename(
         columns={'ORF_ID': 'contig_id', 'Best_Hit_ARO': 'GENE_NAME'}, inplace=True)
 
-    # sometimes there are spaces, also we remove the additional occurance tag
-    # that RGI adds to contig ids
+    # sometimes there are spaces at the end of the contig id, also we remove the additional occurance tag that RGI adds to contig ids
     amr_results['contig_id'] = amr_results['contig_id'].apply(
         lambda n: n.strip().rsplit('_', 1)[0])
 
@@ -281,7 +280,9 @@ def generate_amr(graph, uriIsolate, fasta_file):
         contig_id = amr_results['contig_id'][i]
         if contig_id not in amr_dict.keys():
             amr_dict[contig_id] = []
-        amr_dict[contig_id].append(amr_results['START', 'STOP', 'ORIENTATION', 'CUT_OFF', 'GENE_NAME'][i])
+        amr_dict[contig_id].append(amr_results[['START', 'STOP', 'ORIENTATION', 'CUT_OFF', 'GENE_NAME']][i])
+
+    print amr_dict
 
     # triple generation
     for i in amr_results.index:
