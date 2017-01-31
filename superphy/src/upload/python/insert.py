@@ -186,6 +186,10 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
 
     for contig_id in gene_dict.keys():
         for gene_record in gene_dict[contig_id]:
+
+            #debug
+            print gene_record.keys()
+
             # recreating the contig uri
             uriContig = gu(uriGenome, '/contigs/' +
                            contig_id)  # now at contig uri
