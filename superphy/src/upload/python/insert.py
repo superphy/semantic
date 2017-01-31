@@ -275,6 +275,14 @@ def generate_amr(graph, uriIsolate, fasta_file):
     amr_results['contig_id'] = amr_results['contig_id'].apply(
         lambda n: n.strip().rsplit('_', 1)[0])
 
+    # TODO: write a faster way of doing the same thing
+    amr_dict = {}
+    for i in amr_results.index:
+        contig_id = amr_results['contig_id'][i]
+        if contig_id not in amr_dict.keys():
+            amr_dict[contig_id] = []
+        amr_dict[contig_id].append(amr_results['START', 'STOP', 'ORIENTATION', 'CUT_OFF', 'GENE_NAME'][i])
+
     # triple generation
     for i in amr_results.index:
 
