@@ -57,25 +57,23 @@ def generate_turtle(graph, fasta_file, uriIsolate):
     from rdflib import Literal
 
     # ex. :spfy234
-    # rdflib.Namespace seems to not like numbers hence ge + '0001567'
     graph.add((uriIsolate, gu('rdf:type'), gu('ncbi:562')))
-    # rdflib.Namespace seems to not like numbers hence ge + '0001567'
     graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium")))
 
-    # ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna
+    # ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
     uriAssembly = gu(uriIsolate, '/' + fasta_file.split('/')
                      [-1])  # done to ensure 1:1 for now
     # associatting isolate URI with assembly URI
     graph.add((uriIsolate, gu('g:Genome'), uriAssembly))
 
     # uri for bag of contigs
-    # ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/contigs
+    # ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba/contigs/
     uriContigs = gu(uriAssembly, "/contigs")
     graph.add((uriAssembly, gu('so:0001462'), uriContigs))
 
     for record in SeqIO.parse(open(fasta_file), "fasta"):
 
-        # ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/FLOF01006689.1
+        # ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba/contigs/FLOF01006689.1
         uriContig = gu(uriAssembly, '/contigs/' + record.id)
         # linking the spec contig and the bag of contigs
         graph.add((uriContigs, gu('g:Contig'), uriContig))
@@ -385,6 +383,9 @@ if __name__ == "__main__":
     args_dict = vars(args)
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome
+
+    #debug code
+    print args_dict
 
     logging.info('generating barebones ttl from file')
     graph = generate_turtle(graph, args.i, uriIsolate)
