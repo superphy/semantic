@@ -78,7 +78,7 @@ def generate_turtle(graph, fasta_file, uriIsolate, uriGenome):
     return graph
 
 
-def call_ectyper(graph, fasta_file, uriIsolate):
+def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
     # imports in it - not sure if we'll use them all)
     import subprocess
@@ -87,13 +87,17 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     from ast import literal_eval
     from os.path import splitext
 
+    fasta_file = args_dict['i']
+    uriIsolate = args_dict['uriIsolate']
+
+
     logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
-    # we only use ectyper for serotyping, amr is handled by rgi directly
+    # we only use ectyper for serotyping and vf, amr is handled by rgi directly
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
                                             '-in', fasta_file,
-                                            '-s', '1',
-                                            '-vf', '1'
+                                            '-s', str(int(not args_dict['disable_serotype'])),
+                                            '-vf', str(int(not args_dict['disable_vf']))
                                             ])
     logging.info('inner call completed')
 
@@ -376,17 +380,19 @@ if __name__ == "__main__":
         uriGenome = gu(':' + args.uri_genome)
 
     # we make a dictionary from the cli-inputs and add are uris to it
+    # mainly used for when a func needs a lot of the args
     args_dict = vars(args)
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome
 
     logging.info('generating barebones ttl from file')
-    graph = generate_turtle(graph, args_dict['i'], args_dict['uriIsolate'], args_dict['uriGenome'])
+    graph = generate_turtle(graph, args.i, uriIsolate, uriGenome)
     logging.info('barebones ttl generated')
 
-    logging.info('calling ectyper')
-    graph = call_ectyper(graph, args.i, uriIsolate)
-    logging.info('ectyper call completed')
+    if not (args.disable_serotype and args.disable_vf and args.disable_amr):
+        logging.info('calling ectyper')
+        graph = call_ectyper(graph, args_dict)
+        logging.info('ectyper call completed')
 
     print "Uploading to Blazegraph"
     logging.info('uploading to blazegraph')
