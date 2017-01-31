@@ -267,8 +267,6 @@ def generate_amr(graph, uriIsolate, fasta_file):
     amr_results = amr_results[
         ['ORF_ID', 'START', 'STOP', 'ORIENTATION', 'CUT_OFF', 'Best_Hit_ARO']]
 
-    print amr_results
-
     # triple generation
     for i in amr_results.index:
 
