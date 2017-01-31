@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # -*- coding: UTF-8 -*-
 
 # use: python insert.py -i samples/ANLJ01.1.fsa_nt
@@ -6,6 +6,8 @@
 import logging
 
 from _utils import generate_output, generate_uri as gu, upload_data
+
+global
 
 
 def generate_graph():
@@ -86,10 +88,10 @@ def generate_turtle(graph, fasta_file, uriIsolate):
     NAMING CONVENTIONS:
     uriIsolate: this is the top-most entry, a uniq. id per file is allocated by checking our DB for the greatest most entry (not in this file)
         ex. :spfy234
-    uriAssembly: aka. the genome ID, just append the filename
-        ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna
+    uriAssembly: aka. the genome ID, this is a sha1 hash of the file contents
+        ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
     uriContig: indiv contig ids; from SeqIO.record.id - this should be uniq to a contig (at least within a given file)
-        ex. :spfy234/GCA_900089785.1_CQ10_genomic.fna/contigs/FLOF01006689.1
+        ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba/contigs/FLOF01006689.1
         note: the record.id is what RGI uses as a prefix for ORF_ID (ORF_ID has additional _314 or w/e #s)
 
     Args:
@@ -176,8 +178,9 @@ def call_ectyper(graph, fasta_file, uriIsolate):
     # amr
     graph = generate_amr(graph, uriIsolate, fasta_file)
 
-    #vf
-    graph = parse_gene_dict(graph, ectyper_dict['Virulence Factors'], uriIsolate, fasta_file)
+    # vf
+    graph = parse_gene_dict(
+        graph, ectyper_dict['Virulence Factors'], uriIsolate, fasta_file)
 
     return graph
 
@@ -228,7 +231,7 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
                            [-1])
             uriContig = gu(uriGenome, '/contigs/' +
                            contig_id)  # now at contig uri
-            graph.add((uriGenome, gu('so:0001462'),uriContig))
+            graph.add((uriGenome, gu('so:0001462'), uriContig))
 
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
@@ -363,6 +366,7 @@ if __name__ == "__main__":
     from Bio import SeqIO
     from rdflib import Namespace, BNode, Graph, URIRef, Literal
     from ConfigParser import SafeConfigParser
+    from _utils import generate_uri_hash
 
     # setting up graph
     graph = generate_graph()
@@ -373,6 +377,35 @@ if __name__ == "__main__":
         "-i",
         help="FASTA file",
         required=True
+    )
+    parser.add_argument(
+        "--disable-serotype",
+        help="Disables use of the Serotyper. Serotyper is triggered by default.",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--disable-vf",
+        help="Disables use of ECTyper to get associated Virulence Factors. VFs are computed by default.",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--disable-amr",
+        help="Disables use of RGI to get Antimicrobial Resistance Factors.  AMR genes are computed by default.",
+        action="store_true"
+    )
+
+    # note: by in large, we expect uri to be given as just the unique string value without any prefixes (be it the hash or the integer), the actual rdflib.URIRef object will be generated in this script
+    # this is mainyl for batch computation
+    parser.add_argument(
+        "--uri-genome",
+        help="Allows the specification of the Genome URI separately. Expect just the hash (not an actual uri).",
+    )
+    # This is both for batch computation and for future extensions where there
+    # are multiple sequencings per isolate (Campy)
+    parser.add_argument(
+        "--uri-isolate",
+        help="Allows the specification of the Isolate URI separately. Expect just the integer (not the full :spfyID)",
+        type=int
     )
     args = parser.parse_args()
 
@@ -385,17 +418,24 @@ if __name__ == "__main__":
     print("Importing FASTA from: " + args.i)
     logging.info('importing from' + args.i)
 
-    # we do this outside of record as we want same uri for all isolates
-    # todo: add some check if same fasta files represents same isolate
-    #grabs current id #
-    # TODO: replace ID with query to sparql endpoint to check / maybe base of
-    # serotype
-    # just from the filename (not incl the dir)
-    spfyID = hash(args.i.split('/')[-1])
+    # check if a genome uri isn't set yet
+    if args.uri_isolate is None:
+        # this is temporary, TODO: include a spqarql query to the db
+        uriIsolate = gu(':spfy' + str(hash(args.i.split('/')[-1])))
+    else:
+        uriIsolate = gu(':spfy' + args.uri_isolate)
 
-    # makes the spfy uri -> currently unique to a file
-    # TODO: do check to make unique to an isolate
-    uriIsolate = gu(':spfy' + str(spfyID))
+    # if the fasta_file hash was not precomputed (batch scripts should
+    # precompute it), we compute that now
+    if args.uri_genome is None:
+        uriGenome = gu(':' + generate_uri_hash(args.i))
+    else:
+        uriGenome = gu(':' + args.uri_genome)
+
+    # we make a dictionary from the cli-inputs and add are uris to it
+    args_dict = vars(args)
+    args_dict['uriIsolate'] = uriIsolate
+    args_dict['uriGenome'] = uriGenome
 
     logging.info('generating barebones ttl from file')
     graph = generate_turtle(graph, args.i, uriIsolate)
@@ -414,4 +454,7 @@ if __name__ == "__main__":
 
     # removing fasta
     # os.remove(args.i)
+
+    # individual fasta logs are wiped on completion (or you'd have several
+    # thousand of these)
     os.remove('outputs/' + __name__ + args.i.split('/')[-1] + '.log')
