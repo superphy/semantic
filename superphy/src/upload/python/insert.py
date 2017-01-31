@@ -249,6 +249,7 @@ def generate_amr(graph, uriGenome, fasta_file):
 
     from os import rename
     from rdflib import BNode, Literal
+    from ast import literal_eval
 
     if '/' in fasta_file:
         outputname = fasta_file.split('/')[-1]
@@ -280,7 +281,7 @@ def generate_amr(graph, uriGenome, fasta_file):
     amr_results['contig_id'] = amr_results['contig_id'].apply(
         lambda n: n.strip().rsplit('_', 1)[0])
 
-    amr_results = amr_results.set_index('contig_id').to_dict(orient='index')
+    amr_results = literal_eval(str(amr_results.set_index('contig_id').to_dict(orient='index')))
 
     print 'amr parse call'
     graph = parse_gene_dict(graph, amr_results, uriGenome)
