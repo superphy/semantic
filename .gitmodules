@@ -1,4 +1,3 @@
 [submodule "superphy/src/upload/python/ecoli_serotyping"]
 	path = superphy/src/upload/python/ecoli_serotyping
-	url = https://github.com/kevinkle/ecoli_serotyping
-	branch = superphy
+	url = https://github.com/kevinkle/ecoli_serotyping.git
