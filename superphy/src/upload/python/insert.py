@@ -187,7 +187,6 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
             # recreating the contig uri
             uriContig = gu(uriGenome, '/contigs/' +
                            contig_id)  # now at contig uri
-            graph.add((uriGenome, gu('g:Contig'), uriContig))
 
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
@@ -201,6 +200,13 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
 
             graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
             graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
+
+            # this is a special case for amr results
+            if gene_dict['CUT_OFF'] is not None:
+                graph.add((bnode_start, gu('dc:Description'),
+                           Literal(amr_results['CUT_OFF'][i])))
+                graph.add((bnode_end, gu('dc:Description'),
+                           Literal(amr_results['CUT_OFF'][i])))
 
             graph.add((bnode_start, gu('rdf:type'), gu('faldo:Position')))
             graph.add((bnode_start, gu('rdf:type'), gu('faldo:ExactPosition')))
