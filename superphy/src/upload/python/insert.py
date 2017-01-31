@@ -127,7 +127,7 @@ def call_ectyper(graph, args_dict):
         graph = parse_serotype(graph, ectyper_dict['Serotype'], uriIsolate)
         logging.info('serotype parsed okay')
 
-    if not args_dict['disable_vf']
+    if not args_dict['disable_vf']:
     # vf
         logging.info('parsing vf')
         graph = parse_gene_dict(
