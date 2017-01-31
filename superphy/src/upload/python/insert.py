@@ -182,7 +182,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
     TODO: merge common components with generate_amr()
     '''
     #debug
-    print gene_dict.keys()
+    print gene_dict
 
     for contig_id in gene_dict.keys():
         for gene_record in gene_dict[contig_id]:
