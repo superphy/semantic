@@ -29,55 +29,6 @@ def generate_graph():
 
     return graph
 
-
-def parse_nih_name(description):
-    """
-    Parses a String of a nih name (eg. record.description after Bio.SeqIO.parse)
-    and returns a dictionary of the substrings we're interesting FOR creating
-    uriSpecies
-
-    Args:
-        description (str): a record.description
-        ex. gi|427200135|gb|ANLJ01000508.1| Escherichia coli 89.0511 gec890511.contig.603_1, whole genome shotgun sequence
-    Returns:
-        (dict) with keys: accession_id, species, assembly, contig
-        ex. {'accession_id': 'ANLJ01000508', 'contig': '000508', 'assembly': 'ANLJ01', 'species': '89.0511'}
-
-    TODO:
-        -add code to parse other nih naming conventions
-        -what happens when no species name??
-    """
-    if '|' in description:
-        # of format: >gi|427220012|gb|ANLJ01000001.1| Escherichia coli 89.0511
-        # gec890511.contig.0_1, whole genome shotgun sequence
-        identifiers = {'accession_id': description.split("|")[3].split(".")[
-            0]}  # ANLJ01000001.1
-        identifiers['species'] = description.split("|")[4].split(" ")[
-            3]  # 89.0511
-        identifiers['assembly'] = identifiers['accession_id'][0:6]  # ANLJ01
-        identifiers['contig'] = identifiers['accession_id'][6:12]  # 000001.1
-    elif description[0].isalpha() and description[1].isalpha() and description[2].isdigit() and '.contig.' in description:
-        # of format: JH709084.1 Escherichia coli PA10 genomic scaffold
-        # PA10.contig.633, whole genome shotgun sequence
-        identifiers = {'accession_id': description.split(" ")[0]}
-        identifiers['species'] = description.split('.contig.')[
-            0].split(' ')[-1]
-        # this differs from the other 2 cases, here the assembly is just the
-        # strain of e.coli because each contig has a unique accession #
-        identifiers['assembly'] = identifiers['species']
-        identifiers['contig'] = description.split('.contig.')[1].split(' ')[0]
-    else:
-        # assuming: >AJMD01000001.1 Escherichia coli NCCP15658
-        # NCCP15658_contig01, whole genome shotgun sequence
-        identifiers = {'accession_id': description.split(" ")[
-            0]}  # AJMD01000001.1
-        identifiers['species'] = description.split(
-            'coli ')[1].split(' ')[0]  # NCCP15658
-        identifiers['assembly'] = identifiers['accession_id'][0:6]  # AJMD01
-        identifiers['contig'] = identifiers['accession_id'][6:12]  # 000001.1
-    return identifiers
-
-
 def generate_turtle(graph, fasta_file, uriIsolate):
     '''
     Handles the main generation of a turtle object.
@@ -391,8 +342,9 @@ if __name__ == "__main__":
         action="store_true"
     )
 
-    # note: by in large, we expect uri to be given as just the unique string value without any prefixes (be it the hash or the integer), the actual rdflib.URIRef object will be generated in this script
-    # this is mainyl for batch computation
+    # note: by in large, we expect uri to be given as just the unique string value  (be it the hash or the integer) without any prefixes, the actual rdflib.URIRef object will be generated in this script
+
+    # this is mainly for batch computation
     parser.add_argument(
         "--uri-genome",
         help="Allows the specification of the Genome URI separately. Expect just the hash (not an actual uri).",
