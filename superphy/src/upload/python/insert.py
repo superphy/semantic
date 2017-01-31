@@ -131,7 +131,7 @@ def call_ectyper(graph, args_dict):
     # vf
         logging.info('parsing vf')
         graph = parse_gene_dict(
-            graph, ectyper_dict['Virulence Factors'], uriIsolate, fasta_file)
+            graph, ectyper_dict['Virulence Factors'], uriGenome)
         logging.info('vf parsed okay')
 
     if not args_dict['disable_amr']:
