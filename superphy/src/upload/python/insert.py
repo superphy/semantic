@@ -7,9 +7,6 @@ import logging
 
 from _utils import generate_output, generate_uri as gu, upload_data
 
-global
-
-
 def generate_graph():
     '''
     Parses all the Namespaces defined in the config file and returns a graph
