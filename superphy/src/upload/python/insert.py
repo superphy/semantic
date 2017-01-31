@@ -128,7 +128,7 @@ def call_ectyper(graph, args_dict):
         logging.info('serotype parsed okay')
 
     if not args_dict['disable_vf']:
-    # vf
+        # vf
         logging.info('parsing vf')
         graph = parse_gene_dict(
             graph, ectyper_dict['Virulence Factors'], uriGenome)
