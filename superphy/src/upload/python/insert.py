@@ -283,7 +283,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
             amr_dict[contig_id] = []
         amr_dict[contig_id].append(amr_results[['START', 'STOP', 'ORIENTATION', 'CUT_OFF', 'GENE_NAME']][i])
     '''
-    amr_dict = amr_results.set_index('contig_id').to_dict()
+    amr_dict = amr_results.to_dict(orient='index')
 
     print amr_dict
 
