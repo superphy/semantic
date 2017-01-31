@@ -181,14 +181,9 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
 
     TODO: merge common components with generate_amr()
     '''
-    #debug
-    print gene_dict
 
     for contig_id in gene_dict.keys():
         for gene_record in gene_dict[contig_id]:
-
-            #debug
-            print gene_record
 
             # recreating the contig uri
             uriContig = gu(uriGenome, '/contigs/' +
@@ -280,7 +275,14 @@ def generate_amr(graph, uriGenome, fasta_file):
     amr_results['contig_id'] = amr_results['contig_id'].apply(
         lambda n: n.strip().rsplit('_', 1)[0])
 
-    amr_results = amr_results.set_index('contig_id').to_dict(orient='index')
+    # note: you might be tempted to prefix a set_index('contig_id') but remember, the same contig might have multiple genes
+    amr_results = amr_results.to_dict(orient='index')
+
+
+    print(amr_results)
+    # we have to manually check for contigs with multiple genes
+    amr_dict = {}
+    print amr_results.keys()
 
     print 'amr parse call'
     graph = parse_gene_dict(graph, amr_results, uriGenome)
