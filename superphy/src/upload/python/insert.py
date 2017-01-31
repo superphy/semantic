@@ -137,7 +137,7 @@ def call_ectyper(graph, args_dict):
     if not args_dict['disable_amr']:
         # amr
         logging.info('generating amr')
-        graph = generate_amr(graph, uriIsolate, fasta_file)
+        graph = generate_amr(graph, uriGenome, fasta_file)
         logging.info('amr generation okay')
 
     return graph
@@ -237,7 +237,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
     return graph
 
 
-def generate_amr(graph, uriIsolate, fasta_file):
+def generate_amr(graph, uriGenome, fasta_file):
     import subprocess
     import pandas
 
@@ -276,60 +276,7 @@ def generate_amr(graph, uriIsolate, fasta_file):
 
     amr_results = amr_results.set_index('contig_id').to_dict(orient='index')
 
-    print amr_dict
-
-    # triple generation
-    for i in amr_results.index:
-
-        orf_id = amr_results['ORF_ID'][i].strip()
-        contig_id = orf_id.split(orf_id.split('_')[-1])[0].split('_')[0]
-
-        # recreating the contig uri
-        uriContig = gu(uriIsolate, '/' + fasta_file.split('/')
-                       [-1])  # now at assembly id
-        uriContig = gu(uriContig, '/contigs/' + contig_id)  # now at contig uri
-
-        # after this point we switch perspective to the gene and build down to
-        # relink the gene with the contig
-
-        bnode_start = BNode()
-        bnode_end = BNode()
-
-        gene_name = amr_results['Best_Hit_ARO'][i].replace(' ', '_')
-
-        graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
-        graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
-
-        graph.add((bnode_start, gu('dc:Description'),
-                   Literal(amr_results['CUT_OFF'][i])))
-        graph.add((bnode_end, gu('dc:Description'),
-                   Literal(amr_results['CUT_OFF'][i])))
-
-        graph.add((bnode_start, gu('rdf:type'), gu('faldo:Position')))
-        graph.add((bnode_start, gu('rdf:type'), gu('faldo:ExactPosition')))
-        graph.add((bnode_end, gu('rdf:type'), gu('faldo:Position')))
-        graph.add((bnode_end, gu('rdf:type'), gu('faldo:ExactPosition')))
-
-        if amr_results['ORIENTATION'][i] is '+':
-            graph.add((bnode_start, gu('rdf:type'), gu(
-                'faldo:ForwardStrandPosition')))
-            graph.add((bnode_end, gu('rdf:type'), gu(
-                'faldo:ForwardStrandPosition')))
-        else:
-            graph.add((bnode_start, gu('rdf:type'), gu(
-                'faldo:ReverseStrandPosition')))
-            graph.add((bnode_end, gu('rdf:type'), gu(
-                'faldo:ReverseStrandPosition')))
-
-        graph.add((bnode_start, gu('faldo:Position'),
-                   Literal(amr_results['START'][i])))
-        graph.add((bnode_start, gu('faldo:Reference'), uriContig))
-
-        graph.add((bnode_end, gu('faldo:Position'),
-                   Literal(amr_results['STOP'][i])))
-        graph.add((bnode_end, gu('faldo:Reference'), uriContig))
-
-        ####
+    graph = parse_gene_dict(graph, amr_results, uriGenome)
 
     return graph
 
