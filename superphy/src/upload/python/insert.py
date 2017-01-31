@@ -279,18 +279,18 @@ def generate_amr(graph, uriGenome, fasta_file):
     amr_results = amr_results.to_dict(orient='index')
 
     # we have to manually check for contigs with multiple genes
+    # TODO: write something less horrendously slow and memory consuming
     amr_dict = {}
-    print amr_results.keys()
     for i in amr_results.keys():
         contig_id = amr_results[i]['contig_id']
         if contig_id not in amr_dict.keys():
             amr_dict[contig_id] = []
         amr_dict[contig_id].append(dict((keys, amr_results[i][keys]) for keys in ('START','STOP','GENE_NAME','ORIENTATION','CUT_OFF','GENE_NAME')))
-
-    print amr_dict
+    #wipe the amr_results early
+    amr_results = None
 
     print 'amr parse call'
-    graph = parse_gene_dict(graph, amr_results, uriGenome)
+    graph = parse_gene_dict(graph, amr_dict, uriGenome)
 
     return graph
 
