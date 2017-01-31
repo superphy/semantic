@@ -202,7 +202,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
             graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
 
             # this is a special case for amr results
-            if gene_dict['CUT_OFF'] is not None:
+            if 'CUT_OFF' in gene_dict.keys():
                 graph.add((bnode_start, gu('dc:Description'),
                            Literal(amr_results['CUT_OFF'][i])))
                 graph.add((bnode_end, gu('dc:Description'),
@@ -266,6 +266,8 @@ def generate_amr(graph, uriIsolate, fasta_file):
     amr_results = pandas.read_table('outputs/' + outputname + '.tsv')
     amr_results = amr_results[
         ['ORF_ID', 'START', 'STOP', 'ORIENTATION', 'CUT_OFF', 'Best_Hit_ARO']]
+
+    print amr_results
 
     # triple generation
     for i in amr_results.index:
