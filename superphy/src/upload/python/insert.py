@@ -181,7 +181,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
 
     TODO: merge common components with generate_amr()
     '''
-
+    #debug
     print gene_dict.keys()
 
     for contig_id in gene_dict.keys():
@@ -278,6 +278,7 @@ def generate_amr(graph, uriGenome, fasta_file):
 
     amr_results = amr_results.set_index('contig_id').to_dict(orient='index')
 
+    print 'amr parse call'
     graph = parse_gene_dict(graph, amr_results, uriGenome)
 
     return graph
