@@ -7,6 +7,7 @@ import logging
 
 from _utils import generate_output, generate_uri as gu, upload_data
 
+
 def generate_graph():
     '''
     Parses all the Namespaces defined in the config file and returns a graph
@@ -28,6 +29,7 @@ def generate_graph():
             graph.bind(key, settings.namespaces[key])
 
     return graph
+
 
 def generate_turtle(graph, fasta_file, uriIsolate, uriGenome):
     '''
@@ -73,7 +75,8 @@ def generate_turtle(graph, fasta_file, uriIsolate, uriGenome):
         # linking the spec contig and the bag of contigs
         graph.add((uriContigs, gu('g:Contig'), uriContig))
         graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
-        graph.add((uriContig, gu('g:Description'), Literal(record.description)))
+        graph.add((uriContig, gu('g:Description'),
+                   Literal(record.description)))
 
     return graph
 
@@ -90,14 +93,15 @@ def call_ectyper(graph, args_dict):
     fasta_file = args_dict['i']
     uriIsolate = args_dict['uriIsolate']
 
-
     logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
                                             '-in', fasta_file,
-                                            '-s', str(int(not args_dict['disable_serotype'])),
-                                            '-vf', str(int(not args_dict['disable_vf']))
+                                            '-s', str(
+                                                int(not args_dict['disable_serotype'])),
+                                            '-vf', str(
+                                                int(not args_dict['disable_vf']))
                                             ])
     logging.info('inner call completed')
 
@@ -117,16 +121,24 @@ def call_ectyper(graph, args_dict):
     # we are calling tools_controller on only one file, so grab that dict
     ectyper_dict = ectyper_dict[splitext(fasta_file)[0].split('/')[-1]]
 
-    # serotype parsing
-    graph = parse_serotype(graph, ectyper_dict['Serotype'], uriIsolate)
-    logging.info('serotype parsed okay')
+    if not args_dict['disable_serotype']:
+        # serotype parsing
+        logging.info('parsing Serotype')
+        graph = parse_serotype(graph, ectyper_dict['Serotype'], uriIsolate)
+        logging.info('serotype parsed okay')
 
-    # amr
-    graph = generate_amr(graph, uriIsolate, fasta_file)
-
+    if not args_dict['disable_vf']
     # vf
-    graph = parse_gene_dict(
-        graph, ectyper_dict['Virulence Factors'], uriIsolate, fasta_file)
+        logging.info('parsing vf')
+        graph = parse_gene_dict(
+            graph, ectyper_dict['Virulence Factors'], uriIsolate, fasta_file)
+        logging.info('vf parsed okay')
+
+    if not args_dict['disable_amr']:
+        # amr
+        logging.info('generating amr')
+        graph = generate_amr(graph, uriIsolate, fasta_file)
+        logging.info('amr generation okay')
 
     return graph
 
@@ -145,13 +157,13 @@ def parse_serotype(graph, serotyper_dict, uriIsolate):
     return graph
 
 
-def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
+def parse_gene_dict(graph, gene_dict, uriGenome):
     '''
     My intention is to eventually use ECTyper for all of the calls it was meant for.
     Just need to update ECTyper dict format to ref. AMR / VF by contig. as opposed to genome directly.
 
     These are the common gene related triples to both AMR / VF.
-    Note: we are working from uriIsolate and assume that the calling functions (
+    Note: we are working from uriGenome and assume that the calling functions (
     generate_amr() and generate_vf() are doing the transformations to the
     gene_dict.keys so that they are contig ids (as they differ in return value
     between VF & AMR from ECTyper)
@@ -164,8 +176,8 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
     graph(rdflib.Graph): the running graph with all our triples
     gene_dict({{}}): a dictionary of genes with a assoc info
         ex. {'Some_Contig_ID':[{'START','STOP','ORIENTATION','GENE_NAME'}]}
-    uriIsolate(rdflib.URIRef): the base uri of the isolate
-        ex. :spfy324
+    uriGenome(rdflib.URIRef): the base uri of the genome
+        ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
 
     TODO: merge common components with generate_amr()
     '''
@@ -173,11 +185,9 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
     for contig_id in gene_dict.keys():
         for gene_record in gene_dict[contig_id]:
             # recreating the contig uri
-            uriGenome = gu(':' + fasta_file.split('/')
-                           [-1])
             uriContig = gu(uriGenome, '/contigs/' +
                            contig_id)  # now at contig uri
-            graph.add((uriGenome, gu('so:0001462'), uriContig))
+            graph.add((uriGenome, gu('g:Contig'), uriContig))
 
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
@@ -185,6 +195,8 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
             bnode_start = BNode()
             bnode_end = BNode()
 
+            # some gene names, esp those which are effectively a description,
+            # have spaces
             gene_name = gene_record['GENE_NAME'].replace(' ', '_')
 
             graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
@@ -340,7 +352,9 @@ if __name__ == "__main__":
         action="store_true"
     )
 
-    # note: by in large, we expect uri to be given as just the unique string value  (be it the hash or the integer) without any prefixes, the actual rdflib.URIRef object will be generated in this script
+    # note: by in large, we expect uri to be given as just the unique string
+    # value  (be it the hash or the integer) without any prefixes, the actual
+    # rdflib.URIRef object will be generated in this script
 
     # this is mainly for batch computation
     parser.add_argument(
