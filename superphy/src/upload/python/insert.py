@@ -228,7 +228,7 @@ def parse_gene_dict(graph, gene_dict, uriIsolate, fasta_file):
                            [-1])
             uriContig = gu(uriGenome, '/contigs/' +
                            contig_id)  # now at contig uri
-            graph.add(uriGenome, gu('so:0001462'),uriContig)
+            graph.add((uriGenome, gu('so:0001462'),uriContig))
 
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
