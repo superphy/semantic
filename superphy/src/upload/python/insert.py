@@ -269,7 +269,8 @@ def generate_amr(graph, uriIsolate, fasta_file):
 
     amr_results.rename(columns={'ORF_ID':'contig_id','Best_Hit_ARO':'GENE_NAME'}, inplace=True)
 
-    amr_results['contig_id'].apply(lambda n: n.strip().split(n.split('_')[-1])[0].split('_')[0])
+    amr_results['contig_id'].apply(lambda n: n.strip())
+    amr_results['contig_id'].apply(lambda n: n.split(n.split('_')[-1])[0].split('_')[0])
 
     # triple generation
     for i in amr_results.index:
