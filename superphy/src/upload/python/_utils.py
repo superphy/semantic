@@ -206,14 +206,7 @@ def upload_data(data):
     return request.content
 
 def generate_uri_hash(filename):
-    # http://pythoncentral.io/hashing-files-with-python/ (c. MIT)
-    # we use this code to hopefully optimate reads (mostly memory) of our files
-    import hashlib
-    BLOCKSIZE = 65536
-    hasher = hashlib.sha1()
-    with open(filename, 'rb') as afile:
-        buf = afile.read(BLOCKSIZE)
-        while len(buf) > 0:
-            hasher.update(buf)
-            buf = afile.read(BLOCKSIZE)
-    return hasher.hexdigest()
+    from hashlib import sha1
+    #the 'b' isn't needed less you run this on Windows
+    with open(filename, 'rb') as f:
+        return sha1(sorted(f.readlines())).hexdigest()
