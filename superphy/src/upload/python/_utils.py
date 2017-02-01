@@ -210,4 +210,4 @@ def generate_uri_hash(filename):
     #the 'b' isn't needed less you run this on Windows
     with open(filename, 'rb') as f:
         # we apply a sort func to make sure the contents are the same, regardless of order
-        return sha1(sorted(f.readlines())).hexdigest()
+        return sha1(str(sorted(f.readlines()))).hexdigest()
