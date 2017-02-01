@@ -71,6 +71,7 @@ def generate_turtle_skeleton(graph, fasta_file, uriIsolate, uriGenome):
     from Bio import SeqIO
     from rdflib import Literal
     from turtle_utils import uri_to_basename
+    from os.path import basename
 
     # ex. :spfy234
     graph.add((uriIsolate, gu('rdf:type'), gu('ncbi:562')))

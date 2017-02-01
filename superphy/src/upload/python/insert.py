@@ -9,8 +9,6 @@ from _utils import upload_data
 from turtle_utils import generate_uri as gu
 from turtle_grapher import generate_output, generate_graph, generate_turtle_skeleton
 from datastruct_savvy import parse_serotype, parse_gene_dict
-# we use this module to get just the filename.fna of the fasta_file
-from os.path import basename
 
 def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
