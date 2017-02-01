@@ -119,7 +119,7 @@ def call_ectyper(graph, args_dict):
     logging.info('evaluation okay')
 
     # we are calling tools_controller on only one file, so grab that dict
-    ectyper_dict = ectyper_dict[splitext(fasta_file)[0].split('/')[-1]]
+    ectyper_dict = ectyper_dict[splitext(args_dict['i'])[0].split('/')[-1]]
 
     if not args_dict['disable_serotype']:
         # serotype parsing
