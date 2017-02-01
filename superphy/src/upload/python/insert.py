@@ -395,9 +395,6 @@ if __name__ == "__main__":
     logging.info(confirm)
     print 'uploaded wooot!'
 
-    # removing fasta
-    # os.remove(args.i)
-
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
     os.remove('outputs/' + __name__ + args.i.split('/')[-1] + '.log')
