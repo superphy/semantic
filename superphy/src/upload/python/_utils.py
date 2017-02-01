@@ -57,16 +57,7 @@ def strip_non_numeric(str_):
     nodigs = all_.translate(all_, string.digits)
     return str_.translate(all_, nodigs)
 
-def generate_output(graph):
-    """
-    Returns RDF Graph data in the turtle format and clears the Graph
 
-    Args:
-        graph (rdflib.Graph): container object to store RDF triples
-    """
-
-    output = graph.serialize(format="turtle")
-    return output
 
 def generate_file_output(graph, destination):
     """
@@ -79,32 +70,6 @@ def generate_file_output(graph, destination):
     """
 
     graph.serialize(destination=destination, format="turtle")
-
-def generate_uri(uri, s=''):
-    """
-    Takes a string as one would define for .ttl files and returns a URI for rdflib.
-
-    Args:
-        uri (str): a string following .ttl convention for a URI
-        ex. g:Identifier as shorthand for http://www.biointerchange.org/gfvo#Identifier
-    Returns:
-        (rdflib.URIRef) with URI needed to add to rdflib.Graph
-    """
-    import settings #this is the settings.py
-
-    from rdflib import Namespace, URIRef, Literal
-
-    #if you call with a uri already
-    if isinstance(uri, URIRef):
-        return URIRef(str(uri) + s)
-
-    prefix = uri.split(':')[0]
-    postfix = uri.split(':')[1]
-
-    if prefix == '': #this is our : case
-        return URIRef(settings.namespaces['root'] + postfix)
-    else:
-        return URIRef(settings.namespaces[prefix] + postfix)
 
 def from_nuccore(accession):
     """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
