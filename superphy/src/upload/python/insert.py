@@ -71,7 +71,7 @@ def generate_turtle(graph, fasta_file, uriIsolate, uriGenome):
     for record in SeqIO.parse(open(fasta_file), "fasta"):
 
         # ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba/contigs/FLOF01006689.1
-        uriContig = gu(uriContigs, '/' + record.id)
+        uriContig = gu(':' + record.id)
         # linking the spec contig and the bag of contigs
         graph.add((uriContigs, gu('g:Contig'), uriContig))
         graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
@@ -186,7 +186,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
         for gene_record in gene_dict[contig_id]:
 
             # recreating the contig uri
-            uriContig = gu(uriGenome, '/contigs/' +
+            uriContig = gu(':' +
                            contig_id)  # now at contig uri
 
             # after this point we switch perspective to the gene and build down to
