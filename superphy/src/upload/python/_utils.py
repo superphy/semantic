@@ -27,40 +27,6 @@ def generate_path(filename):
     del frame
     return os.path.join(os.path.dirname(filepath), filename)
 
-def strip_non_alphabetic(str_):
-    """
-    Strips all non-alphabetic characters (not present in string.ascii_letters)
-    from a given string
-
-    Args:
-        str: any string
-
-    Returns: a string with only characters from string.ascii_letters
-
-    """
-    all_ = string.maketrans('', '')
-    nochars = all_.translate(all_, string.ascii_letters)
-    return str_.translate(all_, nochars)
-
-def strip_non_numeric(str_):
-    """
-    Strips all non-numeric characters (not present in string.digits) from a
-    given string
-
-    Args:
-        str: any string
-
-    Returns: a string with only characters from string.digits
-
-    """
-    all_ = string.maketrans('', '')
-    nodigs = all_.translate(all_, string.digits)
-    return str_.translate(all_, nodigs)
-
-
-
-
-
 def from_nuccore(accession):
     """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
     using Entrez EUtils. If found writes it the tmp/ folder and turns the path of the file.
