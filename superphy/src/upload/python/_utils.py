@@ -59,17 +59,7 @@ def strip_non_numeric(str_):
 
 
 
-def generate_file_output(graph, destination):
-    """
-    Export RDF Graph data to a turtle file at the given destination
 
-    Args:
-        graph (rdflib.Graph): container object to store RDF triples
-        destination (str): an internal filepath relative to the  __init__.py
-        file this module belongs to
-    """
-
-    graph.serialize(destination=destination, format="turtle")
 
 def from_nuccore(accession):
     """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
