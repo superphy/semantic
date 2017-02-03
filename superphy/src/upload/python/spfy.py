@@ -27,22 +27,22 @@ def spfy(args_dict):
     '''
 
     # use 1 queue for now
-    low = Queue('low', connection=Redis(), default_timeout=600)
+    q = Queue(connection=Redis())
 
-    sav = low.enqueue(savvy,args_dict)
+    sav = q.enqueue(savvy,args_dict)
     print sav.id
     time.sleep(180)
     print 'actual result'
     print sav.result
     graph = sav.result
 
-    t = low.enqueue(tester)
-    time.sleep(3)
+    t = q.enqueue(tester)
+    time.sleep(20)
     print 'numbers'
     print t.result
 
-    ig = low.enqueue(iguana)
-    time.sleep(3)
+    ig = q.enqueue(iguana)
+    time.sleep(20)
     print ig.result
 
     logging.info('uploading to blazegraph')
