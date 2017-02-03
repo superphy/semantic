@@ -13,7 +13,7 @@ def download_to_insert(accession):
     if r is None:
         print 'OH CRAP'
     else:
-        subprocess.call(['./insert.py', '-i', from_nuccore(accession)])
+        subprocess.call(['./savvy.py', '-i', from_nuccore(accession)])
 
     print 'woogle'
 
@@ -36,13 +36,13 @@ def downloadFasta_to_insert(url):
             continue
 
     print 'done downloading, file at ' + r
-    
+
     print 'now generating .ttl'
     if r is None:
         print 'OH CRAP'
     else:
         print 'calling subproces'
-        subprocess.call(['./insert.py', '-i', r])
+        subprocess.call(['./savvy.py', '-i', r])
         print 'done generating turtle'
     #os.remove(r) need to add way to check after process completes, for now added it to insert.py script
     print 'woogle'

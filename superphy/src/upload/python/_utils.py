@@ -27,50 +27,6 @@ def generate_path(filename):
     del frame
     return os.path.join(os.path.dirname(filepath), filename)
 
-def strip_non_alphabetic(str_):
-    """
-    Strips all non-alphabetic characters (not present in string.ascii_letters)
-    from a given string
-
-    Args:
-        str: any string
-
-    Returns: a string with only characters from string.ascii_letters
-
-    """
-    all_ = string.maketrans('', '')
-    nochars = all_.translate(all_, string.ascii_letters)
-    return str_.translate(all_, nochars)
-
-def strip_non_numeric(str_):
-    """
-    Strips all non-numeric characters (not present in string.digits) from a
-    given string
-
-    Args:
-        str: any string
-
-    Returns: a string with only characters from string.digits
-
-    """
-    all_ = string.maketrans('', '')
-    nodigs = all_.translate(all_, string.digits)
-    return str_.translate(all_, nodigs)
-
-
-
-def generate_file_output(graph, destination):
-    """
-    Export RDF Graph data to a turtle file at the given destination
-
-    Args:
-        graph (rdflib.Graph): container object to store RDF triples
-        destination (str): an internal filepath relative to the  __init__.py
-        file this module belongs to
-    """
-
-    graph.serialize(destination=destination, format="turtle")
-
 def from_nuccore(accession):
     """Obtains the FASTA sequence via the NCBI Genbank Nucleotide database
     using Entrez EUtils. If found writes it the tmp/ folder and turns the path of the file.
@@ -136,36 +92,3 @@ def download_fasta(url):
     os.remove(filename)
 
     return filename.strip('.gz')
-
-def upload_data(data):
-    """
-    Uploads raw data onto Blazegraph. To ensure that Blazegraph interprets
-    properly, it is necessary to specify the format in a Context-Header.
-
-    Accepted formats are listed on this site:
-    https://wiki.blazegraph.com/wiki/index.php/REST_API#MIME_Types
-
-    Currently, the only data type needed is turtle, so this function is not
-    usable for other formats.
-
-    Args:
-        data (turtle): a turtle data object
-
-    Prints out the response object from Blazegraph
-    """
-
-    import requests, os
-    import settings
-
-    url = settings.database['blazegraph_url']
-
-    headers = {'Content-Type':'application/x-turtle'}
-    request = requests.post(
-        os.getenv(
-            'SUPERPHY_RDF_URL',
-            url
-        ),
-        data=data,
-        headers=headers
-    )
-    return request.content

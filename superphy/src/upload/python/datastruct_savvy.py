@@ -32,11 +32,11 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
     -currently, we'll handle ORF_ID to contig id transform in generate_amr()
 
     Args:
-    graph(rdflib.Graph): the running graph with all our triples
-    gene_dict({{}}): a dictionary of genes with a assoc info
-        ex. {'Some_Contig_ID':[{'START','STOP','ORIENTATION','GENE_NAME'}]}
-    uriGenome(rdflib.URIRef): the base uri of the genome
-        ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
+        graph(rdflib.Graph): the running graph with all our triples
+        gene_dict({{}}): a dictionary of genes with a assoc info
+            ex. {'Some_Contig_ID':[{'START','STOP','ORIENTATION','GENE_NAME'}]}
+        uriGenome(rdflib.URIRef): the base uri of the genome
+            ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
 
     TODO: merge common components with generate_amr()
     '''
