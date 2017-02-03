@@ -28,14 +28,11 @@ def call_ectyper(graph, args_dict):
     from ast import literal_eval
     from os.path import splitext
 
-    fasta_file = args_dict['i']
-    uriIsolate = args_dict['uriIsolate']
-
     logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
-                                            '-in', fasta_file,
+                                            '-in', args_dict['i'],
                                             '-s', str(
                                                 int(not args_dict['disable_serotype'])),
                                             '-vf', str(
@@ -46,8 +43,8 @@ def call_ectyper(graph, args_dict):
     # because we are using check_output, this catches any print messages from tools_controller
     # TODO: switch to pipes
     if 'error' in ectyper_dict.lower():
-        logging.error('ectyper failed for' + fasta_file)
-        print 'ECTyper failed for: ', fasta_file
+        logging.error('ectyper failed for' + args_dict['i'])
+        print 'ECTyper failed for: ', args_dict['i']
         print 'returning graph w/o serotype'
         return graph
 
@@ -68,20 +65,20 @@ def call_ectyper(graph, args_dict):
         # serotype parsing
         logging.info('parsing Serotype')
         graph = datastruct_savvy.parse_serotype(
-            graph, ectyper_dict['Serotype'], uriIsolate)
+            graph, ectyper_dict['Serotype'], ectyper_dict['uriIsolate'])
         logging.info('serotype parsed okay')
 
     if not args_dict['disable_vf']:
         # vf
         logging.info('parsing vf')
         graph = datastruct_savvy.parse_gene_dict(
-            graph, ectyper_dict['Virulence Factors'], uriGenome)
+            graph, ectyper_dict['Virulence Factors'], ectyper_dict['uriGenome'])
         logging.info('vf parsed okay')
 
     if not args_dict['disable_amr']:
         # amr
         logging.info('generating amr')
-        graph = generate_amr(graph, uriGenome, fasta_file)
+        graph = generate_amr(graph, ectyper_dict['uriGenome'], args_dict['i'])
         logging.info('amr generation okay')
 
     return graph
