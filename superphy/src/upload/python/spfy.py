@@ -28,7 +28,7 @@ def spfy(args_dict):
     # use 1 queue for now
     high = Queue('high', connection=Redis())
 
-    loggging.info('Starting savvy call...')
+    logging.info('Starting savvy call...')
     sav = high.enqueue(savvy, args_dict)
     logging.info(sav.id)
     time.sleep(180)
