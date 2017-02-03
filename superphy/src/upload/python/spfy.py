@@ -28,8 +28,6 @@ def spfy(args_dict):
     low = Queue('low', connection=Redis(), default_timeout=600)
 
     sav = low.enqueue(savvy,args_dict)
-    while sav.result is None:
-        time.sleep(20)
     graph = sav.result
     logging.info('uploading to blazegraph')
     print "Uploading to Blazegraph"
