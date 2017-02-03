@@ -142,7 +142,7 @@ def generate_amr(graph, uriGenome, fasta_file):
     return graph
 
 
-def savvy(args_dict_dict):
+def savvy(args_dict):
     '''
     Args:
         args_dict(dict): i prefer working with args in a dictionary, rather than a namespace is all
