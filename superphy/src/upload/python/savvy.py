@@ -166,7 +166,7 @@ def savvy(args_dict):
 
     logging.info('generating barebones ttl from file')
     graph = generate_turtle_skeleton(
-        graph, args_dict['i'], uriIsolate, uriGenome)
+        graph, args_dict['i'], args_dict['uriIsolate'], args_dict['uriGenome'])
     logging.info('barebones ttl generated')
 
     if not (args_dict['disable_serotype'] and args_dict['disable_vf'] and args_dict['disable_amr']):
