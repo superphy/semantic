@@ -1,8 +1,12 @@
 import logging
+import time
 
 # Redis Queue
 from redis import Redis
 from rq import Queue
+
+# other libraries for rdflib
+from rdflib import Graph
 
 # our own slightly more general stuff
 from insert import insert
@@ -11,7 +15,10 @@ from turtle_grapher import generate_output
 # for various features we add
 from savvy import savvy # serotype/amr/vf
 
-def spfy(args):
+def rq_get_graph(job):
+    graph = job.result
+
+def spfy(args_dict):
     '''
     # note: the timeout times refer to how long the job has once it has STARTED executing
     # we use the high priority queue for things that should be immediately returned to the user
@@ -22,11 +29,13 @@ def spfy(args):
     # use 1 queue for now
     low = Queue('low', default_timeout=600)
 
-    low.enqueue(savvy,args)
-
+    sav = low.enqueue(savvy,args_dict)
+    while sav.result is None:
+        time.sleep(20)
+    graph = sav.result
     logging.info('uploading to blazegraph')
     print "Uploading to Blazegraph"
-    print map(insert, results['graph'])
+    print insert(graph)
     print 'uploaded wooot!'
 
 
