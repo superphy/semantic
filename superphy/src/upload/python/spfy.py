@@ -11,12 +11,11 @@ from rdflib import Graph
 # our own slightly more general stuff
 from insert import insert
 from turtle_grapher import generate_output
+from turtle_utils import generate_uri as gu
 
 # for various features we add
-from savvy import savvy # serotype/amr/vf
+from savvy import savvy  # serotype/amr/vf
 
-def rq_get_graph(job):
-    graph = job.result
 
 def spfy(args_dict):
     '''
@@ -27,12 +26,15 @@ def spfy(args_dict):
     '''
 
     # use 1 queue for now
-    low = Queue('low', default_timeout=600)
+    q = Queue(connection=Redis())
 
-    sav = low.enqueue(savvy,args_dict)
-    while sav.result is None:
-        time.sleep(20)
+    sav = q.enqueue(savvy, args_dict)
+    print sav.id
+    time.sleep(180)
+    print 'actual result'
+    print sav.result
     graph = sav.result
+
     logging.info('uploading to blazegraph')
     print "Uploading to Blazegraph"
     print insert(graph)
@@ -68,18 +70,18 @@ if __name__ == "__main__":
         help="Disables use of RGI to get Antimicrobial Resistance Factors.  AMR genes are computed by default.",
         action="store_true"
     )
-    ## note: by in large, we expect uri to be given as just the unique string
-    ## value  (be it the hash or the integer) without any prefixes, the actual
-    ## rdflib.URIRef object will be generated in this script
+    # note: by in large, we expect uri to be given as just the unique string
+    # value  (be it the hash or the integer) without any prefixes, the actual
+    # rdflib.URIRef object will be generated in this script
     # this is mainly for batch computation
     parser.add_argument(
-        "--uri-genome",
+        "--uriGenome",
         help="Allows the specification of the Genome URI separately. Expect just the hash (not an actual uri).",
     )
     # This is both for batch computation and for future extensions where there
     # are multiple sequencings per isolate (Campy)
     parser.add_argument(
-        "--uri-isolate",
+        "--uriIsolate",
         help="Allows the specification of the Isolate URI separately. Expect just the integer (not the full :spfyID)",
         type=int
     )
@@ -90,24 +92,30 @@ if __name__ == "__main__":
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __name__ +
+        args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
     # check if a genome uri isn't set yet
-    if args.uri_isolate is None:
+    if args_dict['uriIsolate'] is None:
         # this is temporary, TODO: include a spqarql query to the db
-        uriIsolate = gu(':spfy' + str(hash(args.i.split('/')[-1])))
+        uriIsolate = gu(':spfy' + str(hash(args_dict['i'].split('/')[-1])))
     else:
-        uriIsolate = gu(':spfy' + args.uri_isolate)
+        uriIsolate = gu(':spfy' + args_dict['uriIsolate'])
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now
-    if args.uri_genome is None:
-        uriGenome = gu(':' + generate_hash(args.i))
+    if args_dict['uriGenome'] is None:
+        uriGenome = gu(':' + generate_hash(args_dict['i']))
     else:
-        uriGenome = gu(':' + args.uri_genome)
+        uriGenome = gu(':' + args_dict['uriGenome'])
 
+    print 'uriIsolate'
+    print uriIsolate
+
+    print 'uriGenome'
+    print uriGenome
 
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome

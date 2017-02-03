@@ -76,7 +76,8 @@ def generate_turtle_skeleton(graph, fasta_file, uriIsolate, uriGenome):
     # ex. :spfy234
     graph.add((uriIsolate, gu('rdf:type'), gu('ncbi:562')))
     graph.add((uriIsolate, gu('ge:0001567'), Literal("bacterium")))
-    graph.add((uriIsolate, gu('dc:description'), Literal(uri_to_basename(uriIsolate))))
+    graph.add((uriIsolate, gu('dc:description'),
+               Literal(uri_to_basename(uriIsolate))))
 
     # ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
     # associatting isolate URI with assembly URI
@@ -99,11 +100,14 @@ def generate_turtle_skeleton(graph, fasta_file, uriIsolate, uriGenome):
         graph.add((uriContig, gu('g:DNASequence'), Literal(record.seq)))
         graph.add((uriContig, gu('g:Description'),
                    Literal(record.description)))
-        graph.add((uriContig, gu('dc:description'), Literal(record.description)))
+        graph.add((uriContig, gu('dc:description'),
+                   Literal(record.description)))
 
     return graph
 
-### Historical methods, case you ever need them
+# Historical methods, case you ever need them
+
+
 def generate_file_output(graph, destination):
     """
     Export RDF Graph data to a turtle file at the given destination

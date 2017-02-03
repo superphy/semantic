@@ -1,7 +1,10 @@
 from rdflib import BNode, Literal, Graph
 from turtle_utils import generate_uri as gu
 
-# working with Serotype, Antimicrobial Resistance, & Virulence Factor data structures
+# working with Serotype, Antimicrobial Resistance, & Virulence Factor data
+# structures
+
+
 def parse_serotype(graph, serotyper_dict, uriIsolate):
     if 'O type' in serotyper_dict:
         graph.add((uriIsolate, gu('ge:0001076'),
