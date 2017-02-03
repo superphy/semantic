@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now
-    if args['uri_genome'] is None:
+    if args_dict['uri_genome'] is None:
         uriGenome = gu(':' + generate_hash(args['i']))
     else:
         uriGenome = gu(':' + args_dict['uri_genome'])
