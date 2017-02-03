@@ -16,6 +16,8 @@ from rdflib import Graph
 from turtle_utils import generate_uri as gu
 from turtle_grapher import generate_output, generate_graph, generate_turtle_skeleton
 
+from os.path import basename
+
 
 def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
@@ -52,10 +54,11 @@ def call_ectyper(graph, args_dict):
     logging.info('evalulating ectyper output')
     # generating the dict
     ectyper_dict = literal_eval(ectyper_dict)
+    logging.info(ectyper_dict)
     logging.info('evaluation okay')
 
     # we are calling tools_controller on only one file, so grab that dict
-    ectyper_dict = ectyper_dict[splitext(args_dict['i'])[0].split('/')[-1]]
+    ectyper_dict = ectyper_dict[basename(args_dict['i'])]
 
     if not args_dict['disable_serotype']:
         # serotype parsing
