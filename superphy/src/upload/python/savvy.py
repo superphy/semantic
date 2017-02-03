@@ -28,6 +28,9 @@ def call_ectyper(graph, args_dict):
     from ast import literal_eval
     from os.path import splitext
 
+    print 'savvy received'
+    print args_dict
+
     logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
