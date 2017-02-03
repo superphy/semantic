@@ -190,8 +190,6 @@ if __name__ == "__main__":
     from ConfigParser import SafeConfigParser
     from turtle_utils import generate_hash
 
-    print"BIGGGGGGG ERRRORRR"
-
     # parsing cli-input
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -242,18 +240,18 @@ if __name__ == "__main__":
     )
 
     # check if a genome uri isn't set yet
-    if args_dict['uri_isolate'] is None:
+    if args_dict['uriIsolate'] is None:
         # this is temporary, TODO: include a spqarql query to the db
         uriIsolate = gu(':spfy' + str(hash(args_dict['i'].split('/')[-1])))
     else:
-        uriIsolate = gu(':spfy' + args_dict['uri_isolate'])
+        uriIsolate = gu(':spfy' + args_dict['uriIsolate'])
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now
-    if args_dict['uri_genome'] is None:
+    if args_dict['uriGenome'] is None:
         uriGenome = gu(':' + generate_hash(args_dict['i']))
     else:
-        uriGenome = gu(':' + args_dict['uri_genome'])
+        uriGenome = gu(':' + args_dict['uriGenome'])
 
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome

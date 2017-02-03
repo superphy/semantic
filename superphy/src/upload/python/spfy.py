@@ -16,8 +16,6 @@ from turtle_utils import generate_uri as gu
 # for various features we add
 from savvy import savvy # serotype/amr/vf
 
-from tester import tester, iguana
-
 def spfy(args_dict):
     '''
     # note: the timeout times refer to how long the job has once it has STARTED executing
@@ -35,15 +33,6 @@ def spfy(args_dict):
     print 'actual result'
     print sav.result
     graph = sav.result
-
-    t = q.enqueue(tester)
-    time.sleep(20)
-    print 'numbers'
-    print t.result
-
-    ig = q.enqueue(iguana)
-    time.sleep(20)
-    print ig.result
 
     logging.info('uploading to blazegraph')
     print "Uploading to Blazegraph"
@@ -85,13 +74,13 @@ if __name__ == "__main__":
     ## rdflib.URIRef object will be generated in this script
     # this is mainly for batch computation
     parser.add_argument(
-        "--uri-genome",
+        "--uriGenome",
         help="Allows the specification of the Genome URI separately. Expect just the hash (not an actual uri).",
     )
     # This is both for batch computation and for future extensions where there
     # are multiple sequencings per isolate (Campy)
     parser.add_argument(
-        "--uri-isolate",
+        "--uriIsolate",
         help="Allows the specification of the Isolate URI separately. Expect just the integer (not the full :spfyID)",
         type=int
     )
@@ -107,18 +96,18 @@ if __name__ == "__main__":
     )
 
     # check if a genome uri isn't set yet
-    if args_dict['uri_isolate'] is None:
+    if args_dict['uriIsolate'] is None:
         # this is temporary, TODO: include a spqarql query to the db
         uriIsolate = gu(':spfy' + str(hash(args_dict['i'].split('/')[-1])))
     else:
-        uriIsolate = gu(':spfy' + args_dict['uri_isolate'])
+        uriIsolate = gu(':spfy' + args_dict['uriIsolate'])
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now
-    if args_dict['uri_genome'] is None:
+    if args_dict['uriGenome'] is None:
         uriGenome = gu(':' + generate_hash(args_dict['i']))
     else:
-        uriGenome = gu(':' + args_dict['uri_genome'])
+        uriGenome = gu(':' + args_dict['uriGenome'])
 
     print 'uriIsolate'
     print uriIsolate
