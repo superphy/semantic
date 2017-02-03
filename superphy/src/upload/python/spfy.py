@@ -26,9 +26,9 @@ def spfy(args_dict):
     '''
 
     # use 1 queue for now
-    q = Queue(connection=Redis())
+    high = Queue('high', connection=Redis())
 
-    sav = q.enqueue(savvy, args_dict)
+    sav = high.enqueue(savvy, args_dict)
     print sav.id
     time.sleep(180)
     print 'actual result'
