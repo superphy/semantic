@@ -90,23 +90,23 @@ if __name__ == "__main__":
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
     # check if a genome uri isn't set yet
-    if args.uri_isolate is None:
+    if args_dict['uri_isolate'] is None:
         # this is temporary, TODO: include a spqarql query to the db
-        uriIsolate = gu(':spfy' + str(hash(args.i.split('/')[-1])))
+        uriIsolate = gu(':spfy' + str(hash(args_dictp'i'].split('/')[-1])))
     else:
-        uriIsolate = gu(':spfy' + args.uri_isolate)
+        uriIsolate = gu(':spfy' + args['uri_isolate'])
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now
-    if args.uri_genome is None:
-        uriGenome = gu(':' + generate_hash(args.i))
+    if args['uri_genome'] is None:
+        uriGenome = gu(':' + generate_hash(args['i']))
     else:
-        uriGenome = gu(':' + args.uri_genome)
+        uriGenome = gu(':' + args['uri_genome'])
 
 
     args_dict['uriIsolate'] = uriIsolate
