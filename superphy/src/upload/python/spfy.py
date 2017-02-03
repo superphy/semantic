@@ -25,7 +25,7 @@ def spfy(args_dict):
     '''
 
     # use 1 queue for now
-    low = Queue('low', default_timeout=600)
+    low = Queue('low', connection=Redis(), default_timeout=600)
 
     sav = low.enqueue(savvy,args_dict)
     while sav.result is None:
