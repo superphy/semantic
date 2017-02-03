@@ -257,4 +257,4 @@ if __name__ == "__main__":
     args_dict['uriGenome'] = uriGenome
 
     graph = savvy(args_dict)
-    return graph
+    print graph
