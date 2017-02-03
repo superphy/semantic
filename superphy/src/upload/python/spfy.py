@@ -110,12 +110,6 @@ if __name__ == "__main__":
     else:
         uriGenome = gu(':' + args_dict['uriGenome'])
 
-    print 'uriIsolate'
-    print uriIsolate
-
-    print 'uriGenome'
-    print uriGenome
-
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome
 

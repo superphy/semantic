@@ -28,9 +28,6 @@ def call_ectyper(graph, args_dict):
     from ast import literal_eval
     from os.path import splitext
 
-    print 'savvy received'
-    print args_dict
-
     logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
@@ -60,8 +57,6 @@ def call_ectyper(graph, args_dict):
     # TODO: edit ectyper sure were not using this ducktape approach
     # we are calling tools_controller on only one file, so grab that dict
     key, ectyper_dict = ectyper_dict.popitem()
-    print key
-    print ectyper_dict
 
     if not args_dict['disable_serotype']:
         # serotype parsing
