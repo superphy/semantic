@@ -59,7 +59,8 @@ def call_ectyper(graph, args_dict):
 
     # TODO: edit ectyper sure were not using this ducktape approach
     # we are calling tools_controller on only one file, so grab that dict
-    ectyper_dict = ectyper_dict.popitem()
+    key, ectyper_dict = ectyper_dict.popitem()
+    print key
     print ectyper_dict
 
 
@@ -254,7 +255,5 @@ if __name__ == "__main__":
 
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome
-
-    print args_dict
 
     savvy(args_dict)
