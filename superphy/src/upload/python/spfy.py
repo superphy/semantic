@@ -11,12 +11,10 @@ from rdflib import Graph
 # our own slightly more general stuff
 from insert import insert
 from turtle_grapher import generate_output
+from turtle_utils import generate_uri as gu
 
 # for various features we add
 from savvy import savvy # serotype/amr/vf
-
-def rq_get_graph(job):
-    graph = job.result
 
 def spfy(args_dict):
     '''
