@@ -1,3 +1,5 @@
+from turtle_grapher import generate_output
+
 def upload_data(data):
     """
     Uploads raw data onto Blazegraph. To ensure that Blazegraph interprets
