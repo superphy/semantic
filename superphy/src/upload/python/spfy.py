@@ -97,7 +97,7 @@ if __name__ == "__main__":
     # check if a genome uri isn't set yet
     if args_dict['uri_isolate'] is None:
         # this is temporary, TODO: include a spqarql query to the db
-        uriIsolate = gu(':spfy' + str(hash(args_dictp'i'].split('/')[-1])))
+        uriIsolate = gu(':spfy' + str(hash(args_dictp['i'].split('/')[-1])))
     else:
         uriIsolate = gu(':spfy' + args['uri_isolate'])
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     if args['uri_genome'] is None:
         uriGenome = gu(':' + generate_hash(args['i']))
     else:
-        uriGenome = gu(':' + args['uri_genome'])
+        uriGenome = gu(':' + args_dict['uri_genome'])
 
 
     args_dict['uriIsolate'] = uriIsolate
