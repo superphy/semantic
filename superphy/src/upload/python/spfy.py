@@ -31,12 +31,11 @@ def spfy(args_dict):
 
     sav = low.enqueue(savvy,args_dict)
     print sav.id
-    time.sleep(180)
     print sav.result
     graph = sav.result
 
     t = low.enqueue(tester)
-    print t
+    print t.result
 
 
     logging.info('uploading to blazegraph')
