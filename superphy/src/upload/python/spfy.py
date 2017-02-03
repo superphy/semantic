@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __module__ + args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
