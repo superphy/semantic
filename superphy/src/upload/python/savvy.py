@@ -135,10 +135,10 @@ def generate_amr(graph, uriGenome, fasta_file):
 
     return graph
 
-def savvy(args):
+def savvy(args_dict_dict):
     '''
     Args:
-        args(dict): i prefer working with args in a dictionary, rather than a namespace is all
+        args_dict(dict): i prefer working with args in a dictionary, rather than a namespace is all
 
     Returns:
         (rdflib.Graph): a graph object with the VF/AMR/Serotype added to it via ECTyper/RGI
@@ -146,28 +146,28 @@ def savvy(args):
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
-    print("Importing FASTA from: " + args['i'])
-    logging.info('importing from' + args['i'])
+    print("Importing FASTA from: " + args_dict['i'])
+    logging.info('importing from' + args_dict['i'])
 
     # setting up graph
     graph = generate_graph()
 
     logging.info('generating barebones ttl from file')
-    graph = generate_turtle_skeleton(graph, args['i'], uriIsolate, uriGenome)
+    graph = generate_turtle_skeleton(graph, args_dict['i'], uriIsolate, uriGenome)
     logging.info('barebones ttl generated')
 
-    if not (args['disable_serotype'] and args['disable_vf'] and args['disable_amr']):
+    if not (args_dict['disable_serotype'] and args_dict['disable_vf'] and args_dict['disable_amr']):
         logging.info('calling ectyper')
         graph = call_ectyper(graph, args_dict)
         logging.info('ectyper call completed')
 
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
-    os.remove('outputs/' + __name__ + args.i.split('/')[-1] + '.log')
+    os.remove('outputs/' + __name__ + args_dict[i].split('/')[-1] + '.log')
     return graph
 
 if __name__ == "__main__":
@@ -230,7 +230,7 @@ if __name__ == "__main__":
         # this is temporary, TODO: include a spqarql query to the db
         uriIsolate = gu(':spfy' + str(hash(args_dict['i'].split('/')[-1])))
     else:
-        uriIsolate = gu(':spfy' + args['uri_isolate'])
+        uriIsolate = gu(':spfy' + args_dict['uri_isolate'])
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now

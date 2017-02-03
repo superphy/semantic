@@ -97,7 +97,7 @@ if __name__ == "__main__":
         # this is temporary, TODO: include a spqarql query to the db
         uriIsolate = gu(':spfy' + str(hash(args_dict['i'].split('/')[-1])))
     else:
-        uriIsolate = gu(':spfy' + args['uri_isolate'])
+        uriIsolate = gu(':spfy' + args_dict['uri_isolate'])
 
     # if the fasta_file hash was not precomputed (batch scripts should
     # precompute it), we compute that now
