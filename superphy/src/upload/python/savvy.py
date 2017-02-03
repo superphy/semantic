@@ -60,6 +60,8 @@ def call_ectyper(graph, args_dict):
     # TODO: edit ectyper sure were not using this ducktape approach
     # we are calling tools_controller on only one file, so grab that dict
     ectyper_dict = ectyper_dict.popitem()
+    print ectyper_dict
+
 
     if not args_dict['disable_serotype']:
         # serotype parsing
