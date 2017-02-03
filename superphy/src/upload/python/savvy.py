@@ -154,7 +154,7 @@ def savvy(args_dict):
     Returns:
         (rdflib.Graph): a graph object with the VF/AMR/Serotype added to it via ECTyper/RGI
     '''
-
+    from os import remove # for batch cleanup
     # starting logging
     logging.basicConfig(
         filename='outputs/' + __name__ +
@@ -180,7 +180,7 @@ def savvy(args_dict):
 
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
-    os.remove('outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log')
+    remove('outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log')
     return graph
 
 if __name__ == "__main__":
