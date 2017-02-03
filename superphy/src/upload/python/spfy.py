@@ -16,6 +16,8 @@ from turtle_utils import generate_uri as gu
 # for various features we add
 from savvy import savvy # serotype/amr/vf
 
+from tester import tester
+
 def spfy(args_dict):
     '''
     # note: the timeout times refer to how long the job has once it has STARTED executing
@@ -32,6 +34,11 @@ def spfy(args_dict):
     time.sleep(180)
     print sav.result
     graph = sav.result
+
+    t = low.enqueue(tester)
+    print t
+
+
     logging.info('uploading to blazegraph')
     print "Uploading to Blazegraph"
     print insert(graph)
