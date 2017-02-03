@@ -68,20 +68,20 @@ def call_ectyper(graph, args_dict):
         # serotype parsing
         logging.info('parsing Serotype')
         graph = datastruct_savvy.parse_serotype(
-            graph, ectyper_dict['Serotype'], ectyper_dict['uriIsolate'])
+            graph, ectyper_dict['Serotype'], args_dict['uriIsolate'])
         logging.info('serotype parsed okay')
 
     if not args_dict['disable_vf']:
         # vf
         logging.info('parsing vf')
         graph = datastruct_savvy.parse_gene_dict(
-            graph, ectyper_dict['Virulence Factors'], ectyper_dict['uriGenome'])
+            graph, ectyper_dict['Virulence Factors'], args_dict['uriGenome'])
         logging.info('vf parsed okay')
 
     if not args_dict['disable_amr']:
         # amr
         logging.info('generating amr')
-        graph = generate_amr(graph, ectyper_dict['uriGenome'], args_dict['i'])
+        graph = generate_amr(graph, args_dict['uriGenome'], args_dict['i'])
         logging.info('amr generation okay')
 
     return graph
@@ -217,13 +217,13 @@ if __name__ == "__main__":
     # rdflib.URIRef object will be generated in this script
     # this is mainly for batch computation
     parser.add_argument(
-        "--uri-genome",
+        "--uriGenome",
         help="Allows the specification of the Genome URI separately. Expect just the hash (not an actual uri).",
     )
     # This is both for batch computation and for future extensions where there
     # are multiple sequencings per isolate (Campy)
     parser.add_argument(
-        "--uri-isolate",
+        "--uriIsolate",
         help="Allows the specification of the Isolate URI separately. Expect just the integer (not the full :spfyID)",
         type=int
     )
