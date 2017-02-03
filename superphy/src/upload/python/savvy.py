@@ -16,6 +16,7 @@ from rdflib import Graph
 from turtle_utils import generate_uri as gu
 from turtle_grapher import generate_output, generate_graph, generate_turtle_skeleton
 
+
 def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
     # imports in it - not sure if we'll use them all)
@@ -59,7 +60,8 @@ def call_ectyper(graph, args_dict):
     if not args_dict['disable_serotype']:
         # serotype parsing
         logging.info('parsing Serotype')
-        graph = datastruct_savvy.parse_serotype(graph, ectyper_dict['Serotype'], uriIsolate)
+        graph = datastruct_savvy.parse_serotype(
+            graph, ectyper_dict['Serotype'], uriIsolate)
         logging.info('serotype parsed okay')
 
     if not args_dict['disable_vf']:
@@ -76,6 +78,7 @@ def call_ectyper(graph, args_dict):
         logging.info('amr generation okay')
 
     return graph
+
 
 def generate_amr(graph, uriGenome, fasta_file):
     import subprocess
@@ -135,6 +138,7 @@ def generate_amr(graph, uriGenome, fasta_file):
 
     return graph
 
+
 def savvy(args_dict_dict):
     '''
     Args:
@@ -146,7 +150,8 @@ def savvy(args_dict_dict):
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __name__ +
+        args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
@@ -157,7 +162,8 @@ def savvy(args_dict_dict):
     graph = generate_graph()
 
     logging.info('generating barebones ttl from file')
-    graph = generate_turtle_skeleton(graph, args_dict['i'], uriIsolate, uriGenome)
+    graph = generate_turtle_skeleton(
+        graph, args_dict['i'], uriIsolate, uriGenome)
     logging.info('barebones ttl generated')
 
     if not (args_dict['disable_serotype'] and args_dict['disable_vf'] and args_dict['disable_amr']):
@@ -199,9 +205,9 @@ if __name__ == "__main__":
         help="Disables use of RGI to get Antimicrobial Resistance Factors.  AMR genes are computed by default.",
         action="store_true"
     )
-    ## note: by in large, we expect uri to be given as just the unique string
-    ## value  (be it the hash or the integer) without any prefixes, the actual
-    ## rdflib.URIRef object will be generated in this script
+    # note: by in large, we expect uri to be given as just the unique string
+    # value  (be it the hash or the integer) without any prefixes, the actual
+    # rdflib.URIRef object will be generated in this script
     # this is mainly for batch computation
     parser.add_argument(
         "--uri-genome",
@@ -221,7 +227,8 @@ if __name__ == "__main__":
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __name__ +
+        args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
@@ -238,7 +245,6 @@ if __name__ == "__main__":
         uriGenome = gu(':' + generate_hash(args_dict['i']))
     else:
         uriGenome = gu(':' + args_dict['uri_genome'])
-
 
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome
