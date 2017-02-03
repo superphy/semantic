@@ -1,5 +1,6 @@
 from turtle_grapher import generate_output
 
+
 def upload_data(data):
     """
     Uploads raw data onto Blazegraph. To ensure that Blazegraph interprets
@@ -17,12 +18,13 @@ def upload_data(data):
     Prints out the response object from Blazegraph
     """
 
-    import requests, os
+    import requests
+    import os
     import settings
 
     url = settings.database['blazegraph_url']
 
-    headers = {'Content-Type':'application/x-turtle'}
+    headers = {'Content-Type': 'application/x-turtle'}
     request = requests.post(
         os.getenv(
             'SUPERPHY_RDF_URL',
@@ -32,6 +34,7 @@ def upload_data(data):
         headers=headers
     )
     return request.content
+
 
 def insert(graph):
     return upload_data(generate_output(graph))

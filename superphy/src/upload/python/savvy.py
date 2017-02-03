@@ -63,7 +63,6 @@ def call_ectyper(graph, args_dict):
     print key
     print ectyper_dict
 
-
     if not args_dict['disable_serotype']:
         # serotype parsing
         logging.info('parsing Serotype')
@@ -154,7 +153,7 @@ def savvy(args_dict):
     Returns:
         (rdflib.Graph): a graph object with the VF/AMR/Serotype added to it via ECTyper/RGI
     '''
-    from os import remove # for batch cleanup
+    from os import remove  # for batch cleanup
     # starting logging
     logging.basicConfig(
         filename='outputs/' + __name__ +

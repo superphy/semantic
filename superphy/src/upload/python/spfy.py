@@ -14,7 +14,8 @@ from turtle_grapher import generate_output
 from turtle_utils import generate_uri as gu
 
 # for various features we add
-from savvy import savvy # serotype/amr/vf
+from savvy import savvy  # serotype/amr/vf
+
 
 def spfy(args_dict):
     '''
@@ -27,7 +28,7 @@ def spfy(args_dict):
     # use 1 queue for now
     q = Queue(connection=Redis())
 
-    sav = q.enqueue(savvy,args_dict)
+    sav = q.enqueue(savvy, args_dict)
     print sav.id
     time.sleep(180)
     print 'actual result'
@@ -69,9 +70,9 @@ if __name__ == "__main__":
         help="Disables use of RGI to get Antimicrobial Resistance Factors.  AMR genes are computed by default.",
         action="store_true"
     )
-    ## note: by in large, we expect uri to be given as just the unique string
-    ## value  (be it the hash or the integer) without any prefixes, the actual
-    ## rdflib.URIRef object will be generated in this script
+    # note: by in large, we expect uri to be given as just the unique string
+    # value  (be it the hash or the integer) without any prefixes, the actual
+    # rdflib.URIRef object will be generated in this script
     # this is mainly for batch computation
     parser.add_argument(
         "--uriGenome",
@@ -91,7 +92,8 @@ if __name__ == "__main__":
 
     # starting logging
     logging.basicConfig(
-        filename='outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log',
+        filename='outputs/' + __name__ +
+        args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
