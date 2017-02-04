@@ -8,7 +8,7 @@
 # V:irulence Factors
 # -vy
 
-import logging
+import#logging
 # long function calls, cause datastruct_savvy is important
 import datastruct_savvy
 
@@ -28,7 +28,7 @@ def call_ectyper(graph, args_dict):
     from ast import literal_eval
     from os.path import splitext
 
-    logging.info('calling ectyper from fun call_ectyper')
+    #logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
     ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
@@ -38,21 +38,21 @@ def call_ectyper(graph, args_dict):
                                             '-vf', str(
                                                 int(not args_dict['disable_vf']))
                                             ])
-    logging.info('inner call completed')
+    #logging.info('inner call completed')
 
     # because we are using check_output, this catches any print messages from tools_controller
     # TODO: switch to pipes
     if 'error' in ectyper_dict.lower():
-        logging.error('ectyper failed for' + args_dict['i'])
+        #logging.error('ectyper failed for' + args_dict['i'])
         print 'ECTyper failed for: ', args_dict['i']
         print 'returning graph w/o serotype'
         return graph
 
-    logging.info('evalulating ectyper output')
+    #logging.info('evalulating ectyper output')
     # generating the dict
     ectyper_dict = literal_eval(ectyper_dict)
-    logging.info(ectyper_dict)
-    logging.info('evaluation okay')
+    #logging.info(ectyper_dict)
+    #logging.info('evaluation okay')
 
     # TODO: edit ectyper sure were not using this ducktape approach
     # we are calling tools_controller on only one file, so grab that dict
@@ -60,23 +60,23 @@ def call_ectyper(graph, args_dict):
 
     if not args_dict['disable_serotype']:
         # serotype parsing
-        logging.info('parsing Serotype')
+        #logging.info('parsing Serotype')
         graph = datastruct_savvy.parse_serotype(
             graph, ectyper_dict['Serotype'], args_dict['uriIsolate'])
-        logging.info('serotype parsed okay')
+        #logging.info('serotype parsed okay')
 
     if not args_dict['disable_vf']:
         # vf
-        logging.info('parsing vf')
+        #logging.info('parsing vf')
         graph = datastruct_savvy.parse_gene_dict(
             graph, ectyper_dict['Virulence Factors'], args_dict['uriGenome'])
-        logging.info('vf parsed okay')
+        #logging.info('vf parsed okay')
 
     if not args_dict['disable_amr']:
         # amr
-        logging.info('generating amr')
+        #logging.info('generating amr')
         graph = generate_amr(graph, args_dict['uriGenome'], args_dict['i'])
-        logging.info('amr generation okay')
+        #logging.info('amr generation okay')
 
     return graph
 
@@ -149,28 +149,28 @@ def savvy(args_dict):
         (rdflib.Graph): a graph object with the VF/AMR/Serotype added to it via ECTyper/RGI
     '''
     from os import remove  # for batch cleanup
-    # starting logging
-    logging.basicConfig(
+    # starting #logging
+    #logging.basicConfig(
         filename='outputs/' + __name__ +
         args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
 
     print("Importing FASTA from: " + args_dict['i'])
-    logging.info('importing from' + args_dict['i'])
+    #logging.info('importing from' + args_dict['i'])
 
     # setting up graph
     graph = generate_graph()
 
-    logging.info('generating barebones ttl from file')
+    #logging.info('generating barebones ttl from file')
     graph = generate_turtle_skeleton(
         graph, args_dict['i'], args_dict['uriIsolate'], args_dict['uriGenome'])
-    logging.info('barebones ttl generated')
+    #logging.info('barebones ttl generated')
 
     if not (args_dict['disable_serotype'] and args_dict['disable_vf'] and args_dict['disable_amr']):
-        logging.info('calling ectyper')
+        #logging.info('calling ectyper')
         graph = call_ectyper(graph, args_dict)
-        logging.info('ectyper call completed')
+        #logging.info('ectyper call completed')
 
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
@@ -226,8 +226,8 @@ if __name__ == "__main__":
     # mainly used for when a func needs a lot of the args
     args_dict = vars(args)
 
-    # starting logging
-    logging.basicConfig(
+    # starting#logging
+    #logging.basicConfig(
         filename='outputs/' + __name__ +
         args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
