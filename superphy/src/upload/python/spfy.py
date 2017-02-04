@@ -47,12 +47,14 @@ def monitor():
             for job_id in queued_job_ids_high:
                 job_high = high.fetch_job(job_id_high)
                 if job_high.is_finished():
+                    print ('inserting', job_high)
                     insert(job_high.result)
         if low.job_ids is not None:
             queued_job_ids_low = low.job_ids
             for job_id in queued_job_ids_low:
                 job_low = low.fetch_job(job_id_low)
                 if job_low.is_finished():
+                    print ('inserting', job_low)
                     insert(job_low.result)
         print 'sleeping 20'
         time.sleep(20)
