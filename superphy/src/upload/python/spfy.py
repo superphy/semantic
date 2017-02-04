@@ -82,7 +82,7 @@ def spfyids_directory(args_dict):
     for f in files:
         uris[f] = {}
         uris[f]['uriIsolate'] = gu(':spfy' + str(count))
-        uris[f]['uriGenome']=gu(':' +generate_hash(args_dict[i] + f))
+        uris[f]['uriGenome']=gu(':' +generate_hash(args_dict['i'] + f))
         count = count + 1
 
     args_dict['uris'] = uris
