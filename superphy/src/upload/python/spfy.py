@@ -29,7 +29,7 @@ def blob_savvy(args_dict):
     '''
     if os.path.isdir(args_dict['i']):
         for f in os.listdir(args_dict['i']):
-            single_dict=dict(args_dict.items() + {'uriIsolate':args_dict[f]['uriIsolate'], 'uriGenome':args_dict[f]['uriGenome'], 'i':args_dict[i]+f})
+            single_dict=dict(args_dict.items() + {'uriIsolate':args_dict[f]['uriIsolate'], 'uriGenome':args_dict[f]['uriGenome'], 'i':args_dict[i]+'/'+f})
             high.enqueue(savvy, dict(single_dict.items() + {'disable_amr': True}))
             low.enqueue(savvy, dict(single_dict.items() + {'disable_vf':True,'disable_serotype':True}))
     else:
@@ -82,7 +82,7 @@ def spfyids_directory(args_dict):
     for f in files:
         uris[f] = {}
         uris[f]['uriIsolate'] = gu(':spfy' + str(count))
-        uris[f]['uriGenome']=gu(':' +generate_hash(args_dict['i'] + f))
+        uris[f]['uriGenome']=gu(':' +generate_hash(args_dict['i'] + '/'+ f))
         count = count + 1
 
     args_dict['uris'] = uris
