@@ -27,9 +27,15 @@ def blob_savvy(args_dict):
     '''
     Handles savvy.py's pipeline.
     '''
-    # run the much faster vf and serotyping separately of amr
-    vf_s = high.enqueue(savvy, dict(args_dict.items() + {'disable_amr': True}))
-    amr = low.enqueue(savvy, dict(args_dict.items() + {'disable_vf':True,'disable_serotype':True}))
+    if os.path.isdir(args_dict['i']):
+        for f in os.listdir(args_dict['i']):
+            single_dict=dict(args_dict.items() + {'uriIsolate':args_dict[f]['uriIsolate'], 'uriGenome':args_dict[f]['uriGenome'], 'i':args_dict[i]+f})
+            high.enqueue(savvy, dict(single_dict.items() + {'disable_amr': True}))
+            low.enqueue(savvy, dict(single_dict.items() + {'disable_vf':True,'disable_serotype':True}))
+    else:
+        # run the much faster vf and serotyping separately of amr
+        high.enqueue(savvy, dict(args_dict.items() + {'disable_amr': True}))
+        low.enqueue(savvy, dict(args_dict.items() + {'disable_vf':True,'disable_serotype':True}))
 
 def monitor():
     '''
@@ -47,6 +53,9 @@ def monitor():
             job_low = low.fetch_job(job_id_low)
             if job_low.is_finished():
                 insert(job_low.result)
+
+    print 'all jobs complete'
+    logging.info('monitor() exiting...all jobs complete')
 
 def spfyids_single(args_dict):
     from settings import database
@@ -71,9 +80,13 @@ def spfyids_directory(args_dict):
     count = database['count']
     uris = {}
     for f in files:
-        uris[gu(':spfy' + count]=gu(':' +generate_hash(f))
-    count=count + len(files)
+        uris[f] = {}
+        uris[f]['uriIsolate'] = gu(':spfy' + count)
+        uris[f]['uriGenome']=gu(':' +generate_hash(f))
+        count = count + 1
+
     args_dict['uris'] = uris
+
     #TODO: write-out
 
     return args_dict
@@ -88,18 +101,15 @@ def spfy(args_dict):
     else:
         args_dict=spfyids_single(args_dict)
 
-    print 'Starting savvy call'
-    logging.info('Starting savvy call...')
-    sav = high.enqueue(savvy, args_dict)
-    logging.info(sav.id)
-    time.sleep(180)
-    graph = sav.result
+    print 'Starting blob_savvy call'
+    logging.info('Starting blob_savvy call...')
+    blob_savvy(args_dict)
+    logging.info('blob_savvy enqueues finished')
 
-    logging.info('uploading to blazegraph')
-    print "Uploading to Blazegraph"
-    print insert(graph)
-    print 'uploaded wooot!'
-
+    logging.info('starting monitor()...')
+    monitor()
+    print 'monitor exited...in spfy()'
+    logging.info('monitor exited...in spfy()')
 
 if __name__ == "__main__":
     import argparse
@@ -143,3 +153,6 @@ if __name__ == "__main__":
     )
 
     spfy(args_dict)
+
+    print('ALL COMPLETE')
+    logging.info('ALL COMPLETE')
