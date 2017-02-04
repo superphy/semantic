@@ -42,17 +42,20 @@ def monitor():
     Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
     '''
     while (high.job_ids is not None) or (low.job_ids is not None):
-        queued_job_ids_high = high.job_ids
-        for job_id in queued_job_ids_high:
-            job_high = high.fetch_job(job_id_high)
-            if job_high.is_finished():
-                insert(job_high.result)
-
-        queued_job_ids_low = low.job_ids
-        for job_id in queued_job_ids_low:
-            job_low = low.fetch_job(job_id_low)
-            if job_low.is_finished():
-                insert(job_low.result)
+        if high.job_ids is not None:
+            queued_job_ids_high = high.job_ids
+            for job_id in queued_job_ids_high:
+                job_high = high.fetch_job(job_id_high)
+                if job_high.is_finished():
+                    insert(job_high.result)
+        if low.job_ids is not None:
+            queued_job_ids_low = low.job_ids
+            for job_id in queued_job_ids_low:
+                job_low = low.fetch_job(job_id_low)
+                if job_low.is_finished():
+                    insert(job_low.result)
+        print 'sleeping 20'
+        time.sleep(20)
 
     print 'all jobs complete'
     logging.info('monitor() exiting...all jobs complete')
