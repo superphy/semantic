@@ -19,9 +19,11 @@ from savvy import savvy  # serotype/amr/vf
 
 # the only ONE time for global variables
 # when naming queues, make sure you actually set a worker to listen to that queue
-# we use the high priority queue for things that should be immediately returned to the user
+# we use the high priority queue for things that should be immediately
+# returned to the user
 high = Queue('high', connection=Redis())
 low = Queue('low', connection=Redis(), default_timeout=600)
+
 
 def blob_savvy(args_dict):
     '''
@@ -29,13 +31,19 @@ def blob_savvy(args_dict):
     '''
     if os.path.isdir(args_dict['i']):
         for f in os.listdir(args_dict['i']):
-            single_dict=dict(args_dict.items() + {'uriIsolate':args_dict['uris'][f]['uriIsolate'], 'uriGenome':args_dict['uris'][f]['uriGenome'], 'i':args_dict[i]+'/'+f}.items())
-            high.enqueue(savvy, dict(single_dict.items() + {'disable_amr': True}.items()))
-            low.enqueue(savvy, dict(single_dict.items() + {'disable_vf':True,'disable_serotype':True}.items()))
+            single_dict = dict(args_dict.items() + {'uriIsolate': args_dict['uris'][f][
+                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict[i] + '/' + f}.items())
+            high.enqueue(savvy, dict(single_dict.items() +
+                                     {'disable_amr': True}.items()))
+            low.enqueue(savvy, dict(single_dict.items() +
+                                    {'disable_vf': True, 'disable_serotype': True}.items()))
     else:
         # run the much faster vf and serotyping separately of amr
-        high.enqueue(savvy, dict(args_dict.items() + {'disable_amr': True}.items()))
-        low.enqueue(savvy, dict(args_dict.items() + {'disable_vf':True,'disable_serotype':True}.items()))
+        high.enqueue(savvy, dict(args_dict.items() +
+                                 {'disable_amr': True}.items()))
+        low.enqueue(savvy, dict(args_dict.items() +
+                                {'disable_vf': True, 'disable_serotype': True}.items()))
+
 
 def monitor():
     '''
@@ -62,6 +70,7 @@ def monitor():
     print 'all jobs complete'
     logging.info('monitor() exiting...all jobs complete')
 
+
 def spfyids_single(args_dict):
     from settings import database
 
@@ -74,6 +83,7 @@ def spfyids_single(args_dict):
     args_dict['uriGenome'] = uriGenome
 
     return args_dict
+
 
 def spfyids_directory(args_dict):
     '''
@@ -88,14 +98,16 @@ def spfyids_directory(args_dict):
     for f in files:
         uris[f] = {}
         uris[f]['uriIsolate'] = gu(':spfy' + str(count))
-        uris[f]['uriGenome']=gu(':' +generate_hash(args_dict['i'] + '/'+ f))
+        uris[f]['uriGenome'] = gu(
+            ':' + generate_hash(args_dict['i'] + '/' + f))
         count = count + 1
 
     args_dict['uris'] = uris
 
-    #TODO: write-out count
+    # TODO: write-out count
 
     return args_dict
+
 
 def spfy(args_dict):
     '''
@@ -105,7 +117,7 @@ def spfy(args_dict):
     if os.path.isdir(args_dict['i']):
         args_dict = spfyids_directory(args_dict)
     else:
-        args_dict=spfyids_single(args_dict)
+        args_dict = spfyids_single(args_dict)
 
     print 'Starting blob_savvy call'
     logging.info('Starting blob_savvy call...')
@@ -151,7 +163,7 @@ if __name__ == "__main__":
     args_dict = vars(args)
 
     # starting logging
-    #TODO: move this to global and see it if breaks
+    # TODO: move this to global and see it if breaks
     logging.basicConfig(
         filename='outputs/spfy' + __name__ + '.log',
         level=logging.INFO
