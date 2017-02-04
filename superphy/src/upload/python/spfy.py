@@ -147,8 +147,7 @@ if __name__ == "__main__":
     # starting logging
     #TODO: move this to global and see it if breaks
     logging.basicConfig(
-        filename='outputs/spfy' + __name__ +
-        args_dict['i'] + '.log',
+        filename='outputs/spfy' + __name__ + '.log',
         level=logging.INFO
     )
 
