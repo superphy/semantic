@@ -56,8 +56,7 @@ def spfyids_single(args_dict):
 
     uriGenome = gu(':' + generate_hash(args_dict['i']))
 
-    args_dict['uriIsolate'] = uriIsolate
-    args_dict['uriGenome'] = uriGenome
+    args_dict[uris] = {uriIsolate:uriGenome}
 
     return args_dict
 
@@ -70,10 +69,14 @@ def spfyids_directory(args_dict):
     from settings import database
     files = os.listdir(args_dict['i'])
     count = database['count']
-    uriIsolates = []
-    uriGenomes = []
-    for i in range(count,count + len(files)):
+    uris = {}
+    for f in files:
+        uris[gu(':spfy' + count]=gu(':' +generate_hash(f))
+    count=count + len(files)
+    args_dict['uris'] = uris
+    #TODO: write-out
 
+    return args_dict
 
 def spfy(args_dict):
     '''
@@ -83,7 +86,7 @@ def spfy(args_dict):
     if os.path.isdir(args_dict['i']):
         args_dict = spfyids_directory(args_dict)
     else:
-        args_dict spfyids_single(args_dict)
+        args_dict=spfyids_single(args_dict)
 
     print 'Starting savvy call'
     logging.info('Starting savvy call...')
