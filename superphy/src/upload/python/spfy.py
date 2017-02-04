@@ -61,7 +61,7 @@ def spfyids_single(args_dict):
     from settings import database
 
     # this is temporary, TODO: include a spqarql query to the db
-    uriIsolate = gu(':spfy' + database['count'])
+    uriIsolate = gu(':spfy' + str(database['count']))
 
     uriGenome = gu(':' + generate_hash(args_dict['i']))
 
@@ -81,13 +81,13 @@ def spfyids_directory(args_dict):
     uris = {}
     for f in files:
         uris[f] = {}
-        uris[f]['uriIsolate'] = gu(':spfy' + count)
+        uris[f]['uriIsolate'] = gu(':spfy' + str(count))
         uris[f]['uriGenome']=gu(':' +generate_hash(f))
         count = count + 1
 
     args_dict['uris'] = uris
 
-    #TODO: write-out
+    #TODO: write-out count
 
     return args_dict
 
