@@ -16,6 +16,35 @@ from turtle_utils import generate_uri as gu
 # for various features we add
 from savvy import savvy  # serotype/amr/vf
 
+# the only ONE time for global variables
+# when naming queues, make sure you actually set a worker to listen to that queue
+high = Queue('high', connection=Redis())
+low = Queue('low', connection=Redis(), default_timeout=600)
+
+def blob_savvy(args_dict):
+    '''
+    Handles savvy.py's pipeline.
+    '''
+    # run the much faster vf and serotyping separately
+    vf_s = high.enqueue(savvy, dict(args_dict.items() + {'disable_amr': True}))
+    amr = low.enqueue(savvy, dict(args_dict.items() + {'disable_vf':True,'disable_serotype':True}))
+
+def monitor():
+    '''
+    Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
+    '''
+    while (high.job_ids not None) or (low.job_ids not None):
+        queued_job_ids_high = high.job_ids
+        for job_id in queued_job_ids_high:
+            job_high = high.fetch_job(job_id_high)
+            if job_high.is_finished():
+                insert(job_high.result)
+
+        queued_job_ids_low = low.job_ids
+        for job_id in queued_job_ids_low:
+            job_low = low.fetch_job(job_id_low)
+            if job_low.is_finished():
+                insert(job_low.result)
 
 def spfy(args_dict):
     '''
@@ -25,8 +54,7 @@ def spfy(args_dict):
     low = Queue('low', default_timeout=600)
     '''
 
-    # use 1 queue for now
-    high = Queue(connection=Redis())
+
 
     print 'Starting savvy call'
     logging.info('Starting savvy call...')
