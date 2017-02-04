@@ -150,11 +150,13 @@ def savvy(args_dict):
     '''
     from os import remove  # for batch cleanup
     # starting #logging
-    #logging.basicConfig(
+    '''
+    logging.basicConfig(
         filename='outputs/' + __name__ +
         args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
+    '''
 
     print("Importing FASTA from: " + args_dict['i'])
     #logging.info('importing from' + args_dict['i'])
@@ -227,11 +229,13 @@ if __name__ == "__main__":
     args_dict = vars(args)
 
     # starting#logging
-    #logging.basicConfig(
+    '''
+    logging.basicConfig(
         filename='outputs/' + __name__ +
         args_dict['i'].split('/')[-1] + '.log',
         level=logging.INFO
     )
+    '''
 
     # check if a genome uri isn't set yet
     if args_dict['uriIsolate'] is None:
