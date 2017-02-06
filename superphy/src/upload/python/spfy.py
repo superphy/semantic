@@ -58,6 +58,8 @@ def monitor():
     sregistry = StartedJobRegistry(connection=Redis())
     fregistry = FinishedJobRegistry(connection=Redis())
     while not sregistry.get_job_ids():
+        print 'in sregistry...'
+        print fregistry.get_job_ids()
         for job_id in fregistry.get_job_ids():
             job=Job.fetch(job_id, connection=Redis())
             # sanity check
