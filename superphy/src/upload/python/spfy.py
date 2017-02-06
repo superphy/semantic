@@ -55,9 +55,9 @@ def monitor():
     '''
     Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
     '''
-    s_registry = StartedJobRegistry(connection=Redis())
-    f_registry = FinishedJobRegistry(connection=Redis())
-    while not s_registry.get_job_ids():
+    sregistry = StartedJobRegistry(connection=Redis())
+    fregistry = FinishedJobRegistry(connection=Redis())
+    while not sregistry.get_job_ids():
         for job_id in fregistry.get_job_ids():
             job=Job.fetch(job_id, connection=Redis())
             # sanity check
