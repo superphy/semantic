@@ -27,10 +27,9 @@ from savvy import savvy  # serotype/amr/vf
 # when naming queues, make sure you actually set a worker to listen to that queue
 # we use the high priority queue for things that should be immediately
 # returned to the user
-sregistry = StartedJobRegistry(connection=Redis())
-fregistry = FinishedJobRegistry(connection=Redis())
-high = Queue('high', connection=Redis())
-low = Queue('low', connection=Redis(), default_timeout=600)
+redis_conn = Redis()
+high = Queue('high', connection=redis_conn)
+low = Queue('low', connection=redis_conn, default_timeout=600)
 
 
 def blob_savvy(args_dict):
@@ -57,13 +56,14 @@ def monitor():
     '''
     Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
     '''
-
+    sregistry = StartedJobRegistry(connection=redis_conn)
+    fregistry = FinishedJobRegistry(connection=redis_conn)
     print sregistry.get_job_ids()
-    while not sregistry.get_job_ids():
+    while sregistry.get_job_ids():
         print 'in sregistry...'
         print fregistry.get_job_ids()
         for job_id in fregistry.get_job_ids():
-            job=Job.fetch(job_id, connection=Redis())
+            job=Job.fetch(job_id, connection=redis_conn)
             # sanity check
             if type(job.result) is Graph:
                 print ('inserting', job_id, job)
