@@ -1,0 +1,1 @@
+The functions in this module should return templated sparql queries. They should all return strings.
