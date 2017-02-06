@@ -179,7 +179,7 @@ def savvy(args_dict):
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
     #remove('outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log')
-    upload_graph(graph)
+    print upload_graph(graph)
     return graph
 
 if __name__ == "__main__":
