@@ -28,7 +28,7 @@ from savvy import savvy  # serotype/amr/vf
 # we use the high priority queue for things that should be immediately
 # returned to the user
 redis_conn = Redis()
-high = Queue(connection=redis_conn)
+high = Queue('high', connection=redis_conn)
 low = Queue('low', connection=redis_conn, default_timeout=600)
 
 
@@ -54,6 +54,7 @@ def blob_savvy(args_dict):
 
 def monitor():
     '''
+    DOESN'T WORK
     Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
     '''
     sregistry = StartedJobRegistry(connection=redis_conn)
@@ -131,10 +132,12 @@ def spfy(args_dict):
     blob_savvy(args_dict)
     logging.info('blob_savvy enqueues finished')
 
+    '''
     logging.info('starting monitor()...')
     monitor()
     print 'monitor exited...in spfy()'
     logging.info('monitor exited...in spfy()')
+    '''
 
 if __name__ == "__main__":
     import argparse

@@ -18,6 +18,7 @@ from turtle_grapher import generate_output, generate_graph, generate_turtle_skel
 
 from os.path import basename
 
+# bruteforce
 
 def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
@@ -177,6 +178,7 @@ def savvy(args_dict):
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
     #remove('outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log')
+    insert(graph)
     return graph
 
 if __name__ == "__main__":
