@@ -3,7 +3,7 @@ import os
 import settings
 
 from turtle_grapher import generate_output
-from SPARQLWrapper import SPARQLWrapper
+from SPARQLWrapper import SPARQLWrapper, JSON
 
 
 def upload_data(data):
