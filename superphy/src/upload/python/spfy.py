@@ -16,7 +16,6 @@ from rq.job import Job
 from rdflib import Graph
 
 # our own slightly more general stuff
-from insert import insert
 from turtle_grapher import generate_output
 from turtle_utils import generate_uri as gu, generate_hash
 
