@@ -27,6 +27,8 @@ from savvy import savvy  # serotype/amr/vf
 # when naming queues, make sure you actually set a worker to listen to that queue
 # we use the high priority queue for things that should be immediately
 # returned to the user
+sregistry = StartedJobRegistry(connection=Redis())
+fregistry = FinishedJobRegistry(connection=Redis())
 high = Queue('high', connection=Redis())
 low = Queue('low', connection=Redis(), default_timeout=600)
 
@@ -55,8 +57,7 @@ def monitor():
     '''
     Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
     '''
-    sregistry = StartedJobRegistry(connection=Redis())
-    fregistry = FinishedJobRegistry(connection=Redis())
+
     print sregistry.get_job_ids()
     while not sregistry.get_job_ids():
         print 'in sregistry...'
