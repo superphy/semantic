@@ -5,6 +5,12 @@ import os
 # Redis Queue
 from redis import Redis
 from rq import Queue
+# for details, see: https://github.com/nvie/rq/pull/421
+from rq.registry import FinishedJobRegistry, StartedJobRegistry
+# details:
+    # https://realpython.com/blog/python/flask-by-example-implementing-a-redis-task-queue/
+    # http://stackoverflow.com/questions/15181630/how-to-get-job-by-id-in-rq-python
+from rq.job import Job
 
 # other libraries for rdflib
 from rdflib import Graph
@@ -49,23 +55,18 @@ def monitor():
     '''
     Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
     '''
-    while (high.job_ids is not None) or (low.job_ids is not None):
-        if high.job_ids is not None:
-            queued_job_ids_high = high.job_ids
-            for job_id in queued_job_ids_high:
-                job_high = high.fetch_job(job_id_high)
-                if job_high.is_finished():
-                    print ('inserting', job_high)
-                    insert(job_high.result)
-        if low.job_ids is not None:
-            queued_job_ids_low = low.job_ids
-            for job_id in queued_job_ids_low:
-                job_low = low.fetch_job(job_id_low)
-                if job_low.is_finished():
-                    print ('inserting', job_low)
-                    insert(job_low.result)
-        print 'sleeping 20'
-        time.sleep(20)
+    s_registry = StartedJobRegistry(connection=Redis())
+    f_registry = FinishedJobRegistry(connection=Redis())
+    while not s_registry.get_job_ids():
+        for job_id in fregistry.get_job_ids():
+            job=Job.fetch(job_id, connection=Redis())
+            # sanity check
+            if type(job.result) is Graph:
+                print ('inserting', job_id, job)
+                logging.info('inserting', job_id, job)
+                insert(job.result)
+        print 'sleeping 5'
+        time.sleep(5)
 
     print 'all jobs complete'
     logging.info('monitor() exiting...all jobs complete')
@@ -90,6 +91,7 @@ def spfyids_directory(args_dict):
     TODO: make the database count actually work
     This is meant to preallocate spfyIDs
     -note may have problems with files that fail (gaps in id range)
+    TODO: fix that^
     '''
     from settings import database
     files = os.listdir(args_dict['i'])
