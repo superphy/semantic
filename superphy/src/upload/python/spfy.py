@@ -28,7 +28,7 @@ from savvy import savvy  # serotype/amr/vf
 # we use the high priority queue for things that should be immediately
 # returned to the user
 redis_conn = Redis()
-high = Queue('high', connection=redis_conn)
+high = Queue(connection=redis_conn)
 low = Queue('low', connection=redis_conn, default_timeout=600)
 
 
@@ -130,9 +130,6 @@ def spfy(args_dict):
     logging.info('Starting blob_savvy call...')
     blob_savvy(args_dict)
     logging.info('blob_savvy enqueues finished')
-
-    registry = FinishedJobRegistry(connection=redis_conn)
-    print registry.get_job_ids()
 
     logging.info('starting monitor()...')
     monitor()
