@@ -19,6 +19,7 @@ from turtle_grapher import generate_output, generate_graph, generate_turtle_skel
 from os.path import basename
 
 # bruteforce
+from insert import insert
 
 def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
