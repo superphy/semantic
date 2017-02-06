@@ -1,4 +1,9 @@
+import requests
+import os
+import settings
+
 from turtle_grapher import generate_output
+from SPARQLWrapper import SPARQLWrapper
 
 
 def upload_data(data):
@@ -17,10 +22,6 @@ def upload_data(data):
 
     Prints out the response object from Blazegraph
     """
-
-    import requests
-    import os
-    import settings
 
     url = settings.database['blazegraph_url']
 
