@@ -131,6 +131,9 @@ def spfy(args_dict):
     blob_savvy(args_dict)
     logging.info('blob_savvy enqueues finished')
 
+    registry = FinishedJobRegistry(connection=redis_conn)
+    print registry.get_job_ids()
+
     logging.info('starting monitor()...')
     monitor()
     print 'monitor exited...in spfy()'
