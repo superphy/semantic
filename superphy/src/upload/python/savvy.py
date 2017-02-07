@@ -45,6 +45,7 @@ def call_ectyper(graph, args_dict):
 
     # because we are using check_output, this catches any print messages from tools_controller
     # TODO: switch to pipes
+    print ectyper_dict.lower()
     if 'error' in ectyper_dict.lower():
         #logging.error('ectyper failed for' + args_dict['i'])
         print 'ECTyper failed for: ', args_dict['i']
