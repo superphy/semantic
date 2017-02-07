@@ -38,7 +38,7 @@ def blob_savvy(args_dict):
     if os.path.isdir(args_dict['i']):
         for f in os.listdir(args_dict['i']):
             single_dict = dict(args_dict.items() + {'uriIsolate': args_dict['uris'][f][
-                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict[i] + '/' + f}.items())
+                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict['i'] + f, 'uris': None}.items())
             high.enqueue(savvy, dict(single_dict.items() +
                                      {'disable_amr': True}.items()))
             low.enqueue(savvy, dict(single_dict.items() +
@@ -91,27 +91,56 @@ def spfyids_single(args_dict):
     return args_dict
 
 
+def hash_me(file_dict):
+    uris = {}
+    uris[file_dict['basename']] = {}
+    uris[file_dict['basename']]['uriIsolate'] = gu(
+        ':spfy' + str(file_dict['count']))
+    uris[file_dict['basename']]['uriGenome'] = gu(
+        ':' + generate_hash(file_dict['withpath']))
+    return uris
+
+
 def spfyids_directory(args_dict):
     '''
     TODO: make the database count actually work
     This is meant to preallocate spfyIDs
     -note may have problems with files that fail (gaps in id range)
     TODO: fix that^
+    TODO: make this whole thing less messy
     '''
     from settings import database
+    from multiprocessing import Pool, cpu_count
+
+    print 'Precomputing hashes for all files in directory, may take awhile...'
+
     files = os.listdir(args_dict['i'])
     count = database['count']
-    uris = {}
+
+    # inital mapping of a files to a number(spfyID)
+    files_list = []
     for f in files:
-        uris[f] = {}
-        uris[f]['uriIsolate'] = gu(':spfy' + str(count))
-        uris[f]['uriGenome'] = gu(
-            ':' + generate_hash(args_dict['i'] + '/' + f))
-        count = count + 1
-
-    args_dict['uris'] = uris
-
+        file_dict = {}
+        file_dict['basename'] = f
+        file_dict['withpath'] = args_dict['i'] + f
+        file_dict['count'] = count
+        files_list.append(file_dict)
+        count += 1
     # TODO: write-out count
+
+    # hasing and make uris
+    p = Pool(cpu_count())
+    # this will return a list of dicts
+    uris = p.map(hash_me, files_list)
+
+    # convert the list of dicts into a nested dict structure {filename:
+    # {'uriIsolate' , 'uriGenome'}}
+    # ducttape soln
+    uris_dict = {}
+    for uri_dict in uris:
+        uris_dict[uri_dict.keys()[0]] = uri_dict.values()[0]
+
+    args_dict['uris'] = uris_dict
 
     return args_dict
 
