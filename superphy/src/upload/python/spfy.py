@@ -90,6 +90,12 @@ def spfyids_single(args_dict):
 
     return args_dict
 
+def hash_me(file_dict):
+    uris[file_dict['basename']] = {}
+    uris[file_dict['basename']]['uriIsolate'] = gu(':spfy' + str(file_dict['count']))
+    uris[file_dict['basename']]['uriGenome'] = gu(
+        ':' + generate_hash(file_dict['withpath']))
+    return uris
 
 def spfyids_directory(args_dict):
     '''
@@ -97,29 +103,26 @@ def spfyids_directory(args_dict):
     This is meant to preallocate spfyIDs
     -note may have problems with files that fail (gaps in id range)
     TODO: fix that^
+    TODO: make this whole thing less messy
     '''
-    def hash_me(f):
-        uris[f] = {}
-        uris[f]['uriIsolate'] = gu(':spfy' + str(files_dict[f]))
-        uris[f]['uriGenome'] = gu(
-            ':' + generate_hash(args_dict['i'] + '/' + f))
-
     from settings import database
     from multiprocessing import Pool, cpu_count
     files = os.listdir(args_dict['i'])
     count = database['count']
 
     #inital mapping of a files to a number(spfyID)
-    files_dict = {}
+    files_list = []
     for f in files:
-        files_dict[f] = count
+        file_dict['basename'] = f
+        file_dict['withpath'] = args_dict['i'] + '/' + f
+        file_dict['count'] = count
+        files_list.append(file_dict)
         count += 1
     # TODO: write-out count
 
     #hasing and make uris
-    uris = {}
     p = Pool(cpu_count())
-    p.map(hash_me, files)
+    uris = p.map(hash_me, files_list)
 
     print uris
 
