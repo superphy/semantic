@@ -111,6 +111,9 @@ def spfyids_directory(args_dict):
     '''
     from settings import database
     from multiprocessing import Pool, cpu_count
+
+    print 'Precomputing hashes for all files in directory, may take awhile...'
+
     files = os.listdir(args_dict['i'])
     count = database['count']
 
@@ -132,11 +135,10 @@ def spfyids_directory(args_dict):
 
     # convert the list of dicts into a nested dict structure {filename:
     # {'uriIsolate' , 'uriGenome'}}
+    # ducttape soln
     uris_dict = {}
     for uri_dict in uris:
         uris_dict[uri_dict.keys()[0]] = uri_dict.values()[0]
-
-    print uris_dict
 
     args_dict['uris'] = uris_dict
 
