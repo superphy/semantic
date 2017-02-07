@@ -187,7 +187,7 @@ def savvy(args_dict):
     # thousand of these)
     #remove('outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log')
     print upload_graph(graph)
-    return ectyper_result['ectyper_dict']
+    return {args_dict['uriIsolate']: ectyper_result['ectyper_dict']}
 
 if __name__ == "__main__":
     import argparse
