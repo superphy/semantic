@@ -31,28 +31,27 @@ def call_ectyper(graph, args_dict):
     from ast import literal_eval
     from os.path import splitext
 
-    print int(not args_dict['disable_serotype'])
-
     #logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
-    ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
+    if not (args_dict['disable_serotype'] and args_dict['disable_vf']):
+        ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
                                             '-in', args_dict['i'],
                                             '-s', str(
                                                 int(not args_dict['disable_serotype'])),
                                             '-vf', str(
                                                 int(not args_dict['disable_vf']))
                                             ])
-    #logging.info('inner call completed')
+        #logging.info('inner call completed')
 
-    # because we are using check_output, this catches any print messages from tools_controller
-    # TODO: switch to pipes
-    print ectyper_dict.lower()
-    if 'error' in ectyper_dict.lower():
-        #logging.error('ectyper failed for' + args_dict['i'])
-        print 'ECTyper failed for: ', args_dict['i']
-        print 'returning graph w/o serotype'
-        return graph
+        # because we are using check_output, this catches any print messages from tools_controller
+        # TODO: switch to pipes
+        print ectyper_dict.lower()
+        if 'error' in ectyper_dict.lower():
+            #logging.error('ectyper failed for' + args_dict['i'])
+            print 'ECTyper failed for: ', args_dict['i']
+            print 'returning graph w/o serotype'
+            return graph
 
     #logging.info('evalulating ectyper output')
     # generating the dict
