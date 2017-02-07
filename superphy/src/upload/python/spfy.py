@@ -113,6 +113,7 @@ def spfyids_directory(args_dict):
     #inital mapping of a files to a number(spfyID)
     files_list = []
     for f in files:
+        file_dict = {}
         file_dict['basename'] = f
         file_dict['withpath'] = args_dict['i'] + '/' + f
         file_dict['count'] = count
