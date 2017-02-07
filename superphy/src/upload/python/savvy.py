@@ -21,6 +21,7 @@ from os.path import basename
 # bruteforce
 from insert import upload_graph
 
+
 def call_ectyper(graph, args_dict):
     # i don't intend to import anything from ECTyper (there are a lot of
     # imports in it - not sure if we'll use them all)
@@ -53,7 +54,7 @@ def call_ectyper(graph, args_dict):
     #logging.info('evalulating ectyper output')
     # generating the dict
     ectyper_dict = literal_eval(ectyper_dict)
-    #logging.info(ectyper_dict)
+    # logging.info(ectyper_dict)
     #logging.info('evaluation okay')
 
     # TODO: edit ectyper sure were not using this ducktape approach
@@ -257,5 +258,4 @@ if __name__ == "__main__":
     args_dict['uriIsolate'] = uriIsolate
     args_dict['uriGenome'] = uriGenome
 
-    graph = savvy(args_dict)
-    print graph
+    savvy(args_dict)

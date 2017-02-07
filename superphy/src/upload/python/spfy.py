@@ -8,8 +8,8 @@ from rq import Queue
 # for details, see: https://github.com/nvie/rq/pull/421
 from rq.registry import FinishedJobRegistry, StartedJobRegistry
 # details:
-    # https://realpython.com/blog/python/flask-by-example-implementing-a-redis-task-queue/
-    # http://stackoverflow.com/questions/15181630/how-to-get-job-by-id-in-rq-python
+# https://realpython.com/blog/python/flask-by-example-implementing-a-redis-task-queue/
+# http://stackoverflow.com/questions/15181630/how-to-get-job-by-id-in-rq-python
 from rq.job import Job
 
 # other libraries for rdflib
@@ -64,7 +64,7 @@ def monitor():
         print 'in sregistry...'
         print fregistry.get_job_ids()
         for job_id in fregistry.get_job_ids():
-            job=Job.fetch(job_id, connection=redis_conn)
+            job = Job.fetch(job_id, connection=redis_conn)
             # sanity check
             if type(job.result) is Graph:
                 print ('inserting', job_id, job)
