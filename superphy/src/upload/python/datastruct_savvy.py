@@ -54,6 +54,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
 
+            bnode_occurrence = BNode()
             bnode_start = BNode()
             bnode_end = BNode()
 
@@ -61,8 +62,11 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
             # have spaces
             gene_name = gene_record['GENE_NAME'].replace(' ', '_')
 
-            graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
-            graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
+            graph.add((gu(':' + gene_name), gu('faldo:Region'), bnode_occurrence))
+
+
+            graph.add((bnode_occurrence, gu('faldo:Begin'), bnode_start))
+            graph.add((bnode_occurrence, gu('faldo:End'), bnode_end))
 
             # this is a special case for amr results
             if 'CUT_OFF' in gene_dict.keys():
