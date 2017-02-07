@@ -91,6 +91,7 @@ def spfyids_single(args_dict):
     return args_dict
 
 def hash_me(file_dict):
+    uris = {}
     uris[file_dict['basename']] = {}
     uris[file_dict['basename']]['uriIsolate'] = gu(':spfy' + str(file_dict['count']))
     uris[file_dict['basename']]['uriGenome'] = gu(
