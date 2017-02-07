@@ -38,7 +38,7 @@ def blob_savvy(args_dict):
     if os.path.isdir(args_dict['i']):
         for f in os.listdir(args_dict['i']):
             single_dict = dict(args_dict.items() + {'uriIsolate': args_dict['uris'][f][
-                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict['i'] + '/' + f}.items())
+                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict['i'] + f}.items())
             high.enqueue(savvy, dict(single_dict.items() +
                                      {'disable_amr': True}.items()))
             low.enqueue(savvy, dict(single_dict.items() +
@@ -90,13 +90,16 @@ def spfyids_single(args_dict):
 
     return args_dict
 
+
 def hash_me(file_dict):
     uris = {}
     uris[file_dict['basename']] = {}
-    uris[file_dict['basename']]['uriIsolate'] = gu(':spfy' + str(file_dict['count']))
+    uris[file_dict['basename']]['uriIsolate'] = gu(
+        ':spfy' + str(file_dict['count']))
     uris[file_dict['basename']]['uriGenome'] = gu(
         ':' + generate_hash(file_dict['withpath']))
     return uris
+
 
 def spfyids_directory(args_dict):
     '''
@@ -111,7 +114,7 @@ def spfyids_directory(args_dict):
     files = os.listdir(args_dict['i'])
     count = database['count']
 
-    #inital mapping of a files to a number(spfyID)
+    # inital mapping of a files to a number(spfyID)
     files_list = []
     for f in files:
         file_dict = {}
@@ -122,12 +125,13 @@ def spfyids_directory(args_dict):
         count += 1
     # TODO: write-out count
 
-    #hasing and make uris
+    # hasing and make uris
     p = Pool(cpu_count())
-    #this will return a list of dicts
+    # this will return a list of dicts
     uris = p.map(hash_me, files_list)
 
-    #convert the list of dicts into a nested dict structure {filename: {'uriIsolate' , 'uriGenome'}}
+    # convert the list of dicts into a nested dict structure {filename:
+    # {'uriIsolate' , 'uriGenome'}}
     uris_dict = {}
     for uri_dict in uris:
         uris_dict[uri_dict.keys()[0]] = uri_dict.values()[0]
@@ -135,8 +139,6 @@ def spfyids_directory(args_dict):
     print uris_dict
 
     args_dict['uris'] = uris_dict
-
-
 
     return args_dict
 
