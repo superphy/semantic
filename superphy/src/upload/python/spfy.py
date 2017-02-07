@@ -128,7 +128,9 @@ def spfyids_directory(args_dict):
     uris = p.map(hash_me, files_list)
 
     #convert the list of dicts into a nested dict structure {filename: {'uriIsolate' , 'uriGenome'}}
-    uris = {key: value for (key, value) in uris}
+    uris_dict = {}
+    for uri_dict in uris:
+        uris_dict [uri_dict.keys()[0]] = uri_dict.values()[0]
 
     print uris
 
