@@ -31,6 +31,8 @@ def call_ectyper(graph, args_dict):
     from ast import literal_eval
     from os.path import splitext
 
+
+    ectyper_dict={}
     #logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
@@ -79,10 +81,12 @@ def call_ectyper(graph, args_dict):
     if not args_dict['disable_amr']:
         # amr
         #logging.info('generating amr')
-        graph = generate_amr(graph, args_dict['uriGenome'], args_dict['i'])
+        amr_result = generate_amr(graph, args_dict['uriGenome'], args_dict['i'])
+        graph = amr_result['graph']
+        ectyper_dict['Antimicrobial Resistance'] = amr_result['amr_dict']
         #logging.info('amr generation okay')
 
-    return graph
+    return {'graph':graph, 'ectyper_dict':ectyper_dict}
 
 
 def generate_amr(graph, uriGenome, fasta_file):
@@ -141,7 +145,7 @@ def generate_amr(graph, uriGenome, fasta_file):
 
     graph = datastruct_savvy.parse_gene_dict(graph, amr_dict, uriGenome)
 
-    return graph
+    return {'graph':graph,'amr_dict':amr_dict}
 
 
 def savvy(args_dict):
@@ -175,14 +179,15 @@ def savvy(args_dict):
 
     if not (args_dict['disable_serotype'] and args_dict['disable_vf'] and args_dict['disable_amr']):
         #logging.info('calling ectyper')
-        graph = call_ectyper(graph, args_dict)
+        ectyper_result = call_ectyper(graph, args_dict)
+        graph = ectyper_result['graph']
         #logging.info('ectyper call completed')
 
     # individual fasta logs are wiped on completion (or you'd have several
     # thousand of these)
     #remove('outputs/' + __name__ + args_dict['i'].split('/')[-1] + '.log')
     print upload_graph(graph)
-    return graph
+    return {args_dict['uriIsolate']: ectyper_result['ectyper_dict']}
 
 if __name__ == "__main__":
     import argparse
