@@ -34,7 +34,7 @@ def call_ectyper(graph, args_dict):
     #logging.info('calling ectyper from fun call_ectyper')
     # concurrency is handled at the batch level, not here (note: this might change)
     # we only use ectyper for serotyping and vf, amr is handled by rgi directly
-    if not (args_dict['disable_serotype'] and args_dict['disable_vf']):
+    if not args_dict['disable_serotype'] or not args_dict['disable_vf']):
         ectyper_dict = subprocess.check_output(['./ecoli_serotyping/src/Tools_Controller/tools_controller.py',
                                             '-in', args_dict['i'],
                                             '-s', str(
@@ -53,29 +53,29 @@ def call_ectyper(graph, args_dict):
             print 'returning graph w/o serotype'
             return graph
 
-    #logging.info('evalulating ectyper output')
-    # generating the dict
-    ectyper_dict = literal_eval(ectyper_dict)
-    # logging.info(ectyper_dict)
-    #logging.info('evaluation okay')
+        #logging.info('evalulating ectyper output')
+        # generating the dict
+        ectyper_dict = literal_eval(ectyper_dict)
+        # logging.info(ectyper_dict)
+        #logging.info('evaluation okay')
 
-    # TODO: edit ectyper sure were not using this ducktape approach
-    # we are calling tools_controller on only one file, so grab that dict
-    key, ectyper_dict = ectyper_dict.popitem()
+        # TODO: edit ectyper sure were not using this ducktape approach
+        # we are calling tools_controller on only one file, so grab that dict
+        key, ectyper_dict = ectyper_dict.popitem()
 
-    if not args_dict['disable_serotype']:
-        # serotype parsing
-        #logging.info('parsing Serotype')
-        graph = datastruct_savvy.parse_serotype(
-            graph, ectyper_dict['Serotype'], args_dict['uriIsolate'])
-        #logging.info('serotype parsed okay')
+        if not args_dict['disable_serotype']:
+            # serotype parsing
+            #logging.info('parsing Serotype')
+            graph = datastruct_savvy.parse_serotype(
+                graph, ectyper_dict['Serotype'], args_dict['uriIsolate'])
+            #logging.info('serotype parsed okay')
 
-    if not args_dict['disable_vf']:
-        # vf
-        #logging.info('parsing vf')
-        graph = datastruct_savvy.parse_gene_dict(
-            graph, ectyper_dict['Virulence Factors'], args_dict['uriGenome'])
-        #logging.info('vf parsed okay')
+        if not args_dict['disable_vf']:
+            # vf
+            #logging.info('parsing vf')
+            graph = datastruct_savvy.parse_gene_dict(
+                graph, ectyper_dict['Virulence Factors'], args_dict['uriGenome'])
+            #logging.info('vf parsed okay')
 
     if not args_dict['disable_amr']:
         # amr
