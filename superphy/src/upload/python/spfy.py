@@ -38,7 +38,7 @@ def blob_savvy(args_dict):
     if os.path.isdir(args_dict['i']):
         for f in os.listdir(args_dict['i']):
             single_dict = dict(args_dict.items() + {'uriIsolate': args_dict['uris'][f][
-                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict[i] + '/' + f}.items())
+                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict['i'] + '/' + f}.items())
             high.enqueue(savvy, dict(single_dict.items() +
                                      {'disable_amr': True}.items()))
             low.enqueue(savvy, dict(single_dict.items() +
@@ -98,20 +98,34 @@ def spfyids_directory(args_dict):
     -note may have problems with files that fail (gaps in id range)
     TODO: fix that^
     '''
-    from settings import database
-    files = os.listdir(args_dict['i'])
-    count = database['count']
-    uris = {}
-    for f in files:
+    def hash_me(f):
         uris[f] = {}
-        uris[f]['uriIsolate'] = gu(':spfy' + str(count))
+        uris[f]['uriIsolate'] = gu(':spfy' + str(files_dict[f]))
         uris[f]['uriGenome'] = gu(
             ':' + generate_hash(args_dict['i'] + '/' + f))
-        count = count + 1
+
+    from settings import database
+    from multiprocessing import Pool, cpu_count
+    files = os.listdir(args_dict['i'])
+    count = database['count']
+
+    #inital mapping of a files to a number(spfyID)
+    files_dict = {}
+    for f in files:
+        files_dict[f] = count
+        count += 1
+    # TODO: write-out count
+
+    #hasing and make uris
+    uris = {}
+    p = Pool(cpu_count())
+    p.map(hash_me, files)
+
+    print uris
 
     args_dict['uris'] = uris
 
-    # TODO: write-out count
+
 
     return args_dict
 
