@@ -1,7 +1,4 @@
-from turtle_grapher import generate_output
-
-
-def upload_data(data):
+def upload_graph(graph):
     """
     Uploads raw data onto Blazegraph. To ensure that Blazegraph interprets
     properly, it is necessary to specify the format in a Context-Header.
@@ -17,11 +14,15 @@ def upload_data(data):
 
     Prints out the response object from Blazegraph
     """
-
     import requests
     import os
     import settings
 
+    from turtle_grapher import generate_output
+    from SPARQLWrapper import SPARQLWrapper, JSON
+    from rdflib import Graph
+
+    data = graph.serialize(format="turtle")
     url = settings.database['blazegraph_url']
 
     headers = {'Content-Type': 'application/x-turtle'}
@@ -34,7 +35,3 @@ def upload_data(data):
         headers=headers
     )
     return request.content
-
-
-def insert(graph):
-    return upload_data(generate_output(graph))

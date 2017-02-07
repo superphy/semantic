@@ -1,58 +1,153 @@
 import logging
 import time
+import os
 
 # Redis Queue
 from redis import Redis
 from rq import Queue
+# for details, see: https://github.com/nvie/rq/pull/421
+from rq.registry import FinishedJobRegistry, StartedJobRegistry
+# details:
+# https://realpython.com/blog/python/flask-by-example-implementing-a-redis-task-queue/
+# http://stackoverflow.com/questions/15181630/how-to-get-job-by-id-in-rq-python
+from rq.job import Job
 
 # other libraries for rdflib
 from rdflib import Graph
 
 # our own slightly more general stuff
-from insert import insert
 from turtle_grapher import generate_output
-from turtle_utils import generate_uri as gu
+from turtle_utils import generate_uri as gu, generate_hash
 
 # for various features we add
 from savvy import savvy  # serotype/amr/vf
 
+# the only ONE time for global variables
+# when naming queues, make sure you actually set a worker to listen to that queue
+# we use the high priority queue for things that should be immediately
+# returned to the user
+redis_conn = Redis()
+high = Queue('high', connection=redis_conn)
+low = Queue('low', connection=redis_conn, default_timeout=600)
+
+
+def blob_savvy(args_dict):
+    '''
+    Handles savvy.py's pipeline.
+    '''
+    if os.path.isdir(args_dict['i']):
+        for f in os.listdir(args_dict['i']):
+            single_dict = dict(args_dict.items() + {'uriIsolate': args_dict['uris'][f][
+                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict[i] + '/' + f}.items())
+            high.enqueue(savvy, dict(single_dict.items() +
+                                     {'disable_amr': True}.items()))
+            low.enqueue(savvy, dict(single_dict.items() +
+                                    {'disable_vf': True, 'disable_serotype': True}.items()))
+    else:
+        # run the much faster vf and serotyping separately of amr
+        high.enqueue(savvy, dict(args_dict.items() +
+                                 {'disable_amr': True}.items()))
+        low.enqueue(savvy, dict(args_dict.items() +
+                                {'disable_vf': True, 'disable_serotype': True}.items()))
+
+
+def monitor():
+    '''
+    DOESN'T WORK
+    Meant to run until all jobs are finished. Monitors queues and adds completed graphs to Blazegraph.
+    '''
+    sregistry = StartedJobRegistry(connection=redis_conn)
+    fregistry = FinishedJobRegistry(connection=redis_conn)
+    print high.get_job_ids()
+    print sregistry.get_job_ids()
+    while sregistry.get_job_ids():
+        print 'in sregistry...'
+        print fregistry.get_job_ids()
+        for job_id in fregistry.get_job_ids():
+            job = Job.fetch(job_id, connection=redis_conn)
+            # sanity check
+            if type(job.result) is Graph:
+                print ('inserting', job_id, job)
+                logging.info('inserting', job_id, job)
+                insert(job.result)
+        print 'sleeping 5'
+        time.sleep(5)
+
+    print 'all jobs complete'
+    logging.info('monitor() exiting...all jobs complete')
+
+
+def spfyids_single(args_dict):
+    from settings import database
+
+    # this is temporary, TODO: include a spqarql query to the db
+    uriIsolate = gu(':spfy' + str(database['count']))
+
+    uriGenome = gu(':' + generate_hash(args_dict['i']))
+
+    args_dict['uriIsolate'] = uriIsolate
+    args_dict['uriGenome'] = uriGenome
+
+    return args_dict
+
+
+def spfyids_directory(args_dict):
+    '''
+    TODO: make the database count actually work
+    This is meant to preallocate spfyIDs
+    -note may have problems with files that fail (gaps in id range)
+    TODO: fix that^
+    '''
+    from settings import database
+    files = os.listdir(args_dict['i'])
+    count = database['count']
+    uris = {}
+    for f in files:
+        uris[f] = {}
+        uris[f]['uriIsolate'] = gu(':spfy' + str(count))
+        uris[f]['uriGenome'] = gu(
+            ':' + generate_hash(args_dict['i'] + '/' + f))
+        count = count + 1
+
+    args_dict['uris'] = uris
+
+    # TODO: write-out count
+
+    return args_dict
+
 
 def spfy(args_dict):
     '''
-    # note: the timeout times refer to how long the job has once it has STARTED executing
-    # we use the high priority queue for things that should be immediately returned to the user
-    high = Queue('high', default_timeout=80)  # 80 seconds
-    low = Queue('low', default_timeout=600)
     '''
+    # check if a directory was passed or a just a single file
+    # updates args_dict with appropriate rdflib.URIRef's
+    if os.path.isdir(args_dict['i']):
+        args_dict = spfyids_directory(args_dict)
+    else:
+        args_dict = spfyids_single(args_dict)
 
-    # use 1 queue for now
-    q = Queue(connection=Redis())
+    print 'Starting blob_savvy call'
+    logging.info('Starting blob_savvy call...')
+    blob_savvy(args_dict)
+    logging.info('blob_savvy enqueues finished')
 
-    sav = q.enqueue(savvy, args_dict)
-    print sav.id
-    time.sleep(180)
-    print 'actual result'
-    print sav.result
-    graph = sav.result
-
-    logging.info('uploading to blazegraph')
-    print "Uploading to Blazegraph"
-    print insert(graph)
-    print 'uploaded wooot!'
-
+    '''
+    logging.info('starting monitor()...')
+    monitor()
+    print 'monitor exited...in spfy()'
+    logging.info('monitor exited...in spfy()')
+    '''
 
 if __name__ == "__main__":
     import argparse
-    import os  # for batch cleanup
 
     from ConfigParser import SafeConfigParser
-    from turtle_utils import generate_hash
 
     # parsing cli-input
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-i",
-        help="FASTA file",
+        help="FASTA file or directory",
         required=True
     )
     parser.add_argument(
@@ -70,54 +165,20 @@ if __name__ == "__main__":
         help="Disables use of RGI to get Antimicrobial Resistance Factors.  AMR genes are computed by default.",
         action="store_true"
     )
-    # note: by in large, we expect uri to be given as just the unique string
-    # value  (be it the hash or the integer) without any prefixes, the actual
-    # rdflib.URIRef object will be generated in this script
-    # this is mainly for batch computation
-    parser.add_argument(
-        "--uriGenome",
-        help="Allows the specification of the Genome URI separately. Expect just the hash (not an actual uri).",
-    )
-    # This is both for batch computation and for future extensions where there
-    # are multiple sequencings per isolate (Campy)
-    parser.add_argument(
-        "--uriIsolate",
-        help="Allows the specification of the Isolate URI separately. Expect just the integer (not the full :spfyID)",
-        type=int
-    )
+
     args = parser.parse_args()
     # we make a dictionary from the cli-inputs and add are uris to it
     # mainly used for when a func needs a lot of the args
     args_dict = vars(args)
 
     # starting logging
+    # TODO: move this to global and see it if breaks
     logging.basicConfig(
-        filename='outputs/' + __name__ +
-        args_dict['i'].split('/')[-1] + '.log',
+        filename='outputs/spfy' + __name__ + '.log',
         level=logging.INFO
     )
 
-    # check if a genome uri isn't set yet
-    if args_dict['uriIsolate'] is None:
-        # this is temporary, TODO: include a spqarql query to the db
-        uriIsolate = gu(':spfy' + str(hash(args_dict['i'].split('/')[-1])))
-    else:
-        uriIsolate = gu(':spfy' + args_dict['uriIsolate'])
-
-    # if the fasta_file hash was not precomputed (batch scripts should
-    # precompute it), we compute that now
-    if args_dict['uriGenome'] is None:
-        uriGenome = gu(':' + generate_hash(args_dict['i']))
-    else:
-        uriGenome = gu(':' + args_dict['uriGenome'])
-
-    print 'uriIsolate'
-    print uriIsolate
-
-    print 'uriGenome'
-    print uriGenome
-
-    args_dict['uriIsolate'] = uriIsolate
-    args_dict['uriGenome'] = uriGenome
-
     spfy(args_dict)
+
+    print('ALL COMPLETE')
+    logging.info('ALL COMPLETE')

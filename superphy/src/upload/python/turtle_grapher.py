@@ -4,7 +4,11 @@
 # only nonspecific stuff: shouldn't contain any functions directly related
 # to data structure(rdf triple organization) of the modules you're dev'ing
 
-from turtle_utils import generate_uri as gu
+import settings
+from turtle_utils import generate_uri as gu, uri_to_basename
+from rdflib import Namespace, Graph, Literal
+from Bio import SeqIO
+from os.path import basename
 
 '''
 a guide to all those predicates:
@@ -20,9 +24,6 @@ def generate_graph():
     Return:
         (rdflib.Graph): a graph with all the defined Namespaces bound to it.
     '''
-    import settings
-
-    from rdflib import Namespace, Graph
 
     graph = Graph()
 
@@ -67,11 +68,6 @@ def generate_turtle_skeleton(graph, fasta_file, uriIsolate, uriGenome):
     Returns:
         graph: the graph with all the triples generated from the .fasta file
     '''
-
-    from Bio import SeqIO
-    from rdflib import Literal
-    from turtle_utils import uri_to_basename
-    from os.path import basename
 
     # ex. :spfy234
     graph.add((uriIsolate, gu('rdf:type'), gu('ncbi:562')))
