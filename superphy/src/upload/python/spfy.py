@@ -38,7 +38,7 @@ def blob_savvy(args_dict):
     if os.path.isdir(args_dict['i']):
         for f in os.listdir(args_dict['i']):
             single_dict = dict(args_dict.items() + {'uriIsolate': args_dict['uris'][f][
-                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict['i'] + f}.items())
+                               'uriIsolate'], 'uriGenome': args_dict['uris'][f]['uriGenome'], 'i': args_dict['i'] + f, 'uris': None}.items())
             high.enqueue(savvy, dict(single_dict.items() +
                                      {'disable_amr': True}.items()))
             low.enqueue(savvy, dict(single_dict.items() +
