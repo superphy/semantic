@@ -124,7 +124,11 @@ def spfyids_directory(args_dict):
 
     #hasing and make uris
     p = Pool(cpu_count())
+    #this will return a list of dicts
     uris = p.map(hash_me, files_list)
+
+    #convert the list of dicts into a nested dict structure {filename: {'uriIsolate' , 'uriGenome'}}
+    uris = {key: value for (key, value) in uris}
 
     print uris
 
