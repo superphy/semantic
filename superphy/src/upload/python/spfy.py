@@ -130,11 +130,11 @@ def spfyids_directory(args_dict):
     #convert the list of dicts into a nested dict structure {filename: {'uriIsolate' , 'uriGenome'}}
     uris_dict = {}
     for uri_dict in uris:
-        uris_dict [uri_dict.keys()[0]] = uri_dict.values()[0]
+        uris_dict[uri_dict.keys()[0]] = uri_dict.values()[0]
 
-    print uris
+    print uris_dict
 
-    args_dict['uris'] = uris
+    args_dict['uris'] = uris_dict
 
 
 
