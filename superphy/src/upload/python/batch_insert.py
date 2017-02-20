@@ -7,7 +7,7 @@ from os import listdir
 from time import time
 
 def batch_call(filename):
-    subprocess.call(['./insert.py', '-i', 'tmp/' + filename])
+    subprocess.call(['./savvy.py', '-i', 'tmp/' + filename])
 if __name__ == "__main__":
 
     start = time()

@@ -1,7 +1,10 @@
 from rdflib import BNode, Literal, Graph
 from turtle_utils import generate_uri as gu
 
-# working with Serotype, Antimicrobial Resistance, & Virulence Factor data structures
+# working with Serotype, Antimicrobial Resistance, & Virulence Factor data
+# structures
+
+
 def parse_serotype(graph, serotyper_dict, uriIsolate):
     if 'O type' in serotyper_dict:
         graph.add((uriIsolate, gu('ge:0001076'),
@@ -32,11 +35,11 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
     -currently, we'll handle ORF_ID to contig id transform in generate_amr()
 
     Args:
-    graph(rdflib.Graph): the running graph with all our triples
-    gene_dict({{}}): a dictionary of genes with a assoc info
-        ex. {'Some_Contig_ID':[{'START','STOP','ORIENTATION','GENE_NAME'}]}
-    uriGenome(rdflib.URIRef): the base uri of the genome
-        ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
+        graph(rdflib.Graph): the running graph with all our triples
+        gene_dict({{}}): a dictionary of genes with a assoc info
+            ex. {'Some_Contig_ID':[{'START','STOP','ORIENTATION','GENE_NAME'}]}
+        uriGenome(rdflib.URIRef): the base uri of the genome
+            ex. :4eb02f5676bc808f86c0f014bbce15775adf06ba
 
     TODO: merge common components with generate_amr()
     '''
@@ -51,6 +54,7 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
             # after this point we switch perspective to the gene and build down to
             # relink the gene with the contig
 
+            bnode_occurrence = BNode()
             bnode_start = BNode()
             bnode_end = BNode()
 
@@ -58,8 +62,11 @@ def parse_gene_dict(graph, gene_dict, uriGenome):
             # have spaces
             gene_name = gene_record['GENE_NAME'].replace(' ', '_')
 
-            graph.add((gu(':' + gene_name), gu('faldo:Begin'), bnode_start))
-            graph.add((gu(':' + gene_name), gu('faldo:End'), bnode_end))
+            graph.add((gu(':' + gene_name), gu('faldo:Region'), bnode_occurrence))
+
+
+            graph.add((bnode_occurrence, gu('faldo:Begin'), bnode_start))
+            graph.add((bnode_occurrence, gu('faldo:End'), bnode_end))
 
             # this is a special case for amr results
             if 'CUT_OFF' in gene_dict.keys():
